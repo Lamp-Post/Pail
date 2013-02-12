@@ -1,5 +1,7 @@
 package me.escapeNT.pail.GUIComponents;
 
+import com.feildmaster.bukkit.api.BukkitAPI;
+import com.feildmaster.bukkit.api.BukkitArtifact;
 import com.google.api.translate.Language;
 import java.awt.Color;
 import java.awt.GridLayout;
@@ -7,8 +9,6 @@ import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.io.BufferedReader;
 import java.io.FileReader;
-import java.io.InputStreamReader;
-import java.net.URL;
 import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -107,28 +107,25 @@ public class SettingsPanel extends javax.swing.JPanel implements Localizable {
             String v = Bukkit.getServer().getVersion();
             return v.substring(v.indexOf("jnks") - 4, v.indexOf("jnks"));
         } catch (Exception ex) {
-            return "0000";
+            return "Unknown";
         }
     }
 
     private void parseCraftUpdate() {
         try {
-            URL url = new URL("http://ci.bukkit.org/job/dev-CraftBukkit/Recommended/buildNumber");
-            BufferedReader in = new BufferedReader(new InputStreamReader(url.openStream()));
-            String v = in.readLine();
-            in.close();
+            final BukkitArtifact artifact = BukkitAPI.getLatest(BukkitAPI.Project.craftbukkit, BukkitAPI.Channel.rb);
+            final String version = String.format("%s (%s)", artifact.getVersion(), artifact.getBuildNumber());
 
-            boolean upToDate = false;
-            if (Integer.parseInt(parseCraftVersion()) >= Integer.parseInt(v)) {
-                upToDate = true;
-            }
+            update.setText(Util.translate("Latest recommended build: ") + version);
 
-            if (upToDate) {
-                update.setText(Util.translate("Latest recommended build: ") + v);
-                update.setForeground(new Color(13, 190, 17));
-            } else {
-                update.setText(Util.translate("Latest recommended build: ") + v + Util.translate(" - Update required!"));
-                update.setForeground(Color.red);
+            try {
+                String cv = parseCraftVersion();
+                if (Integer.parseInt(cv) >= artifact.getBuildNumber()) {
+                    update.setForeground(new Color(13, 190, 17));
+                } else {
+                    update.setForeground(Color.red);
+                }
+            } catch(NumberFormatException ex) {
             }
         } catch (Exception ex) {
             update.setText(Util.translate("Latest recommended build: Unknown"));
