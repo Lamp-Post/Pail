@@ -24,7 +24,6 @@ import me.escapeNT.pail.GUIComponents.ServerControlPanel;
 import me.escapeNT.pail.Pail;
 import me.escapeNT.pail.config.General;
 import org.bukkit.Bukkit;
-import org.bukkit.command.CommandSender;
 import org.bukkit.command.ConsoleCommandSender;
 
 /**
@@ -85,7 +84,7 @@ public final class Util {
      * @param message The message to send.
      */
     public static void log(Level level, Object message) {
-        getPlugin().getLogger().log(level, String.format("[%1$s] %2$s", Pail.PLUGIN_NAME, message.toString()));
+        getPlugin().getLogger().log(level, message.toString());
     }
 
     /**
