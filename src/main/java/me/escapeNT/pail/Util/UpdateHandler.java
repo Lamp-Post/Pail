@@ -37,6 +37,8 @@ public class UpdateHandler {
      * not be contacted.
      */
     public static Boolean isUpToDate() {
+        return true;
+        /*
         Boolean upToDate = true;
         try {
             URL url = new URL("http://pail.hostzi.com/");
@@ -52,6 +54,7 @@ public class UpdateHandler {
             upToDate = null;
         }
         return upToDate;
+        */
     }
 
     /**
@@ -61,6 +64,7 @@ public class UpdateHandler {
      */
     public static List<String> getChanges() {
         List<String> changes = new ArrayList<String>();
+        /*
         try {
             URL url = new URL("http://pail.hostzi.com/");
             BufferedReader in = new BufferedReader(new InputStreamReader(url.openStream()));
@@ -74,6 +78,7 @@ public class UpdateHandler {
             in.close();
         } catch (Exception ex) {
         }
+        */
         return changes;
     }
 
@@ -84,7 +89,7 @@ public class UpdateHandler {
      * @throws IOException
      */
     public static void downloadLatest(final UpdateView dialog) throws IOException {
-
+/*
         SwingUtilities.invokeLater(new Runnable() {
             public void run() {
                 dialog.getProgressLabel().setText("Starting download...");
@@ -157,8 +162,9 @@ public class UpdateHandler {
         if (reload == JOptionPane.YES_OPTION) {
             Util.dispatchCommand("reload");
         }
+*/
     }
-
+/*
     private static int compareVersions(String str1, String str2) {
         String[] vals1 = str1.split("\\.");
         String[] vals2 = str2.split("\\.");
@@ -186,7 +192,7 @@ public class UpdateHandler {
         } catch (Exception e) {
         }
     }
-
+*/
     /**
      * @return the currentVersion
      */
