@@ -6,14 +6,13 @@ import javax.swing.JFrame;
 import javax.swing.JMenuBar;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
-
 import me.escapeNT.pail.Util.Localizable;
-import me.escapeNT.pail.config.PanelConfig;
 import me.escapeNT.pail.Util.Util;
-
+import me.escapeNT.pail.config.PanelConfig;
 
 /**
  * Class containing the main JFrame of the plugin.
+ *
  * @author escapeNT
  */
 public class MainWindow extends JFrame implements Localizable {
@@ -59,11 +58,11 @@ public class MainWindow extends JFrame implements Localizable {
         getTabPane().removeAll();
         getTabPane().add(Util.getInterfaceComponents().get("Server Control"), Util.translate("Server Control"));
         getTabPane().add(Util.getInterfaceComponents().get("Settings"), Util.translate("Settings"));
-        for(Map.Entry<String, JPanel> entry : Util.getInterfaceComponents().entrySet()) {
-            if(!PanelConfig.getPanelsActivated().containsKey(entry.getKey())) {
+        for (Map.Entry<String, JPanel> entry : Util.getInterfaceComponents().entrySet()) {
+            if (!PanelConfig.getPanelsActivated().containsKey(entry.getKey())) {
                 PanelConfig.getPanelsActivated().put(entry.getKey(), true);
             }
-            if(!entry.getKey().equals("Server Control") && !entry.getKey().equals("Settings")
+            if (!entry.getKey().equals("Server Control") && !entry.getKey().equals("Settings")
                     && PanelConfig.getPanelsActivated().get(entry.getKey())) {
                 getTabPane().add(entry.getValue(), Util.translate(entry.getKey()));
             }
@@ -87,6 +86,7 @@ public class MainWindow extends JFrame implements Localizable {
 
     /**
      * Returns the server control panel.
+     *
      * @return the serverControls
      */
     public ServerControlPanel getServerControls() {
@@ -100,5 +100,6 @@ public class MainWindow extends JFrame implements Localizable {
         return tabPane;
     }
 
-    public void translateComponent() {}
+    public void translateComponent() {
+    }
 }

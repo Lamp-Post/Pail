@@ -1,15 +1,14 @@
-
 package me.escapeNT.pail.scheduler;
-import me.escapeNT.pail.Util.Util;
 
+import me.escapeNT.pail.Util.Util;
 import org.bukkit.Bukkit;
 
 /**
  * Class representing a console command task.
+ *
  * @author escapeNT
  */
 public class ConsoleCommandTask implements ScheduledTask {
-
     private String command;
     private String name;
     private boolean repeating;
@@ -33,6 +32,7 @@ public class ConsoleCommandTask implements ScheduledTask {
 
     /**
      * Gets the command to be executed.
+     *
      * @return the command The command String.
      */
     public String getCommand() {
@@ -43,6 +43,7 @@ public class ConsoleCommandTask implements ScheduledTask {
      * Executes the task by dispatching the command.
      */
     public void execute() {
+        // This should already be syncronous
         Bukkit.getServer().dispatchCommand(Util.getConsoleSender(), command);
     }
 

@@ -1,8 +1,6 @@
-
 package me.escapeNT.pail.GUIComponents;
 
 import com.google.api.translate.Language;
-
 import java.awt.Color;
 import java.awt.GridLayout;
 import java.awt.event.ItemEvent;
@@ -20,39 +18,38 @@ import javax.swing.LookAndFeel;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 import javax.swing.UIManager.LookAndFeelInfo;
-
 import me.escapeNT.pail.Pail;
 import me.escapeNT.pail.Util.Localizable;
+import me.escapeNT.pail.Util.UpdateHandler;
+import me.escapeNT.pail.Util.Util;
 import me.escapeNT.pail.config.General;
 import me.escapeNT.pail.config.PanelConfig;
 import me.escapeNT.pail.config.ServerConfigHandler;
-import me.escapeNT.pail.Util.UpdateHandler;
-import me.escapeNT.pail.Util.Util;
-
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.Server;
 import org.bukkit.World;
-import org.bukkit.command.ConsoleCommandSender;
 
 /**
  * Panel for editing server settings.
+ *
  * @author escapeNT
  */
 public class SettingsPanel extends javax.swing.JPanel implements Localizable {
-
     private WaypointEditPanel waypointEditor;
     private boolean sel = true;
 
-    /** Creates new form SettingsPanel */
+    /**
+     * Creates new form SettingsPanel
+     */
     public SettingsPanel() {
         initComponents();
 
         // load languages
-        for(Language l : Language.class.getEnumConstants()) {
-            if(!l.toString().equals("")) {
+        for (Language l : Language.class.getEnumConstants()) {
+            if (!l.toString().equals("")) {
                 language.addItem(l.getFullName());
-                if(General.getLang().toString().equals(l.toString())) {
+                if (General.getLang().toString().equals(l.toString())) {
                     language.setSelectedItem(l.getFullName());
                 }
             }
@@ -67,7 +64,7 @@ public class SettingsPanel extends javax.swing.JPanel implements Localizable {
             }
         });
         pailVersion.setText(Util.translate("Pail version: ") + Pail.PLUGIN_VERSION);
- 
+
         autoUpdate.setSelected(General.isAutoUpdate());
         loadConfig();
 
@@ -79,19 +76,19 @@ public class SettingsPanel extends javax.swing.JPanel implements Localizable {
                 General.setAutoUpdate(autoUpdate.isSelected());
                 General.save();
 
-                if(autoUpdate.isSelected() && UpdateHandler.isUpToDate() != null
+                if (autoUpdate.isSelected() && UpdateHandler.isUpToDate() != null
                         && !UpdateHandler.isUpToDate()) {
                     new UpdateView().setVisible(true);
                 }
             }
         });
 
-        for(LookAndFeelInfo laf : UIManager.getInstalledLookAndFeels()) {   
+        for (LookAndFeelInfo laf : UIManager.getInstalledLookAndFeels()) {
             try {
                 Class feel = Class.forName(laf.getClassName());
-                if(((LookAndFeel)feel.newInstance()).isSupportedLookAndFeel()) {
+                if (((LookAndFeel) feel.newInstance()).isSupportedLookAndFeel()) {
                     themes.addItem(laf.getName());
-                    if(laf.getClassName().equals(General.getLookAndFeel())) {
+                    if (laf.getClassName().equals(General.getLookAndFeel())) {
                         themes.setSelectedItem(laf.getName());
                     }
                 }
@@ -109,7 +106,7 @@ public class SettingsPanel extends javax.swing.JPanel implements Localizable {
         try {
             String v = Bukkit.getServer().getVersion();
             return v.substring(v.indexOf("jnks") - 4, v.indexOf("jnks"));
-        } catch(Exception ex) {
+        } catch (Exception ex) {
             return "0000";
         }
     }
@@ -122,21 +119,20 @@ public class SettingsPanel extends javax.swing.JPanel implements Localizable {
             in.close();
 
             boolean upToDate = false;
-            if(Integer.parseInt(parseCraftVersion()) >= Integer.parseInt(v)) {
+            if (Integer.parseInt(parseCraftVersion()) >= Integer.parseInt(v)) {
                 upToDate = true;
             }
 
-            if(upToDate) {
+            if (upToDate) {
                 update.setText(Util.translate("Latest recommended build: ") + v);
                 update.setForeground(new Color(13, 190, 17));
-            }
-            else {
+            } else {
                 update.setText(Util.translate("Latest recommended build: ") + v + Util.translate(" - Update required!"));
                 update.setForeground(Color.red);
             }
         } catch (Exception ex) {
             update.setText(Util.translate("Latest recommended build: Unknown"));
-                update.setForeground(new Color(255, 200, 33));
+            update.setForeground(new Color(255, 200, 33));
         }
     }
 
@@ -150,21 +146,30 @@ public class SettingsPanel extends javax.swing.JPanel implements Localizable {
         try {
             BufferedReader in = new BufferedReader(new FileReader("server.properties"));
             String str;
-            while((str = in.readLine()) != null) {
-                if(str.indexOf("difficulty") != -1) {
+            while ((str = in.readLine()) != null) {
+                if (str.indexOf("difficulty") != -1) {
                     int d = Integer.parseInt(str.split("=")[1].trim());
-                    switch(d) {
-                        case 0: diff = "Peaceful"; break;
-                        case 1: diff = "Easy"; break;
-                        case 2: diff = "Normal"; break;
-                        case 3: diff = "Hard"; break;
+                    switch (d) {
+                        case 0:
+                            diff = "Peaceful";
+                            break;
+                        case 1:
+                            diff = "Easy";
+                            break;
+                        case 2:
+                            diff = "Normal";
+                            break;
+                        case 3:
+                            diff = "Hard";
+                            break;
                     }
-                } else if(str.indexOf("motd") != -1) {
+                } else if (str.indexOf("motd") != -1) {
                     smotd = str.split("=")[1].trim();
                 }
             }
             in.close();
-        } catch (Exception e) {}
+        } catch (Exception e) {
+        }
         // End temp fix
 
         Server s = Bukkit.getServer();
@@ -194,8 +199,8 @@ public class SettingsPanel extends javax.swing.JPanel implements Localizable {
         survival.setSelected(!c);
     }
 
-    /** This method is called from within the constructor to
-     * initialize the form.
+    /**
+     * This method is called from within the constructor to initialize the form.
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -325,139 +330,137 @@ public class SettingsPanel extends javax.swing.JPanel implements Localizable {
 
         jLabel10.setText("Difficulty");
 
-        difficulty.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Peaceful", "Easy", "Normal", "Hard" }));
+        difficulty.setModel(new javax.swing.DefaultComboBoxModel(new String[]{"Peaceful", "Easy", "Normal", "Hard"}));
 
         jLabel11.setText("MOTD");
 
         org.jdesktop.layout.GroupLayout jPanel2Layout = new org.jdesktop.layout.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(jPanel2Layout.createSequentialGroup()
+                jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                .add(jPanel2Layout.createSequentialGroup()
                 .add(14, 14, 14)
                 .add(jLabel1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 90, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .add(worldName, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 240, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-            .add(jPanel2Layout.createSequentialGroup()
+                .add(jPanel2Layout.createSequentialGroup()
                 .add(13, 13, 13)
                 .add(jLabel2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 80, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .add(11, 11, 11)
                 .add(seed, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 240, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-            .add(org.jdesktop.layout.GroupLayout.TRAILING, jPanel2Layout.createSequentialGroup()
+                .add(org.jdesktop.layout.GroupLayout.TRAILING, jPanel2Layout.createSequentialGroup()
                 .add(192, 192, 192)
                 .add(revert)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
                 .add(save)
                 .add(42, 42, 42))
-            .add(jPanel2Layout.createSequentialGroup()
+                .add(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                    .add(jPanel2Layout.createSequentialGroup()
-                        .add(spawnMonsters, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 170, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                        .add(online, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 170, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                    .add(jPanel2Layout.createSequentialGroup()
-                        .add(spawnAnimals, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 170, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                        .add(whitelist, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 170, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                    .add(flight, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 310, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                    .add(jPanel2Layout.createSequentialGroup()
-                        .add(jLabel3, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 110, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                        .add(viewDistance, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 55, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                        .add(15, 15, 15)
-                        .add(jLabel5, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 90, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                        .add(maxPlayers, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 60, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                    .add(jPanel2Layout.createSequentialGroup()
-                        .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                            .add(jPanel2Layout.createSequentialGroup()
-                                .add(jLabel10, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 94, Short.MAX_VALUE)
-                                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                                .add(difficulty, 0, 185, Short.MAX_VALUE))
-                            .add(jPanel2Layout.createSequentialGroup()
-                                .add(jLabel4, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 90, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                                .add(port, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 96, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                            .add(jPanel2Layout.createSequentialGroup()
-                                .add(jLabel9)
-                                .add(11, 11, 11)
-                                .add(survival, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 99, Short.MAX_VALUE)
-                                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                                .add(creative, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)))
-                        .add(56, 56, 56))
-                    .add(jPanel2Layout.createSequentialGroup()
-                        .add(nether, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 170, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                        .add(pvp, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 170, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                    .add(jPanel2Layout.createSequentialGroup()
-                        .add(86, 86, 86)
-                        .add(motd, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 238, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
+                .add(jPanel2Layout.createSequentialGroup()
+                .add(spawnMonsters, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 170, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .add(online, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 170, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                .add(jPanel2Layout.createSequentialGroup()
+                .add(spawnAnimals, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 170, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .add(whitelist, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 170, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                .add(flight, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 310, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .add(jPanel2Layout.createSequentialGroup()
+                .add(jLabel3, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 110, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .add(viewDistance, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 55, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .add(15, 15, 15)
+                .add(jLabel5, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 90, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .add(maxPlayers, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 60, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                .add(jPanel2Layout.createSequentialGroup()
+                .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                .add(jPanel2Layout.createSequentialGroup()
+                .add(jLabel10, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 94, Short.MAX_VALUE)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(difficulty, 0, 185, Short.MAX_VALUE))
+                .add(jPanel2Layout.createSequentialGroup()
+                .add(jLabel4, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 90, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .add(port, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 96, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                .add(jPanel2Layout.createSequentialGroup()
+                .add(jLabel9)
+                .add(11, 11, 11)
+                .add(survival, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 99, Short.MAX_VALUE)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(creative, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)))
+                .add(56, 56, 56))
+                .add(jPanel2Layout.createSequentialGroup()
+                .add(nether, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 170, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .add(pvp, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 170, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                .add(jPanel2Layout.createSequentialGroup()
+                .add(86, 86, 86)
+                .add(motd, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 238, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
                 .add(32, 32, 32))
-            .add(jPanel2Layout.createSequentialGroup()
+                .add(jPanel2Layout.createSequentialGroup()
                 .add(14, 14, 14)
                 .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                    .add(jPanel2Layout.createSequentialGroup()
-                        .add(jLabel11, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                        .addContainerGap())
-                    .add(jPanel2Layout.createSequentialGroup()
-                        .add(jLabel6, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 90, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                        .add(ip, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 240, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))))
-        );
+                .add(jPanel2Layout.createSequentialGroup()
+                .add(jLabel11, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                .addContainerGap())
+                .add(jPanel2Layout.createSequentialGroup()
+                .add(jLabel6, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 90, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .add(ip, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 240, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))));
         jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(jPanel2Layout.createSequentialGroup()
+                jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                .add(jPanel2Layout.createSequentialGroup()
                 .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                    .add(jPanel2Layout.createSequentialGroup()
-                        .add(6, 6, 6)
-                        .add(jLabel1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 20, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                    .add(worldName, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                .add(jPanel2Layout.createSequentialGroup()
+                .add(6, 6, 6)
+                .add(jLabel1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 20, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                .add(worldName, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                 .add(12, 12, 12)
                 .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                    .add(jPanel2Layout.createSequentialGroup()
-                        .add(6, 6, 6)
-                        .add(jLabel2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 20, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                    .add(seed, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                .add(jPanel2Layout.createSequentialGroup()
+                .add(6, 6, 6)
+                .add(jLabel2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 20, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                .add(seed, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                 .add(12, 12, 12)
                 .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                    .add(jLabel6, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 30, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                    .add(ip, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                .add(jLabel6, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 30, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .add(ip, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
                 .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
-                    .add(jLabel11, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .add(motd))
+                .add(jLabel11, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .add(motd))
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 14, Short.MAX_VALUE)
                 .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                    .add(nether)
-                    .add(pvp))
+                .add(nether)
+                .add(pvp))
                 .add(17, 17, 17)
                 .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                    .add(spawnMonsters)
-                    .add(online))
+                .add(spawnMonsters)
+                .add(online))
                 .add(17, 17, 17)
                 .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                    .add(spawnAnimals)
-                    .add(whitelist))
+                .add(spawnAnimals)
+                .add(whitelist))
                 .add(17, 17, 17)
                 .add(flight)
                 .add(7, 7, 7)
                 .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                    .add(jLabel3, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 30, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                    .add(viewDistance, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                    .add(jLabel5, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 30, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                    .add(maxPlayers, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                .add(jLabel3, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 30, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .add(viewDistance, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .add(jLabel5, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 30, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .add(maxPlayers, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                 .add(10, 10, 10)
                 .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                    .add(jLabel4, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 30, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                    .add(port, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                .add(jLabel4, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 30, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .add(port, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
                 .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                    .add(jLabel9)
-                    .add(creative)
-                    .add(survival))
+                .add(jLabel9)
+                .add(creative)
+                .add(survival))
                 .add(18, 18, 18)
                 .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                    .add(jLabel10)
-                    .add(difficulty, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                .add(jLabel10)
+                .add(difficulty, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
                 .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                    .add(save)
-                    .add(revert))
-                .addContainerGap())
-        );
+                .add(save)
+                .add(revert))
+                .addContainerGap()));
 
         craftVersion.setText("Craftbukkit version:");
 
@@ -475,13 +478,11 @@ public class SettingsPanel extends javax.swing.JPanel implements Localizable {
         org.jdesktop.layout.GroupLayout tabActivationPanelLayout = new org.jdesktop.layout.GroupLayout(tabActivationPanel);
         tabActivationPanel.setLayout(tabActivationPanelLayout);
         tabActivationPanelLayout.setHorizontalGroup(
-            tabActivationPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(0, 400, Short.MAX_VALUE)
-        );
+                tabActivationPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                .add(0, 400, Short.MAX_VALUE));
         tabActivationPanelLayout.setVerticalGroup(
-            tabActivationPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(0, 270, Short.MAX_VALUE)
-        );
+                tabActivationPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                .add(0, 270, Short.MAX_VALUE));
 
         tabActivationPanel.setBounds(10, 20, 400, 270);
         jLayeredPane1.add(tabActivationPanel, javax.swing.JLayeredPane.DEFAULT_LAYER);
@@ -525,92 +526,88 @@ public class SettingsPanel extends javax.swing.JPanel implements Localizable {
         org.jdesktop.layout.GroupLayout jPanel1Layout = new org.jdesktop.layout.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(jPanel1Layout.createSequentialGroup()
+                jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                .add(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .add(jPanel2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 375, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
                 .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                    .add(jLayeredPane1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 430, Short.MAX_VALUE)
-                    .add(jPanel1Layout.createSequentialGroup()
-                        .add(craftVersion, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 420, Short.MAX_VALUE)
-                        .add(10, 10, 10))
-                    .add(jPanel1Layout.createSequentialGroup()
-                        .add(update, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 420, Short.MAX_VALUE)
-                        .add(10, 10, 10))
-                    .add(jPanel1Layout.createSequentialGroup()
-                        .add(160, 160, 160)
-                        .add(autoUpdate, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 270, Short.MAX_VALUE))
-                    .add(jPanel1Layout.createSequentialGroup()
-                        .add(pailVersion, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 140, Short.MAX_VALUE)
-                        .add(290, 290, 290))
-                    .add(org.jdesktop.layout.GroupLayout.TRAILING, applyLang, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 140, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                    .add(org.jdesktop.layout.GroupLayout.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                            .add(jPanel1Layout.createSequentialGroup()
-                                .add(jLabel8, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 72, Short.MAX_VALUE)
-                                .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED))
-                            .add(jPanel1Layout.createSequentialGroup()
-                                .add(jLabel7, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 38, Short.MAX_VALUE)
-                                .add(45, 45, 45)))
-                        .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
-                            .add(themes, 0, 336, Short.MAX_VALUE)
-                            .add(language, 0, 336, Short.MAX_VALUE))
-                        .add(11, 11, 11)))
-                .add(61, 61, 61))
-        );
+                .add(jLayeredPane1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 430, Short.MAX_VALUE)
+                .add(jPanel1Layout.createSequentialGroup()
+                .add(craftVersion, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 420, Short.MAX_VALUE)
+                .add(10, 10, 10))
+                .add(jPanel1Layout.createSequentialGroup()
+                .add(update, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 420, Short.MAX_VALUE)
+                .add(10, 10, 10))
+                .add(jPanel1Layout.createSequentialGroup()
+                .add(160, 160, 160)
+                .add(autoUpdate, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 270, Short.MAX_VALUE))
+                .add(jPanel1Layout.createSequentialGroup()
+                .add(pailVersion, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 140, Short.MAX_VALUE)
+                .add(290, 290, 290))
+                .add(org.jdesktop.layout.GroupLayout.TRAILING, applyLang, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 140, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .add(org.jdesktop.layout.GroupLayout.TRAILING, jPanel1Layout.createSequentialGroup()
+                .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                .add(jPanel1Layout.createSequentialGroup()
+                .add(jLabel8, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 72, Short.MAX_VALUE)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED))
+                .add(jPanel1Layout.createSequentialGroup()
+                .add(jLabel7, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 38, Short.MAX_VALUE)
+                .add(45, 45, 45)))
+                .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
+                .add(themes, 0, 336, Short.MAX_VALUE)
+                .add(language, 0, 336, Short.MAX_VALUE))
+                .add(11, 11, 11)))
+                .add(61, 61, 61)));
         jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(org.jdesktop.layout.GroupLayout.TRAILING, jPanel1Layout.createSequentialGroup()
+                jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                .add(org.jdesktop.layout.GroupLayout.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
-                    .add(org.jdesktop.layout.GroupLayout.LEADING, jPanel1Layout.createSequentialGroup()
-                        .add(craftVersion, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 20, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                        .add(update, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 20, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                        .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                            .add(autoUpdate)
-                            .add(pailVersion, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 20, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                        .add(17, 17, 17)
-                        .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                            .add(jLabel7, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 20, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                            .add(themes, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 20, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                        .add(10, 10, 10)
-                        .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                            .add(jLabel8, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 20, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                            .add(language, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 20, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                        .add(10, 10, 10)
-                        .add(applyLang, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 30, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                        .add(jLayeredPane1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 362, Short.MAX_VALUE))
-                    .add(jPanel2, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap())
-        );
+                .add(org.jdesktop.layout.GroupLayout.LEADING, jPanel1Layout.createSequentialGroup()
+                .add(craftVersion, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 20, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .add(update, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 20, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                .add(autoUpdate)
+                .add(pailVersion, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 20, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                .add(17, 17, 17)
+                .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                .add(jLabel7, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 20, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .add(themes, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 20, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                .add(10, 10, 10)
+                .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                .add(jLabel8, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 20, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .add(language, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 20, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                .add(10, 10, 10)
+                .add(applyLang, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 30, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(jLayeredPane1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 362, Short.MAX_VALUE))
+                .add(jPanel2, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap()));
 
         settingsTabs.addTab("General", jPanel1);
 
         org.jdesktop.layout.GroupLayout layout = new org.jdesktop.layout.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
-            layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(settingsTabs, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 946, Short.MAX_VALUE)
-        );
+                layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                .add(settingsTabs, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 946, Short.MAX_VALUE));
         layout.setVerticalGroup(
-            layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(settingsTabs, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 604, Short.MAX_VALUE)
-        );
+                layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                .add(settingsTabs, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 604, Short.MAX_VALUE));
     }// </editor-fold>//GEN-END:initComponents
 
     private void reloadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_reloadActionPerformed
-        for(JCheckBox b : tabActivationPanel.getBoxes().values()) {
+        for (JCheckBox b : tabActivationPanel.getBoxes().values()) {
             PanelConfig.getPanelsActivated().put(b.getText(), b.isSelected());
         }
         PanelConfig.save();
         Util.getPlugin().getMainWindow().loadPanels();
-}//GEN-LAST:event_reloadActionPerformed
+    }//GEN-LAST:event_reloadActionPerformed
 
     private void pailVersionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pailVersionMouseClicked
         new AboutView().setVisible(true);
-}//GEN-LAST:event_pailVersionMouseClicked
+    }//GEN-LAST:event_pailVersionMouseClicked
 
     private void saveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveActionPerformed
         HashMap<String, String> saveData = new HashMap<String, String>();
@@ -639,22 +636,22 @@ public class SettingsPanel extends javax.swing.JPanel implements Localizable {
 
         JOptionPane.showMessageDialog(Util.getPlugin().getMainWindow(),
                 "Server config saved!\nRestart the server to apply.", "Config Saved", JOptionPane.INFORMATION_MESSAGE);
-}//GEN-LAST:event_saveActionPerformed
+    }//GEN-LAST:event_saveActionPerformed
 
     private void revertActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_revertActionPerformed
         loadConfig();
-}//GEN-LAST:event_revertActionPerformed
+    }//GEN-LAST:event_revertActionPerformed
 
     private void themesItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_themesItemStateChanged
-       if(evt.getStateChange() == ItemEvent.SELECTED && getThemes().getSelectedItem() != null) {
-            for(final LookAndFeelInfo laf : UIManager.getInstalledLookAndFeels()) {
-                if(laf.getName().equals((String)getThemes().getSelectedItem())) {
+        if (evt.getStateChange() == ItemEvent.SELECTED && getThemes().getSelectedItem() != null) {
+            for (final LookAndFeelInfo laf : UIManager.getInstalledLookAndFeels()) {
+                if (laf.getName().equals((String) getThemes().getSelectedItem())) {
                     try {
                         SwingUtilities.invokeLater(new Runnable() {
                             public void run() {
                                 try {
                                     UIManager.setLookAndFeel((LookAndFeel) Class.forName(laf.getClassName()).newInstance());
-                                } catch(Exception ex) {
+                                } catch (Exception ex) {
                                     Logger.getLogger(SettingsPanel.class.getName()).log(Level.SEVERE, null, ex);
                                 }
                                 UIManager.getLookAndFeelDefaults().put("ClassLoader", getClass().getClassLoader());
@@ -672,8 +669,8 @@ public class SettingsPanel extends javax.swing.JPanel implements Localizable {
     }//GEN-LAST:event_themesItemStateChanged
 
     private void languageItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_languageItemStateChanged
-        if(evt.getStateChange() == ItemEvent.SELECTED && !sel) {
-            General.setLang(Language.fromString((String)language.getSelectedItem()));
+        if (evt.getStateChange() == ItemEvent.SELECTED && !sel) {
+            General.setLang(Language.fromString((String) language.getSelectedItem()));
         } else {
             sel = false;
         }
@@ -681,10 +678,8 @@ public class SettingsPanel extends javax.swing.JPanel implements Localizable {
 
     private void applyLangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_applyLangActionPerformed
         Util.getPlugin().saveState();
-        Bukkit.getServer().dispatchCommand(Util.getConsoleSender(), "reload");
+        Util.dispatchCommand("reload");
     }//GEN-LAST:event_applyLangActionPerformed
-
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton applyLang;
     private javax.swing.JCheckBox autoUpdate;
@@ -776,13 +771,13 @@ public class SettingsPanel extends javax.swing.JPanel implements Localizable {
 
     private int diffStringToInt(String d) {
         Integer diff = null;
-        if(d.equals("Peaceful")) {
+        if (d.equals("Peaceful")) {
             diff = 0;
-        } else if(d.equals("Easy")) {
+        } else if (d.equals("Easy")) {
             return 1;
-        } else if(d.equals("Normal")) {
+        } else if (d.equals("Normal")) {
             return 2;
-        } else if(d.equals("Hard")) {
+        } else if (d.equals("Hard")) {
             return 3;
         }
         return diff;

@@ -2,7 +2,6 @@ package me.escapeNT.pail.Util;
 
 import com.google.api.translate.Language;
 import com.google.api.translate.Translate;
-
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
@@ -20,19 +19,20 @@ import javax.swing.JCheckBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
-
 import me.escapeNT.pail.GUIComponents.FileMenu;
 import me.escapeNT.pail.GUIComponents.ServerControlPanel;
 import me.escapeNT.pail.Pail;
 import me.escapeNT.pail.config.General;
 import org.bukkit.Bukkit;
+import org.bukkit.command.CommandSender;
 import org.bukkit.command.ConsoleCommandSender;
 
 /**
  * Various static utility methods.
+ *
  * @author escapeNT
  */
-public class Util {
+public final class Util {
     private static Pail plugin;
     private static HashMap<String, JPanel> interfaceComponents = new HashMap<String, JPanel>();
     private static ServerControlPanel serverControls;
@@ -41,6 +41,7 @@ public class Util {
 
     /**
      * Reads the last number of specified lines in a file.
+     *
      * @param file The file to read from.
      * @param numLines The number of lines to read from the end.
      * @return The last n lines from the file.
@@ -56,8 +57,21 @@ public class Util {
         return lines;
     }
 
+    public static void dispatchCommand(final String command) {
+        dispatch(new Runnable() {
+            public void run() {
+                Bukkit.dispatchCommand(getConsoleSender(), command);
+            }
+        });
+    }
+
+    public static void dispatch(final Runnable runnable) {
+        Bukkit.getScheduler().runTask(plugin, runnable);
+    }
+
     /**
      * Logs an info message from the plugin to the console.
+     *
      * @param message The message to send.
      */
     public static void log(Object message) {
@@ -66,6 +80,7 @@ public class Util {
 
     /**
      * Logs a message from the plugin to the console with the specified level..
+     *
      * @param level The log level.
      * @param message The message to send.
      */
@@ -75,6 +90,7 @@ public class Util {
 
     /**
      * Saves the specified text to a file.
+     *
      * @param text The text to save.
      * @param saveTo The file to write the text to.
      */
@@ -91,11 +107,12 @@ public class Util {
 
     /**
      * Translates the text to the configured language.
+     *
      * @param text The text to translate.
      * @return The translated text.
      */
     public static String translate(String text) {
-        if(General.getLang() == Language.ENGLISH) {
+        if (General.getLang() == Language.ENGLISH) {
             return text;
         }
         try {
@@ -107,19 +124,19 @@ public class Util {
 
     /**
      * Compresses a directory to a zip file.
+     *
      * @param dir The path to directory to compress.
      * @param zipFile The path to the resulting zip file.
      */
     public static void zipDir(File dir, File zipFile) {
-        if(!dir.isDirectory()) {
+        if (!dir.isDirectory()) {
             return;
         }
         try {
             ZipOutputStream out = new ZipOutputStream(new FileOutputStream(zipFile));
             addDir(dir, out);
             out.close();
-        }
-        catch (IOException e){
+        } catch (IOException e) {
             getPlugin().getLogger().throwing("Util", "zipDir", e);
         }
     }
@@ -129,14 +146,14 @@ public class Util {
         byte[] tmpBuf = new byte[1024];
 
         for (int i = 0; i < files.length; i++) {
-            if(files[i].isDirectory()) {
+            if (files[i].isDirectory()) {
                 addDir(files[i], out);
                 continue;
             }
             FileInputStream in = new FileInputStream(files[i].getAbsolutePath());
             out.putNextEntry(new ZipEntry(files[i].getAbsolutePath()));
             int len;
-            while((len = in.read(tmpBuf)) > 0) {
+            while ((len = in.read(tmpBuf)) > 0) {
                 out.write(tmpBuf, 0, len);
             }
             out.closeEntry();

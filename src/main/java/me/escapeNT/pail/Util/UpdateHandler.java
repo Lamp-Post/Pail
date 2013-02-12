@@ -1,4 +1,3 @@
-
 package me.escapeNT.pail.Util;
 
 import java.io.BufferedOutputStream;
@@ -15,27 +14,27 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
-
 import me.escapeNT.pail.GUIComponents.UpdateView;
 import me.escapeNT.pail.Pail;
-
 import org.bukkit.Bukkit;
 
 /**
- * Class containing static methods for checking and downloading updates for pail.
+ * Class containing static methods for checking and downloading updates for
+ * pail.
+ *
  * @author escapeNT
  */
 public class UpdateHandler {
-
     private static final String version = Pail.PLUGIN_VERSION;
     private static String currentVersion;
-
     public static final File updateFile = new File(new File(Bukkit.getServer().getUpdateFolder()).getPath(), "Pail.jar");
 
     /**
      * Checks if the current Pail version is up to date.
-     * @return True if this Pail's version number is greater than or equal to the current version,
-     * false if it is lower, or null if the server could not be contacted.
+     *
+     * @return True if this Pail's version number is greater than or equal to
+     * the current version, false if it is lower, or null if the server could
+     * not be contacted.
      */
     public static Boolean isUpToDate() {
         Boolean upToDate = true;
@@ -45,7 +44,7 @@ public class UpdateHandler {
             currentVersion = in.readLine();
             in.close();
 
-            if(compareVersions(version, currentVersion) == -1) {
+            if (compareVersions(version, currentVersion) == -1) {
                 upToDate = false;
             }
 
@@ -54,9 +53,10 @@ public class UpdateHandler {
         }
         return upToDate;
     }
-    
+
     /**
      * Gets the list of changes in the latest version.
+     *
      * @return The change list.
      */
     public static List<String> getChanges() {
@@ -67,7 +67,7 @@ public class UpdateHandler {
             in.readLine();
 
             String ln;
-            while((ln = in.readLine()) != null) {
+            while ((ln = in.readLine()) != null) {
                 changes.add(ln);
             }
 
@@ -79,6 +79,7 @@ public class UpdateHandler {
 
     /**
      * Downloads the latest version to the updates folder.
+     *
      * @param dialog
      * @throws IOException
      */
@@ -127,15 +128,15 @@ public class UpdateHandler {
                 dialog.getProgress().setIndeterminate(false);
             }
         });
-        
+
         while ((len = in.read(buffer)) >= 0) {
             out.write(buffer, 0, len);
             downloaded += len;
             final int d = downloaded;
             SwingUtilities.invokeLater(new Runnable() {
                 public void run() {
-                    dialog.getProgressLabel().setText((int)((double)d / (double)size * 100d) + "%");
-                    dialog.getProgress().setValue((int)((double)d / (double)size * 100d));
+                    dialog.getProgressLabel().setText((int) ((double) d / (double) size * 100d) + "%");
+                    dialog.getProgress().setValue((int) ((double) d / (double) size * 100d));
                 }
             });
         }
@@ -152,9 +153,9 @@ public class UpdateHandler {
         int reload = JOptionPane.showConfirmDialog(dialog, "Download complete. Reload now?",
                 "Success", JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE);
         dialog.dispose();
-        
-        if(reload == JOptionPane.YES_OPTION) {          
-            Bukkit.getServer().dispatchCommand(Util.getConsoleSender(), "reload");
+
+        if (reload == JOptionPane.YES_OPTION) {
+            Util.dispatchCommand("reload");
         }
     }
 
@@ -162,28 +163,28 @@ public class UpdateHandler {
         String[] vals1 = str1.split("\\.");
         String[] vals2 = str2.split("\\.");
         int i = 0;
-        while(i < vals1.length && i < vals2.length && vals1[i].equals(vals2[i])) {
+        while (i < vals1.length && i < vals2.length && vals1[i].equals(vals2[i])) {
             i++;
         }
 
-        if(i < vals1.length && i < vals2.length) {
+        if (i < vals1.length && i < vals2.length) {
             int diff = new Integer(vals1[i]).compareTo(new Integer(vals2[i]));
-            return diff<0?-1:diff==0?0:1;
+            return diff < 0 ? -1 : diff == 0 ? 0 : 1;
         }
-        return vals1.length<vals2.length?-1:vals1.length==vals2.length?0:1;
+        return vals1.length < vals2.length ? -1 : vals1.length == vals2.length ? 0 : 1;
     }
 
     private static void touchLink(URL url) {
         try {
-            HttpURLConnection con = (HttpURLConnection)(url.openConnection());
+            HttpURLConnection con = (HttpURLConnection) (url.openConnection());
             System.setProperty("http.agent", "");
             con.setRequestProperty("User-Agent", "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/534.30 (KHTML, like Gecko) Chrome/12.0.742.100 Safari/534.30");
             BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
             String str = "";
-            while((str = in.readLine()) != null);
+            while ((str = in.readLine()) != null);
             in.close();
+        } catch (Exception e) {
         }
-        catch(Exception e) {}
     }
 
     /**

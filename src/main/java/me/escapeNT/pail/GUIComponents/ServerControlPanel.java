@@ -1,4 +1,3 @@
-
 package me.escapeNT.pail.GUIComponents;
 
 import java.awt.AlphaComposite;
@@ -18,28 +17,27 @@ import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPopupMenu;
 import javax.swing.border.TitledBorder;
-
 import me.escapeNT.pail.Util.Localizable;
 import me.escapeNT.pail.Util.Util;
-
 import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
-import org.bukkit.Server;
 import org.bukkit.entity.Player;
+import org.bukkit.event.entity.EntityDamageEvent;
 
 /**
  * Panel containing the basic server controls.
+ *
  * @author escapeNT
  */
 public final class ServerControlPanel extends javax.swing.JPanel implements Localizable {
-
     private HashMap<Object, ImageIcon> onlinePlayers = new HashMap<Object, ImageIcon>();
     private IconListRenderer listModel = new IconListRenderer(onlinePlayers, true);
     private JPopupMenu playerMenu = null;
     private JMenuItem op;
     private JMenuItem deop;
 
-    /** Creates new form ServerControlPanel */
+    /**
+     * Creates new form ServerControlPanel
+     */
     public ServerControlPanel() {
         initComponents();
         Util.setServerControls(this);
@@ -56,7 +54,7 @@ public final class ServerControlPanel extends javax.swing.JPanel implements Loca
         ImageIcon msg = new ImageIcon(getClass().getResource("images/msg.png"));
         ImageIcon kickico = new ImageIcon(getClass().getResource("images/kick.png"));
         ImageIcon banico = new ImageIcon(getClass().getResource("images/ban.png"));
-        
+
         // Construct player popup menu
         playerMenu = new JPopupMenu();
 
@@ -79,7 +77,7 @@ public final class ServerControlPanel extends javax.swing.JPanel implements Loca
         deop = new JMenuItem(Util.translate("Demote from OP"), down);
         deop.addActionListener(new DeOpPlayerListener());
         playerMenu.add(deop);
-        
+
         JMenuItem message = new JMenuItem(Util.translate("Message"), msg);
         message.addActionListener(new MessagePlayerListener());
         playerMenu.add(message);
@@ -93,8 +91,8 @@ public final class ServerControlPanel extends javax.swing.JPanel implements Loca
         playerMenu.add(ban);
     }
 
-    /** This method is called from within the constructor to
-     * initialize the form.
+    /**
+     * This method is called from within the constructor to initialize the form.
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -116,6 +114,7 @@ public final class ServerControlPanel extends javax.swing.JPanel implements Loca
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 playerListMousePressed(evt);
             }
+
             public void mouseReleased(java.awt.event.MouseEvent evt) {
                 playerListMouseReleased(evt);
             }
@@ -125,23 +124,21 @@ public final class ServerControlPanel extends javax.swing.JPanel implements Loca
         org.jdesktop.layout.GroupLayout layout = new org.jdesktop.layout.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
-            layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(org.jdesktop.layout.GroupLayout.TRAILING, layout.createSequentialGroup()
+                layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                .add(org.jdesktop.layout.GroupLayout.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
                 .add(serverConsolePanel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 640, Short.MAX_VALUE)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(jScrollPane1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 170, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
-        );
+                .addContainerGap()));
         layout.setVerticalGroup(
-            layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(layout.createSequentialGroup()
+                layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                .add(layout.createSequentialGroup()
                 .add(20, 20, 20)
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                    .add(org.jdesktop.layout.GroupLayout.TRAILING, serverConsolePanel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 450, Short.MAX_VALUE)
-                    .add(org.jdesktop.layout.GroupLayout.TRAILING, jScrollPane1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 450, Short.MAX_VALUE))
-                .addContainerGap())
-        );
+                .add(org.jdesktop.layout.GroupLayout.TRAILING, serverConsolePanel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 450, Short.MAX_VALUE)
+                .add(org.jdesktop.layout.GroupLayout.TRAILING, jScrollPane1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 450, Short.MAX_VALUE))
+                .addContainerGap()));
     }// </editor-fold>//GEN-END:initComponents
 
     private void playerListMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_playerListMousePressed
@@ -152,21 +149,21 @@ public final class ServerControlPanel extends javax.swing.JPanel implements Loca
         showPlayerMenu(evt);
     }//GEN-LAST:event_playerListMouseReleased
 
-    private void showPlayerMenu(MouseEvent e) {        
-        if(e.isPopupTrigger()) {
-            for(int i = 0; i < ((DefaultListModel) playerList.getModel()).getSize(); i++) {
+    private void showPlayerMenu(MouseEvent e) {
+        if (e.isPopupTrigger()) {
+            for (int i = 0; i < ((DefaultListModel) playerList.getModel()).getSize(); i++) {
                 Rectangle r = playerList.getCellBounds(i, i);
-                if(r.contains(e.getPoint())) {
+                if (r.contains(e.getPoint())) {
                     playerList.setSelectedIndex(i);
 
-                    Player p = Bukkit.getServer().getPlayer((String)playerList.getSelectedValue());
-                    if(p.isOp()) {
+                    Player p = Bukkit.getServer().getPlayer((String) playerList.getSelectedValue());
+                    if (p.isOp()) {
                         op.setEnabled(false);
                         deop.setEnabled(true);
                     } else {
                         op.setEnabled(true);
                         deop.setEnabled(false);
-                    } 
+                    }
 
                     playerMenu.show(playerList, e.getX(), e.getY());
                     break;
@@ -175,11 +172,12 @@ public final class ServerControlPanel extends javax.swing.JPanel implements Loca
         }
     }
 
-    public void translateComponent() {}
+    public void translateComponent() {
+    }
 
     private class GiveItemListener implements ActionListener {
         public void actionPerformed(ActionEvent e) {
-            new GiveItemView((String)playerList.getSelectedValue()).setVisible(true);
+            new GiveItemView((String) playerList.getSelectedValue()).setVisible(true);
         }
     }
 
@@ -191,22 +189,25 @@ public final class ServerControlPanel extends javax.swing.JPanel implements Loca
 
     private class KillPlayerListener implements ActionListener {
         public void actionPerformed(ActionEvent e) {
-            Player p = Bukkit.getServer().getPlayer(playerList.getSelectedValue().toString());
-            p.setHealth(0);
+            Util.dispatch(new Runnable() {
+                public void run() {
+                    Player p = Bukkit.getServer().getPlayer(playerList.getSelectedValue().toString());
+                    p.setHealth(0);
+                    p.setLastDamageCause(new EntityDamageEvent(p, EntityDamageEvent.DamageCause.SUICIDE, 1000));
+                }
+            });
         }
     }
 
     private class OpPlayerListener implements ActionListener {
         public void actionPerformed(ActionEvent e) {
-            Server s = Bukkit.getServer();
-            s.dispatchCommand(Util.getConsoleSender(), "op " + playerList.getSelectedValue().toString());
+            Util.dispatchCommand("op " + playerList.getSelectedValue().toString());
         }
     }
 
     private class DeOpPlayerListener implements ActionListener {
         public void actionPerformed(ActionEvent e) {
-            Server s = Bukkit.getServer();
-            s.dispatchCommand(Util.getConsoleSender(), "deop " + playerList.getSelectedValue().toString());
+            Util.dispatchCommand("deop " + playerList.getSelectedValue().toString());
         }
     }
 
@@ -214,33 +215,30 @@ public final class ServerControlPanel extends javax.swing.JPanel implements Loca
         public void actionPerformed(ActionEvent e) {
             String msg = JOptionPane.showInputDialog(Util.getPlugin().getMainWindow(), Util.translate("Enter your message:"),
                     Util.translate("Message Player"), JOptionPane.QUESTION_MESSAGE);
-            if(msg == null) {
+            if (msg == null) {
                 return;
             }
-            Bukkit.getServer().getPlayer(playerList.getSelectedValue().toString()).sendMessage(ChatColor.LIGHT_PURPLE
-                    + "[Server]" + ChatColor.GRAY + " whispers: " + ChatColor.WHITE + msg);
+            Util.dispatchCommand(String.format("tell %s %s", playerList.getSelectedValue(), msg));
         }
     }
 
     private class KickPlayerListener implements ActionListener {
         public void actionPerformed(ActionEvent e) {
-            Server s = Bukkit.getServer();
             String reason = JOptionPane.showInputDialog(Util.getPlugin().getMainWindow(), Util.translate("Enter kick reason:"),
                     Util.translate("Kick Player"), JOptionPane.QUESTION_MESSAGE);
-            if(reason == null) {
+            if (reason == null) {
                 return;
             }
             reason = reason.replaceAll(" ", "_");
-            s.dispatchCommand(Util.getConsoleSender(), "kick " + playerList.getSelectedValue().toString() + " " + reason);
+            Util.dispatchCommand("kick " + playerList.getSelectedValue().toString() + " " + reason);
         }
     }
 
     private class BanPlayerListener implements ActionListener {
         public void actionPerformed(ActionEvent e) {
-            Bukkit.getServer().dispatchCommand(Util.getConsoleSender(), "ban " + playerList.getSelectedValue().toString());
+            Util.dispatchCommand("ban " + playerList.getSelectedValue().toString());
         }
     }
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JEditorPane jEditorPane1;
     private javax.swing.JScrollPane jScrollPane1;
@@ -251,6 +249,7 @@ public final class ServerControlPanel extends javax.swing.JPanel implements Loca
 
     /**
      * Returns the panel containing the console controls.
+     *
      * @return the serverConsolePanel
      */
     public me.escapeNT.pail.GUIComponents.ServerConsolePanel getServerConsolePanel() {
@@ -259,6 +258,7 @@ public final class ServerControlPanel extends javax.swing.JPanel implements Loca
 
     /**
      * Returns the list model for the player selection list.
+     *
      * @return the listModel
      */
     public DefaultListModel getListModel() {
@@ -267,6 +267,7 @@ public final class ServerControlPanel extends javax.swing.JPanel implements Loca
 
     /**
      * Adds a player and their face to the list.
+     *
      * @param name The player name.
      */
     public void addPlayer(String name) {
@@ -288,11 +289,11 @@ public final class ServerControlPanel extends javax.swing.JPanel implements Loca
     }
 
     private BufferedImage resize(Image originalImage,
-                int scaledWidth, int scaledHeight, boolean preserveAlpha) {
+            int scaledWidth, int scaledHeight, boolean preserveAlpha) {
         int imageType = preserveAlpha ? BufferedImage.TYPE_INT_RGB : BufferedImage.TYPE_INT_ARGB;
         BufferedImage scaledBI = new BufferedImage(scaledWidth, scaledHeight, imageType);
         Graphics2D g = scaledBI.createGraphics();
-        if(preserveAlpha) {
+        if (preserveAlpha) {
             g.setComposite(AlphaComposite.Src);
         }
         g.drawImage(originalImage, 0, 0, scaledWidth, scaledHeight, null);

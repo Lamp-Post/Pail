@@ -19,15 +19,14 @@ import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.KeyStroke;
 import javax.swing.text.Document;
-
 import me.escapeNT.pail.Util.Localizable;
 import me.escapeNT.pail.Util.Util;
-
 import org.bukkit.Bukkit;
 import org.bukkit.World;
 
 /**
  * Class representing the File dropdown menu.
+ *
  * @author escapeNT
  */
 public class FileMenu extends JMenu implements Localizable {
@@ -111,7 +110,7 @@ public class FileMenu extends JMenu implements Localizable {
                 if (!backupFolder.exists()) {
                     backupFolder.mkdir();
                 }
-                Bukkit.getServer().getScheduler().scheduleAsyncDelayedTask(Util.getPlugin(), new Runnable() {
+                Bukkit.getServer().getScheduler().runTaskAsynchronously(Util.getPlugin(), new Runnable() {
                     public void run() {
                         Util.log("Starting backup for " + worldName);
                         long start = System.currentTimeMillis();

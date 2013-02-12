@@ -2,14 +2,13 @@ package me.escapeNT.pail.scheduler;
 
 import me.escapeNT.pail.Util.Util;
 import org.bukkit.Bukkit;
-import org.bukkit.Server;
 
 /**
  * Class representing a scheduled server task.
+ *
  * @author escapeNT
  */
 public class ServerTask implements ScheduledTask {
-
     private Type type;
     private boolean repeating;
     private boolean enabled;
@@ -18,6 +17,7 @@ public class ServerTask implements ScheduledTask {
 
     /**
      * Constructs a new Server task of the given type.
+     *
      * @param type The Type of server task.
      * @param repeating True if the task is repeating.
      * @param interval The interval (or delay) between executions.
@@ -38,6 +38,7 @@ public class ServerTask implements ScheduledTask {
     }
 
     public void execute() {
+        // This shuold already be syncronous
         Bukkit.getServer().dispatchCommand(Util.getConsoleSender(), type.getCommand());
     }
 
@@ -67,11 +68,9 @@ public class ServerTask implements ScheduledTask {
      * The type of server task to execute.
      */
     public static enum Type {
-
         RELOAD("Reload"),
         STOP("Stop"),
         SAVE_ALL("Save-all");
-
         private String command;
 
         private Type(String command) {
@@ -80,12 +79,13 @@ public class ServerTask implements ScheduledTask {
 
         /**
          * Gets the server command to execute this action.
+         *
          * @return the server command.
          */
         public String getCommand() {
             return command;
         }
-        
+
         @Override
         public String toString() {
             return getCommand();
