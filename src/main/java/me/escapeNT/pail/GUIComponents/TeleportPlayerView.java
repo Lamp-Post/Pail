@@ -134,18 +134,26 @@ public final class TeleportPlayerView extends javax.swing.JDialog implements Loc
 
         Util.dispatch(new Runnable() {
             public void run() {
+                Location l;
                 Player _player = Bukkit.getServer().getPlayerExact(player);
                 if (_loc instanceof Location) {
+                    l = (Location) _loc;
                     _player.teleport((Location) _loc);
                 } else if (_loc.equals("Spawn")) {
-                    _player.teleport(_player.getWorld().getSpawnLocation());
+                    l = _player.getWorld().getSpawnLocation();
                 } else if (_loc.equals("Bed")) {
-                    _player.teleport(_player.getBedSpawnLocation());
+                    l = _player.getBedSpawnLocation();
                 } else {
-                    Player teleportTo = Bukkit.getServer().getPlayerExact(_loc.toString());
-                    if (teleportTo != null) {
-                        _player.teleport(teleportTo);
+                    Player p = Bukkit.getServer().getPlayerExact(_loc.toString());
+                    if (p != null) {
+                        l = p.getLocation();
+                    } else {
+                        l = null;
                     }
+                }
+
+                if (l != null) {
+                    _player.teleport(l);
                 }
             }
         });
