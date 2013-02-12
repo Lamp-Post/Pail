@@ -38,6 +38,10 @@ public class Waypoint implements Serializable {
         return new Location(Bukkit.getServer().getWorld(world), x, y, z);
     }
 
+    public String getWorld() {
+        return world;
+    }
+
     /**
      * Returns the name of this waypoint.
      * @return the name
