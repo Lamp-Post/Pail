@@ -91,7 +91,7 @@ public final class TeleportPlayerView extends javax.swing.JDialog implements Loc
         getContentPane().add(teleLabel);
         teleLabel.setBounds(20, 20, 280, 16);
 
-        locations.setModel(new javax.swing.DefaultComboBoxModel(new String[]{"Spawn"}));
+        locations.setModel(new javax.swing.DefaultComboBoxModel(new String[]{"Spawn", "Bed"}));
         getContentPane().add(locations);
         locations.setBounds(90, 50, 200, 27);
         getContentPane().add(jSeparator1);
@@ -139,6 +139,8 @@ public final class TeleportPlayerView extends javax.swing.JDialog implements Loc
                     _player.teleport((Location) _loc);
                 } else if (_loc.equals("Spawn")) {
                     _player.teleport(_player.getWorld().getSpawnLocation());
+                } else if (_loc.equals("Bed")) {
+                    _player.teleport(_player.getBedSpawnLocation());
                 } else {
                     Player teleportTo = Bukkit.getServer().getPlayerExact(_loc.toString());
                     if (teleportTo != null) {
