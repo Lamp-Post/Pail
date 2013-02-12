@@ -9,18 +9,16 @@ import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
-
 import me.escapeNT.pail.Util.Util;
 import me.escapeNT.pail.Util.Waypoint;
 
 /**
  * Class for handling saved waypoints.
+ *
  * @author escapeNT
  */
 public class WaypointConfig {
-
     public static final File file = new File(Util.getPlugin().getDataFolder(), "waypoints.dat");
-
     private static List<Waypoint> waypoints = new ArrayList<Waypoint>();
 
     public static void save() {
@@ -36,13 +34,13 @@ public class WaypointConfig {
     }
 
     public static void load() {
-        if(!file.exists()) {
+        if (!file.exists()) {
             save();
         }
         try {
             FileInputStream fis = new FileInputStream(file);
             ObjectInputStream ois = new ObjectInputStream(fis);
-            waypoints = (List<Waypoint>)ois.readObject();
+            waypoints = (List<Waypoint>) ois.readObject();
             ois.close();
         } catch (Exception ex) {
             Util.log(Level.SEVERE, ex.toString());
