@@ -1,22 +1,25 @@
 package me.escapeNT.pail.GUIComponents;
 
+import javax.swing.JCheckBox;
 import me.escapeNT.pail.Util.Localizable;
-import me.escapeNT.pail.config.WaypointConfig;
 import me.escapeNT.pail.Util.Util;
 import me.escapeNT.pail.Util.Waypoint;
-
+import me.escapeNT.pail.config.WaypointConfig;
 import org.bukkit.Bukkit;
+import org.bukkit.Location;
 import org.bukkit.entity.Player;
 
 /**
  * Player teleport interface.
+ *
  * @author escapeNT
  */
-public class TeleportPlayerView extends javax.swing.JDialog implements Localizable {
+public final class TeleportPlayerView extends javax.swing.JDialog implements Localizable {
+    private final String player;
 
-    private String player;
-
-    /** Creates new form TeleportPlayerView */
+    /**
+     * Creates new form TeleportPlayerView
+     */
     public TeleportPlayerView(String player) {
         super(Util.getPlugin().getMainWindow());
         this.player = player;
@@ -25,20 +28,20 @@ public class TeleportPlayerView extends javax.swing.JDialog implements Localizab
         setLocationRelativeTo(Util.getPlugin().getMainWindow());
         setModal(true);
         initComponents();
-        
-        for(Player p : Bukkit.getServer().getOnlinePlayers()) {
-            if(p != null && !p.getName().equals(player)) {
+
+        for (Player p : Bukkit.getServer().getOnlinePlayers()) {
+            if (p != null && !p.getName().equals(player)) {
                 locations.addItem(p.getName());
             }
         }
-        
+
         teleLabel.setText(Util.translate("Teleport " + player + " to:"));
         getRootPane().setDefaultButton(teleport);
         setResizable(false);
         setSize(400, 260);
 
-        for(Waypoint p : WaypointConfig.getWaypoints()) {
-            if(p != null) {
+        for (Waypoint p : WaypointConfig.getWaypoints()) {
+            if (p != null) {
                 waypoints.addItem(p);
             }
         }
@@ -48,8 +51,8 @@ public class TeleportPlayerView extends javax.swing.JDialog implements Localizab
         translateComponent();
     }
 
-    /** This method is called from within the constructor to
-     * initialize the form.
+    /**
+     * This method is called from within the constructor to initialize the form.
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -88,7 +91,7 @@ public class TeleportPlayerView extends javax.swing.JDialog implements Localizab
         getContentPane().add(teleLabel);
         teleLabel.setBounds(20, 20, 280, 16);
 
-        locations.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Spawn" }));
+        locations.setModel(new javax.swing.DefaultComboBoxModel(new String[]{"Spawn"}));
         getContentPane().add(locations);
         locations.setBounds(90, 50, 200, 27);
         getContentPane().add(jSeparator1);
@@ -114,37 +117,48 @@ public class TeleportPlayerView extends javax.swing.JDialog implements Localizab
     }//GEN-LAST:event_cancelActionPerformed
 
     private void teleportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_teleportActionPerformed
-        Player teleporter = Bukkit.getServer().getPlayer(player);
-        if(toWaypoint.isSelected()) {
-            Waypoint point = (Waypoint)waypoints.getSelectedItem();
-            if(point == null) {
+        final Object _loc;
+
+        if (toWaypoint.isSelected()) {
+            Waypoint point = (Waypoint) waypoints.getSelectedItem();
+            if (point == null) {
                 return;
             }
-            teleporter.teleport(point.getLocation());
-        }
-        else {
-            if(locations.getSelectedItem().toString().equals("Spawn")) {
-            teleporter.teleport(teleporter.getWorld().getSpawnLocation());
+            _loc = point.getLocation();
+            if (((Location) _loc).getWorld() == null) {
+                return;
             }
-            else {
-                Player teleportTo = Bukkit.getServer().getPlayer(locations.getSelectedItem().toString());
-                teleporter.teleport(teleportTo);
-            }
+        } else {
+            _loc = locations.getSelectedItem().toString();
         }
+
+        Util.dispatch(new Runnable() {
+            public void run() {
+                Player _player = Bukkit.getServer().getPlayerExact(player);
+                if (_loc instanceof Location) {
+                    _player.teleport((Location) _loc);
+                } else if (_loc.equals("Spawn")) {
+                    _player.teleport(_player.getWorld().getSpawnLocation());
+                } else {
+                    Player teleportTo = Bukkit.getServer().getPlayerExact(_loc.toString());
+                    if (teleportTo != null) {
+                        _player.teleport(teleportTo);
+                    }
+                }
+            }
+        });
         dispose();
     }//GEN-LAST:event_teleportActionPerformed
 
     private void toWaypointActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_toWaypointActionPerformed
-        if(toWaypoint.isSelected()) {
+        if (toWaypoint.isSelected()) {
             locations.setEnabled(false);
             waypoints.setEnabled(true);
-        }
-        else {
+        } else {
             locations.setEnabled(true);
             waypoints.setEnabled(false);
         }
     }//GEN-LAST:event_toWaypointActionPerformed
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton cancel;
     private javax.swing.JSeparator jSeparator1;
