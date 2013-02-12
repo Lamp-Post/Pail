@@ -74,8 +74,23 @@ public class PailLogHandler extends Handler {
                             || (s.startsWith("<") && s.contains(">")))), s.trim() + " ");
                 }
                 output.append(color, "\n");
+
+                if (record.getThrown() != null) {
+                    if (record.getThrown().getCause() != null) {
+                        print(color, record.getThrown().getCause(), "Caused by: ");
+                    } else {
+                        print(color, record.getThrown(), "");
+                    }
+                }
             }
         });
+    }
+
+    private void print(final Color color, final Throwable t, final String prefix) {
+        output.append(color, prefix + t + "\n");
+        for (StackTraceElement element : t.getStackTrace()) {
+            output.append(color, "\tat " + element + "\n");
+        }
     }
 
     public void flush() {
