@@ -2,13 +2,13 @@ Pail GUI
 The interface for and by the people
 
 What is it?
-Pail is a Java swing Graphical User Interface designed specifically for bukkit.
+Pail is a Java swing Graphical User Interface designed specifically for Sponge.
 
 Why is it different?
 Pail stands apart from other server GUIs in several ways.
 Pail is written as a plugin, meaning the same, simple drag-and-drop install server owners have come to know.
 Pail uses pure Java and no external libraries, eliminating the need for any dependencies.
-Pail is designed for bukkit servers, allowing more control than any vanilla server GUI.
+Pail is designed for Sponge servers, allowing more control than any vanilla server GUI.
 Pail is extensible! Other plugins can hook into Pail to add their own interfaces, creating a single place for server admins to manage their server and players.
 Pail is completely cross-platform.
 What can other plugins do?
