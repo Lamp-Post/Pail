@@ -24,7 +24,7 @@ public class ServerTaskOptions extends javax.swing.JPanel implements Localizable
         initComponents();
         translateComponent();
         for (ServerTask.Type t : ServerTask.Type.values()) {
-            ((DefaultComboBoxModel) action.getModel()).addElement(t);
+            ((DefaultComboBoxModel<Type>) action.getModel()).addElement(t);
         }
     }
 
@@ -39,7 +39,7 @@ public class ServerTaskOptions extends javax.swing.JPanel implements Localizable
 
         jLabel1.setText("Action");
 
-        action.setModel(new DefaultComboBoxModel());
+        action.setModel(new DefaultComboBoxModel<Type>());
 
         GroupLayout layout = new GroupLayout(this);
         this.setLayout(layout);
