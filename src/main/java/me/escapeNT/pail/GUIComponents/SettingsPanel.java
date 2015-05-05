@@ -238,7 +238,7 @@ public class SettingsPanel extends javax.swing.JPanel implements Localizable {
         survival = new javax.swing.JRadioButton();
         creative = new javax.swing.JRadioButton();
         jLabel10 = new javax.swing.JLabel();
-        difficulty = new javax.swing.JComboBox<String>();
+        difficulty = new javax.swing.JComboBox();
         jLabel11 = new javax.swing.JLabel();
         motd = new javax.swing.JTextField();
         craftVersion = new javax.swing.JLabel();
@@ -248,10 +248,10 @@ public class SettingsPanel extends javax.swing.JPanel implements Localizable {
         tabActivationPanel = new me.escapeNT.pail.GUIComponents.TabActivationPanel();
         reload = new javax.swing.JButton();
         autoUpdate = new javax.swing.JCheckBox();
-        themes = new javax.swing.JComboBox<String>();
+        themes = new javax.swing.JComboBox();
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
-        language = new javax.swing.JComboBox<String>();
+        language = new javax.swing.JComboBox();
         applyLang = new javax.swing.JButton();
 
         settingsTabs.setTabLayoutPolicy(javax.swing.JTabbedPane.SCROLL_TAB_LAYOUT);
@@ -333,7 +333,7 @@ public class SettingsPanel extends javax.swing.JPanel implements Localizable {
 
         jLabel10.setText("Difficulty");
 
-        difficulty.setModel(new javax.swing.DefaultComboBoxModel<String>(new String[]{"Peaceful", "Easy", "Normal", "Hard"}));
+        difficulty.setModel(new javax.swing.DefaultComboBoxModel(new String[]{"Peaceful", "Easy", "Normal", "Hard"}));
 
         jLabel11.setText("MOTD");
 
@@ -688,7 +688,7 @@ public class SettingsPanel extends javax.swing.JPanel implements Localizable {
     private javax.swing.JCheckBox autoUpdate;
     private javax.swing.JLabel craftVersion;
     private javax.swing.JRadioButton creative;
-    private javax.swing.JComboBox<String> difficulty;
+    private javax.swing.JComboBox difficulty;
     private javax.swing.JCheckBox flight;
     private javax.swing.ButtonGroup gameMode;
     private javax.swing.JTextField ip;
@@ -706,7 +706,7 @@ public class SettingsPanel extends javax.swing.JPanel implements Localizable {
     private javax.swing.JLayeredPane jLayeredPane1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JComboBox<String> language;
+    private javax.swing.JComboBox language;
     private javax.swing.JSpinner maxPlayers;
     private javax.swing.JTextField motd;
     private javax.swing.JCheckBox nether;
@@ -723,7 +723,7 @@ public class SettingsPanel extends javax.swing.JPanel implements Localizable {
     private javax.swing.JCheckBox spawnMonsters;
     private javax.swing.JRadioButton survival;
     private me.escapeNT.pail.GUIComponents.TabActivationPanel tabActivationPanel;
-    private javax.swing.JComboBox<String> themes;
+    private javax.swing.JComboBox themes;
     private javax.swing.JLabel update;
     private javax.swing.JSpinner viewDistance;
     private javax.swing.JCheckBox whitelist;

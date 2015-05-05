@@ -35,7 +35,7 @@ public class ServerTaskOptions extends javax.swing.JPanel implements Localizable
     private void initComponents() {
 
         jLabel1 = new JLabel();
-        action = new JComboBox<Type>();
+        action = new JComboBox();
 
         jLabel1.setText("Action");
 
@@ -65,7 +65,7 @@ public class ServerTaskOptions extends javax.swing.JPanel implements Localizable
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private JComboBox<Type> action;
+    private JComboBox action;
     private JLabel jLabel1;
     // End of variables declaration//GEN-END:variables
 
@@ -77,7 +77,7 @@ public class ServerTaskOptions extends javax.swing.JPanel implements Localizable
      * Type selector.
      * @return the action
      */
-    public JComboBox<Type> getAction() {
+    public JComboBox getAction() {
         return action;
     }
 }
