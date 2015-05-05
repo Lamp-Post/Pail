@@ -2,16 +2,16 @@ package me.escapeNT.pail.GUIComponents;
 
 import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
+
+import org.spongepowered.api.entity.player.Player;
+import org.spongepowered.api.world.Location;
+import org.spongepowered.api.world.World;
+
+import me.escapeNT.pail.Pail;
 import me.escapeNT.pail.Util.Localizable;
 import me.escapeNT.pail.Util.Util;
-
 import me.escapeNT.pail.config.WaypointConfig;
 import me.escapeNT.pail.Util.Waypoint;
-
-import org.bukkit.Bukkit;
-import org.bukkit.Location;
-import org.bukkit.World;
-import org.bukkit.entity.Player;
 
 /**
  * Panel for editing teleport waypoints.
@@ -26,18 +26,18 @@ public class WaypointEditPanel extends javax.swing.JPanel implements Localizable
         initComponents();
         WaypointConfig.load();
 
-        for (Player p : Bukkit.getServer().getOnlinePlayers()) {
+        for (Player p : Pail.getServer().getOnlinePlayers()) {
             players.addItem(p.getName());
         }
 
-        for (World w : Bukkit.getServer().getWorlds()) {
+        for (World w : Pail.getServer().getWorlds()) {
             // TODO: Update this list...
             worlds.addItem(w.getName());
         }
 
-        ((DefaultListModel) waypoints.getModel()).clear();
+        ((DefaultListModel<Waypoint>) waypoints.getModel()).clear();
         for (Waypoint wp : WaypointConfig.getWaypoints()) {
-            ((DefaultListModel) waypoints.getModel()).addElement(wp);
+            ((DefaultListModel<Waypoint>) waypoints.getModel()).addElement(wp);
         }
         waypoints.setSelectedIndex(0);
 
@@ -67,7 +67,7 @@ public class WaypointEditPanel extends javax.swing.JPanel implements Localizable
             players.setEnabled(true);
             playerSubmit.setEnabled(true);
 
-            Waypoint p = (Waypoint) waypoints.getSelectedValue();
+            Waypoint p = waypoints.getSelectedValue();
             Location l = p.getLocation();
 
             x.setValue(l.getBlockX());
@@ -81,13 +81,12 @@ public class WaypointEditPanel extends javax.swing.JPanel implements Localizable
     /**
      * This method is called from within the constructor to initialize the form.
      */
-    @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        waypoints = new javax.swing.JList();
+        waypoints = new javax.swing.JList<Waypoint>();
         addWaypoint = new javax.swing.JButton();
         removeWaypoint = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
@@ -97,18 +96,18 @@ public class WaypointEditPanel extends javax.swing.JPanel implements Localizable
         x = new javax.swing.JSpinner();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        worlds = new javax.swing.JComboBox();
+        worlds = new javax.swing.JComboBox<String>();
         save = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
         name = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
-        players = new javax.swing.JComboBox();
+        players = new javax.swing.JComboBox<String>();
         playerSubmit = new javax.swing.JButton();
         jSeparator1 = new javax.swing.JSeparator();
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Waypoints"));
 
-        waypoints.setModel(new DefaultListModel());
+        waypoints.setModel(new DefaultListModel<Waypoint>());
         waypoints.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
             public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
                 waypointsValueChanged(evt);
@@ -271,17 +270,17 @@ public class WaypointEditPanel extends javax.swing.JPanel implements Localizable
     }// </editor-fold>//GEN-END:initComponents
 
     private void addWaypointActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addWaypointActionPerformed
-        Waypoint point = new Waypoint("waypoint", new Location(Bukkit.getServer().getWorlds().get(0), 0, 0, 0));
+        Waypoint point = new Waypoint("waypoint", new Location(null, 0, 0, 0), Pail.getServer().getWorld(Pail.getServer().getAllWorldProperties().iterator().next().getWorldName()).get()); //TODO verify
         WaypointConfig.getWaypoints().add(point);
-        ((DefaultListModel) waypoints.getModel()).addElement(point);
+        ((DefaultListModel<Waypoint>) waypoints.getModel()).addElement(point);
         waypoints.setSelectedValue(point, true);
         updateFields();
     }//GEN-LAST:event_addWaypointActionPerformed
 
     private void removeWaypointActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removeWaypointActionPerformed
         if (waypoints.getSelectedValue() != null) {
-            Waypoint point = (Waypoint) waypoints.getSelectedValue();
-            ((DefaultListModel) waypoints.getModel()).removeElement(point);
+            Waypoint point = waypoints.getSelectedValue();
+            ((DefaultListModel<Waypoint>) waypoints.getModel()).removeElement(point);
             WaypointConfig.getWaypoints().remove(point);
             WaypointConfig.save();
             updateFields();
@@ -292,7 +291,7 @@ public class WaypointEditPanel extends javax.swing.JPanel implements Localizable
         if (getPlayers().getSelectedItem() == null) {
             return;
         }
-        Player p = Bukkit.getServer().getPlayer(getPlayers().getSelectedItem().toString());
+        Player p = Pail.getServer().getPlayer(getPlayers().getSelectedItem().toString()).get();
         if (p == null) {
             getPlayers().removeItem(getPlayers().getSelectedItem());
             return;
@@ -302,11 +301,11 @@ public class WaypointEditPanel extends javax.swing.JPanel implements Localizable
         x.setValue(l.getBlockX());
         y.setValue(l.getBlockY());
         z.setValue(l.getBlockZ());
-        worlds.setSelectedItem(l.getWorld().getName());
+        worlds.setSelectedItem(p.getWorld().getName());
     }//GEN-LAST:event_playerSubmitActionPerformed
 
     private void saveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveActionPerformed
-        Waypoint p = (Waypoint) waypoints.getSelectedValue();
+        Waypoint p = waypoints.getSelectedValue();
         p.setName(name.getText());
         p.setWorld(worlds.getSelectedItem().toString());
         p.setX((Integer) x.getValue());
@@ -336,11 +335,11 @@ public class WaypointEditPanel extends javax.swing.JPanel implements Localizable
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JTextField name;
     private javax.swing.JButton playerSubmit;
-    private javax.swing.JComboBox players;
+    private javax.swing.JComboBox<String> players;
     private javax.swing.JButton removeWaypoint;
     private javax.swing.JButton save;
-    private javax.swing.JList waypoints;
-    private javax.swing.JComboBox worlds;
+    private javax.swing.JList<Waypoint> waypoints;
+    private javax.swing.JComboBox<String> worlds;
     private javax.swing.JSpinner x;
     private javax.swing.JSpinner y;
     private javax.swing.JSpinner z;
@@ -349,7 +348,7 @@ public class WaypointEditPanel extends javax.swing.JPanel implements Localizable
     /**
      * @return the players
      */
-    public javax.swing.JComboBox getPlayers() {
+    public javax.swing.JComboBox<String> getPlayers() {
         return players;
     }
 

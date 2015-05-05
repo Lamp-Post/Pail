@@ -39,7 +39,7 @@ public class PailLogHandler extends Handler {
             public void run() {
                 PailLogHandler.lastMessage = "";
             }
-        }, TimeUnit.SECONDS, 10, 10);
+        }, TimeUnit.MILLISECONDS, 10, 10);
     }
 
     public synchronized void publish(final LogRecord record) {

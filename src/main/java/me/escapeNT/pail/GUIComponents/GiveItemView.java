@@ -1,17 +1,23 @@
 package me.escapeNT.pail.GUIComponents;
 
 import com.google.api.translate.Language;
+
 import java.awt.Dialog;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
+
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
+
+import org.spongepowered.api.block.BlockType;
+import org.spongepowered.api.block.BlockTypes;
+
+import me.escapeNT.pail.Pail;
 import me.escapeNT.pail.Util.Localizable;
 import me.escapeNT.pail.Util.Util;
 import me.escapeNT.pail.config.General;
-import org.bukkit.Material;
 
 /**
  * Interface for giving items.
@@ -63,8 +69,8 @@ public class GiveItemView extends javax.swing.JDialog implements Localizable {
     private List<String> sortMatNames() {
         List<String> names = new ArrayList<String>();
 
-        for (Material mat : Material.values()) {
-            if (mat != Material.AIR) {
+        for (BlockType mat : Pail.getGame().getRegistry().getAllOf(BlockType.class)) {
+            if (mat != BlockTypes.AIR) {
                 names.add(mat.toString());
             }
         }
@@ -134,7 +140,7 @@ public class GiveItemView extends javax.swing.JDialog implements Localizable {
     }//GEN-LAST:event_cancelActionPerformed
 
     private void giveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_giveActionPerformed
-        Util.dispatchCommand("give " + player + " " + Material.getMaterial(item.getSelectedItem().toString()).getId() + " " + amount.getValue().toString());
+        Util.dispatchCommand("give " + player + " " + Pail.getGame().getRegistry().getType(BlockType.class, item.getSelectedItem().toString()).get().getId() + " " + amount.getValue().toString());
         dispose();
     }//GEN-LAST:event_giveActionPerformed
     // Variables declaration - do not modify//GEN-BEGIN:variables

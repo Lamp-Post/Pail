@@ -2,6 +2,7 @@ package me.escapeNT.pail.Util;
 
 import com.google.api.translate.Language;
 import com.google.api.translate.Translate;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
@@ -14,17 +15,19 @@ import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
+
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
+
+import org.spongepowered.api.util.command.source.ConsoleSource;
+
 import me.escapeNT.pail.GUIComponents.FileMenu;
 import me.escapeNT.pail.GUIComponents.ServerControlPanel;
 import me.escapeNT.pail.Pail;
 import me.escapeNT.pail.config.General;
-import org.bukkit.Bukkit;
-import org.bukkit.command.ConsoleCommandSender;
 
 /**
  * Various static utility methods.
@@ -51,7 +54,8 @@ public final class Util {
             RandomAccessFile fileReader = new RandomAccessFile(file, "r");
             fileReader.seek(fileReader.length());
         } catch (IOException ex) {
-            getPlugin().getLogger().throwing("Util", "readLastLines", ex);
+            getPlugin();
+			Pail.getLogger().throwing("Util", "readLastLines", ex);
         }
         return lines;
     }
@@ -59,13 +63,13 @@ public final class Util {
     public static void dispatchCommand(final String command) {
         dispatch(new Runnable() {
             public void run() {
-                Bukkit.dispatchCommand(getConsoleSender(), command);
+                Pail.getGame().getCommandDispatcher().process(getConsoleSender(), command);
             }
         });
     }
 
     public static void dispatch(final Runnable runnable) {
-        Bukkit.getScheduler().runTask(plugin, runnable);
+        Pail.getGame().getAsyncScheduler().runTask(plugin, runnable);
     }
 
     /**
@@ -84,7 +88,8 @@ public final class Util {
      * @param message The message to send.
      */
     public static void log(Level level, Object message) {
-        getPlugin().getLogger().log(level, message.toString());
+        getPlugin();
+		Pail.getLogger().log(level, message.toString());
     }
 
     /**
@@ -136,7 +141,8 @@ public final class Util {
             addDir(dir, out);
             out.close();
         } catch (IOException e) {
-            getPlugin().getLogger().throwing("Util", "zipDir", e);
+            getPlugin();
+			Pail.getLogger().throwing("Util", "zipDir", e);
         }
     }
 
@@ -225,7 +231,7 @@ public final class Util {
         c.setText(Util.translate(c.getText()));
     }
 
-    public static ConsoleCommandSender getConsoleSender() {
-        return Bukkit.getServer().getConsoleSender();
+    public static ConsoleSource getConsoleSender() {
+        return Pail.getServer().getConsole();
     }
 }

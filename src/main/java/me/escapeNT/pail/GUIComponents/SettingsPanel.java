@@ -3,21 +3,31 @@ package me.escapeNT.pail.GUIComponents;
 import com.feildmaster.bukkit.api.BukkitAPI;
 import com.feildmaster.bukkit.api.BukkitArtifact;
 import com.google.api.translate.Language;
+
 import java.awt.Color;
 import java.awt.GridLayout;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.io.BufferedReader;
 import java.io.FileReader;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 import javax.swing.JCheckBox;
 import javax.swing.JOptionPane;
 import javax.swing.LookAndFeel;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 import javax.swing.UIManager.LookAndFeelInfo;
+
+import org.spongepowered.api.Server;
+import org.spongepowered.api.entity.player.gamemode.GameMode;
+import org.spongepowered.api.entity.player.gamemode.GameModes;
+import org.spongepowered.api.world.World;
+import org.spongepowered.api.world.storage.WorldProperties;
+
 import me.escapeNT.pail.Pail;
 import me.escapeNT.pail.Util.Localizable;
 import me.escapeNT.pail.Util.UpdateHandler;
@@ -25,10 +35,6 @@ import me.escapeNT.pail.Util.Util;
 import me.escapeNT.pail.config.General;
 import me.escapeNT.pail.config.PanelConfig;
 import me.escapeNT.pail.config.ServerConfigHandler;
-import org.bukkit.Bukkit;
-import org.bukkit.GameMode;
-import org.bukkit.Server;
-import org.bukkit.World;
 
 /**
  * Panel for editing server settings.
@@ -85,7 +91,7 @@ public class SettingsPanel extends javax.swing.JPanel implements Localizable {
 
         for (LookAndFeelInfo laf : UIManager.getInstalledLookAndFeels()) {
             try {
-                Class feel = Class.forName(laf.getClassName());
+                Class<?> feel = Class.forName(laf.getClassName());
                 if (((LookAndFeel) feel.newInstance()).isSupportedLookAndFeel()) {
                     themes.addItem(laf.getName());
                     if (laf.getClassName().equals(General.getLookAndFeel())) {
@@ -104,7 +110,7 @@ public class SettingsPanel extends javax.swing.JPanel implements Localizable {
 
     private String parseCraftVersion() {
         try {
-            String v = Bukkit.getServer().getVersion();
+            String v = Pail.getGame().getApiVersion();
             return v.substring(v.indexOf("jnks") - 4, v.indexOf("jnks"));
         } catch (Exception ex) {
             return "Unknown";
@@ -169,12 +175,12 @@ public class SettingsPanel extends javax.swing.JPanel implements Localizable {
         }
         // End temp fix
 
-        Server s = Bukkit.getServer();
-        World main = s.getWorlds().get(0);
+        Server s = Pail.getServer();
+        WorldProperties worldProperties = (WorldProperties) s.getAllWorldProperties().toArray()[0];
 
-        worldName.setText(main.getName());
+        worldName.setText(main.getWorldName());
         seed.setText(new Long(main.getSeed()).toString());
-        ip.setText(s.getIp());
+        ip.setText(s.getBoundAddress().get().getHostString());
 
         nether.setSelected(s.getAllowNether());
         spawnMonsters.setSelected(main.getAllowMonsters());
@@ -185,13 +191,13 @@ public class SettingsPanel extends javax.swing.JPanel implements Localizable {
         whitelist.setSelected(s.hasWhitelist());
 
         viewDistance.setValue(s.getViewDistance());
-        port.setValue(s.getPort());
+        port.setValue(s.getBoundAddress().get().getPort());
         maxPlayers.setValue(s.getMaxPlayers());
 
         motd.setText(smotd);
         difficulty.setSelectedItem(diff);
 
-        boolean c = s.getDefaultGameMode() == GameMode.CREATIVE;
+        boolean c = worldProperties.getGameMode() == GameModes.CREATIVE;
         creative.setSelected(c);
         survival.setSelected(!c);
     }
@@ -232,7 +238,7 @@ public class SettingsPanel extends javax.swing.JPanel implements Localizable {
         survival = new javax.swing.JRadioButton();
         creative = new javax.swing.JRadioButton();
         jLabel10 = new javax.swing.JLabel();
-        difficulty = new javax.swing.JComboBox();
+        difficulty = new javax.swing.JComboBox<String>();
         jLabel11 = new javax.swing.JLabel();
         motd = new javax.swing.JTextField();
         craftVersion = new javax.swing.JLabel();
@@ -242,10 +248,10 @@ public class SettingsPanel extends javax.swing.JPanel implements Localizable {
         tabActivationPanel = new me.escapeNT.pail.GUIComponents.TabActivationPanel();
         reload = new javax.swing.JButton();
         autoUpdate = new javax.swing.JCheckBox();
-        themes = new javax.swing.JComboBox();
+        themes = new javax.swing.JComboBox<String>();
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
-        language = new javax.swing.JComboBox();
+        language = new javax.swing.JComboBox<String>();
         applyLang = new javax.swing.JButton();
 
         settingsTabs.setTabLayoutPolicy(javax.swing.JTabbedPane.SCROLL_TAB_LAYOUT);
@@ -327,7 +333,7 @@ public class SettingsPanel extends javax.swing.JPanel implements Localizable {
 
         jLabel10.setText("Difficulty");
 
-        difficulty.setModel(new javax.swing.DefaultComboBoxModel(new String[]{"Peaceful", "Easy", "Normal", "Hard"}));
+        difficulty.setModel(new javax.swing.DefaultComboBoxModel<String>(new String[]{"Peaceful", "Easy", "Normal", "Hard"}));
 
         jLabel11.setText("MOTD");
 
@@ -682,7 +688,7 @@ public class SettingsPanel extends javax.swing.JPanel implements Localizable {
     private javax.swing.JCheckBox autoUpdate;
     private javax.swing.JLabel craftVersion;
     private javax.swing.JRadioButton creative;
-    private javax.swing.JComboBox difficulty;
+    private javax.swing.JComboBox<String> difficulty;
     private javax.swing.JCheckBox flight;
     private javax.swing.ButtonGroup gameMode;
     private javax.swing.JTextField ip;
@@ -700,7 +706,7 @@ public class SettingsPanel extends javax.swing.JPanel implements Localizable {
     private javax.swing.JLayeredPane jLayeredPane1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JComboBox language;
+    private javax.swing.JComboBox<String> language;
     private javax.swing.JSpinner maxPlayers;
     private javax.swing.JTextField motd;
     private javax.swing.JCheckBox nether;
@@ -717,7 +723,7 @@ public class SettingsPanel extends javax.swing.JPanel implements Localizable {
     private javax.swing.JCheckBox spawnMonsters;
     private javax.swing.JRadioButton survival;
     private me.escapeNT.pail.GUIComponents.TabActivationPanel tabActivationPanel;
-    private javax.swing.JComboBox themes;
+    private javax.swing.JComboBox<String> themes;
     private javax.swing.JLabel update;
     private javax.swing.JSpinner viewDistance;
     private javax.swing.JCheckBox whitelist;
@@ -734,7 +740,7 @@ public class SettingsPanel extends javax.swing.JPanel implements Localizable {
     /**
      * @return the theme
      */
-    public javax.swing.JComboBox getThemes() {
+    public javax.swing.JComboBox<String> getThemes() {
         return themes;
     }
 

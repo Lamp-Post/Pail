@@ -7,10 +7,16 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.HashMap;
+import java.util.UUID;
 import java.util.logging.Level;
+
+import org.spongepowered.api.service.scheduler.SynchronousScheduler;
+import org.spongepowered.api.service.scheduler.Task;
+
+import com.google.common.base.Optional;
+
+import me.escapeNT.pail.Pail;
 import me.escapeNT.pail.Util.Util;
-import org.bukkit.Bukkit;
-import org.bukkit.scheduler.BukkitScheduler;
 
 /**
  * Registers and executes all scheduled tasks.
@@ -19,8 +25,8 @@ import org.bukkit.scheduler.BukkitScheduler;
  */
 public class Scheduler {
     private static HashMap<ScheduledTask, Boolean> tasks = new HashMap<ScheduledTask, Boolean>();
-    private static HashMap<ScheduledTask, Integer> taskIDs = new HashMap<ScheduledTask, Integer>();
-    private static final BukkitScheduler bs = Bukkit.getServer().getScheduler();
+    private static HashMap<ScheduledTask, UUID> taskIDs = new HashMap<ScheduledTask, UUID>();
+    private static final SynchronousScheduler bs = Pail.getGame().getSyncScheduler();
     private static final File file = new File(Util.getPlugin().getDataFolder(), "tasks.dat");
 
     /**
@@ -38,23 +44,23 @@ public class Scheduler {
             return;
         }
 
-        int id;
+        UUID taskId;
         if (task.isRepeating()) {
-            id = bs.scheduleSyncRepeatingTask(Util.getPlugin(), new Runnable() {
+            taskId = bs.runRepeatingTaskAfter(Util.getPlugin(), new Runnable() {
                 public void run() {
                     task.execute();
                     tasks.put(task, Boolean.TRUE);
                 }
-            }, task.getInterval(), task.getInterval());
+            }, task.getInterval(), task.getInterval()).get().getUniqueId();
         } else {
-            id = bs.scheduleSyncDelayedTask(Util.getPlugin(), new Runnable() {
+            taskId = bs.runTaskAfter(Util.getPlugin(), new Runnable() {
                 public void run() {
                     task.execute();
                     tasks.put(task, Boolean.TRUE);
                 }
-            }, task.getInterval());
+            }, task.getInterval()).get().getUniqueId();
         }
-        taskIDs.put(task, id);
+        taskIDs.put(task, taskId);
     }
 
     /**
@@ -98,12 +104,13 @@ public class Scheduler {
     /**
      * Loads the saved list of tasks.
      */
-    public static void loadTasks() {
+    @SuppressWarnings("unchecked")
+	public static void loadTasks() {
         if (!file.exists()) {
             saveTasks();
         }
-        for (Integer i : taskIDs.values()) {
-            bs.cancelTask(i);
+        for (UUID taskId : taskIDs.values()) {
+            bs.getTaskById(taskId).get().cancel();
         }
         try {
             FileInputStream fis = new FileInputStream(file);
@@ -117,23 +124,23 @@ public class Scheduler {
             if (!task.isEnabled()) {
                 continue;
             }
-            int id;
+            UUID taskId;
             if (task.isRepeating()) {
-                id = bs.scheduleSyncRepeatingTask(Util.getPlugin(), new Runnable() {
+                taskId = bs.runRepeatingTaskAfter(Util.getPlugin(), new Runnable() {
                     public void run() {
                         task.execute();
                         tasks.put(task, Boolean.TRUE);
                     }
-                }, task.getInterval(), task.getInterval());
+                }, task.getInterval(), task.getInterval()).get().getUniqueId();
             } else {
-                id = bs.scheduleSyncDelayedTask(Util.getPlugin(), new Runnable() {
+                taskId = bs.runTaskAfter(Util.getPlugin(), new Runnable() {
                     public void run() {
                         task.execute();
                         tasks.put(task, Boolean.TRUE);
                     }
-                }, task.getInterval());
+                }, task.getInterval()).get().getUniqueId();
             }
-            taskIDs.put(task, id);
+            taskIDs.put(task, taskId);
         }
     }
 
@@ -160,7 +167,7 @@ public class Scheduler {
     public void removeTask(String name) {
         for (ScheduledTask t : tasks.keySet()) {
             if (t.getName().equals(name)) {
-                bs.cancelTask(taskIDs.get(t));
+                bs.getTaskById(taskIDs.get(t)).get().cancel();
                 taskIDs.remove(t);
                 tasks.remove(t);
                 return;

@@ -10,6 +10,7 @@ import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.net.URL;
 import java.util.HashMap;
+
 import javax.imageio.ImageIO;
 import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
@@ -17,11 +18,13 @@ import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPopupMenu;
 import javax.swing.border.TitledBorder;
+
+import org.spongepowered.api.data.manipulators.entities.HealthData;
+import org.spongepowered.api.entity.player.Player;
+
+import me.escapeNT.pail.Pail;
 import me.escapeNT.pail.Util.Localizable;
 import me.escapeNT.pail.Util.Util;
-import org.bukkit.Bukkit;
-import org.bukkit.entity.Player;
-import org.bukkit.event.entity.EntityDamageEvent;
 
 /**
  * Panel containing the basic server controls.
@@ -156,14 +159,14 @@ public final class ServerControlPanel extends javax.swing.JPanel implements Loca
                 if (r.contains(e.getPoint())) {
                     playerList.setSelectedIndex(i);
 
-                    Player p = Bukkit.getServer().getPlayer((String) playerList.getSelectedValue());
-                    if (p.isOp()) {
+                    //Player p = Pail.getServer().getPlayer((String) playerList.getSelectedValue()).get();
+                    // if (p.isOp()) {
                         op.setEnabled(false);
-                        deop.setEnabled(true);
-                    } else {
-                        op.setEnabled(true);
+                    //    deop.setEnabled(true);  //TODO Not Implemented yet by Sponge
+                    //} else {
+                    //    op.setEnabled(true);
                         deop.setEnabled(false);
-                    }
+                    //}
 
                     playerMenu.show(playerList, e.getX(), e.getY());
                     break;
@@ -191,9 +194,9 @@ public final class ServerControlPanel extends javax.swing.JPanel implements Loca
         public void actionPerformed(ActionEvent e) {
             Util.dispatch(new Runnable() {
                 public void run() {
-                    Player p = Bukkit.getServer().getPlayer(playerList.getSelectedValue().toString());
-                    p.setHealth(0);
-                    p.setLastDamageCause(new EntityDamageEvent(p, EntityDamageEvent.DamageCause.SUICIDE, 1000));
+                    Player p = Pail.getServer().getPlayer(playerList.getSelectedValue().toString()).get();
+                    p.getOrCreate(HealthData.class).get().setHealth(0);
+                    //TODO not implemented by Sponge p.setLastDamageCause(new EntityDamageEvent(p, EntityDamageEvent.DamageCause.SUICIDE, 1000));
                 }
             });
         }

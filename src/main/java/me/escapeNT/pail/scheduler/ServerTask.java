@@ -1,7 +1,7 @@
 package me.escapeNT.pail.scheduler;
 
+import me.escapeNT.pail.Pail;
 import me.escapeNT.pail.Util.Util;
-import org.bukkit.Bukkit;
 
 /**
  * Class representing a scheduled server task.
@@ -39,7 +39,7 @@ public class ServerTask implements ScheduledTask {
 
     public void execute() {
         // This shuold already be syncronous
-        Bukkit.getServer().dispatchCommand(Util.getConsoleSender(), type.getCommand());
+        Pail.getGame().getCommandDispatcher().process(Util.getConsoleSender(), type.getCommand());
     }
 
     public boolean isEnabled() {

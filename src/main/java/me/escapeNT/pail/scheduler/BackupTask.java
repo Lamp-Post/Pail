@@ -3,10 +3,11 @@ package me.escapeNT.pail.scheduler;
 import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+
+import org.spongepowered.api.world.World;
+
+import me.escapeNT.pail.Pail;
 import me.escapeNT.pail.Util.Util;
-import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
-import org.bukkit.World;
 
 /**
  * Class representing a scheduled world backup task.
@@ -58,17 +59,17 @@ public class BackupTask implements ScheduledTask {
         if (!backupFolder.exists()) {
             backupFolder.mkdir();
         }
-        Bukkit.getServer().getScheduler().runTaskAsynchronously(Util.getPlugin(), new Runnable() {
+        Pail.getServer().getScheduler().runTaskAsynchronously(Util.getPlugin(), new Runnable() {
             public void run() {
                 Util.log("Starting scheduled backup for " + world);
                 if (broadcast) {
-                    Bukkit.getServer().broadcastMessage(ChatColor.GRAY + "Scheduled backup is starting for " + world);
+                    Pail.getServer().broadcastMessage(ChatColor.GRAY + "Scheduled backup is starting for " + world);
                 }
                 long start = System.currentTimeMillis();
                 Util.zipDir(worldFolder, backup);
                 int seconds = (int) (System.currentTimeMillis() - start) / 1000;
                 if (broadcast) {
-                    Bukkit.getServer().broadcastMessage(ChatColor.GRAY + "Scheduled backup completed for " + world);
+                    Pail.getServer().broadcastMessage(ChatColor.GRAY + "Scheduled backup completed for " + world);
                 }
                 Util.log("Backup completed in " + seconds + (seconds == 1 ? " second" : " seconds") + " for " + world);
             }

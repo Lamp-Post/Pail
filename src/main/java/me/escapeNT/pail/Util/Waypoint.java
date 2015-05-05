@@ -3,8 +3,10 @@ package me.escapeNT.pail.Util;
 
 import java.io.Serializable;
 
-import org.bukkit.Bukkit;
-import org.bukkit.Location;
+import me.escapeNT.pail.Pail;
+
+import org.spongepowered.api.world.Location;
+import org.spongepowered.api.world.World;
 
 /**
  * Class for storing location data about a waypoint.
@@ -22,11 +24,11 @@ public class Waypoint implements Serializable {
      * Constructs a new Waypoint from the specified Location,
      * @param loc The Location of the waypoint.
      */
-    public Waypoint(String name, Location loc) {
+    public Waypoint(String name, Location loc, World world) {
         this.x = loc.getBlockX();
         this.y = loc.getBlockY();
         this.z = loc.getBlockZ();
-        this.world = loc.getWorld().getName();
+        this.world = world.getName();
         this.name = name;
     }
 
@@ -35,7 +37,7 @@ public class Waypoint implements Serializable {
      * @return The Location of the waypoint.
      */
     public Location getLocation() {
-        return new Location(Bukkit.getServer().getWorld(world), x, y, z);
+        return new Location(Pail.getServer().getWorld(world).get(), x, y, z);
     }
 
     public String getWorld() {

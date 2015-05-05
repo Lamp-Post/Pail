@@ -11,6 +11,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 import javax.swing.ImageIcon;
 import javax.swing.JCheckBoxMenuItem;
 import javax.swing.JFileChooser;
@@ -19,10 +20,12 @@ import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.KeyStroke;
 import javax.swing.text.Document;
+
+import org.spongepowered.api.world.World;
+
+import me.escapeNT.pail.Pail;
 import me.escapeNT.pail.Util.Localizable;
 import me.escapeNT.pail.Util.Util;
-import org.bukkit.Bukkit;
-import org.bukkit.World;
 
 /**
  * Class representing the File dropdown menu.
@@ -91,7 +94,7 @@ public class FileMenu extends JMenu implements Localizable {
         backup.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 List<String> worlds = new ArrayList<String>();
-                for (World w : Bukkit.getServer().getWorlds()) {
+                for (World w : Pail.getServer().getWorlds()) {
                     worlds.add(w.getName());
                 }
 
@@ -110,7 +113,7 @@ public class FileMenu extends JMenu implements Localizable {
                 if (!backupFolder.exists()) {
                     backupFolder.mkdir();
                 }
-                Bukkit.getServer().getScheduler().runTaskAsynchronously(Util.getPlugin(), new Runnable() {
+                Pail.getGame().getAsyncScheduler().runTask(Util.getPlugin(), new Runnable() {
                     public void run() {
                         Util.log("Starting backup for " + worldName);
                         long start = System.currentTimeMillis();

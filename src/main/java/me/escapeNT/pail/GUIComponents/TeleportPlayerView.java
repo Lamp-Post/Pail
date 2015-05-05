@@ -1,13 +1,14 @@
 package me.escapeNT.pail.GUIComponents;
 
-import javax.swing.JCheckBox;
+import org.spongepowered.api.data.manipulators.entities.RespawnLocationData;
+import org.spongepowered.api.entity.player.Player;
+import org.spongepowered.api.world.Location;
+
+import me.escapeNT.pail.Pail;
 import me.escapeNT.pail.Util.Localizable;
 import me.escapeNT.pail.Util.Util;
 import me.escapeNT.pail.Util.Waypoint;
 import me.escapeNT.pail.config.WaypointConfig;
-import org.bukkit.Bukkit;
-import org.bukkit.Location;
-import org.bukkit.entity.Player;
 
 /**
  * Player teleport interface.
@@ -29,7 +30,7 @@ public final class TeleportPlayerView extends javax.swing.JDialog implements Loc
         setModal(true);
         initComponents();
 
-        for (Player p : Bukkit.getServer().getOnlinePlayers()) {
+        for (Player p : Pail.getServer().getOnlinePlayers()) {
             if (p != null && !p.getName().equals(player)) {
                 locations.addItem(p.getName());
             }
@@ -54,16 +55,15 @@ public final class TeleportPlayerView extends javax.swing.JDialog implements Loc
     /**
      * This method is called from within the constructor to initialize the form.
      */
-    @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
         teleport = new javax.swing.JButton();
         cancel = new javax.swing.JButton();
         teleLabel = new javax.swing.JLabel();
-        locations = new javax.swing.JComboBox();
+        locations = new javax.swing.JComboBox<String>();
         jSeparator1 = new javax.swing.JSeparator();
-        waypoints = new javax.swing.JComboBox();
+        waypoints = new javax.swing.JComboBox<Waypoint>();
         toWaypoint = new javax.swing.JCheckBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -91,7 +91,7 @@ public final class TeleportPlayerView extends javax.swing.JDialog implements Loc
         getContentPane().add(teleLabel);
         teleLabel.setBounds(20, 20, 280, 16);
 
-        locations.setModel(new javax.swing.DefaultComboBoxModel(new String[]{"Spawn", "Bed"}));
+        locations.setModel(new javax.swing.DefaultComboBoxModel<String>(new String[]{"Spawn", "Bed"}));
         getContentPane().add(locations);
         locations.setBounds(90, 50, 200, 27);
         getContentPane().add(jSeparator1);
@@ -125,7 +125,7 @@ public final class TeleportPlayerView extends javax.swing.JDialog implements Loc
                 return;
             }
             _loc = point.getLocation();
-            if (((Location) _loc).getWorld() == null) {
+            if (point.getWorld() == null) {
                 return;
             }
         } else {
@@ -135,16 +135,16 @@ public final class TeleportPlayerView extends javax.swing.JDialog implements Loc
         Util.dispatch(new Runnable() {
             public void run() {
                 Location l;
-                Player _player = Bukkit.getServer().getPlayerExact(player);
+                Player _player = Pail.getServer().getPlayer(player).get();
                 if (_loc instanceof Location) {
                     l = (Location) _loc;
-                    _player.teleport((Location) _loc);
+                    _player.setLocation((Location) _loc);
                 } else if (_loc.equals("Spawn")) {
                     l = _player.getWorld().getSpawnLocation();
                 } else if (_loc.equals("Bed")) {
-                    l = _player.getBedSpawnLocation();
+                    l = _player.getData(RespawnLocationData.class).get().getRespawnLocation();
                 } else {
-                    Player p = Bukkit.getServer().getPlayerExact(_loc.toString());
+                    Player p = Pail.getServer().getPlayer(_loc.toString()).get();
                     if (p != null) {
                         l = p.getLocation();
                     } else {
@@ -153,7 +153,7 @@ public final class TeleportPlayerView extends javax.swing.JDialog implements Loc
                 }
 
                 if (l != null) {
-                    _player.teleport(l);
+                    _player.setLocation(l);
                 }
             }
         });
@@ -172,11 +172,11 @@ public final class TeleportPlayerView extends javax.swing.JDialog implements Loc
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton cancel;
     private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JComboBox locations;
+    private javax.swing.JComboBox<String> locations;
     private javax.swing.JLabel teleLabel;
     private javax.swing.JButton teleport;
     private javax.swing.JCheckBox toWaypoint;
-    private javax.swing.JComboBox waypoints;
+    private javax.swing.JComboBox<Waypoint> waypoints;
     // End of variables declaration//GEN-END:variables
 
     public final void translateComponent() {

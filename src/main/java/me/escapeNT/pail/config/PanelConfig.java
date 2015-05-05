@@ -35,13 +35,13 @@ public class PanelConfig {
     }
 
     public static void load() {
-        if(!file.exists()) {
+        if (!file.exists()) {
             save();
         }
          try {
             FileInputStream fis = new FileInputStream(file);
             ObjectInputStream ois = new ObjectInputStream(fis);
-            panelsActivated = (Map<String, Boolean>)ois.readObject();
+            panelsActivated = (Map<String, Boolean>) ois.readObject();
             ois.close();
         } catch (Exception ex) {
             Util.log(Level.SEVERE, ex.toString());

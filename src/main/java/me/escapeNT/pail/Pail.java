@@ -7,13 +7,14 @@ import com.google.inject.Inject;
 
 import org.spongepowered.api.Game;
 import org.spongepowered.api.Server;
+import org.spongepowered.api.block.BlockType;
+import org.spongepowered.api.block.BlockTypes;
 import org.spongepowered.api.entity.player.Player;
 import org.spongepowered.api.event.Subscribe;
 import org.spongepowered.api.event.state.PreInitializationEvent;
 import org.spongepowered.api.event.state.ServerStartingEvent;
 import org.spongepowered.api.event.state.ServerStoppingEvent;
 import org.spongepowered.api.plugin.Plugin;
-import org.spongepowered.api.plugin.PluginManager;
 
 import me.escapeNT.pail.GUIComponents.AboutView;
 import me.escapeNT.pail.GUIComponents.MainWindow;
@@ -58,7 +59,6 @@ import javax.swing.UIManager.LookAndFeelInfo;
  */
 @Plugin(name="Pail", id="pail", version="1.0.0")
 public final class Pail {
-	
 
     protected static Pail instance;
 
@@ -486,8 +486,8 @@ public final class Pail {
      * @return The 25x25px ImageIcon of the provided material.
      * @throws IllegalArgumentException if the Material is AIR.
      */
-    public ImageIcon getIcon(Material material) {
-        if (material == Material.AIR) {
+    public ImageIcon getIcon(BlockType material) {
+        if (material == BlockTypes.AIR) {
             throw new IllegalArgumentException("There is no image for air silly.");
         }
         return new ImageIcon(getClass().getResource("GUIComponents/images/" + material.toString() + ".png"));

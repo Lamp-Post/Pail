@@ -11,6 +11,7 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 import me.escapeNT.pail.Util.Localizable;
 import me.escapeNT.pail.Util.Util;
 import me.escapeNT.pail.scheduler.ServerTask;
+import me.escapeNT.pail.scheduler.ServerTask.Type;
 
 /**
  * Panel containing options for a Server Task.
@@ -23,23 +24,22 @@ public class ServerTaskOptions extends javax.swing.JPanel implements Localizable
         initComponents();
         translateComponent();
         for(ServerTask.Type t : ServerTask.Type.values()) {
-            ((DefaultComboBoxModel)action.getModel()).addElement(t);
+            ((DefaultComboBoxModel<Type>)action.getModel()).addElement(t);
         }
     }
 
     /** This method is called from within the constructor to
      * initialize the form.
      */
-    @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
         jLabel1 = new JLabel();
-        action = new JComboBox();
+        action = new JComboBox<Type>();
 
         jLabel1.setText("Action");
 
-        action.setModel(new DefaultComboBoxModel());
+        action.setModel(new DefaultComboBoxModel<Type>());
 
         GroupLayout layout = new GroupLayout(this);
         this.setLayout(layout);
@@ -65,7 +65,7 @@ public class ServerTaskOptions extends javax.swing.JPanel implements Localizable
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private JComboBox action;
+    private JComboBox<Type> action;
     private JLabel jLabel1;
     // End of variables declaration//GEN-END:variables
 
@@ -77,7 +77,7 @@ public class ServerTaskOptions extends javax.swing.JPanel implements Localizable
      * Type selector.
      * @return the action
      */
-    public JComboBox getAction() {
+    public JComboBox<Type> getAction() {
         return action;
     }
 }

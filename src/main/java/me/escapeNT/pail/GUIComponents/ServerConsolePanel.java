@@ -10,8 +10,11 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.LinkedList;
 import java.util.logging.Handler;
+
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+
+import me.escapeNT.pail.Pail;
 import me.escapeNT.pail.PailLogHandler;
 import me.escapeNT.pail.Util.ScrollableTextArea;
 import me.escapeNT.pail.Util.Util;
@@ -31,7 +34,7 @@ public class ServerConsolePanel extends JPanel {
         consoleOutput = new ScrollableTextArea();
         consoleOutput.setAutoscrolls(true);
         this.setLayout(new BorderLayout());
-        for (Handler h : Util.getPlugin().getServer().getLogger().getHandlers()) {
+        for (Handler h : Pail.getLogger().getHandlers()) {
             if (h instanceof PailLogHandler) {
                 consoleOutput = ((PailLogHandler) h).getTextArea();
                 break;
