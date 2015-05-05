@@ -2,6 +2,31 @@ package me.escapeNT.pail;
 
 import com.google.api.translate.Language;
 import com.google.api.translate.Translate;
+import com.google.common.base.Preconditions;
+import com.google.inject.Inject;
+
+import org.spongepowered.api.Game;
+import org.spongepowered.api.Server;
+import org.spongepowered.api.entity.player.Player;
+import org.spongepowered.api.event.Subscribe;
+import org.spongepowered.api.event.state.PreInitializationEvent;
+import org.spongepowered.api.event.state.ServerStartingEvent;
+import org.spongepowered.api.event.state.ServerStoppingEvent;
+import org.spongepowered.api.plugin.Plugin;
+import org.spongepowered.api.plugin.PluginManager;
+
+import me.escapeNT.pail.GUIComponents.AboutView;
+import me.escapeNT.pail.GUIComponents.MainWindow;
+import me.escapeNT.pail.GUIComponents.SettingsPanel;
+import me.escapeNT.pail.Util.ScrollableTextArea;
+import me.escapeNT.pail.Util.ServerReadyListener;
+import me.escapeNT.pail.Util.Util;
+import me.escapeNT.pail.Util.Waypoint;
+import me.escapeNT.pail.config.General;
+import me.escapeNT.pail.config.PanelConfig;
+import me.escapeNT.pail.config.WaypointConfig;
+import me.escapeNT.pail.scheduler.Scheduler;
+
 import java.awt.Color;
 import java.awt.Image;
 import java.awt.Toolkit;
@@ -16,6 +41,7 @@ import java.util.HashMap;
 import java.util.logging.Handler;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -24,32 +50,24 @@ import javax.swing.LookAndFeel;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 import javax.swing.UIManager.LookAndFeelInfo;
-import me.escapeNT.pail.GUIComponents.AboutView;
-import me.escapeNT.pail.GUIComponents.MainWindow;
-import me.escapeNT.pail.GUIComponents.SettingsPanel;
-import me.escapeNT.pail.Util.ScrollableTextArea;
-import me.escapeNT.pail.Util.ServerReadyListener;
-import me.escapeNT.pail.Util.Util;
-import me.escapeNT.pail.Util.Waypoint;
-import me.escapeNT.pail.config.General;
-import me.escapeNT.pail.config.PanelConfig;
-import me.escapeNT.pail.config.WaypointConfig;
-import me.escapeNT.pail.scheduler.Scheduler;
-import org.bukkit.Bukkit;
-import org.bukkit.Material;
-import org.bukkit.command.Command;
-import org.bukkit.command.CommandSender;
-import org.bukkit.command.ConsoleCommandSender;
-import org.bukkit.entity.Player;
-import org.bukkit.plugin.PluginManager;
-import org.bukkit.plugin.java.JavaPlugin;
 
 /**
  * Independent, comprehensive, and extensible GUI for Bukkit.
  *
  * @author escapeNT
  */
-public final class Pail extends JavaPlugin {
+@Plugin(name="Pail", id="pail", version="1.0.0")
+public final class Pail {
+	
+
+    protected static Pail instance;
+
+    @Inject
+    protected Game game;
+
+    @Inject
+    protected Logger logger;
+    
     public final Image PAIL_ICON = Toolkit.getDefaultToolkit().createImage(getClass().getResource("GUIComponents/images/pailicon.png"));
     public static String PLUGIN_NAME;
     public static String PLUGIN_THREAD;
@@ -58,28 +76,50 @@ public final class Pail extends JavaPlugin {
     private final WindowCloseListener windowListener = new WindowCloseListener();
     private MainWindow main;
 
-    @SuppressWarnings("LeakingThisInConstructor")
     public Pail() {
         Util.setPlugin(this);
 
-        Bukkit.getServer().getLogger().addHandler(handler);
+        logger.addHandler(handler);
 
-        for (Handler h : Bukkit.getServer().getLogger().getHandlers()) {
+        for (Handler h : logger.getHandlers()) {
             if (h instanceof PailLogHandler) { // Don't add another handler
                 return;
             }
         }
         PailLogHandler mainHandler = new PailLogHandler();
         mainHandler.setLevel(Level.ALL);
-        Bukkit.getServer().getLogger().addHandler(mainHandler);
+        logger.addHandler(mainHandler);
+    }
+    
+    public static Pail getInstance() {
+        return Preconditions.checkNotNull(instance);
+    }
+    
+    public static Logger getLogger() {
+        return getInstance().logger;
     }
 
-    @Override
-    public void onEnable() {
+    public static Game getGame() {
+        return getInstance().game;
+    }
+    
+    public static Server getServer() {
+    	return getGame().getServer();
+    }
+    
+    @Subscribe
+    public void onInitialization(PreInitializationEvent event) {
+        instance = this;
+
+        logger.info("Loading Pail, please wait...");
+    }
+    
+    @Subscribe
+    public void onStarting(ServerStartingEvent event) {
         // Setup variables
-        PLUGIN_NAME = getDescription().getName();
-        PLUGIN_THREAD = getDescription().getWebsite();
-        PLUGIN_VERSION = getDescription().getVersion();
+        PLUGIN_NAME = getGame().getPluginManager().getPlugin("pail").get().getName();
+        //PLUGIN_THREAD = getDescription().getWebsite();
+        PLUGIN_VERSION = getGame().getPluginManager().getPlugin("pail").get().getVersion();
 
         Translate.setHttpReferrer(PLUGIN_THREAD);
 
@@ -92,7 +132,7 @@ public final class Pail extends JavaPlugin {
 
         try {
             if (System.getProperty("os.name").contains("Mac")) {
-                Class application = Class.forName("com.apple.eawt.Application");
+                Class<?> application = Class.forName("com.apple.eawt.Application");
                 Object app = application.getMethod("getApplication", (Class<?>[]) null).invoke(null, (Object[]) null);
                 app.getClass().getMethod("setDockIconImage", Image.class).invoke(app, PAIL_ICON);
 
@@ -112,12 +152,12 @@ public final class Pail extends JavaPlugin {
         Thread t = new Thread(new InitMain(), "Pail");
         t.start();
 
-        PluginManager pm = this.getServer().getPluginManager();
-        pm.registerEvents(new PailPlayerListener(), this);
+        //PluginManager pm = getGame().getPluginManager();
+        //pm.registerEvents(new PailPlayerListener(), this);
     }
-
-    @Override
-    public void onDisable() {
+    
+    @Subscribe
+    public void onShutdown(ServerStoppingEvent event) {
         saveState();
         if (getMainWindow() != null) {
             getMainWindow().getTabPane().removeAll();
@@ -133,16 +173,19 @@ public final class Pail extends JavaPlugin {
             }
         }
         General.save();
+        
+        instance = null;
+        logger = null;
     }
 
-    @Override
-    public boolean onCommand(CommandSender sender, Command cmd, String commandLabel, String[] args) {
+    /*@Override
+    public boolean onCommand(CommandSource sender, Command cmd, String commandLabel, String[] args) {
         if (cmd.getName().equalsIgnoreCase("Pail") && args.length == 0 && sender instanceof ConsoleCommandSender) {
             getMainWindow().setVisible(true);
             getMainWindow().requestFocus();
         }
         return true;
-    }
+    }*/ //TODO
 
     private void setupLookAndFeels() {
         HashMap<String, Boolean> installQueue = new HashMap<String, Boolean>();
@@ -152,11 +195,13 @@ public final class Pail extends JavaPlugin {
         installQueue.put("com.jtattoo.plaf.aluminium.AluminiumLookAndFeel", Boolean.TRUE);
         installQueue.put("com.jtattoo.plaf.aero.AeroLookAndFeel", Boolean.TRUE);
         installQueue.put("com.jtattoo.plaf.fast.FastLookAndFeel", Boolean.TRUE);
+        
         for (LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
             if (installQueue.keySet().contains(info.getClassName())) {
                 installQueue.put(info.getClassName(), Boolean.FALSE);
             }
         }
+        
         for (String n : installQueue.keySet()) {
             if (installQueue.get(n)) {
                 try {
@@ -166,6 +211,7 @@ public final class Pail extends JavaPlugin {
                 }
             }
         }
+        
         try {
             LookAndFeel laf = (LookAndFeel) Class.forName(General.getLookAndFeel()).newInstance();
             UIManager.setLookAndFeel(laf);
@@ -192,11 +238,13 @@ public final class Pail extends JavaPlugin {
         if (!PailPersistance.file.exists()) {
             return;
         }
+        
         getLogger().info("Retrieving state...");
         final PailPersistance prev = new PailPersistance().load();
         getMainWindow().setLocation(prev.getWindowLocation());
 
         final ScrollableTextArea output = Util.getServerControls().getServerConsolePanel().getConsoleOutput();
+        
         SwingUtilities.invokeLater(new Runnable() {
             public void run() {
                 BufferedReader reader = new BufferedReader(new StringReader(prev.getConsoleText()));

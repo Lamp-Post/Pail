@@ -3,15 +3,17 @@ package me.escapeNT.pail;
 import java.awt.Color;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.concurrent.TimeUnit;
 import java.util.logging.Handler;
 import java.util.logging.Level;
 import java.util.logging.LogRecord;
 import java.util.regex.Pattern;
+
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
+
 import me.escapeNT.pail.Util.ScrollableTextArea;
 import me.escapeNT.pail.Util.Util;
-import org.bukkit.Bukkit;
 
 /**
  * Log Handler to print the console output to the GUI
@@ -33,11 +35,11 @@ public class PailLogHandler extends Handler {
         output.setAutoscrolls(true);
 
         // TODO: ..........
-        Bukkit.getServer().getScheduler().runTaskTimerAsynchronously(Util.getPlugin(), new Runnable() {
+        Pail.getGame().getAsyncScheduler().runRepeatingTaskAfter(Util.getPlugin(), new Runnable() {
             public void run() {
                 PailLogHandler.lastMessage = "";
             }
-        }, 10, 10);
+        }, TimeUnit.SECONDS, 10, 10);
     }
 
     public synchronized void publish(final LogRecord record) {

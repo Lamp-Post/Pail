@@ -1,0 +1,14 @@
+sudo: false
+language: java
+jdk:
+  - openjdk6
+  - openjdk7
+  - oraclejdk7
+  - oraclejdk8
+before_install:
+  - git config --global user.name "Lamp-Post"
+  - git config --global user.email "re.miwh@hotmail.com"
+install:
+  - ./gradlew assemble
+notifications:
+  email: false

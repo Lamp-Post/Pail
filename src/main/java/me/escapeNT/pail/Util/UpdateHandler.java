@@ -16,7 +16,6 @@ import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 import me.escapeNT.pail.GUIComponents.UpdateView;
 import me.escapeNT.pail.Pail;
-import org.bukkit.Bukkit;
 
 /**
  * Class containing static methods for checking and downloading updates for

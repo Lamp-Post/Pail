@@ -1,19 +1,23 @@
 package me.escapeNT.pail;
 
 import javax.swing.SwingUtilities;
+
+import org.spongepowered.api.event.Subscribe;
+import org.spongepowered.api.event.entity.player.PlayerJoinEvent;
+import org.spongepowered.api.event.entity.player.PlayerQuitEvent;
+
 import me.escapeNT.pail.Util.ServerReadyListener;
 import me.escapeNT.pail.Util.Util;
-import org.bukkit.event.*;
-import org.bukkit.event.player.PlayerJoinEvent;
-import org.bukkit.event.player.PlayerQuitEvent;
 
 /**
  * Listener for player login and quit events to update the player list.
  *
  * @author escapeNT
  */
-public class PailPlayerListener implements Listener {
-    @EventHandler(priority = EventPriority.MONITOR)
+public class PailPlayerListener { //implements Listener {
+	
+	@Subscribe
+    //@EventHandler(priority = EventPriority.MONITOR)TODO
     public void onPlayerJoin(PlayerJoinEvent event) {
         final String player = event.getPlayer().getName();
         SwingUtilities.invokeLater(new Runnable() {
@@ -26,7 +30,8 @@ public class PailPlayerListener implements Listener {
         });
     }
 
-    @EventHandler(priority = EventPriority.MONITOR)
+	@Subscribe
+    //@EventHandler(priority = EventPriority.MONITOR)TODO
     public void onPlayerQuit(final PlayerQuitEvent event) {
         final String player = event.getPlayer().getName();
         SwingUtilities.invokeLater(new Runnable() {

@@ -1,0 +1,85 @@
+buildscript {
+    repositories {
+        maven { url 'http://repo.lapis.blue/releases' }
+    }
+}
+
+// Apply Gradle plugins
+plugins {
+    id 'java'
+    id 'eclipse'
+    id 'idea'
+    id 'checkstyle'
+
+    id 'com.github.hierynomus.license' version '0.11.0'
+    id 'com.github.johnrengelman.shadow' version '1.2.1'
+}
+
+defaultTasks 'clean', 'licenseFormat', 'build', 'remap'
+
+// Project information
+group = 'me.escsapeNT.pail'
+version = '1.0.0-SNAPSHOT'
+
+sourceCompatibility = 1.6
+targetCompatibility = 1.6
+
+// Project repositories
+repositories {
+    mavenCentral()
+    maven { url 'https://oss.sonatype.org/content/repositories/snapshots' }
+    // Add Sponge repo for custom checkstyle implementation to fix some wrong warnings
+    maven { name 'Sponge maven repo'
+        url 'http://repo.spongepowered.org/maven' }
+}
+
+// Project dependencies
+dependencies {
+    compile "org.spongepowered:spongeapi:2.0"
+
+    checkstyle 'org.spongepowered:checkstyle:6.1.1-sponge1'
+}
+
+// Read source files using UTF-8
+tasks.withType(JavaCompile) {
+    options.compilerArgs += ['-Xlint:all', '-Xlint:-deprecation']
+    options.encoding = 'UTF-8'
+}
+
+
+jar { // The Pore classes will be created in Pore-VERSION-base.jar first
+    classifier = 'base'
+    manifest {
+        attributes(
+                'Implementation-Title': project.name,
+                'Implementation-Version': project.version,
+                'Implementation-Vendor': 'Lamp-Post',
+                'Main-Class': 'me.escapeNT.pail.Main'
+        )
+    }
+}
+
+// License header formatting
+license {
+    header file('LICENSE')
+    exclude 'LICENSE'
+    exclude '*.txt'
+    sourceSets = project.sourceSets
+    ignoreFailures false
+    strictCheck true
+    mapping {
+        java = 'SLASHSTAR_STYLE'
+    }
+}
+
+checkstyle {
+    configProperties = [
+            'basedir': project.projectDir,
+            'severity': 'warning'
+    ]
+    configFile = file('checkstyle.xml')
+}
+
+task wrapper(type: Wrapper) {
+    gradleVersion = '2.3'
+}

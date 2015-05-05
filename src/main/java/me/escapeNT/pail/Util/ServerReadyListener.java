@@ -7,8 +7,6 @@ import javax.swing.SwingUtilities;
 import me.escapeNT.pail.Pail;
 import me.escapeNT.pail.GUIComponents.SettingsPanel;
 
-import org.bukkit.Bukkit;
-
 /**
  * Simple log handler to listen when the server is ready.
  * @author escapeNT
@@ -29,7 +27,7 @@ public class ServerReadyListener extends Handler {
                     Util.getPlugin().getMainWindow().setVisible(true);
                 }
             });
-            Bukkit.getLogger().removeHandler(Pail.handler);
+            Pail.getLogger().removeHandler(Pail.handler);
         }
     }
 
