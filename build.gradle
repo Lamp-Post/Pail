@@ -11,11 +11,10 @@ plugins {
     id 'idea'
     id 'checkstyle'
 
-    id 'com.github.hierynomus.license' version '0.11.0'
     id 'com.github.johnrengelman.shadow' version '1.2.1'
 }
 
-defaultTasks 'clean', 'licenseFormat', 'build', 'remap'
+defaultTasks 'clean', 'build'
 
 // Project information
 group = 'me.escsapeNT.pail'
@@ -56,19 +55,6 @@ jar { // The Pore classes will be created in Pore-VERSION-base.jar first
                 'Implementation-Vendor': 'Lamp-Post',
                 'Main-Class': 'me.escapeNT.pail.Main'
         )
-    }
-}
-
-// License header formatting
-license {
-    header file('LICENSE')
-    exclude 'LICENSE'
-    exclude '*.txt'
-    sourceSets = project.sourceSets
-    ignoreFailures false
-    strictCheck true
-    mapping {
-        java = 'SLASHSTAR_STYLE'
     }
 }
 
