@@ -40,7 +40,6 @@ public class FastLookAndFeel extends AbstractLookAndFeel {
     private static final Properties greenLargeFontProps = new Properties();
     private static final Properties greenGiantFontProps = new Properties();
 
-
     static {
         smallFontProps.setProperty("controlTextFont", "Dialog 10");
         smallFontProps.setProperty("systemTextFont", "Dialog 10");
@@ -238,46 +237,36 @@ public class FastLookAndFeel extends AbstractLookAndFeel {
     protected void initClassDefaults(UIDefaults table) {
         super.initClassDefaults(table);
         Object[] uiDefaults = {
-            "PopupMenuUI", BasicPopupMenuUI.class.getName(),
-            // BaseLookAndFeel classes
-            "LabelUI", BaseLabelUI.class.getName(),
-            "SeparatorUI", BaseSeparatorUI.class.getName(),
-            "TextFieldUI", BaseTextFieldUI.class.getName(),
-            "TextAreaUI", BaseTextAreaUI.class.getName(),
-            "EditorPaneUI", BaseEditorPaneUI.class.getName(),
-            "PasswordFieldUI", BasePasswordFieldUI.class.getName(),
-            "ComboBoxUI", BaseComboBoxUI.class.getName(),
-            "CheckBoxUI", BaseCheckBoxUI.class.getName(),
-            "RadioButtonUI", BaseRadioButtonUI.class.getName(),
-            "ToolTipUI", BaseToolTipUI.class.getName(),
-            "TreeUI", BaseTreeUI.class.getName(),
-            "TableUI", BaseTableUI.class.getName(),
-            "PanelUI", BasePanelUI.class.getName(),
-            "ScrollPaneUI", BaseScrollPaneUI.class.getName(),
-            "ProgressBarUI", BasicProgressBarUI.class.getName(),
-            "FileChooserUI", BaseFileChooserUI.class.getName(),
-            "MenuUI", BaseMenuUI.class.getName(),
-            "MenuItemUI", BaseMenuItemUI.class.getName(),
-            "CheckBoxMenuItemUI", BaseCheckBoxMenuItemUI.class.getName(),
-            "RadioButtonMenuItemUI", BaseRadioButtonMenuItemUI.class.getName(),
-            "PopupMenuSeparatorUI", BaseSeparatorUI.class.getName(),
-            // FastLookAndFeel classes
-            "ButtonUI", FastButtonUI.class.getName(),
-            "ToggleButtonUI", FastToggleButtonUI.class.getName(),
-            "ScrollBarUI", FastScrollBarUI.class.getName(),
-            "SliderUI", FastSliderUI.class.getName(),
-            "TabbedPaneUI", FastTabbedPaneUI.class.getName(),
-            "SplitPaneUI", FastSplitPaneUI.class.getName(),
-            "ToolBarUI", FastToolBarUI.class.getName(),
-            "InternalFrameUI", FastInternalFrameUI.class.getName(),
-            "RootPaneUI", FastRootPaneUI.class.getName(),};
+                "PopupMenuUI",
+                BasicPopupMenuUI.class.getName(),
+                // BaseLookAndFeel classes
+                "LabelUI", BaseLabelUI.class.getName(), "SeparatorUI", BaseSeparatorUI.class.getName(), "TextFieldUI",
+                BaseTextFieldUI.class.getName(), "TextAreaUI", BaseTextAreaUI.class.getName(), "EditorPaneUI",
+                BaseEditorPaneUI.class.getName(), "PasswordFieldUI", BasePasswordFieldUI.class.getName(), "ComboBoxUI",
+                BaseComboBoxUI.class.getName(), "CheckBoxUI", BaseCheckBoxUI.class.getName(), "RadioButtonUI",
+                BaseRadioButtonUI.class.getName(), "ToolTipUI", BaseToolTipUI.class.getName(), "TreeUI",
+                BaseTreeUI.class.getName(), "TableUI", BaseTableUI.class.getName(), "PanelUI",
+                BasePanelUI.class.getName(), "ScrollPaneUI", BaseScrollPaneUI.class.getName(), "ProgressBarUI",
+                BasicProgressBarUI.class.getName(), "FileChooserUI", BaseFileChooserUI.class.getName(), "MenuUI",
+                BaseMenuUI.class.getName(), "MenuItemUI", BaseMenuItemUI.class.getName(), "CheckBoxMenuItemUI",
+                BaseCheckBoxMenuItemUI.class.getName(),
+                "RadioButtonMenuItemUI",
+                BaseRadioButtonMenuItemUI.class.getName(),
+                "PopupMenuSeparatorUI",
+                BaseSeparatorUI.class.getName(),
+                // FastLookAndFeel classes
+                "ButtonUI", FastButtonUI.class.getName(), "ToggleButtonUI", FastToggleButtonUI.class.getName(),
+                "ScrollBarUI", FastScrollBarUI.class.getName(), "SliderUI", FastSliderUI.class.getName(),
+                "TabbedPaneUI", FastTabbedPaneUI.class.getName(), "SplitPaneUI", FastSplitPaneUI.class.getName(),
+                "ToolBarUI", FastToolBarUI.class.getName(), "InternalFrameUI", FastInternalFrameUI.class.getName(),
+                "RootPaneUI", FastRootPaneUI.class.getName(), };
         table.putDefaults(uiDefaults);
         if (JTattooUtilities.getJavaVersion() >= 1.5) {
             table.put("FormattedTextFieldUI", BaseFormattedTextFieldUI.class.getName());
             table.put("SpinnerUI", BaseSpinnerUI.class.getName());
         }
     }
-    
+
     protected void initComponentDefaults(UIDefaults table) {
         super.initComponentDefaults(table);
         table.put("SplitPane.centerOneTouchButtons", Boolean.FALSE);

@@ -133,7 +133,7 @@ public class AcrylIcons extends BaseIcons {
         return thumbVerIconRollover;
     }
 
-//------------------------------------------------------------------------------
+    // ------------------------------------------------------------------------------
     private static class TitleButtonIcon implements Icon {
 
         private static Color extraLightGray = new Color(240, 240, 240);
@@ -193,7 +193,8 @@ public class AcrylIcons extends BaseIcons {
                     g2D.setPaint(new GradientPaint(0, 0, cHi, w, h, cLo));
                     g2D.fillRect(2, 2, w - 3, h - 3);
                 } else {
-                    JTattooUtilities.fillHorGradient(g2D, AbstractLookAndFeel.getTheme().getRolloverColors(), 2, 2, w - 3, h - 3);
+                    JTattooUtilities.fillHorGradient(g2D, AbstractLookAndFeel.getTheme().getRolloverColors(), 2, 2,
+                            w - 3, h - 3);
                 }
             }
 
@@ -214,7 +215,8 @@ public class AcrylIcons extends BaseIcons {
             } else if (iconTyp == MAX_ICON_TYP) {
                 icon = new BaseIcons.MaxSymbol(extraLightGray, cShadow, null, new Insets(0, 4, 0, 4));
             } else if (iconTyp == CLOSE_ICON_TYP) {
-                icon = new BaseIcons.CloseSymbol(Color.white, ColorHelper.darker(cShadow, 50), null, new Insets(0, 5, 0, 5));
+                icon = new BaseIcons.CloseSymbol(Color.white, ColorHelper.darker(cShadow, 50), null, new Insets(0, 5,
+                        0, 5));
             }
             if (icon != null) {
                 icon.paintIcon(c, g, 0, 0);
@@ -222,7 +224,7 @@ public class AcrylIcons extends BaseIcons {
         }
     }
 
-    //-----------------------------------------------------------------------------------------------------------
+    // -----------------------------------------------------------------------------------------------------------
     private static class CheckBoxIcon implements Icon {
 
         private static Icon checkIcon = new LazyImageIcon("acryl/icons/CheckSymbol.gif");
@@ -243,14 +245,17 @@ public class AcrylIcons extends BaseIcons {
 
             if (b.isEnabled()) {
                 if (b.isRolloverEnabled() && model.isRollover()) {
-                    JTattooUtilities.fillHorGradient(g, AbstractLookAndFeel.getTheme().getRolloverColors(), x + 1, y + 1, WIDTH - 2, HEIGHT - 2);
+                    JTattooUtilities.fillHorGradient(g, AbstractLookAndFeel.getTheme().getRolloverColors(), x + 1,
+                            y + 1, WIDTH - 2, HEIGHT - 2);
                     frameColor = ColorHelper.brighter(frameColor, 30);
                 } else {
-                    JTattooUtilities.fillHorGradient(g, AbstractLookAndFeel.getTheme().getDefaultColors(), x + 1, y + 1, WIDTH - 2, HEIGHT - 2);
+                    JTattooUtilities.fillHorGradient(g, AbstractLookAndFeel.getTheme().getDefaultColors(), x + 1,
+                            y + 1, WIDTH - 2, HEIGHT - 2);
                 }
 
             } else {
-                JTattooUtilities.fillHorGradient(g, AbstractLookAndFeel.getTheme().getDisabledColors(), x + 1, y + 1, WIDTH - 2, HEIGHT - 2);
+                JTattooUtilities.fillHorGradient(g, AbstractLookAndFeel.getTheme().getDisabledColors(), x + 1, y + 1,
+                        WIDTH - 2, HEIGHT - 2);
                 frameColor = ColorHelper.brighter(frameColor, 40);
             }
 
@@ -297,7 +302,7 @@ public class AcrylIcons extends BaseIcons {
         }
     }
 
-    //-----------------------------------------------------------------------------------------------------------
+    // -----------------------------------------------------------------------------------------------------------
     private static class RadioButtonIcon implements Icon {
 
         private static Icon radioIcon = new LazyImageIcon("acryl/icons/RadioSymbol.gif");
@@ -323,14 +328,17 @@ public class AcrylIcons extends BaseIcons {
             g2D.setClip(ellipseArea);
             if (b.isEnabled()) {
                 if (b.isRolloverEnabled() && model.isRollover()) {
-                    JTattooUtilities.fillHorGradient(g, AbstractLookAndFeel.getTheme().getRolloverColors(), x + 1, y + 1, WIDTH - 2, HEIGHT - 2);
+                    JTattooUtilities.fillHorGradient(g, AbstractLookAndFeel.getTheme().getRolloverColors(), x + 1,
+                            y + 1, WIDTH - 2, HEIGHT - 2);
                     frameColor = ColorHelper.brighter(frameColor, 30);
                 } else {
-                    JTattooUtilities.fillHorGradient(g, AbstractLookAndFeel.getTheme().getDefaultColors(), x + 1, y + 1, WIDTH - 2, HEIGHT - 2);
+                    JTattooUtilities.fillHorGradient(g, AbstractLookAndFeel.getTheme().getDefaultColors(), x + 1,
+                            y + 1, WIDTH - 2, HEIGHT - 2);
                 }
 
             } else {
-                JTattooUtilities.fillHorGradient(g, AbstractLookAndFeel.getTheme().getDisabledColors(), x + 1, y + 1, WIDTH - 2, HEIGHT - 2);
+                JTattooUtilities.fillHorGradient(g, AbstractLookAndFeel.getTheme().getDisabledColors(), x + 1, y + 1,
+                        WIDTH - 2, HEIGHT - 2);
                 frameColor = ColorHelper.brighter(frameColor, 40);
             }
             g2D.setClip(savedClip);

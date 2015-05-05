@@ -21,16 +21,15 @@ public class HiFiTabbedPaneUI extends BaseTabbedPaneUI {
     }
 
     protected Color[] getContentBorderColors(int tabPlacement) {
-        Color SEP_COLORS[] = {
-            ColorHelper.darker(AbstractLookAndFeel.getBackgroundColor(), 40),
-            ColorHelper.brighter(AbstractLookAndFeel.getBackgroundColor(), 20),
-            ColorHelper.darker(AbstractLookAndFeel.getBackgroundColor(), 20),
-            ColorHelper.darker(AbstractLookAndFeel.getBackgroundColor(), 40),
-        };
+        Color SEP_COLORS[] = { ColorHelper.darker(AbstractLookAndFeel.getBackgroundColor(), 40),
+                ColorHelper.brighter(AbstractLookAndFeel.getBackgroundColor(), 20),
+                ColorHelper.darker(AbstractLookAndFeel.getBackgroundColor(), 20),
+                ColorHelper.darker(AbstractLookAndFeel.getBackgroundColor(), 40), };
         return SEP_COLORS;
     }
 
-    protected void paintText(Graphics g, int tabPlacement, Font font, FontMetrics metrics, int tabIndex, String title, Rectangle textRect, boolean isSelected) {
+    protected void paintText(Graphics g, int tabPlacement, Font font, FontMetrics metrics, int tabIndex, String title,
+            Rectangle textRect, boolean isSelected) {
         g.setFont(font);
         View v = getTextViewForTab(tabIndex);
         if (v != null) {
@@ -39,7 +38,8 @@ public class HiFiTabbedPaneUI extends BaseTabbedPaneUI {
             Object savedRenderingHint = null;
             if (AbstractLookAndFeel.getTheme().isTextAntiAliasingOn()) {
                 savedRenderingHint = g2D.getRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING);
-                g2D.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, AbstractLookAndFeel.getTheme().getTextAntiAliasingHint());
+                g2D.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, AbstractLookAndFeel.getTheme()
+                        .getTextAntiAliasingHint());
             }
             v.paint(g, textRect);
             if (AbstractLookAndFeel.getTheme().isTextAntiAliasingOn()) {
@@ -68,10 +68,12 @@ public class HiFiTabbedPaneUI extends BaseTabbedPaneUI {
             } else {
                 g2D.setColor(Color.white);
             }
-            JTattooUtilities.drawStringUnderlineCharAt(tabPane, g, title, mnemIndex, textRect.x + 1, textRect.y + 1 + metrics.getAscent());
+            JTattooUtilities.drawStringUnderlineCharAt(tabPane, g, title, mnemIndex, textRect.x + 1, textRect.y + 1
+                    + metrics.getAscent());
             g2D.setComposite(composite);
             g2D.setColor(fc);
-            JTattooUtilities.drawStringUnderlineCharAt(tabPane, g, title, mnemIndex, textRect.x, textRect.y + metrics.getAscent());
+            JTattooUtilities.drawStringUnderlineCharAt(tabPane, g, title, mnemIndex, textRect.x,
+                    textRect.y + metrics.getAscent());
         }
     }
 

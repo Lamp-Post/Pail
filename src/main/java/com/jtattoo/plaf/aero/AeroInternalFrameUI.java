@@ -15,18 +15,17 @@ import com.jtattoo.plaf.*;
  */
 public class AeroInternalFrameUI extends BaseInternalFrameUI {
 
-    public AeroInternalFrameUI(JInternalFrame b) { 
-        super(b); 
+    public AeroInternalFrameUI(JInternalFrame b) {
+        super(b);
     }
-    
+
     public static ComponentUI createUI(JComponent c) {
-        return new AeroInternalFrameUI((JInternalFrame)c); 
+        return new AeroInternalFrameUI((JInternalFrame) c);
     }
-    
-    protected JComponent createNorthPane(JInternalFrame w)  {
+
+    protected JComponent createNorthPane(JInternalFrame w) {
         titlePane = new AeroInternalFrameTitlePane(w);
         return titlePane;
     }
-    
-}
 
+}

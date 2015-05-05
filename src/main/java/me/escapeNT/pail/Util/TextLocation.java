@@ -1,9 +1,8 @@
-
-
 package me.escapeNT.pail.Util;
 
 /**
  * Class representing the location of a section of text in a String.
+ * 
  * @author escapeNT
  */
 public class TextLocation {
@@ -16,9 +15,9 @@ public class TextLocation {
         this.end = end;
     }
 
-
     /**
      * Gets the start of the section.
+     * 
      * @return the start
      */
     public int getStart() {
@@ -27,6 +26,7 @@ public class TextLocation {
 
     /**
      * Gets the end of the section.
+     * 
      * @return the end
      */
     public int getEnd() {

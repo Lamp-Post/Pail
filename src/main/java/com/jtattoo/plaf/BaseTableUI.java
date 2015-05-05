@@ -10,7 +10,7 @@ import javax.swing.plaf.*;
 import javax.swing.plaf.basic.*;
 
 /**
- * @author  Michael Hagen
+ * @author Michael Hagen
  */
 public class BaseTableUI extends BasicTableUI {
 

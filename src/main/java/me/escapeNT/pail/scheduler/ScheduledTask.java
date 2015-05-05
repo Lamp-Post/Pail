@@ -32,7 +32,8 @@ public interface ScheduledTask extends Serializable {
     /**
      * Sets whether the task is enabled and running.
      *
-     * @param enabled True if the task will be enabled, false if disabled.
+     * @param enabled
+     *            True if the task will be enabled, false if disabled.
      */
     public void setEnabled(boolean enabled);
 
@@ -46,7 +47,8 @@ public interface ScheduledTask extends Serializable {
     /**
      * Sets the task name.
      *
-     * @param name The name of the task.
+     * @param name
+     *            The name of the task.
      */
     public void setName(String name);
 

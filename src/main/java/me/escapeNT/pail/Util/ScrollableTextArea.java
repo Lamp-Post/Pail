@@ -32,10 +32,8 @@ public class ScrollableTextArea extends JTextPane {
 
     public ScrollableTextArea() {
         scroller = new JScrollPane(this);
-        scroller.setVerticalScrollBarPolicy(
-                ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
-        scroller.setHorizontalScrollBarPolicy(
-                ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+        scroller.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
+        scroller.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
         setFont(new Font("SansSerif", Font.PLAIN, 12));
         setContentType("charset=UTF-8");
         setEditable(false);
@@ -49,8 +47,10 @@ public class ScrollableTextArea extends JTextPane {
     /**
      * Appends the specified text to the pane with the provided color.
      *
-     * @param color The color of the text.
-     * @param text The text to append.
+     * @param color
+     *            The color of the text.
+     * @param text
+     *            The text to append.
      */
     public void append(Color color, String text) {
         SimpleAttributeSet sas = new SimpleAttributeSet();
@@ -67,9 +67,12 @@ public class ScrollableTextArea extends JTextPane {
     /**
      * Appends the specified text to the pane with the provided color.
      *
-     * @param color The color of the text.
-     * @param bold True if the text will be bold.
-     * @param text The text to append.
+     * @param color
+     *            The color of the text.
+     * @param bold
+     *            True if the text will be bold.
+     * @param text
+     *            The text to append.
      */
     public void append(Color color, boolean bold, String text) {
         SimpleAttributeSet sas = new SimpleAttributeSet();

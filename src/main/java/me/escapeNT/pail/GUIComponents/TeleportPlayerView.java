@@ -91,7 +91,7 @@ public final class TeleportPlayerView extends javax.swing.JDialog implements Loc
         getContentPane().add(teleLabel);
         teleLabel.setBounds(20, 20, 280, 16);
 
-        locations.setModel(new javax.swing.DefaultComboBoxModel(new String[]{"Spawn", "Bed"}));
+        locations.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Spawn", "Bed" }));
         getContentPane().add(locations);
         locations.setBounds(90, 50, 200, 27);
         getContentPane().add(jSeparator1);
@@ -112,11 +112,11 @@ public final class TeleportPlayerView extends javax.swing.JDialog implements Loc
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void cancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelActionPerformed
+    private void cancelActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_cancelActionPerformed
         dispose();
-    }//GEN-LAST:event_cancelActionPerformed
+    }// GEN-LAST:event_cancelActionPerformed
 
-    private void teleportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_teleportActionPerformed
+    private void teleportActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_teleportActionPerformed
         final Object _loc;
 
         if (toWaypoint.isSelected()) {
@@ -158,9 +158,9 @@ public final class TeleportPlayerView extends javax.swing.JDialog implements Loc
             }
         });
         dispose();
-    }//GEN-LAST:event_teleportActionPerformed
+    }// GEN-LAST:event_teleportActionPerformed
 
-    private void toWaypointActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_toWaypointActionPerformed
+    private void toWaypointActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_toWaypointActionPerformed
         if (toWaypoint.isSelected()) {
             locations.setEnabled(false);
             waypoints.setEnabled(true);
@@ -168,8 +168,9 @@ public final class TeleportPlayerView extends javax.swing.JDialog implements Loc
             locations.setEnabled(true);
             waypoints.setEnabled(false);
         }
-    }//GEN-LAST:event_toWaypointActionPerformed
-    // Variables declaration - do not modify//GEN-BEGIN:variables
+    }// GEN-LAST:event_toWaypointActionPerformed
+     // Variables declaration - do not modify//GEN-BEGIN:variables
+
     private javax.swing.JButton cancel;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JComboBox locations;
@@ -177,6 +178,7 @@ public final class TeleportPlayerView extends javax.swing.JDialog implements Loc
     private javax.swing.JButton teleport;
     private javax.swing.JCheckBox toWaypoint;
     private javax.swing.JComboBox waypoints;
+
     // End of variables declaration//GEN-END:variables
 
     public final void translateComponent() {

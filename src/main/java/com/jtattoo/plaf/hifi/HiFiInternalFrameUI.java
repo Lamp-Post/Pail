@@ -27,4 +27,3 @@ public class HiFiInternalFrameUI extends BaseInternalFrameUI {
         return titlePane;
     }
 }
-

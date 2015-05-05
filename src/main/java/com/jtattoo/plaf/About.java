@@ -16,7 +16,7 @@ import javax.swing.*;
 // ToDo:
 // - Auf dem Mac scheint es ein Problem mit dem zeichnen des Aluminium Hintergrunds zu geben
 // - setMaximizedBounds unter Linux bei multiscreen Umgebungen funktioniert nicht. Aus diesem Grund
-//   wird in Linux die Toolbar beim maximieren verdeckt (siehe BaseTitlePane maximize)
+// wird in Linux die Toolbar beim maximieren verdeckt (siehe BaseTitlePane maximize)
 public class About extends JDialog {
 
     public static String JTATTOO_VERSION = "Version: 1.4.9";
@@ -60,8 +60,11 @@ public class About extends JDialog {
         });
     }
 
-    /** Starten der Anwendung
-     * @param args the command line arguments
+    /**
+     * Starten der Anwendung
+     * 
+     * @param args
+     *            the command line arguments
      */
     public static void main(String args[]) {
         try {

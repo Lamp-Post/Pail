@@ -72,7 +72,8 @@ public class ServerConsolePanel extends JPanel {
 
             Util.dispatchCommand((Util.getFileMenu().getSay().isSelected() ? "say " : "") + consoleInput.getText());
 
-            if (cmdHistory.size() == 0 || (cmdHistory.size() > 0 && !cmdHistory.getFirst().equals(consoleInput.getText()))) {
+            if (cmdHistory.size() == 0
+                    || (cmdHistory.size() > 0 && !cmdHistory.getFirst().equals(consoleInput.getText()))) {
                 cmdHistory.addFirst(consoleInput.getText());
             }
 
@@ -96,7 +97,8 @@ public class ServerConsolePanel extends JPanel {
             if (e.getKeyCode() == KeyEvent.VK_C && e.getModifiers() == InputEvent.CTRL_MASK) {
                 ScrollableTextArea a = Util.getServerControls().getServerConsolePanel().getConsoleOutput();
                 if (a.isTextSelected()) {
-                    Toolkit.getDefaultToolkit().getSystemClipboard().setContents(new StringSelection(a.getSelectedText()), null);
+                    Toolkit.getDefaultToolkit().getSystemClipboard()
+                            .setContents(new StringSelection(a.getSelectedText()), null);
                 }
             }
         }
@@ -121,8 +123,7 @@ public class ServerConsolePanel extends JPanel {
         public void keyPressed(KeyEvent e) {
             int key = e.getKeyCode();
 
-            if ((isKeyDown(key) && index == -1)
-                    || (isKeyUp(key) && cmdHistory.isEmpty())
+            if ((isKeyDown(key) && index == -1) || (isKeyUp(key) && cmdHistory.isEmpty())
                     || !(isKeyDown(key) || isKeyUp(key))) {
                 return;
             }
@@ -136,7 +137,7 @@ public class ServerConsolePanel extends JPanel {
                 index--;
             }
 
-            consoleInput.setText(index > - 1 ? cmdHistory.get(index) : prevText);
+            consoleInput.setText(index > -1 ? cmdHistory.get(index) : prevText);
 
             if (!prevText.isEmpty() && index == -1) {
                 prevText = "";
@@ -144,16 +145,14 @@ public class ServerConsolePanel extends JPanel {
         }
 
         private boolean isKeyUp(int key) {
-            if (key == KeyEvent.VK_UP
-                    || key == KeyEvent.VK_KP_UP) {
+            if (key == KeyEvent.VK_UP || key == KeyEvent.VK_KP_UP) {
                 return true;
             }
             return false;
         }
 
         private Boolean isKeyDown(int key) {
-            if (key == KeyEvent.VK_DOWN
-                    || key == KeyEvent.VK_KP_DOWN) {
+            if (key == KeyEvent.VK_DOWN || key == KeyEvent.VK_KP_DOWN) {
                 return true;
             }
             return false;

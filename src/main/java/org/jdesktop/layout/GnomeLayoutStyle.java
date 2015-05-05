@@ -1,24 +1,22 @@
 /*
  * Copyright (C) 2005-2006 Sun Microsystems, Inc. All rights reserved. Use is
  * subject to license terms.
- */ 
+ */
 
 package org.jdesktop.layout;
+
 import java.awt.Container;
 import javax.swing.JComponent;
 import javax.swing.SwingConstants;
 
-
 /**
- * An implementation of <code>LayoutStyle</code> for Gnome.  This information
- * comes from:
+ * An implementation of <code>LayoutStyle</code> for Gnome. This information comes from:
  * http://developer.gnome.org/projects/gup/hig/2.0/design-window.html#window-layout-spacing
  *
  * @version $Revision: 1.7 $
  */
 class GnomeLayoutStyle extends LayoutStyle {
-    public int getPreferredGap(JComponent source, JComponent target,
-                          int type, int position, Container parent) {
+    public int getPreferredGap(JComponent source, JComponent target, int type, int position, Container parent) {
         // Invoke super to check arguments.
         super.getPreferredGap(source, target, type, position, parent);
 
@@ -37,12 +35,10 @@ class GnomeLayoutStyle extends LayoutStyle {
         }
         // Between labels and associated components, leave 12 horizontal
         // pixels.
-        if (position == SwingConstants.EAST ||
-                        position == SwingConstants.WEST) {
+        if (position == SwingConstants.EAST || position == SwingConstants.WEST) {
             boolean sourceLabel = (source.getUIClassID() == "LabelUI");
             boolean targetLabel = (target.getUIClassID() == "LabelUI");
-            if ((sourceLabel && !targetLabel) || 
-                    (!sourceLabel && targetLabel)) {
+            if ((sourceLabel && !targetLabel) || (!sourceLabel && targetLabel)) {
                 return 12;
             }
         }
@@ -63,8 +59,7 @@ class GnomeLayoutStyle extends LayoutStyle {
         return 12;
     }
 
-    public int getContainerGap(JComponent component, int position,
-            Container parent) {
+    public int getContainerGap(JComponent component, int position, Container parent) {
         super.getContainerGap(component, position, parent);
         // A general padding of 12 pixels is
         // recommended between the contents of a dialog window and the

@@ -47,4 +47,3 @@ public class BaseLabelUI extends BasicLabelUI {
         JTattooUtilities.drawStringUnderlineCharAt(l, g, s, mnemIndex, textX, textY);
     }
 }
-

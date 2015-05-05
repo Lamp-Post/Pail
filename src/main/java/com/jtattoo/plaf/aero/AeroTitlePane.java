@@ -11,28 +11,28 @@ import javax.swing.*;
 import com.jtattoo.plaf.*;
 
 /**
- * @author  Michael Hagen
+ * @author Michael Hagen
  */
 public class AeroTitlePane extends BaseTitlePane {
-    
-    public AeroTitlePane(JRootPane root, BaseRootPaneUI ui) { 
-        super(root, ui); 
+
+    public AeroTitlePane(JRootPane root, BaseRootPaneUI ui) {
+        super(root, ui);
     }
 
     protected int getHorSpacing() {
         return 0;
     }
-    
+
     protected int getVerSpacing() {
         return 0;
     }
-    
+
     public void createButtons() {
         iconifyButton = new TitleButton(iconifyAction, ICONIFY, iconifyIcon);
         maxButton = new TitleButton(restoreAction, MAXIMIZE, maximizeIcon);
         closeButton = new TitleButton(closeAction, CLOSE, closeIcon);
     }
-    
+
     public void paintBorder(Graphics g) {
         if (isActive())
             g.setColor(ColorHelper.brighter(AeroLookAndFeel.getWindowTitleColorDark(), 50));
@@ -40,7 +40,7 @@ public class AeroTitlePane extends BaseTitlePane {
             g.setColor(ColorHelper.darker(AeroLookAndFeel.getWindowInactiveTitleColorDark(), 10));
         g.drawLine(0, getHeight() - 1, getWidth(), getHeight() - 1);
     }
-    
+
     public void paintText(Graphics g, int x, int y, String title) {
         if (isActive()) {
             Color titleColor = AbstractLookAndFeel.getWindowTitleForegroundColor();
@@ -51,16 +51,15 @@ public class AeroTitlePane extends BaseTitlePane {
             JTattooUtilities.drawString(rootPane, g, title, x + 1, y + 1);
             g.setColor(titleColor);
             JTattooUtilities.drawString(rootPane, g, title, x, y);
-        }
-        else {
+        } else {
             g.setColor(AbstractLookAndFeel.getWindowInactiveTitleForegroundColor());
             JTattooUtilities.drawString(rootPane, g, title, x, y);
         }
     }
-    
-//------------------------------------------------------------------------------    
+
+    // ------------------------------------------------------------------------------
     private class TitleButton extends BaseTitleButton {
-        
+
         public TitleButton(Action action, String accessibleName, Icon icon) {
             super(action, accessibleName, icon, 1.0f);
         }

@@ -12,7 +12,7 @@ import com.jtattoo.plaf.*;
 
 /**
  *
- * @author  Michael Hagen
+ * @author Michael Hagen
  */
 public class AcrylScrollBarUI extends BaseScrollBarUI {
 
@@ -47,7 +47,8 @@ public class AcrylScrollBarUI extends BaseScrollBarUI {
         if (scrollbar.getOrientation() == JScrollBar.VERTICAL) {
             JTattooUtilities.fillVerGradient(g, colors, 1, 1, thumbBounds.width - 1, thumbBounds.height - 1);
 
-            JTattooUtilities.draw3DBorder(g, frameColor, ColorHelper.darker(frameColor, 15), 0, 0, thumbBounds.width, thumbBounds.height);
+            JTattooUtilities.draw3DBorder(g, frameColor, ColorHelper.darker(frameColor, 15), 0, 0, thumbBounds.width,
+                    thumbBounds.height);
 
             Graphics2D g2D = (Graphics2D) g;
             Composite composite = g2D.getComposite();
@@ -72,7 +73,8 @@ public class AcrylScrollBarUI extends BaseScrollBarUI {
             g2D.setComposite(composite);
         } else { // HORIZONTAL
             JTattooUtilities.fillHorGradient(g, colors, 1, 1, thumbBounds.width - 1, thumbBounds.height - 1);
-            JTattooUtilities.draw3DBorder(g, frameColor, ColorHelper.darker(frameColor, 10), 0, 0, thumbBounds.width, thumbBounds.height);
+            JTattooUtilities.draw3DBorder(g, frameColor, ColorHelper.darker(frameColor, 10), 0, 0, thumbBounds.width,
+                    thumbBounds.height);
 
             int dx = thumbBounds.width / 2 - 3;
             int dy = 5;

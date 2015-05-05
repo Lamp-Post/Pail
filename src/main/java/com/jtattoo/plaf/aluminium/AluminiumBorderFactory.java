@@ -100,4 +100,3 @@ public class AluminiumBorderFactory implements AbstractBorderFactory {
         return AluminiumBorders.getDesktopIconBorder();
     }
 }
-

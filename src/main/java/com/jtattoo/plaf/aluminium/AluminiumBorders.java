@@ -20,9 +20,9 @@ public class AluminiumBorders extends BaseBorders {
     private static Border rolloverToolButtonBorder = null;
     private static Border internalFrameBorder = null;
 
-    //------------------------------------------------------------------------------------
+    // ------------------------------------------------------------------------------------
     // Lazy access methods
-    //------------------------------------------------------------------------------------
+    // ------------------------------------------------------------------------------------
     public static Border getButtonBorder() {
         if (buttonBorder == null) {
             buttonBorder = new ButtonBorder();
@@ -48,9 +48,9 @@ public class AluminiumBorders extends BaseBorders {
         return internalFrameBorder;
     }
 
-    //------------------------------------------------------------------------------------
+    // ------------------------------------------------------------------------------------
     // Implementation of border classes
-    //------------------------------------------------------------------------------------
+    // ------------------------------------------------------------------------------------
     public static class ButtonBorder implements Border, UIResource {
 
         private static final Insets insets = new Insets(2, 12, 2, 12);
@@ -124,8 +124,10 @@ public class AluminiumBorders extends BaseBorders {
             g.fillRect(1, h - dw, w, dw - 1);
 
             if (isActive(c)) {
-                JTattooUtilities.fillHorGradient(g, AluminiumLookAndFeel.getTheme().getWindowTitleColors(), 1, dw, dw, th + 1);
-                JTattooUtilities.fillHorGradient(g, AluminiumLookAndFeel.getTheme().getWindowTitleColors(), w - dw, dw, dw, th + 1);
+                JTattooUtilities.fillHorGradient(g, AluminiumLookAndFeel.getTheme().getWindowTitleColors(), 1, dw, dw,
+                        th + 1);
+                JTattooUtilities.fillHorGradient(g, AluminiumLookAndFeel.getTheme().getWindowTitleColors(), w - dw, dw,
+                        dw, th + 1);
                 Color c1 = AbstractLookAndFeel.getTheme().getWindowTitleColorDark();
                 Color c2 = AbstractLookAndFeel.getTheme().getWindowTitleColorLight();
                 g2D.setPaint(new GradientPaint(0, dw + th + 1, c1, 0, h - th - (2 * dw), c2));
@@ -133,8 +135,10 @@ public class AluminiumBorders extends BaseBorders {
                 g.fillRect(w - dw, dw + th + 1, dw - 1, h - th - (2 * dw));
                 g2D.setPaint(null);
             } else {
-                JTattooUtilities.fillHorGradient(g, AluminiumLookAndFeel.getTheme().getWindowInactiveTitleColors(), 1, dw, dw, th + 1);
-                JTattooUtilities.fillHorGradient(g, AluminiumLookAndFeel.getTheme().getWindowInactiveTitleColors(), w - dw, dw, dw, th + 1);
+                JTattooUtilities.fillHorGradient(g, AluminiumLookAndFeel.getTheme().getWindowInactiveTitleColors(), 1,
+                        dw, dw, th + 1);
+                JTattooUtilities.fillHorGradient(g, AluminiumLookAndFeel.getTheme().getWindowInactiveTitleColors(), w
+                        - dw, dw, dw, th + 1);
                 Color c1 = AbstractLookAndFeel.getTheme().getWindowInactiveTitleColorDark();
                 Color c2 = AbstractLookAndFeel.getTheme().getWindowInactiveTitleColorLight();
                 g2D.setPaint(new GradientPaint(0, dw + th + 1, c1, 0, h - th - (2 * dw), c2));
@@ -142,7 +146,6 @@ public class AluminiumBorders extends BaseBorders {
                 g.fillRect(w - dw, dw + th + 1, dw - 1, h - th - (2 * dw));
                 g2D.setPaint(null);
             }
-
 
             Color borderColor = AluminiumLookAndFeel.getWindowInactiveBorderColor();
             if (isActive(c)) {

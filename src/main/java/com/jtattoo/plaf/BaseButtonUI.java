@@ -63,12 +63,15 @@ public class BaseButtonUI extends BasicButtonUI {
                 }
             } else {
                 if (model.isPressed() && model.isArmed()) {
-                    colors = ColorHelper.createColorArr(b.getBackground(), ColorHelper.darker(b.getBackground(), 50), 20);
+                    colors = ColorHelper.createColorArr(b.getBackground(), ColorHelper.darker(b.getBackground(), 50),
+                            20);
                 } else {
                     if (model.isRollover()) {
-                        colors = ColorHelper.createColorArr(ColorHelper.brighter(b.getBackground(), 80), ColorHelper.brighter(b.getBackground(), 20), 20);
+                        colors = ColorHelper.createColorArr(ColorHelper.brighter(b.getBackground(), 80),
+                                ColorHelper.brighter(b.getBackground(), 20), 20);
                     } else {
-                        colors = ColorHelper.createColorArr(ColorHelper.brighter(b.getBackground(), 40), ColorHelper.darker(b.getBackground(), 20), 20);
+                        colors = ColorHelper.createColorArr(ColorHelper.brighter(b.getBackground(), 40),
+                                ColorHelper.darker(b.getBackground(), 20), 20);
                     }
                 }
             }
@@ -103,12 +106,15 @@ public class BaseButtonUI extends BasicButtonUI {
                 offs = 1;
             }
             g.setColor(b.getForeground());
-            JTattooUtilities.drawStringUnderlineCharAt(b, g, b.getText(), mnemIndex, textRect.x + offs, textRect.y + offs + fm.getAscent());
+            JTattooUtilities.drawStringUnderlineCharAt(b, g, b.getText(), mnemIndex, textRect.x + offs, textRect.y
+                    + offs + fm.getAscent());
         } else {
             g.setColor(Color.white);
-            JTattooUtilities.drawStringUnderlineCharAt(b, g, b.getText(), mnemIndex, textRect.x + 1, textRect.y + 1 + fm.getAscent());
+            JTattooUtilities.drawStringUnderlineCharAt(b, g, b.getText(), mnemIndex, textRect.x + 1, textRect.y + 1
+                    + fm.getAscent());
             g.setColor(AbstractLookAndFeel.getDisabledForegroundColor());
-            JTattooUtilities.drawStringUnderlineCharAt(b, g, b.getText(), mnemIndex, textRect.x, textRect.y + fm.getAscent());
+            JTattooUtilities.drawStringUnderlineCharAt(b, g, b.getText(), mnemIndex, textRect.x,
+                    textRect.y + fm.getAscent());
         }
     }
 
@@ -138,12 +144,9 @@ public class BaseButtonUI extends BasicButtonUI {
         if (JTattooUtilities.getJavaVersion() >= 1.4) {
             iconTextGap = b.getIconTextGap();
         }
-        String text = SwingUtilities.layoutCompoundLabel(
-                c, fm, b.getText(), b.getIcon(),
-                b.getVerticalAlignment(), b.getHorizontalAlignment(),
-                b.getVerticalTextPosition(), b.getHorizontalTextPosition(),
-                viewRect, iconRect, textRect,
-                b.getText() == null ? 0 : iconTextGap);
+        String text = SwingUtilities.layoutCompoundLabel(c, fm, b.getText(), b.getIcon(), b.getVerticalAlignment(),
+                b.getHorizontalAlignment(), b.getVerticalTextPosition(), b.getHorizontalTextPosition(), viewRect,
+                iconRect, textRect, b.getText() == null ? 0 : iconTextGap);
 
         paintBackground(g, b);
 

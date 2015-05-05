@@ -27,12 +27,14 @@ public class BackupTask implements ScheduledTask {
     /**
      * Constructs a new scheduled world backup.
      *
-     * @param world The world to back up.
-     * @param broadcastMessage True if a message will be broadcast in the world
-     * during the backup.
-     * @param repeating True if this task will repeat.
-     * @param interval The interval between executions (or delay for a
-     * non-repeating task).
+     * @param world
+     *            The world to back up.
+     * @param broadcastMessage
+     *            True if a message will be broadcast in the world during the backup.
+     * @param repeating
+     *            True if this task will repeat.
+     * @param interval
+     *            The interval between executions (or delay for a non-repeating task).
      */
     public BackupTask(World world, boolean broadcastMessage, boolean repeating, long interval, String name) {
         this.world = world.getName();
@@ -63,16 +65,18 @@ public class BackupTask implements ScheduledTask {
         }
         Pail.getGame().getAsyncScheduler().runTask(Util.getPlugin(), new Runnable() {
             @SuppressWarnings("deprecation")
-			public void run() {
+            public void run() {
                 Util.log("Starting scheduled backup for " + world);
                 if (broadcast) {
-                    Pail.getServer().broadcastMessage(Texts.fromLegacy(TextColors.GRAY + "Scheduled backup is starting for " + world));
+                    Pail.getServer().broadcastMessage(
+                            Texts.fromLegacy(TextColors.GRAY + "Scheduled backup is starting for " + world));
                 }
                 long start = System.currentTimeMillis();
                 Util.zipDir(worldFolder, backup);
                 int seconds = (int) (System.currentTimeMillis() - start) / 1000;
                 if (broadcast) {
-                    Pail.getServer().broadcastMessage(Texts.fromLegacy(TextColors.GRAY + "Scheduled backup completed for " + world));
+                    Pail.getServer().broadcastMessage(
+                            Texts.fromLegacy(TextColors.GRAY + "Scheduled backup completed for " + world));
                 }
                 Util.log("Backup completed in " + seconds + (seconds == 1 ? " second" : " seconds") + " for " + world);
             }
@@ -95,7 +99,8 @@ public class BackupTask implements ScheduledTask {
     }
 
     /**
-     * @param name the name to set
+     * @param name
+     *            the name to set
      */
     public void setName(String name) {
         this.name = name;

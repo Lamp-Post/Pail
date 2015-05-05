@@ -50,9 +50,9 @@ public class BaseBorders {
         desktopIconBorder = null;
     }
 
-    //------------------------------------------------------------------------------------
+    // ------------------------------------------------------------------------------------
     // Lazy access methods
-    //------------------------------------------------------------------------------------
+    // ------------------------------------------------------------------------------------
     public static Border getFocusFrameBorder() {
         if (focusFrameBorder == null) {
             focusFrameBorder = new FocusFrameBorder();
@@ -60,9 +60,9 @@ public class BaseBorders {
         return focusFrameBorder;
     }
 
-    //------------------------------------------------------------------------------------
+    // ------------------------------------------------------------------------------------
     // Lazy access methods
-    //------------------------------------------------------------------------------------
+    // ------------------------------------------------------------------------------------
     public static Border getTextBorder() {
         if (textFieldBorder == null) {
             textFieldBorder = new TextFieldBorder();
@@ -90,7 +90,8 @@ public class BaseBorders {
 
     public static Border getProgressBarBorder() {
         if (progressBarBorder == null) {
-            progressBarBorder = BorderFactory.createLineBorder(ColorHelper.darker(AbstractLookAndFeel.getBackgroundColor(), 30));
+            progressBarBorder = BorderFactory.createLineBorder(ColorHelper.darker(
+                    AbstractLookAndFeel.getBackgroundColor(), 30));
         }
         return progressBarBorder;
     }
@@ -168,16 +169,16 @@ public class BaseBorders {
 
     public static Border getDesktopIconBorder() {
         if (desktopIconBorder == null) {
-            desktopIconBorder = new BorderUIResource.CompoundBorderUIResource(
-                    new LineBorder(AbstractLookAndFeel.getWindowBorderColor(), 1),
-                    new MatteBorder(2, 2, 1, 2, AbstractLookAndFeel.getWindowBorderColor()));
+            desktopIconBorder = new BorderUIResource.CompoundBorderUIResource(new LineBorder(
+                    AbstractLookAndFeel.getWindowBorderColor(), 1), new MatteBorder(2, 2, 1, 2,
+                    AbstractLookAndFeel.getWindowBorderColor()));
         }
         return desktopIconBorder;
     }
 
-    //------------------------------------------------------------------------------------
+    // ------------------------------------------------------------------------------------
     // Implementation of border classes
-    //------------------------------------------------------------------------------------
+    // ------------------------------------------------------------------------------------
     public static class FocusFrameBorder extends AbstractBorder implements UIResource {
 
         private static final Insets insets = new Insets(2, 2, 2, 2);
@@ -257,7 +258,7 @@ public class BaseBorders {
 
         private static final Insets insets = new Insets(2, 2, 2, 2);
         private static final Insets tableInsets = new Insets(1, 1, 1, 1);
-        
+
         private boolean tableBorder = false;
 
         public ScrollPaneBorder(boolean tableBorder) {
@@ -287,7 +288,8 @@ public class BaseBorders {
         protected Insets insets = new Insets(2, 1, 1, 1);
 
         public boolean hasLogo() {
-            return ((AbstractLookAndFeel.getTheme().getLogoString() != null) && (AbstractLookAndFeel.getTheme().getLogoString().length() > 0));
+            return ((AbstractLookAndFeel.getTheme().getLogoString() != null) && (AbstractLookAndFeel.getTheme()
+                    .getLogoString().length() > 0));
         }
 
         public void paintLogo(Graphics2D g2D, int w, int h) {
@@ -305,11 +307,15 @@ public class BaseBorders {
             int xs = -h + 4;
             int ys = fm.getAscent() + 2;
 
-            /*imageGraphics.setColor(ColorHelper.darker(logoColor, 20));
-            imageGraphics.drawString(JTattooUtilities.getClippedText(AbstractLookAndFeel.getTheme().getLogoString(), fm, h - 16), xs - 1, ys + 1);
-
-            imageGraphics.setColor(Color.white);
-            imageGraphics.drawString(JTattooUtilities.getClippedText(AbstractLookAndFeel.getTheme().getLogoString(), fm, h - 16), xs, ys);*/
+            /*
+             * imageGraphics.setColor(ColorHelper.darker(logoColor, 20));
+             * imageGraphics.drawString(JTattooUtilities.getClippedText(AbstractLookAndFeel.getTheme().getLogoString(),
+             * fm, h - 16), xs - 1, ys + 1);
+             * 
+             * imageGraphics.setColor(Color.white);
+             * imageGraphics.drawString(JTattooUtilities.getClippedText(AbstractLookAndFeel.getTheme().getLogoString(),
+             * fm, h - 16), xs, ys);
+             */
 
             Rectangle2D r2D = new Rectangle2D.Double(0, 0, w, h);
             TexturePaint texturePaint = new TexturePaint(image, r2D);
@@ -642,7 +648,8 @@ public class BaseBorders {
 
         public void paintBorder(Component c, Graphics g, int x, int y, int w, int h) {
             Color frameColor = AbstractLookAndFeel.getTheme().getBackgroundColor();
-            JTattooUtilities.draw3DBorder(g, ColorHelper.darker(frameColor, 20), ColorHelper.brighter(frameColor, 80), x, y, w, h);
+            JTattooUtilities.draw3DBorder(g, ColorHelper.darker(frameColor, 20), ColorHelper.brighter(frameColor, 80),
+                    x, y, w, h);
         }
 
         public Insets getBorderInsets(Component c) {

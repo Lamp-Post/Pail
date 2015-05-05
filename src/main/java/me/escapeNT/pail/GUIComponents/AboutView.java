@@ -1,4 +1,3 @@
-
 package me.escapeNT.pail.GUIComponents;
 
 import me.escapeNT.pail.Pail;
@@ -6,6 +5,7 @@ import me.escapeNT.pail.Util.Util;
 
 /**
  * Pail about window.
+ * 
  * @author escapeNT
  */
 public class AboutView extends javax.swing.JDialog {
@@ -21,8 +21,8 @@ public class AboutView extends javax.swing.JDialog {
         version.setText("Version " + Pail.PLUGIN_VERSION + " by escape");
     }
 
-    /** This method is called from within the constructor to
-     * initialize the form.
+    /**
+     * This method is called from within the constructor to initialize the form.
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -39,32 +39,37 @@ public class AboutView extends javax.swing.JDialog {
 
         version.setText("Version ");
 
-        icon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/me/escapeNT/pail/GUIComponents/images/pail.png"))); // NOI18N
+        icon.setIcon(new javax.swing.ImageIcon(getClass()
+                .getResource("/me/escapeNT/pail/GUIComponents/images/pail.png"))); // NOI18N
 
         org.jdesktop.layout.GroupLayout layout = new org.jdesktop.layout.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(layout.createSequentialGroup()
-                .add(87, 87, 87)
-                .add(title, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 150, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-            .add(layout.createSequentialGroup()
-                .add(50, 50, 50)
-                .add(version, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 170, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-            .add(layout.createSequentialGroup()
-                .add(40, 40, 40)
-                .add(icon, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 150, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(layout.createSequentialGroup()
-                .add(10, 10, 10)
-                .add(title)
-                .add(8, 8, 8)
-                .add(version)
-                .add(4, 4, 4)
-                .add(icon, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 130, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-        );
+        layout.setHorizontalGroup(layout
+                .createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                .add(layout
+                        .createSequentialGroup()
+                        .add(87, 87, 87)
+                        .add(title, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 150,
+                                org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                .add(layout
+                        .createSequentialGroup()
+                        .add(50, 50, 50)
+                        .add(version, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 170,
+                                org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                .add(layout
+                        .createSequentialGroup()
+                        .add(40, 40, 40)
+                        .add(icon, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 150,
+                                org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)));
+        layout.setVerticalGroup(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING).add(
+                layout.createSequentialGroup()
+                        .add(10, 10, 10)
+                        .add(title)
+                        .add(8, 8, 8)
+                        .add(version)
+                        .add(4, 4, 4)
+                        .add(icon, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 130,
+                                org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents

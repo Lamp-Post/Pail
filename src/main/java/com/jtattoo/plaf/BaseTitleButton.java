@@ -11,7 +11,7 @@ import java.awt.Graphics2D;
 import javax.swing.*;
 
 /**
- * @author  Michael Hagen
+ * @author Michael Hagen
  */
 public class BaseTitleButton extends NoFocusButton {
 

@@ -27,4 +27,3 @@ public class FastInternalFrameUI extends BaseInternalFrameUI {
         return titlePane;
     }
 }
-

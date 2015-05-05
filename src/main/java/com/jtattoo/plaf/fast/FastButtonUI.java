@@ -35,4 +35,3 @@ public class FastButtonUI extends BaseButtonUI {
         }
     }
 }
-

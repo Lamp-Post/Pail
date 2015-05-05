@@ -9,7 +9,7 @@ import java.awt.*;
 import javax.swing.*;
 
 /**
- * @author  Michael Hagen
+ * @author Michael Hagen
  */
 public class DecorationHelper {
 
@@ -19,9 +19,9 @@ public class DecorationHelper {
     public static void decorateWindows(Boolean decorate) {
         if (JTattooUtilities.getJavaVersion() >= 1.4) {
             try {
-                Class classParams[] = {Boolean.TYPE};
+                Class classParams[] = { Boolean.TYPE };
                 Method m = JFrame.class.getMethod("setDefaultLookAndFeelDecorated", classParams);
-                Object methodParams[] = {decorate};
+                Object methodParams[] = { decorate };
                 m.invoke(null, methodParams);
                 m = JDialog.class.getMethod("setDefaultLookAndFeelDecorated", classParams);
                 m.invoke(null, methodParams);
@@ -62,9 +62,9 @@ public class DecorationHelper {
     public static void setExtendedState(Frame frame, int state) {
         if (JTattooUtilities.getJavaVersion() >= 1.4) {
             try {
-                Class classParams[] = {Integer.TYPE};
+                Class classParams[] = { Integer.TYPE };
                 Method m = frame.getClass().getMethod("setExtendedState", classParams);
-                Object methodParams[] = {new Integer(state)};
+                Object methodParams[] = { new Integer(state) };
                 m.invoke(frame, methodParams);
             } catch (Exception ex) {
             }
@@ -74,9 +74,9 @@ public class DecorationHelper {
     public static boolean isFrameStateSupported(Toolkit tk, int state) {
         if (JTattooUtilities.getJavaVersion() >= 1.4) {
             try {
-                Class classParams[] = {Integer.TYPE};
+                Class classParams[] = { Integer.TYPE };
                 Method m = tk.getClass().getMethod("isFrameStateSupported", classParams);
-                Object methodParams[] = {new Integer(state)};
+                Object methodParams[] = { new Integer(state) };
                 Boolean b = (Boolean) m.invoke(tk, methodParams);
                 return b.booleanValue();
             } catch (Exception ex) {

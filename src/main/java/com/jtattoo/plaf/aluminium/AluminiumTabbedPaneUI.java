@@ -15,8 +15,10 @@ import com.jtattoo.plaf.*;
  */
 public class AluminiumTabbedPaneUI extends BaseTabbedPaneUI {
 
-    private static final Color TOP_SELECTED_TAB_COLORS[] = ColorHelper.createColorArr(new Color(204, 206, 202), new Color(220, 222, 218), 20);
-    private static final Color BOTTOM_SELECTED_TAB_COLORS[] = ColorHelper.createColorArr(new Color(220, 222, 218), new Color(204, 206, 202), 20);
+    private static final Color TOP_SELECTED_TAB_COLORS[] = ColorHelper.createColorArr(new Color(204, 206, 202),
+            new Color(220, 222, 218), 20);
+    private static final Color BOTTOM_SELECTED_TAB_COLORS[] = ColorHelper.createColorArr(new Color(220, 222, 218),
+            new Color(204, 206, 202), 20);
 
     public static ComponentUI createUI(JComponent c) {
         return new AluminiumTabbedPaneUI();
@@ -156,7 +158,8 @@ public class AluminiumTabbedPaneUI extends BaseTabbedPaneUI {
         }
     }
 
-    protected void paintTabBackground(Graphics g, int tabPlacement, int tabIndex, int x, int y, int w, int h, boolean isSelected) {
+    protected void paintTabBackground(Graphics g, int tabPlacement, int tabIndex, int x, int y, int w, int h,
+            boolean isSelected) {
         if (JTattooUtilities.isMac()) {
             if (isSelected) {
                 Color colorArr[] = getTabColors(tabIndex, isSelected);
@@ -190,11 +193,9 @@ public class AluminiumTabbedPaneUI extends BaseTabbedPaneUI {
                         AluminiumUtils.fillComponent(g, tabPane, x + 1, y - 1, w - 1, h + 1);
                     else
                         AluminiumUtils.fillComponent(g, tabPane, x - 1, y + 1, w + 1, h - 1);
-                }
-                else
+                } else
                     super.paintTabBackground(g, tabPlacement, tabIndex, x, y, w, h, isSelected);
-            }
-            else {
+            } else {
                 super.paintTabBackground(g, tabPlacement, tabIndex, x, y, w, h, isSelected);
             }
         }

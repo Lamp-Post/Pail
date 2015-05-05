@@ -14,7 +14,7 @@ import javax.swing.plaf.basic.BasicTableHeaderUI;
 
 /**
  *
- * @author  Michael Hagen
+ * @author Michael Hagen
  */
 public class BaseTableHeaderUI extends BasicTableHeaderUI {
 
@@ -133,10 +133,9 @@ public class BaseTableHeaderUI extends BasicTableHeaderUI {
     }
 
     /**
-     * Return the preferred size of the header. The preferred height is the 
-     * maximum of the preferred heights of all of the components provided 
-     * by the header renderers. The preferred width is the sum of the 
-     * preferred widths of each column (plus inter-cell spacing).
+     * Return the preferred size of the header. The preferred height is the maximum of the preferred heights of all of
+     * the components provided by the header renderers. The preferred width is the sum of the preferred widths of each
+     * column (plus inter-cell spacing).
      */
     public Dimension getPreferredSize(JComponent c) {
         long width = 0;
@@ -221,7 +220,8 @@ public class BaseTableHeaderUI extends BasicTableHeaderUI {
         if (renderer == null) {
             renderer = header.getDefaultRenderer();
         }
-        return renderer.getTableCellRendererComponent(header.getTable(), tabCol.getHeaderValue(), false, false, -1, col);
+        return renderer
+                .getTableCellRendererComponent(header.getTable(), tabCol.getHeaderValue(), false, false, -1, col);
     }
 
     protected void paintCell(Graphics g, Rectangle cellRect, int col) {
@@ -235,7 +235,8 @@ public class BaseTableHeaderUI extends BasicTableHeaderUI {
                 component.setForeground(Color.white);
             }
         }
-        rendererPane.paintComponent(g, component, header, cellRect.x, cellRect.y, cellRect.width, cellRect.height, true);
+        rendererPane
+                .paintComponent(g, component, header, cellRect.x, cellRect.y, cellRect.width, cellRect.height, true);
     }
 
     protected void paintBackground(Graphics g, Rectangle cellRect, int col) {

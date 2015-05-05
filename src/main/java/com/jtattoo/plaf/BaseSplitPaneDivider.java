@@ -127,9 +127,11 @@ public class BaseSplitPaneDivider extends BasicSplitPaneDivider {
                 icon.paintIcon(this, g, x, y);
                 if (getModel().isArmed()) {
                     if (getModel().isPressed()) {
-                        JTattooUtilities.draw3DBorder(g, ColorHelper.darker(color, 30), ColorHelper.brighter(color, 80), 0, 0, w, h);
+                        JTattooUtilities.draw3DBorder(g, ColorHelper.darker(color, 30),
+                                ColorHelper.brighter(color, 80), 0, 0, w, h);
                     } else {
-                        JTattooUtilities.draw3DBorder(g, ColorHelper.brighter(color, 80), ColorHelper.darker(color, 30), 0, 0, w, h);
+                        JTattooUtilities.draw3DBorder(g, ColorHelper.brighter(color, 80),
+                                ColorHelper.darker(color, 30), 0, 0, w, h);
                     }
                 }
             }
@@ -172,9 +174,11 @@ public class BaseSplitPaneDivider extends BasicSplitPaneDivider {
                 icon.paintIcon(this, g, x, y);
                 if (getModel().isArmed()) {
                     if (getModel().isPressed()) {
-                        JTattooUtilities.draw3DBorder(g, ColorHelper.darker(color, 30), ColorHelper.brighter(color, 80), 0, 0, w, h);
+                        JTattooUtilities.draw3DBorder(g, ColorHelper.darker(color, 30),
+                                ColorHelper.brighter(color, 80), 0, 0, w, h);
                     } else {
-                        JTattooUtilities.draw3DBorder(g, ColorHelper.brighter(color, 80), ColorHelper.darker(color, 30), 0, 0, w, h);
+                        JTattooUtilities.draw3DBorder(g, ColorHelper.brighter(color, 80),
+                                ColorHelper.darker(color, 30), 0, 0, w, h);
                     }
                 }
             }
@@ -192,9 +196,8 @@ public class BaseSplitPaneDivider extends BasicSplitPaneDivider {
     }
 
     /**
-     * Used to layout a <code>BasicSplitPaneDivider</code>.
-     * Layout for the divider
-     * involves appropriately moving the left/right buttons around.
+     * Used to layout a <code>BasicSplitPaneDivider</code>. Layout for the divider involves appropriately moving the
+     * left/right buttons around.
      * <p>
      */
     protected class MyDividerLayout implements LayoutManager {

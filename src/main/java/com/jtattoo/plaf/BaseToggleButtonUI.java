@@ -64,11 +64,14 @@ public class BaseToggleButtonUI extends BasicToggleButtonUI {
                 }
             } else {
                 if (model.isRollover()) {
-                    colors = ColorHelper.createColorArr(ColorHelper.brighter(b.getBackground(), 80), ColorHelper.brighter(b.getBackground(), 20), 20);
+                    colors = ColorHelper.createColorArr(ColorHelper.brighter(b.getBackground(), 80),
+                            ColorHelper.brighter(b.getBackground(), 20), 20);
                 } else if (model.isPressed() && model.isArmed() || model.isSelected()) {
-                    colors = ColorHelper.createColorArr(b.getBackground(), ColorHelper.darker(b.getBackground(), 50), 20);
+                    colors = ColorHelper.createColorArr(b.getBackground(), ColorHelper.darker(b.getBackground(), 50),
+                            20);
                 } else {
-                    colors = ColorHelper.createColorArr(ColorHelper.brighter(b.getBackground(), 40), ColorHelper.darker(b.getBackground(), 20), 20);
+                    colors = ColorHelper.createColorArr(ColorHelper.brighter(b.getBackground(), 40),
+                            ColorHelper.darker(b.getBackground(), 20), 20);
                 }
             }
         } else { // disabled
@@ -93,10 +96,12 @@ public class BaseToggleButtonUI extends BasicToggleButtonUI {
                 offs = 1;
             }
             g.setColor(b.getForeground());
-            JTattooUtilities.drawStringUnderlineCharAt(b, g, text, mnemIndex, textRect.x + offs, textRect.y + offs + fm.getAscent());
+            JTattooUtilities.drawStringUnderlineCharAt(b, g, text, mnemIndex, textRect.x + offs,
+                    textRect.y + offs + fm.getAscent());
         } else {
             g.setColor(Color.white);
-            JTattooUtilities.drawStringUnderlineCharAt(b, g, text, mnemIndex, textRect.x + 1, textRect.y + 1 + fm.getAscent());
+            JTattooUtilities.drawStringUnderlineCharAt(b, g, text, mnemIndex, textRect.x + 1,
+                    textRect.y + 1 + fm.getAscent());
             g.setColor(AbstractLookAndFeel.getDisabledForegroundColor());
             JTattooUtilities.drawStringUnderlineCharAt(b, g, text, mnemIndex, textRect.x, textRect.y + fm.getAscent());
         }
@@ -124,12 +129,9 @@ public class BaseToggleButtonUI extends BasicToggleButtonUI {
         textRect.x = textRect.y = textRect.width = textRect.height = 0;
         iconRect.x = iconRect.y = iconRect.width = iconRect.height = 0;
 
-        String text = SwingUtilities.layoutCompoundLabel(
-                c, fm, b.getText(), b.getIcon(),
-                b.getVerticalAlignment(), b.getHorizontalAlignment(),
-                b.getVerticalTextPosition(), b.getHorizontalTextPosition(),
-                viewRect, iconRect, textRect,
-                b.getText() == null ? 0 : defaultTextIconGap);
+        String text = SwingUtilities.layoutCompoundLabel(c, fm, b.getText(), b.getIcon(), b.getVerticalAlignment(),
+                b.getHorizontalAlignment(), b.getVerticalTextPosition(), b.getHorizontalTextPosition(), viewRect,
+                iconRect, textRect, b.getText() == null ? 0 : defaultTextIconGap);
 
         paintBackground(g, b);
 
@@ -151,7 +153,8 @@ public class BaseToggleButtonUI extends BasicToggleButtonUI {
                 Object savedRenderingHint = null;
                 if (AbstractLookAndFeel.getTheme().isTextAntiAliasingOn()) {
                     savedRenderingHint = g2D.getRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING);
-                    g2D.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, AbstractLookAndFeel.getTheme().getTextAntiAliasingHint());
+                    g2D.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, AbstractLookAndFeel.getTheme()
+                            .getTextAntiAliasingHint());
                 }
                 v.paint(g, textRect);
                 if (AbstractLookAndFeel.getTheme().isTextAntiAliasingOn()) {

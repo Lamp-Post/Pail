@@ -10,7 +10,7 @@ import javax.swing.*;
 import javax.swing.plaf.basic.*;
 
 /**
- * @author  Michael Hagen
+ * @author Michael Hagen
  */
 public class JTattooUtilities {
 
@@ -144,7 +144,8 @@ public class JTattooUtilities {
     public static Container getRootContainer(Component c) {
         if (c != null) {
             Container parent = c.getParent();
-            while ((parent != null) && !(parent instanceof JPopupMenu) && !(parent instanceof JInternalFrame) && !(parent instanceof Window) && (parent.getParent() != null)) {
+            while ((parent != null) && !(parent instanceof JPopupMenu) && !(parent instanceof JInternalFrame)
+                    && !(parent instanceof Window) && (parent.getParent() != null)) {
                 parent = parent.getParent();
             }
             return parent;
@@ -197,15 +198,15 @@ public class JTattooUtilities {
             return -1;
         }
 
-        char uc = Character.toUpperCase((char)mnemonic);
-        char lc = Character.toLowerCase((char)mnemonic);
+        char uc = Character.toUpperCase((char) mnemonic);
+        char lc = Character.toLowerCase((char) mnemonic);
 
         int uci = text.indexOf(uc);
         int lci = text.indexOf(lc);
 
         if (uci == -1) {
             return lci;
-        } else if(lci == -1) {
+        } else if (lci == -1) {
             return uci;
         } else {
             return (lci < uci) ? lci : uci;
@@ -217,14 +218,15 @@ public class JTattooUtilities {
         Object savedRenderingHint = null;
         if (AbstractLookAndFeel.getTheme().isTextAntiAliasingOn()) {
             savedRenderingHint = g2D.getRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING);
-            g2D.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, AbstractLookAndFeel.getTheme().getTextAntiAliasingHint());
+            g2D.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, AbstractLookAndFeel.getTheme()
+                    .getTextAntiAliasingHint());
         }
         if (getJavaVersion() >= 1.6) {
             try {
                 Class swingUtilities2Class = Class.forName("sun.swing.SwingUtilities2");
-                Class classParams[] = {JComponent.class, Graphics.class, String.class, Integer.TYPE, Integer.TYPE};
+                Class classParams[] = { JComponent.class, Graphics.class, String.class, Integer.TYPE, Integer.TYPE };
                 Method m = swingUtilities2Class.getMethod("drawString", classParams);
-                Object methodParams[] = {c, g, text, new Integer(x), new Integer(y)};
+                Object methodParams[] = { c, g, text, new Integer(x), new Integer(y) };
                 m.invoke(null, methodParams);
             } catch (Exception ex) {
                 g.drawString(text, x, y);
@@ -237,19 +239,22 @@ public class JTattooUtilities {
         }
     }
 
-    public static void drawStringUnderlineCharAt(JComponent c, Graphics g, String text, int underlinedIndex, int x, int y) {
+    public static void drawStringUnderlineCharAt(JComponent c, Graphics g, String text, int underlinedIndex, int x,
+            int y) {
         Graphics2D g2D = (Graphics2D) g;
         Object savedRenderingHint = null;
         if (AbstractLookAndFeel.getTheme().isTextAntiAliasingOn()) {
             savedRenderingHint = g2D.getRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING);
-            g2D.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, AbstractLookAndFeel.getTheme().getTextAntiAliasingHint());
+            g2D.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, AbstractLookAndFeel.getTheme()
+                    .getTextAntiAliasingHint());
         }
         if (getJavaVersion() >= 1.6) {
             try {
                 Class swingUtilities2Class = Class.forName("sun.swing.SwingUtilities2");
-                Class classParams[] = {JComponent.class, Graphics.class, String.class, Integer.TYPE, Integer.TYPE, Integer.TYPE};
+                Class classParams[] = { JComponent.class, Graphics.class, String.class, Integer.TYPE, Integer.TYPE,
+                        Integer.TYPE };
                 Method m = swingUtilities2Class.getMethod("drawStringUnderlineCharAt", classParams);
-                Object methodParams[] = {c, g, text, new Integer(underlinedIndex), new Integer(x), new Integer(y)};
+                Object methodParams[] = { c, g, text, new Integer(underlinedIndex), new Integer(x), new Integer(y) };
                 m.invoke(null, methodParams);
             } catch (Exception ex) {
                 BasicGraphicsUtils.drawString(g, text, underlinedIndex, x, y);
@@ -337,7 +342,8 @@ public class JTattooUtilities {
                 g2D.setColor(colors[colors.length - i - 1]);
                 g.fillRect(x, y1, w, y + h - y1);
             } else {
-                g2D.setPaint(new GradientPaint(0, y1, colors[colors.length - i - 1], 0, y2, colors[colors.length - i - 2]));
+                g2D.setPaint(new GradientPaint(0, y1, colors[colors.length - i - 1], 0, y2, colors[colors.length - i
+                        - 2]));
                 g.fillRect(x, y1, w, y2 - y1);
             }
             y1 = y2;
@@ -375,7 +381,8 @@ public class JTattooUtilities {
             x1 = x2;
         }
     }
-    //-------------------------------------------------------------------------------------------
+
+    // -------------------------------------------------------------------------------------------
 
     public static void drawBorder(Graphics g, Color c, int x, int y, int w, int h) {
         g.setColor(c);

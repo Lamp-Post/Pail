@@ -10,7 +10,7 @@ import javax.swing.*;
 import com.jtattoo.plaf.*;
 
 /**
- * @author  Michael Hagen
+ * @author Michael Hagen
  */
 public class AluminiumTitlePane extends BaseTitlePane {
 

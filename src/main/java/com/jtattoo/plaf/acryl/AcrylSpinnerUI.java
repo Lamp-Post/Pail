@@ -18,10 +18,10 @@ import com.jtattoo.plaf.*;
 public class AcrylSpinnerUI extends BaseSpinnerUI {
 
     /**
-     * Returns a new instance of BaseSpinnerUI.  SpinnerListUI 
-     * delegates are allocated one per JSpinner.  
+     * Returns a new instance of BaseSpinnerUI. SpinnerListUI delegates are allocated one per JSpinner.
      * 
-     * @param c the JSpinner (not used)
+     * @param c
+     *            the JSpinner (not used)
      * @see ComponentUI#createUI
      * @return a new BasicSpinnerUI object
      */

@@ -1,4 +1,3 @@
-
 package me.escapeNT.pail;
 
 import javax.swing.JOptionPane;

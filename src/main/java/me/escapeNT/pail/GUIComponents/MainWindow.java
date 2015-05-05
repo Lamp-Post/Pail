@@ -32,8 +32,8 @@ public class MainWindow extends JFrame implements Localizable {
         setMinimumSize(new Dimension(990, 615));
         addWindowListener(Util.getPlugin().getWindowListener());
         setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
-        //setLocationRelativeTo(null);
-        //setFocusableWindowState(true);
+        // setLocationRelativeTo(null);
+        // setFocusableWindowState(true);
         setFocusable(true);
 
         // Register server control panel

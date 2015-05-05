@@ -49,4 +49,3 @@ public interface AbstractBorderFactory {
 
     public Border getProgressBarBorder();
 }
-

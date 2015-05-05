@@ -34,14 +34,15 @@ public class Scheduler {
     private static HashMap<ScheduledTask, UUID> taskIDs = new HashMap<ScheduledTask, UUID>();
     private static final SynchronousScheduler bs = Pail.getGame().getSyncScheduler();
     private static final File file = new File("tasks.conf");
-    public static final ConfigurationLoader<CommentedConfigurationNode> loader = HoconConfigurationLoader.builder().setFile(file).build();
+    public static final ConfigurationLoader<CommentedConfigurationNode> loader = HoconConfigurationLoader.builder()
+            .setFile(file).build();
     public static ConfigurationNode rootNode;
 
     /**
-     * Registers a task to be executed. If the task has already been registered,
-     * the method simply returns.
+     * Registers a task to be executed. If the task has already been registered, the method simply returns.
      *
-     * @param task The task to register.
+     * @param task
+     *            The task to register.
      */
     public static void registerTask(final ScheduledTask task) {
         if (isTaskRegistered(task)) {
@@ -74,7 +75,8 @@ public class Scheduler {
     /**
      * Determines if a task has already been registered with the scheduler.
      *
-     * @param task The task to check.
+     * @param task
+     *            The task to check.
      * @return True if it has been registered, false otherwise.
      */
     public static boolean isTaskRegistered(ScheduledTask task) {
@@ -82,11 +84,9 @@ public class Scheduler {
     }
 
     /**
-     * Gets the map of all currently registered tasks and whether they have been
-     * executed yet.
+     * Gets the map of all currently registered tasks and whether they have been executed yet.
      *
-     * @return The map of tasks to weather or not they have been executed at
-     * least once.
+     * @return The map of tasks to weather or not they have been executed at least once.
      * @deprecated This should never be leaked
      */
     @Deprecated
@@ -99,14 +99,14 @@ public class Scheduler {
      */
     public static void saveTasks() {
         rootNode = loader.createEmptyNode(ConfigurationOptions.defaults());
-		rootNode.setValue(tasks);
+        rootNode.setValue(tasks);
     }
 
     /**
      * Loads the saved list of tasks.
      */
     @SuppressWarnings("unchecked")
-	public static void loadTasks() {
+    public static void loadTasks() {
         if (!file.exists()) {
             saveTasks();
         }
@@ -114,7 +114,7 @@ public class Scheduler {
             bs.getTaskById(taskId).get().cancel();
         }
         try {
-			loader.save(rootNode);
+            loader.save(rootNode);
         } catch (Exception ex) {
             Util.log(Level.SEVERE, ex.toString());
         }
@@ -146,7 +146,8 @@ public class Scheduler {
     /**
      * Gets a task matching a specified name, or null if it isn't found.
      *
-     * @param name The name of the task.
+     * @param name
+     *            The name of the task.
      * @return The task with the given name, or null if not found.
      */
     public ScheduledTask getTask(String name) {

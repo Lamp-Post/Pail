@@ -47,7 +47,7 @@ public final class BukkitArtifact {
         int downloads = json.getInt("download_count");
         boolean broken = json.getBoolean("is_broken");
         String breason = json.getString("broken_reason");
-        //TODO: file.size, file.url, file.checksum_md5, commit, created, html_url
+        // TODO: file.size, file.url, file.checksum_md5, commit, created, html_url
 
         return new BukkitArtifact(version, build, downloads, broken, breason);
     }

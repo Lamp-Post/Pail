@@ -126,31 +126,33 @@ public final class ServerControlPanel extends javax.swing.JPanel implements Loca
 
         org.jdesktop.layout.GroupLayout layout = new org.jdesktop.layout.GroupLayout(this);
         this.setLayout(layout);
-        layout.setHorizontalGroup(
-                layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                .add(org.jdesktop.layout.GroupLayout.TRAILING, layout.createSequentialGroup()
-                .addContainerGap()
-                .add(serverConsolePanel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 640, Short.MAX_VALUE)
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(jScrollPane1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 170, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap()));
-        layout.setVerticalGroup(
-                layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                .add(layout.createSequentialGroup()
-                .add(20, 20, 20)
-                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                .add(org.jdesktop.layout.GroupLayout.TRAILING, serverConsolePanel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 450, Short.MAX_VALUE)
-                .add(org.jdesktop.layout.GroupLayout.TRAILING, jScrollPane1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 450, Short.MAX_VALUE))
-                .addContainerGap()));
+        layout.setHorizontalGroup(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING).add(
+                org.jdesktop.layout.GroupLayout.TRAILING,
+                layout.createSequentialGroup()
+                        .addContainerGap()
+                        .add(serverConsolePanel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 640, Short.MAX_VALUE)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                        .add(jScrollPane1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 170,
+                                org.jdesktop.layout.GroupLayout.PREFERRED_SIZE).addContainerGap()));
+        layout.setVerticalGroup(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING).add(
+                layout.createSequentialGroup()
+                        .add(20, 20, 20)
+                        .add(layout
+                                .createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                                .add(org.jdesktop.layout.GroupLayout.TRAILING, serverConsolePanel,
+                                        org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 450, Short.MAX_VALUE)
+                                .add(org.jdesktop.layout.GroupLayout.TRAILING, jScrollPane1,
+                                        org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 450, Short.MAX_VALUE))
+                        .addContainerGap()));
     }// </editor-fold>//GEN-END:initComponents
 
-    private void playerListMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_playerListMousePressed
+    private void playerListMousePressed(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_playerListMousePressed
         showPlayerMenu(evt);
-    }//GEN-LAST:event_playerListMousePressed
+    }// GEN-LAST:event_playerListMousePressed
 
-    private void playerListMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_playerListMouseReleased
+    private void playerListMouseReleased(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_playerListMouseReleased
         showPlayerMenu(evt);
-    }//GEN-LAST:event_playerListMouseReleased
+    }// GEN-LAST:event_playerListMouseReleased
 
     private void showPlayerMenu(MouseEvent e) {
         if (e.isPopupTrigger()) {
@@ -159,14 +161,14 @@ public final class ServerControlPanel extends javax.swing.JPanel implements Loca
                 if (r.contains(e.getPoint())) {
                     playerList.setSelectedIndex(i);
 
-                    //Player p = Pail.getServer().getPlayer((String) playerList.getSelectedValue()).get();
+                    // Player p = Pail.getServer().getPlayer((String) playerList.getSelectedValue()).get();
                     // if (p.isOp()) {
-                        op.setEnabled(false);
-                    //    deop.setEnabled(true);  //TODO Not Implemented yet by Sponge
-                    //} else {
-                    //    op.setEnabled(true);
-                        deop.setEnabled(false);
-                    //}
+                    op.setEnabled(false);
+                    // deop.setEnabled(true); //TODO Not Implemented yet by Sponge
+                    // } else {
+                    // op.setEnabled(true);
+                    deop.setEnabled(false);
+                    // }
 
                     playerMenu.show(playerList, e.getX(), e.getY());
                     break;
@@ -196,7 +198,8 @@ public final class ServerControlPanel extends javax.swing.JPanel implements Loca
                 public void run() {
                     Player p = Pail.getServer().getPlayer(playerList.getSelectedValue().toString()).get();
                     p.getOrCreate(HealthData.class).get().setHealth(0);
-                    //TODO not implemented by Sponge p.setLastDamageCause(new EntityDamageEvent(p, EntityDamageEvent.DamageCause.SUICIDE, 1000));
+                    // TODO not implemented by Sponge p.setLastDamageCause(new EntityDamageEvent(p,
+                    // EntityDamageEvent.DamageCause.SUICIDE, 1000));
                 }
             });
         }
@@ -216,8 +219,9 @@ public final class ServerControlPanel extends javax.swing.JPanel implements Loca
 
     private class MessagePlayerListener implements ActionListener {
         public void actionPerformed(ActionEvent e) {
-            String msg = JOptionPane.showInputDialog(Util.getPlugin().getMainWindow(), Util.translate("Enter your message:"),
-                    Util.translate("Message Player"), JOptionPane.QUESTION_MESSAGE);
+            String msg = JOptionPane.showInputDialog(Util.getPlugin().getMainWindow(),
+                    Util.translate("Enter your message:"), Util.translate("Message Player"),
+                    JOptionPane.QUESTION_MESSAGE);
             if (msg == null) {
                 return;
             }
@@ -227,8 +231,8 @@ public final class ServerControlPanel extends javax.swing.JPanel implements Loca
 
     private class KickPlayerListener implements ActionListener {
         public void actionPerformed(ActionEvent e) {
-            String reason = JOptionPane.showInputDialog(Util.getPlugin().getMainWindow(), Util.translate("Enter kick reason:"),
-                    Util.translate("Kick Player"), JOptionPane.QUESTION_MESSAGE);
+            String reason = JOptionPane.showInputDialog(Util.getPlugin().getMainWindow(),
+                    Util.translate("Enter kick reason:"), Util.translate("Kick Player"), JOptionPane.QUESTION_MESSAGE);
             if (reason == null) {
                 return;
             }
@@ -242,12 +246,14 @@ public final class ServerControlPanel extends javax.swing.JPanel implements Loca
             Util.dispatchCommand("ban " + playerList.getSelectedValue().toString());
         }
     }
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JEditorPane jEditorPane1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JList playerList;
     private me.escapeNT.pail.GUIComponents.ServerConsolePanel serverConsolePanel;
+
     // End of variables declaration//GEN-END:variables
 
     /**
@@ -271,7 +277,8 @@ public final class ServerControlPanel extends javax.swing.JPanel implements Loca
     /**
      * Adds a player and their face to the list.
      *
-     * @param name The player name.
+     * @param name
+     *            The player name.
      */
     public void addPlayer(String name) {
         BufferedImage skin;
@@ -291,8 +298,7 @@ public final class ServerControlPanel extends javax.swing.JPanel implements Loca
         getListModel().addElement(name);
     }
 
-    private BufferedImage resize(Image originalImage,
-            int scaledWidth, int scaledHeight, boolean preserveAlpha) {
+    private BufferedImage resize(Image originalImage, int scaledWidth, int scaledHeight, boolean preserveAlpha) {
         int imageType = preserveAlpha ? BufferedImage.TYPE_INT_RGB : BufferedImage.TYPE_INT_ARGB;
         BufferedImage scaledBI = new BufferedImage(scaledWidth, scaledHeight, imageType);
         Graphics2D g = scaledBI.createGraphics();

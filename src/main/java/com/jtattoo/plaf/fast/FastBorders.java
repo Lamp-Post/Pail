@@ -21,9 +21,9 @@ public class FastBorders extends BaseBorders {
     private static Border rolloverToolButtonBorder;
     private static Border internalFrameBorder;
 
-//------------------------------------------------------------------------------------
-// Lazy access methods
-//------------------------------------------------------------------------------------
+    // ------------------------------------------------------------------------------------
+    // Lazy access methods
+    // ------------------------------------------------------------------------------------
     public static Border getButtonBorder() {
         if (buttonBorder == null) {
             buttonBorder = new ButtonBorder();
@@ -56,9 +56,9 @@ public class FastBorders extends BaseBorders {
         return internalFrameBorder;
     }
 
-//------------------------------------------------------------------------------------
-// Implementation of border classes
-//------------------------------------------------------------------------------------
+    // ------------------------------------------------------------------------------------
+    // Implementation of border classes
+    // ------------------------------------------------------------------------------------
     public static class ButtonBorder implements Border, UIResource {
 
         private static final Color defaultFrameColor = new Color(0, 64, 255);
@@ -101,7 +101,7 @@ public class FastBorders extends BaseBorders {
         }
     } // class ButtonBorder
 
-//------------------------------------------------------------------------------    
+    // ------------------------------------------------------------------------------
     public static class ToolButtonBorder implements Border, UIResource {
 
         private static final Insets insets = new Insets(1, 1, 1, 1);
@@ -137,7 +137,7 @@ public class FastBorders extends BaseBorders {
         }
     } // class ToolButtonBorder
 
-//------------------------------------------------------------------------------    
+    // ------------------------------------------------------------------------------
     public static class RolloverToolButtonBorder implements Border, UIResource {
 
         private static final Insets insets = new Insets(1, 1, 1, 1);
@@ -180,7 +180,7 @@ public class FastBorders extends BaseBorders {
         }
     } // class RolloverToolButtonBorder
 
-//------------------------------------------------------------------------------    
+    // ------------------------------------------------------------------------------
     public static class InternalFrameBorder extends BaseInternalFrameBorder {
 
         public void paintBorder(Component c, Graphics g, int x, int y, int w, int h) {
@@ -209,7 +209,8 @@ public class FastBorders extends BaseBorders {
             g.setColor(borderColor);
             g.drawRect(x + 2, y + 2, w - 5, h - 5);
             g.drawRect(x + 3, y + 3, w - 7, h - 7);
-            JTattooUtilities.draw3DBorder(g, ColorHelper.darker(borderColor, 5), ColorHelper.brighter(borderColor, 30), x + 4, y + 4, w - 8, h - 8);
+            JTattooUtilities.draw3DBorder(g, ColorHelper.darker(borderColor, 5), ColorHelper.brighter(borderColor, 30),
+                    x + 4, y + 4, w - 8, h - 8);
         }
     } // class InternalFrameBorder
 } // class FastBorders

@@ -10,7 +10,7 @@ import javax.swing.*;
 import com.jtattoo.plaf.*;
 
 /**
- * @author  Michael Hagen
+ * @author Michael Hagen
  */
 public class FastTitlePane extends BaseTitlePane {
 
@@ -33,6 +33,7 @@ public class FastTitlePane extends BaseTitlePane {
         if (isActive()) {
             borderColor = FastLookAndFeel.getWindowBorderColor();
         }
-        JTattooUtilities.draw3DBorder(g, ColorHelper.brighter(borderColor, 30), ColorHelper.darker(borderColor, 5), 0, 0, getWidth(), getHeight());
+        JTattooUtilities.draw3DBorder(g, ColorHelper.brighter(borderColor, 30), ColorHelper.darker(borderColor, 5), 0,
+                0, getWidth(), getHeight());
     }
 }

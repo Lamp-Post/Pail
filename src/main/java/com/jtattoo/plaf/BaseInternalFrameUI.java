@@ -111,4 +111,3 @@ public class BaseInternalFrameUI extends BasicInternalFrameUI {
         }
     } // end class MyPropertyChangeHandler
 }
-

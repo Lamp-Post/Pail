@@ -21,26 +21,27 @@ import me.escapeNT.pail.Util.Waypoint;
  */
 public class WaypointConfig {
     private static List<Waypoint> waypoints = new ArrayList<Waypoint>();
-    
+
     public static final File file = new File("waypoints.conf");
-    public static final ConfigurationLoader<CommentedConfigurationNode> loader = HoconConfigurationLoader.builder().setFile(file).build();
+    public static final ConfigurationLoader<CommentedConfigurationNode> loader = HoconConfigurationLoader.builder()
+            .setFile(file).build();
     public static ConfigurationNode rootNode;
 
     public static void save() {
         rootNode = loader.createEmptyNode(ConfigurationOptions.defaults());
-		rootNode.setValue(waypoints);
+        rootNode.setValue(waypoints);
     }
 
     public static void load() {
         if (!file.exists()) {
             save();
         }
-		try {
-			loader.save(rootNode);
+        try {
+            loader.save(rootNode);
         } catch (IOException ex) {
             Util.log(Level.SEVERE, ex.toString());
         }
-		waypoints = (List<Waypoint>) rootNode.getValue();
+        waypoints = (List<Waypoint>) rootNode.getValue();
     }
 
     /**

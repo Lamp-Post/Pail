@@ -54,7 +54,7 @@ public class AcrylInternalFrameTitlePane extends BaseInternalFrameTitlePane {
         JTattooUtilities.drawString(frame, g, title, x, y);
     }
 
-//--------------------------------------------------------------------------------------------
+    // --------------------------------------------------------------------------------------------
     class BaseTitlePaneLayout extends TitlePaneLayout {
 
         public void addLayoutComponent(String name, Component c) {

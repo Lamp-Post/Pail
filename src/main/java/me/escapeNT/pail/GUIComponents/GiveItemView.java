@@ -135,21 +135,27 @@ public class GiveItemView extends javax.swing.JDialog implements Localizable {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void cancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelActionPerformed
+    private void cancelActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_cancelActionPerformed
         this.dispose();
-    }//GEN-LAST:event_cancelActionPerformed
+    }// GEN-LAST:event_cancelActionPerformed
 
-    private void giveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_giveActionPerformed
-        Util.dispatchCommand("give " + player + " " + Pail.getGame().getRegistry().getType(BlockType.class, item.getSelectedItem().toString()).get().getId() + " " + amount.getValue().toString());
+    private void giveActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_giveActionPerformed
+        Util.dispatchCommand("give "
+                + player
+                + " "
+                + Pail.getGame().getRegistry().getType(BlockType.class, item.getSelectedItem().toString()).get()
+                        .getId() + " " + amount.getValue().toString());
         dispose();
-    }//GEN-LAST:event_giveActionPerformed
-    // Variables declaration - do not modify//GEN-BEGIN:variables
+    }// GEN-LAST:event_giveActionPerformed
+     // Variables declaration - do not modify//GEN-BEGIN:variables
+
     private javax.swing.JSpinner amount;
     private javax.swing.JLabel amountLabel;
     private javax.swing.JButton cancel;
     private javax.swing.JButton give;
     private javax.swing.JLabel idLabel;
     private javax.swing.JComboBox item;
+
     // End of variables declaration//GEN-END:variables
 
     public final void translateComponent() {

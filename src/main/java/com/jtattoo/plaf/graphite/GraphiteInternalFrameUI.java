@@ -15,18 +15,17 @@ import com.jtattoo.plaf.*;
  */
 public class GraphiteInternalFrameUI extends BaseInternalFrameUI {
 
-    public GraphiteInternalFrameUI(JInternalFrame b) { 
-        super(b); 
+    public GraphiteInternalFrameUI(JInternalFrame b) {
+        super(b);
     }
-    
+
     public static ComponentUI createUI(JComponent c) {
-        return new GraphiteInternalFrameUI((JInternalFrame)c); 
+        return new GraphiteInternalFrameUI((JInternalFrame) c);
     }
-    
-    protected JComponent createNorthPane(JInternalFrame w)  {
+
+    protected JComponent createNorthPane(JInternalFrame w) {
         titlePane = new GraphiteInternalFrameTitlePane(w);
         return titlePane;
     }
-    
-}
 
+}

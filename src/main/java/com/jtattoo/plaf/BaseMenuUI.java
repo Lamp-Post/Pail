@@ -37,7 +37,7 @@ public class BaseMenuUI extends BasicMenuUI {
 
     protected void installDefaults() {
         super.installDefaults();
-        Boolean isRolloverEnabled = (Boolean)UIManager.get("MenuBar.rolloverEnabled");
+        Boolean isRolloverEnabled = (Boolean) UIManager.get("MenuBar.rolloverEnabled");
         if (isRolloverEnabled.booleanValue()) {
             menuItem.setRolloverEnabled(true);
         }
@@ -55,7 +55,7 @@ public class BaseMenuUI extends BasicMenuUI {
         JMenuItem mi = (JMenuItem) c;
         ButtonModel model = mi.getModel();
         if (c.getParent() instanceof JMenuBar) {
-           if (model.isRollover() || model.isArmed() || (c instanceof JMenu && model.isSelected())) {
+            if (model.isRollover() || model.isArmed() || (c instanceof JMenu && model.isSelected())) {
                 Color backColor = AbstractLookAndFeel.getMenuSelectionBackgroundColor();
                 if (model.isRollover()) {
                     backColor = ColorHelper.brighter(backColor, 10);
@@ -75,7 +75,8 @@ public class BaseMenuUI extends BasicMenuUI {
             } else if (!AbstractLookAndFeel.getTheme().isMenuOpaque()) {
                 Graphics2D g2D = (Graphics2D) g;
                 Composite composite = g2D.getComposite();
-                AlphaComposite alpha = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, AbstractLookAndFeel.getTheme().getMenuAlpha());
+                AlphaComposite alpha = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, AbstractLookAndFeel
+                        .getTheme().getMenuAlpha());
                 g2D.setComposite(alpha);
                 g.setColor(AbstractLookAndFeel.getMenuBackgroundColor());
                 g.fillRect(x, y, w, h);
@@ -98,14 +99,15 @@ public class BaseMenuUI extends BasicMenuUI {
         Object savedRenderingHint = null;
         if (AbstractLookAndFeel.getTheme().isTextAntiAliasingOn()) {
             savedRenderingHint = g2D.getRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING);
-            g2D.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, AbstractLookAndFeel.getTheme().getTextAntiAliasingHint());
+            g2D.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, AbstractLookAndFeel.getTheme()
+                    .getTextAntiAliasingHint());
         }
         g.setColor(AbstractLookAndFeel.getMenuForegroundColor());
         if (menuItem.getParent() instanceof JMenuBar) {
             if (model.isRollover() || model.isArmed() || (menuItem instanceof JMenu && model.isSelected())) {
                 g.setColor(AbstractLookAndFeel.getMenuSelectionForegroundColor());
             }
-        } else if(menuItem.isSelected() && menuItem.isArmed()) {
+        } else if (menuItem.isSelected() && menuItem.isArmed()) {
             g.setColor(AbstractLookAndFeel.getMenuSelectionForegroundColor());
         }
         super.paintText(g, menuItem, textRect, text);
@@ -122,9 +124,9 @@ public class BaseMenuUI extends BasicMenuUI {
         }
     }
 
-//------------------------------------------------------------------------------
-// inner classes
-//------------------------------------------------------------------------------
+    // ------------------------------------------------------------------------------
+    // inner classes
+    // ------------------------------------------------------------------------------
 
     protected class MyMouseInputHandler extends BasicMenuUI.MouseInputHandler {
 

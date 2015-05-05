@@ -24,7 +24,8 @@ public final class BukkitAPI extends GoogleAPI {
     private static BukkitArtifact getArtifact(Project project, String slug) throws Exception {
         validateReferrer();
 
-        final URL uri = new URL(String.format("%s/projects/%s/view/%s/", URI, project, slug) + "?_accept=application%2Fjson");
+        final URL uri = new URL(String.format("%s/projects/%s/view/%s/", URI, project, slug)
+                + "?_accept=application%2Fjson");
         final JSONObject json = retrieveJSON(uri);
 
         return BukkitArtifact.getArtifact(json);

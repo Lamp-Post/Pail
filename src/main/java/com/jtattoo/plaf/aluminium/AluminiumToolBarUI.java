@@ -36,4 +36,3 @@ public class AluminiumToolBarUI extends AbstractToolBarUI {
         AluminiumUtils.fillComponent(g, c);
     }
 }
-

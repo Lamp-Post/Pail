@@ -1,4 +1,3 @@
-
 package me.escapeNT.pail.GUIComponents;
 
 import java.awt.Color;
@@ -32,6 +31,7 @@ import me.escapeNT.pail.Util.Util;
 
 /**
  * Dialog for searching the console.
+ * 
  * @author escapeNT
  */
 public class FindView extends javax.swing.JDialog implements Localizable {
@@ -57,17 +57,19 @@ public class FindView extends javax.swing.JDialog implements Localizable {
             public void insertUpdate(DocumentEvent e) {
                 search();
             }
+
             public void removeUpdate(DocumentEvent e) {
                 search();
             }
+
             public void changedUpdate(DocumentEvent e) {
                 search();
             }
         });
     }
 
-    /** This method is called from within the constructor to
-     * initialize the form.
+    /**
+     * This method is called from within the constructor to initialize the form.
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -127,51 +129,51 @@ public class FindView extends javax.swing.JDialog implements Localizable {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void matchCaseActionPerformed(ActionEvent evt) {//GEN-FIRST:event_matchCaseActionPerformed
+    private void matchCaseActionPerformed(ActionEvent evt) {// GEN-FIRST:event_matchCaseActionPerformed
         search();
-    }//GEN-LAST:event_matchCaseActionPerformed
+    }// GEN-LAST:event_matchCaseActionPerformed
 
-    private void nextActionPerformed(ActionEvent evt) {//GEN-FIRST:event_nextActionPerformed
-            if(textMatches.isEmpty()) {
-                return;
-            }
-
-            TextLocation l = textMatches.get(textMatchesIndex);
-            DefaultCaret c = (DefaultCaret)a.getCaret();
-            c.setDot(l.getStart());
-            a.scrollRectToVisible(c);
-
-            matches.setForeground(Color.BLACK);
-            matches.setText(Util.translate("(" + (textMatchesIndex + 1) + "/"
-                    + nMatches + ")" + " match" + ( nMatches > 1 ? "es" : "")));
-            if(textMatchesIndex <= textMatches.size() - 1) {
-                textMatchesIndex++;
-            }
-            if(textMatchesIndex > textMatches.size() - 1) {
-                textMatchesIndex = 0;
-            }
-    }//GEN-LAST:event_nextActionPerformed
-
-    private void backActionPerformed(ActionEvent evt) {//GEN-FIRST:event_backActionPerformed
-        if(textMatches.isEmpty()) {
+    private void nextActionPerformed(ActionEvent evt) {// GEN-FIRST:event_nextActionPerformed
+        if (textMatches.isEmpty()) {
             return;
         }
 
         TextLocation l = textMatches.get(textMatchesIndex);
-        DefaultCaret c = (DefaultCaret)a.getCaret();
+        DefaultCaret c = (DefaultCaret) a.getCaret();
         c.setDot(l.getStart());
         a.scrollRectToVisible(c);
 
         matches.setForeground(Color.BLACK);
-        matches.setText(Util.translate("(" + (textMatchesIndex + 1) + "/"
-                + nMatches + ")" + " match" + (nMatches > 1 ? "es" : "")));
-        if(textMatchesIndex >= 0) {
+        matches.setText(Util.translate("(" + (textMatchesIndex + 1) + "/" + nMatches + ")" + " match"
+                + (nMatches > 1 ? "es" : "")));
+        if (textMatchesIndex <= textMatches.size() - 1) {
+            textMatchesIndex++;
+        }
+        if (textMatchesIndex > textMatches.size() - 1) {
+            textMatchesIndex = 0;
+        }
+    }// GEN-LAST:event_nextActionPerformed
+
+    private void backActionPerformed(ActionEvent evt) {// GEN-FIRST:event_backActionPerformed
+        if (textMatches.isEmpty()) {
+            return;
+        }
+
+        TextLocation l = textMatches.get(textMatchesIndex);
+        DefaultCaret c = (DefaultCaret) a.getCaret();
+        c.setDot(l.getStart());
+        a.scrollRectToVisible(c);
+
+        matches.setForeground(Color.BLACK);
+        matches.setText(Util.translate("(" + (textMatchesIndex + 1) + "/" + nMatches + ")" + " match"
+                + (nMatches > 1 ? "es" : "")));
+        if (textMatchesIndex >= 0) {
             textMatchesIndex--;
         }
-        if(textMatchesIndex < 0) {
+        if (textMatchesIndex < 0) {
             textMatchesIndex = textMatches.size() - 1;
         }
-    }//GEN-LAST:event_backActionPerformed
+    }// GEN-LAST:event_backActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private JButton back;
@@ -180,6 +182,7 @@ public class FindView extends javax.swing.JDialog implements Localizable {
     private JLabel matches;
     private JButton next;
     private JTextField search;
+
     // End of variables declaration//GEN-END:variables
 
     public final void translateComponent() {
@@ -215,24 +218,26 @@ public class FindView extends javax.swing.JDialog implements Localizable {
                 m = p.matcher(a.getText());
             }
 
-            while(m.find()) {
+            while (m.find()) {
                 try {
-                    highlighter.addHighlight(m.start(), m.end(), new DefaultHighlighter.DefaultHighlightPainter(Color.YELLOW));
+                    highlighter.addHighlight(m.start(), m.end(), new DefaultHighlighter.DefaultHighlightPainter(
+                            Color.YELLOW));
                     textMatches.add(new TextLocation(m.start(), m.end()));
                 } catch (BadLocationException ex) {
                     Logger.getLogger(FindView.class.getName()).log(Level.SEVERE, null, ex);
                 }
                 nMatches++;
             }
-            if(nMatches == 0) {
+            if (nMatches == 0) {
                 matches.setForeground(Color.RED);
                 matches.setText(Util.translate("No matches"));
                 Toolkit.getDefaultToolkit().beep();
             } else {
                 matches.setForeground(Color.BLACK);
-                matches.setText(Util.translate(nMatches + " match" + ( nMatches > 1 ? "es" : "")));
+                matches.setText(Util.translate(nMatches + " match" + (nMatches > 1 ? "es" : "")));
             }
-        } catch(PatternSyntaxException ex) {}
+        } catch (PatternSyntaxException ex) {
+        }
     }
 
     private class WindowCloseListener implements WindowListener {
@@ -240,11 +245,23 @@ public class FindView extends javax.swing.JDialog implements Localizable {
             highlighter.removeAllHighlights();
             EditMenu.findOpen = false;
         }
-        public void windowOpened(WindowEvent e) {}
-        public void windowClosed(WindowEvent e) {}
-        public void windowIconified(WindowEvent e) {}
-        public void windowDeiconified(WindowEvent e) {}
-        public void windowActivated(WindowEvent e) {}
-        public void windowDeactivated(WindowEvent e) {}
+
+        public void windowOpened(WindowEvent e) {
+        }
+
+        public void windowClosed(WindowEvent e) {
+        }
+
+        public void windowIconified(WindowEvent e) {
+        }
+
+        public void windowDeiconified(WindowEvent e) {
+        }
+
+        public void windowActivated(WindowEvent e) {
+        }
+
+        public void windowDeactivated(WindowEvent e) {
+        }
     }
 }

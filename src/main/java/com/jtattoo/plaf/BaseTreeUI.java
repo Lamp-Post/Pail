@@ -26,5 +26,3 @@ public class BaseTreeUI extends BasicTreeUI {
         drawDashedHorizontalLine(g, y, left, right);
     }
 }
-
-

@@ -1,4 +1,3 @@
-
 package me.escapeNT.pail.config;
 
 import java.io.File;
@@ -13,6 +12,7 @@ import me.escapeNT.pail.Util.Util;
 
 /**
  * Class intended to handle the vanilla server configuration.
+ * 
  * @author escapeNT
  */
 public class ServerConfigHandler {
@@ -21,7 +21,9 @@ public class ServerConfigHandler {
 
     /**
      * Saves the given configuration to file.
-     * @param properties The server properties.
+     * 
+     * @param properties
+     *            The server properties.
      */
     public static void save(HashMap<String, String> properties) {
         file.delete();
@@ -32,7 +34,7 @@ public class ServerConfigHandler {
             writer.println("#Minecraft server properties");
             writer.println("#" + new Date(System.currentTimeMillis()).toString());
 
-            for(String p : properties.keySet()) {
+            for (String p : properties.keySet()) {
                 writer.println(p + "=" + properties.get(p));
             }
 

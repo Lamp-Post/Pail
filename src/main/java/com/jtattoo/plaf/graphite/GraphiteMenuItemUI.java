@@ -26,7 +26,8 @@ public class GraphiteMenuItemUI extends BaseMenuItemUI {
         } else if (!AbstractLookAndFeel.getTheme().isMenuOpaque()) {
             Graphics2D g2D = (Graphics2D) g;
             Composite composite = g2D.getComposite();
-            AlphaComposite alpha = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, AbstractLookAndFeel.getTheme().getMenuAlpha());
+            AlphaComposite alpha = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, AbstractLookAndFeel.getTheme()
+                    .getMenuAlpha());
             g2D.setComposite(alpha);
             g.setColor(AbstractLookAndFeel.getMenuBackgroundColor());
             g.fillRect(x, y, w, h);

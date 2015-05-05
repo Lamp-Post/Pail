@@ -100,4 +100,3 @@ public class FastBorderFactory implements AbstractBorderFactory {
         return FastBorders.getDesktopIconBorder();
     }
 }
-

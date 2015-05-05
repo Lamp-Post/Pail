@@ -1,4 +1,3 @@
-
 package me.escapeNT.pail.GUIComponents;
 
 import java.awt.Color;
@@ -12,6 +11,7 @@ import javax.swing.JList;
 
 /**
  * List renderer to display icons mapped to objects.
+ * 
  * @author escapeNT
  */
 public class IconListRenderer extends DefaultListCellRenderer {
@@ -25,20 +25,18 @@ public class IconListRenderer extends DefaultListCellRenderer {
     }
 
     @Override
-    public Component getListCellRendererComponent(
-        JList list, Object value, int index,
-        boolean isSelected, boolean cellHasFocus) {
+    public Component getListCellRendererComponent(JList list, Object value, int index, boolean isSelected,
+            boolean cellHasFocus) {
 
-        JLabel label = (JLabel) super.getListCellRendererComponent(list,
-                        value, index, isSelected, cellHasFocus);
+        JLabel label = (JLabel) super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
         Icon icon = icons.get(value);
         label.setIcon(icon);
 
-        if(highlightrows) {
+        if (highlightrows) {
             Color c = ((index % 2 == 0) ? Color.WHITE : Color.LIGHT_GRAY);
             label.setBackground(c);
 
-            if(isSelected) {
+            if (isSelected) {
                 label.setForeground(Color.BLACK);
                 label.setBackground(new Color(163, 225, 255));
             }

@@ -12,7 +12,7 @@ import com.jtattoo.plaf.*;
 
 /**
  *
- * @author  Michael Hagen
+ * @author Michael Hagen
  */
 public class HiFiScrollBarUI extends BaseScrollBarUI {
 

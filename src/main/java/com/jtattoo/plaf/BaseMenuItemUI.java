@@ -50,7 +50,8 @@ public class BaseMenuItemUI extends BasicMenuItemUI {
         } else if (!AbstractLookAndFeel.getTheme().isMenuOpaque()) {
             Graphics2D g2D = (Graphics2D) g;
             Composite composite = g2D.getComposite();
-            AlphaComposite alpha = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, AbstractLookAndFeel.getTheme().getMenuAlpha());
+            AlphaComposite alpha = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, AbstractLookAndFeel.getTheme()
+                    .getMenuAlpha());
             g2D.setComposite(alpha);
             g.setColor(AbstractLookAndFeel.getMenuBackgroundColor());
             g.fillRect(x, y, w, h);
@@ -71,7 +72,8 @@ public class BaseMenuItemUI extends BasicMenuItemUI {
         Object savedRenderingHint = null;
         if (AbstractLookAndFeel.getTheme().isTextAntiAliasingOn()) {
             savedRenderingHint = g2D.getRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING);
-            g2D.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, AbstractLookAndFeel.getTheme().getTextAntiAliasingHint());
+            g2D.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, AbstractLookAndFeel.getTheme()
+                    .getTextAntiAliasingHint());
         }
         if (menuItem.isSelected() && menuItem.isArmed()) {
             g.setColor(AbstractLookAndFeel.getMenuSelectionForegroundColor());

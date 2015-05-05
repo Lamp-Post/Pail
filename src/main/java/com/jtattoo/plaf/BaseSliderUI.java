@@ -169,10 +169,12 @@ public class BaseSliderUI extends BasicSliderUI {
                     colors = AbstractLookAndFeel.getTheme().getDisabledColors();
                 }
             }
-            JTattooUtilities.fillHorGradient(g, colors, fillLeft + 2, fillTop + 2, fillRight - fillLeft - 2, fillBottom - fillTop - 2);
+            JTattooUtilities.fillHorGradient(g, colors, fillLeft + 2, fillTop + 2, fillRight - fillLeft - 2, fillBottom
+                    - fillTop - 2);
             Color cHi = ColorHelper.darker(colors[colors.length - 1], 5);
             Color cLo = ColorHelper.darker(colors[colors.length - 1], 10);
-            JTattooUtilities.draw3DBorder(g, cHi, cLo, fillLeft + 1, fillTop + 1, fillRight - fillLeft - 1, fillBottom - fillTop - 1);
+            JTattooUtilities.draw3DBorder(g, cHi, cLo, fillLeft + 1, fillTop + 1, fillRight - fillLeft - 1, fillBottom
+                    - fillTop - 1);
         } else {
             middleOfThumb = thumbRect.y + (thumbRect.height / 2);
             middleOfThumb -= trackRect.y;
@@ -196,10 +198,12 @@ public class BaseSliderUI extends BasicSliderUI {
                     colors = AbstractLookAndFeel.getTheme().getDisabledColors();
                 }
             }
-            JTattooUtilities.fillVerGradient(g, colors, fillLeft + 2, fillTop + 2, fillRight - fillLeft - 2, fillBottom - fillTop - 2);
+            JTattooUtilities.fillVerGradient(g, colors, fillLeft + 2, fillTop + 2, fillRight - fillLeft - 2, fillBottom
+                    - fillTop - 2);
             Color cHi = ColorHelper.darker(colors[colors.length - 1], 5);
             Color cLo = ColorHelper.darker(colors[colors.length - 1], 10);
-            JTattooUtilities.draw3DBorder(g, cHi, cLo, fillLeft + 1, fillTop + 1, fillRight - fillLeft - 1, fillBottom - fillTop - 1);
+            JTattooUtilities.draw3DBorder(g, cHi, cLo, fillLeft + 1, fillTop + 1, fillRight - fillLeft - 1, fillBottom
+                    - fillTop - 1);
         }
         g.translate(-trackRect.x, -trackRect.y);
     }

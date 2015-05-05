@@ -1,4 +1,3 @@
-
 package me.escapeNT.pail.GUIComponents;
 
 import javax.swing.DefaultComboBoxModel;
@@ -15,6 +14,7 @@ import me.escapeNT.pail.scheduler.ServerTask.Type;
 
 /**
  * Panel containing options for a Server Task.
+ * 
  * @author escapeNT
  */
 public class ServerTaskOptions extends javax.swing.JPanel implements Localizable {
@@ -23,13 +23,13 @@ public class ServerTaskOptions extends javax.swing.JPanel implements Localizable
     public ServerTaskOptions() {
         initComponents();
         translateComponent();
-        for(ServerTask.Type t : ServerTask.Type.values()) {
-            ((DefaultComboBoxModel<Type>)action.getModel()).addElement(t);
+        for (ServerTask.Type t : ServerTask.Type.values()) {
+            ((DefaultComboBoxModel<Type>) action.getModel()).addElement(t);
         }
     }
 
-    /** This method is called from within the constructor to
-     * initialize the form.
+    /**
+     * This method is called from within the constructor to initialize the form.
      */
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -43,30 +43,24 @@ public class ServerTaskOptions extends javax.swing.JPanel implements Localizable
 
         GroupLayout layout = new GroupLayout(this);
         this.setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel1)
-                .addPreferredGap(ComponentPlacement.UNRELATED)
-                .addComponent(action, 0, 393, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(action, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(212, Short.MAX_VALUE))
-        );
+        layout.setHorizontalGroup(layout.createParallelGroup(Alignment.LEADING).addGroup(
+                layout.createSequentialGroup().addContainerGap().addComponent(jLabel1)
+                        .addPreferredGap(ComponentPlacement.UNRELATED).addComponent(action, 0, 393, Short.MAX_VALUE)
+                        .addContainerGap()));
+        layout.setVerticalGroup(layout.createParallelGroup(Alignment.LEADING).addGroup(
+                layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(
+                                layout.createParallelGroup(Alignment.BASELINE)
+                                        .addComponent(jLabel1)
+                                        .addComponent(action, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
+                                                GroupLayout.PREFERRED_SIZE)).addContainerGap(212, Short.MAX_VALUE)));
     }// </editor-fold>//GEN-END:initComponents
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private JComboBox action;
     private JLabel jLabel1;
+
     // End of variables declaration//GEN-END:variables
 
     public final void translateComponent() {
@@ -75,6 +69,7 @@ public class ServerTaskOptions extends javax.swing.JPanel implements Localizable
 
     /**
      * Type selector.
+     * 
      * @return the action
      */
     public JComboBox getAction() {

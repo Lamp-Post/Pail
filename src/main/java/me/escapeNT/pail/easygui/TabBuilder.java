@@ -24,8 +24,7 @@ public class TabBuilder {
     private String defaultComponent;
 
     /**
-     * Constructs a new TabBuilder object. Components will be placed in the form
-     * in the order they are added.
+     * Constructs a new TabBuilder object. Components will be placed in the form in the order they are added.
      */
     public TabBuilder() {
         components = new LinkedHashMap<String, PailComponent>();
@@ -34,14 +33,13 @@ public class TabBuilder {
     }
 
     /**
-     * Adds a check box with the given name to the tab. Throws
-     * IllegalArgumentException if the specified name has already been used on
-     * this form.
+     * Adds a check box with the given name to the tab. Throws IllegalArgumentException if the specified name has
+     * already been used on this form.
      *
-     * @param name The name of this component. This will appear as the
-     * component's label and is also used to refer to it for all purposes.
-     * @return The TabBuilder the component was added to. (Additions may be
-     * chained together)
+     * @param name
+     *            The name of this component. This will appear as the component's label and is also used to refer to it
+     *            for all purposes.
+     * @return The TabBuilder the component was added to. (Additions may be chained together)
      */
     public TabBuilder addCheckBox(String name) {
         if (components.keySet().contains(name)) {
@@ -54,14 +52,13 @@ public class TabBuilder {
     /**
      * Adds a check box with the given name to the tab.
      *
-     * @param name The name of this component. This will appear as the
-     * component's label and is also used to refer to it for all purposes.
-     * Throws IllegalArgumentException if the specified name has already been
-     * used on this form.
-     * @param initialValue The selected state of the check box upon loading the
-     * form
-     * @return The TabBuilder the component was added to. (Additions may be
-     * chained together)
+     * @param name
+     *            The name of this component. This will appear as the component's label and is also used to refer to it
+     *            for all purposes. Throws IllegalArgumentException if the specified name has already been used on this
+     *            form.
+     * @param initialValue
+     *            The selected state of the check box upon loading the form
+     * @return The TabBuilder the component was added to. (Additions may be chained together)
      */
     public TabBuilder addCheckBox(String name, boolean initialValue) {
         if (components.keySet().contains(name)) {
@@ -76,12 +73,11 @@ public class TabBuilder {
     /**
      * Adds a text field with the given name to the tab.
      *
-     * @param name The name of this component. This will appear as the
-     * component's label and is also used to refer to it for all purposes.
-     * Throws IllegalArgumentException if the specified name has already been
-     * used on this form.
-     * @return The TabBuilder the component was added to. (Additions may be
-     * chained together)
+     * @param name
+     *            The name of this component. This will appear as the component's label and is also used to refer to it
+     *            for all purposes. Throws IllegalArgumentException if the specified name has already been used on this
+     *            form.
+     * @return The TabBuilder the component was added to. (Additions may be chained together)
      */
     public TabBuilder addTextField(String name) {
         if (components.keySet().contains(name)) {
@@ -94,13 +90,13 @@ public class TabBuilder {
     /**
      * Adds a text field with the given name to the tab.
      *
-     * @param name The name of this component. This will appear as the
-     * component's label and is also used to refer to it for all purposes.
-     * Throws IllegalArgumentException if the specified name has already been
-     * used on this form.
-     * @param initalValue The text placed in the field when the form is loaded.
-     * @return The TabBuilder the component was added to. (Additions may be
-     * chained together)
+     * @param name
+     *            The name of this component. This will appear as the component's label and is also used to refer to it
+     *            for all purposes. Throws IllegalArgumentException if the specified name has already been used on this
+     *            form.
+     * @param initalValue
+     *            The text placed in the field when the form is loaded.
+     * @return The TabBuilder the component was added to. (Additions may be chained together)
      */
     public TabBuilder addTextField(String name, String initialValue) {
         if (components.keySet().contains(name)) {
@@ -111,15 +107,15 @@ public class TabBuilder {
     }
 
     /**
-     * Adds a text field with the given name to the tab. Throws
-     * IllegalArgumentException if the specified name has already been used on
-     * this form.
+     * Adds a text field with the given name to the tab. Throws IllegalArgumentException if the specified name has
+     * already been used on this form.
      *
-     * @param name The name of this component. This will appear as the
-     * component's label and is also used to refer to it for all purposes.
-     * @param values The values the user will be able to choose from.
-     * @return The TabBuilder the component was added to. (Additions may be
-     * chained together)
+     * @param name
+     *            The name of this component. This will appear as the component's label and is also used to refer to it
+     *            for all purposes.
+     * @param values
+     *            The values the user will be able to choose from.
+     * @return The TabBuilder the component was added to. (Additions may be chained together)
      */
     public TabBuilder addSelectionMenu(String name, Object[] values) {
         if (components.keySet().contains(name)) {
@@ -130,18 +126,18 @@ public class TabBuilder {
     }
 
     /**
-     * Adds a text field with the given name to the tab. Throws
-     * IllegalArgumentException if the specified name has already been used on
-     * this form.
+     * Adds a text field with the given name to the tab. Throws IllegalArgumentException if the specified name has
+     * already been used on this form.
      *
-     * @param name The name of this component. This will appear as the
-     * component's label and is also used to refer to it for all purposes.
-     * @param values The values the user will be able to choose from.
-     * @param initialSelection The Object to be selected when the form is
-     * loaded. IllegalArgumentException will be thrown if the initial selection
-     * is not one of the values in the list.
-     * @return The TabBuilder the component was added to. (Additions may be
-     * chained together)
+     * @param name
+     *            The name of this component. This will appear as the component's label and is also used to refer to it
+     *            for all purposes.
+     * @param values
+     *            The values the user will be able to choose from.
+     * @param initialSelection
+     *            The Object to be selected when the form is loaded. IllegalArgumentException will be thrown if the
+     *            initial selection is not one of the values in the list.
+     * @return The TabBuilder the component was added to. (Additions may be chained together)
      */
     public TabBuilder addSelectionMenu(String name, Object[] values, Object initialSelection) {
         if (components.keySet().contains(name)) {
@@ -158,15 +154,15 @@ public class TabBuilder {
     }
 
     /**
-     * Adds a button with the given name to the tab. Throws
-     * IllegalArgumentException if the specified name has already been used on
-     * this form.
+     * Adds a button with the given name to the tab. Throws IllegalArgumentException if the specified name has already
+     * been used on this form.
      *
-     * @param name The name of this component. This will appear as the
-     * component's label and is also used to refer to it for all purposes.
-     * @param values The values the user will be able to choose from.
-     * @return The TabBuilder the component was added to. (Additions may be
-     * chained together)
+     * @param name
+     *            The name of this component. This will appear as the component's label and is also used to refer to it
+     *            for all purposes.
+     * @param values
+     *            The values the user will be able to choose from.
+     * @return The TabBuilder the component was added to. (Additions may be chained together)
      */
     public TabBuilder addButton(String name) {
         if (components.keySet().contains(name)) {
@@ -177,9 +173,8 @@ public class TabBuilder {
     }
 
     /**
-     * Creates a fully-fledged PailTab using the components added to this
-     * TabBuilder. Components will be placed in the form in the order they were
-     * added.
+     * Creates a fully-fledged PailTab using the components added to this TabBuilder. Components will be placed in the
+     * form in the order they were added.
      *
      * @return The PailTab containing all the components in this TabBuilder
      */
@@ -188,25 +183,25 @@ public class TabBuilder {
     }
 
     /**
-     * Sets the name of the default component of the form. This component is
-     * placed at the bottom and is usually a prominent feature like a submit
-     * button.
+     * Sets the name of the default component of the form. This component is placed at the bottom and is usually a
+     * prominent feature like a submit button.
      *
-     * @param defaultComponent The name of the default component
+     * @param defaultComponent
+     *            The name of the default component
      */
     public void setDefaultComponent(String defaultComponent) {
         this.defaultComponent = defaultComponent;
     }
 
     /**
-     * Adds a {@link ButtonListener} to the button with the given name. Throws
-     * IllegalArgumentException if the specified button name doesn't exist or is
-     * not a button.
+     * Adds a {@link ButtonListener} to the button with the given name. Throws IllegalArgumentException if the specified
+     * button name doesn't exist or is not a button.
      *
-     * @param buttonName The name of the button to add the listener to
-     * @param listener The {@link ButtonListener} to add to the button
-     * @return The TabBuilder this method was called on. (Calls may be chained
-     * together)
+     * @param buttonName
+     *            The name of the button to add the listener to
+     * @param listener
+     *            The {@link ButtonListener} to add to the button
+     * @return The TabBuilder this method was called on. (Calls may be chained together)
      */
     public TabBuilder addButtonListener(String buttonName, ButtonListener listener) {
         if (!components.containsKey(buttonName)) {

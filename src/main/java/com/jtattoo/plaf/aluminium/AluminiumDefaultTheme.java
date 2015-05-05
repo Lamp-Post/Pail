@@ -73,7 +73,7 @@ public class AluminiumDefaultTheme extends AbstractTheme {
         menuBackgroundColor = extraLightGray;
         menuSelectionForegroundColor = selectionForegroundColor;
         menuSelectionBackgroundColor = new ColorUIResource(202, 208, 172);
-        
+
         menuColorLight = controlColorLight;
         menuColorDark = controlColorDark;
 
@@ -96,41 +96,30 @@ public class AluminiumDefaultTheme extends AbstractTheme {
         ACTIVE_COLORS = DEFAULT_COLORS;
         INACTIVE_COLORS = ColorHelper.createColorArr(new Color(240, 240, 240), new Color(220, 220, 220), 20);
 
-        PRESSED_COLORS = ColorHelper.createColorArr(ColorHelper.darker(selectionBackgroundColor, 5), ColorHelper.brighter(selectionBackgroundColor, 20), 20);
+        PRESSED_COLORS = ColorHelper.createColorArr(ColorHelper.darker(selectionBackgroundColor, 5),
+                ColorHelper.brighter(selectionBackgroundColor, 20), 20);
         DISABLED_COLORS = ColorHelper.createColorArr(Color.white, Color.lightGray, 20);
-        BUTTON_COLORS = new Color[]{
-                    new Color(240, 240, 240),
-                    new Color(235, 235, 235),
-                    new Color(232, 232, 232),
-                    new Color(230, 230, 230),
-                    new Color(228, 228, 228),
-                    new Color(225, 225, 225),
-                    new Color(220, 220, 220),
-                    new Color(215, 215, 215),
-                    new Color(210, 210, 210),
-                    new Color(205, 205, 205),
-                    new Color(210, 210, 210),
-                    new Color(215, 215, 215),
-                    new Color(220, 220, 220),
-                    new Color(225, 225, 225),
-                    new Color(228, 228, 228),
-                    new Color(230, 230, 230),
-                    new Color(232, 232, 232),
-                    new Color(235, 235, 235),};
+        BUTTON_COLORS = new Color[] { new Color(240, 240, 240), new Color(235, 235, 235), new Color(232, 232, 232),
+                new Color(230, 230, 230), new Color(228, 228, 228), new Color(225, 225, 225), new Color(220, 220, 220),
+                new Color(215, 215, 215), new Color(210, 210, 210), new Color(205, 205, 205), new Color(210, 210, 210),
+                new Color(215, 215, 215), new Color(220, 220, 220), new Color(225, 225, 225), new Color(228, 228, 228),
+                new Color(230, 230, 230), new Color(232, 232, 232), new Color(235, 235, 235), };
         ROLLOVER_COLORS = ColorHelper.createColorArr(rolloverColorLight, rolloverColorDark, 20);
         WINDOW_TITLE_COLORS = ColorHelper.createColorArr(windowTitleColorLight, windowTitleColorDark, 20);
-        WINDOW_INACTIVE_TITLE_COLORS = ColorHelper.createColorArr(windowInactiveTitleColorLight, windowInactiveTitleColorDark, 20);
+        WINDOW_INACTIVE_TITLE_COLORS = ColorHelper.createColorArr(windowInactiveTitleColorLight,
+                windowInactiveTitleColorDark, 20);
         MENUBAR_COLORS = ColorHelper.createColorArr(menuColorLight, menuColorDark, 20);
         TOOLBAR_COLORS = ColorHelper.createColorArr(toolbarColorLight, toolbarColorDark, 20);
         TAB_COLORS = DEFAULT_COLORS;
         COL_HEADER_COLORS = BUTTON_COLORS;
 
-        SELECTED_COLORS = ColorHelper.createColorArr(ColorHelper.brighter(selectionBackgroundColor, 40), selectionBackgroundColor, 20);
+        SELECTED_COLORS = ColorHelper.createColorArr(ColorHelper.brighter(selectionBackgroundColor, 40),
+                selectionBackgroundColor, 20);
 
         TRACK_COLORS = ColorHelper.createColorArr(new Color(210, 210, 210), new Color(230, 230, 230), 20);
-        //THUMB_COLORS = ColorHelper.createColorArr(new Color(202, 208, 172), new Color(180, 188, 137), 20);
+        // THUMB_COLORS = ColorHelper.createColorArr(new Color(202, 208, 172), new Color(180, 188, 137), 20);
         THUMB_COLORS = ColorHelper.createColorArr(new Color(200, 200, 200), new Color(170, 170, 170), 20);
-        //SLIDER_COLORS = DEFAULT_COLORS;
+        // SLIDER_COLORS = DEFAULT_COLORS;
         SLIDER_COLORS = ColorHelper.createColorArr(new Color(180, 180, 180), new Color(150, 150, 150), 10);
         PROGRESSBAR_COLORS = SLIDER_COLORS;
     }

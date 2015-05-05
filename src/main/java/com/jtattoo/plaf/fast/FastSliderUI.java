@@ -59,8 +59,7 @@ public class FastSliderUI extends BaseSliderUI {
             trackRight = trackRect.width - 1;
         } else {
             if (leftToRight) {
-                trackLeft = (trackRect.width - overhang) -
-                        getTrackWidth();
+                trackLeft = (trackRect.width - overhang) - getTrackWidth();
                 trackRight = (trackRect.width - overhang) - 1;
             } else {
                 trackLeft = overhang;
@@ -91,13 +90,13 @@ public class FastSliderUI extends BaseSliderUI {
                 fillLeft = middleOfThumb;
                 fillRight = trackRight - 2;
             }
-//            if (slider.isEnabled()) {
-                g.setColor(FastLookAndFeel.getControlBackgroundColor());
-                g.fillRect(fillLeft, fillTop, fillRight - fillLeft, fillBottom - fillTop + 1);
-//            } else {
-//                g.setColor(slider.getBackground());
-//                g.fillRect(fillLeft, fillTop, fillRight - fillLeft, fillBottom - fillTop);
-//            }
+            // if (slider.isEnabled()) {
+            g.setColor(FastLookAndFeel.getControlBackgroundColor());
+            g.fillRect(fillLeft, fillTop, fillRight - fillLeft, fillBottom - fillTop + 1);
+            // } else {
+            // g.setColor(slider.getBackground());
+            // g.fillRect(fillLeft, fillTop, fillRight - fillLeft, fillBottom - fillTop);
+            // }
         } else {
             middleOfThumb = thumbRect.y + (thumbRect.height / 2);
             middleOfThumb -= trackRect.y; // To compensate for the g.translate()
@@ -111,13 +110,13 @@ public class FastSliderUI extends BaseSliderUI {
                 fillTop = trackTop + 1;
                 fillBottom = middleOfThumb;
             }
-//            if (slider.isEnabled()) {
-                g.setColor(FastLookAndFeel.getControlBackgroundColor());
-                g.fillRect(fillLeft, fillTop, fillRight - fillLeft + 1, fillBottom - fillTop + 1);
-//            } else {
-//                g.setColor(slider.getBackground());
-//                g.fillRect(fillLeft, fillTop, fillRight - fillLeft + 1, fillBottom - fillTop + 1);
-//            }
+            // if (slider.isEnabled()) {
+            g.setColor(FastLookAndFeel.getControlBackgroundColor());
+            g.fillRect(fillLeft, fillTop, fillRight - fillLeft + 1, fillBottom - fillTop + 1);
+            // } else {
+            // g.setColor(slider.getBackground());
+            // g.fillRect(fillLeft, fillTop, fillRight - fillLeft + 1, fillBottom - fillTop + 1);
+            // }
         }
 
         g.translate(-trackRect.x, -trackRect.y);

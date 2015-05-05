@@ -1,4 +1,3 @@
-
 package me.escapeNT.pail.Util;
 
 import java.io.Serializable;
@@ -10,6 +9,7 @@ import org.spongepowered.api.world.World;
 
 /**
  * Class for storing location data about a waypoint.
+ * 
  * @author escapeNT
  */
 public class Waypoint implements Serializable {
@@ -22,7 +22,9 @@ public class Waypoint implements Serializable {
 
     /**
      * Constructs a new Waypoint from the specified Location,
-     * @param loc The Location of the waypoint.
+     * 
+     * @param loc
+     *            The Location of the waypoint.
      */
     public Waypoint(String name, Location loc, World world) {
         this.x = loc.getBlockX();
@@ -34,6 +36,7 @@ public class Waypoint implements Serializable {
 
     /**
      * Gets this Waypoint's location.
+     * 
      * @return The Location of the waypoint.
      */
     public Location getLocation() {
@@ -46,6 +49,7 @@ public class Waypoint implements Serializable {
 
     /**
      * Returns the name of this waypoint.
+     * 
      * @return the name
      */
     public String getName() {
@@ -59,7 +63,7 @@ public class Waypoint implements Serializable {
 
     @Override
     public boolean equals(Object o) {
-        if(!(o instanceof Waypoint)) {
+        if (!(o instanceof Waypoint)) {
             return false;
         }
         return this.hashCode() == o.hashCode();
@@ -77,35 +81,40 @@ public class Waypoint implements Serializable {
     }
 
     /**
-     * @param x the x to set
+     * @param x
+     *            the x to set
      */
     public void setX(int x) {
         this.x = x;
     }
 
     /**
-     * @param y the y to set
+     * @param y
+     *            the y to set
      */
     public void setY(int y) {
         this.y = y;
     }
 
     /**
-     * @param z the z to set
+     * @param z
+     *            the z to set
      */
     public void setZ(int z) {
         this.z = z;
     }
 
     /**
-     * @param world the world to set
+     * @param world
+     *            the world to set
      */
     public void setWorld(String world) {
         this.world = world;
     }
 
     /**
-     * @param name the name to set
+     * @param name
+     *            the name to set
      */
     public void setName(String name) {
         this.name = name;

@@ -61,7 +61,7 @@ import javax.swing.UIManager.LookAndFeelInfo;
  *
  * @author escapeNT
  */
-@Plugin(name="Pail", id="pail", version="1.0.0")
+@Plugin(name = "Pail", id = "pail", version = "1.0.0")
 public final class Pail {
 
     protected static Pail instance;
@@ -71,15 +71,16 @@ public final class Pail {
 
     @Inject
     protected Logger logger;
-    
-    public final Image PAIL_ICON = Toolkit.getDefaultToolkit().createImage(getClass().getResource("GUIComponents/images/pailicon.png"));
+
+    public final Image PAIL_ICON = Toolkit.getDefaultToolkit().createImage(
+            getClass().getResource("GUIComponents/images/pailicon.png"));
     public static String PLUGIN_NAME;
     public static String PLUGIN_THREAD;
     public static String PLUGIN_VERSION;
     public static final ServerReadyListener handler = new ServerReadyListener();
     private final WindowCloseListener windowListener = new WindowCloseListener();
     private MainWindow main;
-    
+
     private ServiceManager serviceManager;
 
     public Pail() {
@@ -96,11 +97,11 @@ public final class Pail {
         mainHandler.setLevel(Level.ALL);
         logger.addHandler(mainHandler);
     }
-    
+
     public static Pail getInstance() {
         return Preconditions.checkNotNull(instance);
     }
-    
+
     public static Logger getLogger() {
         return getInstance().logger;
     }
@@ -108,32 +109,32 @@ public final class Pail {
     public static Game getGame() {
         return getInstance().game;
     }
-    
+
     public static Server getServer() {
-    	return getGame().getServer();
+        return getGame().getServer();
     }
-    
+
     @Subscribe
     public void onInitialization(PreInitializationEvent event) {
-    	serviceManager = getGame().getServiceManager();
-    	Util.setDataFolder(serviceManager.provide(ConfigService.class).get().getPluginConfig(this).getDirectory());
-    	if(!Util.getDataFolder().exists()) {
-    	Util.getDataFolder().mkdirs();
-    	}
+        serviceManager = getGame().getServiceManager();
+        Util.setDataFolder(serviceManager.provide(ConfigService.class).get().getPluginConfig(this).getDirectory());
+        if (!Util.getDataFolder().exists()) {
+            Util.getDataFolder().mkdirs();
+        }
     }
-    
+
     @Subscribe
     public void onStarting(InitializationEvent event) {
         instance = this;
 
         logger.info("Loading Pail, please wait...");
-        
+
         // Setup variables
         PLUGIN_NAME = "Pail";
-        //PLUGIN_THREAD = getDescription().getWebsite();
+        // PLUGIN_THREAD = getDescription().getWebsite();
         PLUGIN_VERSION = "1.0.0";
 
-        //Translate.setHttpReferrer(PLUGIN_THREAD);
+        // Translate.setHttpReferrer(PLUGIN_THREAD);
 
         if (main == null) {
             main = new MainWindow();
@@ -149,9 +150,9 @@ public final class Pail {
                 app.getClass().getMethod("setDockIconImage", Image.class).invoke(app, PAIL_ICON);
 
                 Object al = Proxy.newProxyInstance(Class.forName("com.apple.eawt.AboutHandler").getClassLoader(),
-                        new Class[]{Class.forName("com.apple.eawt.AboutHandler")},
-                        new AboutListener());
-                app.getClass().getMethod("setAboutHandler", Class.forName("com.apple.eawt.AboutHandler")).invoke(app, al);
+                        new Class[] { Class.forName("com.apple.eawt.AboutHandler") }, new AboutListener());
+                app.getClass().getMethod("setAboutHandler", Class.forName("com.apple.eawt.AboutHandler"))
+                        .invoke(app, al);
 
                 System.setProperty("com.apple.mrj.application.apple.menu.about.name", "Pail");
                 System.setProperty("apple.laf.useScreenMenuBar", "true");
@@ -163,11 +164,11 @@ public final class Pail {
 
         Thread t = new Thread(new InitMain(), "Pail");
         t.start();
-        
+
         EventManager eventBus = game.getServiceManager().provide(EventManager.class).get();
         eventBus.register(this, new PailPlayerListener());
     }
-    
+
     @Subscribe
     public void onShutdown(ServerStoppingEvent event) {
         saveState();
@@ -180,24 +181,22 @@ public final class Pail {
         Scheduler.saveTasks();
 
         for (LookAndFeelInfo laf : UIManager.getInstalledLookAndFeels()) {
-            if (laf.getName().equals(((SettingsPanel) this.getInterfaceComponent("Settings")).getThemes().getSelectedItem())) {
+            if (laf.getName().equals(
+                    ((SettingsPanel) this.getInterfaceComponent("Settings")).getThemes().getSelectedItem())) {
                 General.setLookAndFeel(laf.getClassName());
             }
         }
         General.save();
-        
+
         instance = null;
         logger = null;
     }
 
-    /*@Override
-    public boolean onCommand(CommandSource sender, Command cmd, String commandLabel, String[] args) {
-        if (cmd.getName().equalsIgnoreCase("Pail") && args.length == 0 && sender instanceof ConsoleCommandSender) {
-            getMainWindow().setVisible(true);
-            getMainWindow().requestFocus();
-        }
-        return true;
-    }*/ //TODO
+    /*
+     * @Override public boolean onCommand(CommandSource sender, Command cmd, String commandLabel, String[] args) { if
+     * (cmd.getName().equalsIgnoreCase("Pail") && args.length == 0 && sender instanceof ConsoleCommandSender) {
+     * getMainWindow().setVisible(true); getMainWindow().requestFocus(); } return true; }
+     */// TODO
 
     private void setupLookAndFeels() {
         HashMap<String, Boolean> installQueue = new HashMap<String, Boolean>();
@@ -207,13 +206,13 @@ public final class Pail {
         installQueue.put("com.jtattoo.plaf.aluminium.AluminiumLookAndFeel", Boolean.TRUE);
         installQueue.put("com.jtattoo.plaf.aero.AeroLookAndFeel", Boolean.TRUE);
         installQueue.put("com.jtattoo.plaf.fast.FastLookAndFeel", Boolean.TRUE);
-        
+
         for (LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
             if (installQueue.keySet().contains(info.getClassName())) {
                 installQueue.put(info.getClassName(), Boolean.FALSE);
             }
         }
-        
+
         for (String n : installQueue.keySet()) {
             if (installQueue.get(n)) {
                 try {
@@ -223,7 +222,7 @@ public final class Pail {
                 }
             }
         }
-        
+
         try {
             LookAndFeel laf = (LookAndFeel) Class.forName(General.getLookAndFeel()).newInstance();
             UIManager.setLookAndFeel(laf);
@@ -238,8 +237,8 @@ public final class Pail {
      */
     public void saveState() {
         if (main.isVisible()) {
-            new PailPersistance().save(getMainWindow().getLocationOnScreen(),
-                    Util.getServerControls().getServerConsolePanel().getConsoleOutput().getText());
+            new PailPersistance().save(getMainWindow().getLocationOnScreen(), Util.getServerControls()
+                    .getServerConsolePanel().getConsoleOutput().getText());
         }
     }
 
@@ -250,13 +249,13 @@ public final class Pail {
         if (!PailPersistance.file.exists()) {
             return;
         }
-        
+
         getLogger().info("Retrieving state...");
         final PailPersistance prev = new PailPersistance().load();
         getMainWindow().setLocation(prev.getWindowLocation());
 
         final ScrollableTextArea output = Util.getServerControls().getServerConsolePanel().getConsoleOutput();
-        
+
         SwingUtilities.invokeLater(new Runnable() {
             public void run() {
                 BufferedReader reader = new BufferedReader(new StringReader(prev.getConsoleText()));
@@ -312,7 +311,8 @@ public final class Pail {
                     getLogger().severe(e.toString());
                 }
 
-                JScrollBar vertical = Util.getServerControls().getServerConsolePanel().getConsoleOutput().getScrollerPanel().getVerticalScrollBar();
+                JScrollBar vertical = Util.getServerControls().getServerConsolePanel().getConsoleOutput()
+                        .getScrollerPanel().getVerticalScrollBar();
                 vertical.setValue(vertical.getMaximum());
             }
         });
@@ -329,8 +329,9 @@ public final class Pail {
 
     private class WindowCloseListener implements WindowListener {
         public void windowClosing(WindowEvent e) {
-            int confirm = JOptionPane.showConfirmDialog(getMainWindow(), Util.translate("Are you sure you want to close the Pail window?"),
-                    Util.translate("Confirm Close"), JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
+            int confirm = JOptionPane.showConfirmDialog(getMainWindow(),
+                    Util.translate("Are you sure you want to close the Pail window?"), Util.translate("Confirm Close"),
+                    JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
             if (confirm == JOptionPane.OK_OPTION) {
                 getMainWindow().setVisible(false);
             }
@@ -376,13 +377,17 @@ public final class Pail {
 
     // Public API ------------------------------------------------------------
     /**
-     * Loads the provided JPanel into the user interface under the given title.
-     * If the title is null, it will be converted to the empty String.
+     * Loads the provided JPanel into the user interface under the given title. If the title is null, it will be
+     * converted to the empty String.
      *
-     * @param panel The JPanel to load.
-     * @param title The title of this panel.
-     * @throws NullPointerException if the specified JPanel is null.
-     * @throws IllegalArgumentException if the title is already taken.
+     * @param panel
+     *            The JPanel to load.
+     * @param title
+     *            The title of this panel.
+     * @throws NullPointerException
+     *             if the specified JPanel is null.
+     * @throws IllegalArgumentException
+     *             if the title is already taken.
      */
     public void loadInterfaceComponent(String title, JPanel panel) {
         if (panel == null) {
@@ -398,12 +403,11 @@ public final class Pail {
     }
 
     /**
-     * Gets the interface component by the specified title, or null if it isn't
-     * loaded.
+     * Gets the interface component by the specified title, or null if it isn't loaded.
      *
-     * @param title The title of the component.
-     * @return The component loaded with the specified title, or null if it
-     * doesn't exist.
+     * @param title
+     *            The title of the component.
+     * @return The component loaded with the specified title, or null if it doesn't exist.
      */
     public JPanel getInterfaceComponent(String title) {
         if (Util.getInterfaceComponents().containsKey(title)) {
@@ -414,11 +418,13 @@ public final class Pail {
     }
 
     /**
-     * Sets the activated (visible) status of the specified tab. Note: this will
-     * refresh the tab layout to reflect changes immediately.
+     * Sets the activated (visible) status of the specified tab. Note: this will refresh the tab layout to reflect
+     * changes immediately.
      *
-     * @param title The title of the panel.
-     * @param activated True if the tab will be visible.
+     * @param title
+     *            The title of the panel.
+     * @param activated
+     *            True if the tab will be visible.
      */
     public void setActivated(String title, boolean activated) {
         if (!PanelConfig.getPanelsActivated().containsKey(title)) {
@@ -432,7 +438,8 @@ public final class Pail {
     /**
      * Gets the waypoint with the specified name, or null if it doesn't exist.
      *
-     * @param name The name of the waypoint.
+     * @param name
+     *            The name of the waypoint.
      * @return
      */
     public Waypoint getWaypoint(String name) {
@@ -447,7 +454,8 @@ public final class Pail {
     /**
      * Add the provided Waypoint to the list.
      *
-     * @param waypoint The Waypoint to add.
+     * @param waypoint
+     *            The Waypoint to add.
      */
     public void addWaypoint(Waypoint waypoint) {
         WaypointConfig.getWaypoints().add(waypoint);
@@ -457,7 +465,8 @@ public final class Pail {
     /**
      * Removes the waypoint with the given name from the list.
      *
-     * @param name The name of the Waypoint to remove.
+     * @param name
+     *            The name of the Waypoint to remove.
      * @return True if a waypoint was indeed removed.
      */
     public boolean removeWaypoint(String name) {
@@ -483,9 +492,9 @@ public final class Pail {
     /**
      * Translates the given text to the currently selected language.
      *
-     * @param text The text to translate.
-     * @return the translated text, or the original text if English is the
-     * currently selected language.
+     * @param text
+     *            The text to translate.
+     * @return the translated text, or the original text if English is the currently selected language.
      */
     public String translate(String text) {
         return Util.translate(text);
@@ -494,9 +503,11 @@ public final class Pail {
     /**
      * Gets the 25x25 pixel image icon for the provided Material.
      *
-     * @param material The material to get the icon for.
+     * @param material
+     *            The material to get the icon for.
      * @return The 25x25px ImageIcon of the provided material.
-     * @throws IllegalArgumentException if the Material is AIR.
+     * @throws IllegalArgumentException
+     *             if the Material is AIR.
      */
     public ImageIcon getIcon(BlockType material) {
         if (material == BlockTypes.AIR) {

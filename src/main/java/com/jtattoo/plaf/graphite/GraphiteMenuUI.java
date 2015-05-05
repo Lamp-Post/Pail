@@ -23,7 +23,8 @@ public class GraphiteMenuUI extends BaseMenuUI {
         ButtonModel model = b.getModel();
         if (c.getParent() instanceof JMenuBar) {
             if (model.isRollover() || model.isArmed() || (c instanceof JMenu && model.isSelected())) {
-                JTattooUtilities.fillHorGradient(g, AbstractLookAndFeel.getTheme().getMenuSelectionColors(), x, y, w, h);
+                JTattooUtilities
+                        .fillHorGradient(g, AbstractLookAndFeel.getTheme().getMenuSelectionColors(), x, y, w, h);
             }
             if (model.isRollover()) {
                 Color colArr[] = AbstractLookAndFeel.getTheme().getMenuSelectionColors();
@@ -33,11 +34,13 @@ public class GraphiteMenuUI extends BaseMenuUI {
             }
         } else {
             if (model.isArmed() || (c instanceof JMenu && model.isSelected())) {
-                JTattooUtilities.fillHorGradient(g, AbstractLookAndFeel.getTheme().getMenuSelectionColors(), x, y, w, h);
+                JTattooUtilities
+                        .fillHorGradient(g, AbstractLookAndFeel.getTheme().getMenuSelectionColors(), x, y, w, h);
             } else if (!AbstractLookAndFeel.getTheme().isMenuOpaque()) {
                 Graphics2D g2D = (Graphics2D) g;
                 Composite composite = g2D.getComposite();
-                AlphaComposite alpha = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, AbstractLookAndFeel.getTheme().getMenuAlpha());
+                AlphaComposite alpha = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, AbstractLookAndFeel
+                        .getTheme().getMenuAlpha());
                 g2D.setComposite(alpha);
                 g.setColor(AbstractLookAndFeel.getMenuBackgroundColor());
                 g.fillRect(x, y, w, h);

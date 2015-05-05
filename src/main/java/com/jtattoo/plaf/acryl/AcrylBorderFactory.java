@@ -101,4 +101,3 @@ public class AcrylBorderFactory implements AbstractBorderFactory {
         return AcrylBorders.getDesktopIconBorder();
     }
 }
-

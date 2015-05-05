@@ -25,9 +25,9 @@ public class AcrylBorders extends BaseBorders {
     private static Border rolloverToolButtonBorder = null;
     private static Border internalFrameBorder = null;
 
-    //------------------------------------------------------------------------------------
+    // ------------------------------------------------------------------------------------
     // Lazy access methods
-    //------------------------------------------------------------------------------------
+    // ------------------------------------------------------------------------------------
     public static Border getTextBorder() {
         if (textFieldBorder == null) {
             textFieldBorder = new TextFieldBorder();
@@ -92,9 +92,9 @@ public class AcrylBorders extends BaseBorders {
         return internalFrameBorder;
     }
 
-    //------------------------------------------------------------------------------------
+    // ------------------------------------------------------------------------------------
     // Implementation of border classes
-    //------------------------------------------------------------------------------------
+    // ------------------------------------------------------------------------------------
     public static class TextFieldBorder extends AbstractBorder implements UIResource {
 
         private static final Insets insets = new Insets(2, 2, 2, 2);
@@ -190,7 +190,7 @@ public class AcrylBorders extends BaseBorders {
 
             g2D.setColor(frameColor);
             g2D.drawRoundRect(x, y, w - 2, h - 2, 6, 6);
-            
+
             g2D.setRenderingHint(RenderingHints.KEY_ANTIALIASING, savedRederingHint);
         }
 
@@ -279,11 +279,15 @@ public class AcrylBorders extends BaseBorders {
             g.fillRect(x + 1, y + h - dw, w - 2, dw - 1);
 
             if (active) {
-                JTattooUtilities.fillHorGradient(g, AcrylLookAndFeel.getTheme().getWindowTitleColors(), 1, insets.top, dw, th + 1);
-                JTattooUtilities.fillHorGradient(g, AcrylLookAndFeel.getTheme().getWindowTitleColors(), w - dw, insets.top, dw, th + 1);
+                JTattooUtilities.fillHorGradient(g, AcrylLookAndFeel.getTheme().getWindowTitleColors(), 1, insets.top,
+                        dw, th + 1);
+                JTattooUtilities.fillHorGradient(g, AcrylLookAndFeel.getTheme().getWindowTitleColors(), w - dw,
+                        insets.top, dw, th + 1);
             } else {
-                JTattooUtilities.fillHorGradient(g, AcrylLookAndFeel.getTheme().getWindowInactiveTitleColors(), 1, insets.top, dw - 1, th + 1);
-                JTattooUtilities.fillHorGradient(g, AcrylLookAndFeel.getTheme().getWindowInactiveTitleColors(), w - dw, insets.top, dw - 1, th + 1);
+                JTattooUtilities.fillHorGradient(g, AcrylLookAndFeel.getTheme().getWindowInactiveTitleColors(), 1,
+                        insets.top, dw - 1, th + 1);
+                JTattooUtilities.fillHorGradient(g, AcrylLookAndFeel.getTheme().getWindowInactiveTitleColors(), w - dw,
+                        insets.top, dw - 1, th + 1);
             }
             g.setColor(borderColor);
             g.fillRect(1, insets.top + th + 1, dw - 1, h - th - dw);

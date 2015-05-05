@@ -1,4 +1,3 @@
-
 package me.escapeNT.pail.GUIComponents;
 
 import java.util.logging.Level;
@@ -10,6 +9,7 @@ import me.escapeNT.pail.Util.Util;
 
 /**
  * Dialog displaying update status and progress.
+ * 
  * @author escapeNT
  */
 public class UpdateView extends javax.swing.JDialog implements Localizable {
@@ -24,7 +24,8 @@ public class UpdateView extends javax.swing.JDialog implements Localizable {
     }
 
     /**
-     * @param aInstance the instance to set
+     * @param aInstance
+     *            the instance to set
      */
     public static void setInstance(UpdateView aInstance) {
         instance = aInstance;
@@ -35,22 +36,22 @@ public class UpdateView extends javax.swing.JDialog implements Localizable {
         setInstance(this);
         pack();
         setLocationRelativeTo(Util.getPlugin().getMainWindow());
-        setModal(true);      
+        setModal(true);
         initComponents();
         setResizable(false);
         setSize(475, 310);
         getRootPane().setDefaultButton(update);
 
         changes.append(Util.translate("Version ") + UpdateHandler.getCurrentVersion() + ":\n");
-        for(String s : UpdateHandler.getChanges()) {
+        for (String s : UpdateHandler.getChanges()) {
             changes.append("\n    • " + Util.translate(s));
         }
 
         translateComponent();
     }
 
-    /** This method is called from within the constructor to
-     * initialize the form.
+    /**
+     * This method is called from within the constructor to initialize the form.
      */
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -113,27 +114,28 @@ public class UpdateView extends javax.swing.JDialog implements Localizable {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void IgnoreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_IgnoreActionPerformed
+    private void IgnoreActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_IgnoreActionPerformed
         dispose();
-    }//GEN-LAST:event_IgnoreActionPerformed
+    }// GEN-LAST:event_IgnoreActionPerformed
 
-    private void updateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateActionPerformed
+    private void updateActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_updateActionPerformed
         new Thread(new Runnable() {
             public void run() {
                 try {
                     UpdateHandler.downloadLatest(UpdateView.getInstance());
                 } catch (Exception ex) {
                     Util.log(Level.SEVERE, ex.toString());
-                    JOptionPane.showMessageDialog(getRootPane(), Util.translate("Update failed.")
-                            + Util.translate("\nThe latest version can be downloaded manually\nfrom the plugin thread."),
+                    JOptionPane.showMessageDialog(
+                            getRootPane(),
+                            Util.translate("Update failed.")
+                                    + Util.translate("\nThe latest version can be downloaded manually\nfrom the plugin thread."),
                             Util.translate("Update Failed"), JOptionPane.ERROR_MESSAGE);
                     UpdateHandler.updateFile.delete();
                     UpdateView.getInstance().dispose();
                 }
             }
         }).start();
-    }//GEN-LAST:event_updateActionPerformed
-
+    }// GEN-LAST:event_updateActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Ignore;
@@ -144,6 +146,7 @@ public class UpdateView extends javax.swing.JDialog implements Localizable {
     private javax.swing.JProgressBar progress;
     private javax.swing.JLabel progressLabel;
     private javax.swing.JButton update;
+
     // End of variables declaration//GEN-END:variables
 
     /**

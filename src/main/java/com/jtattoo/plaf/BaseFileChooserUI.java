@@ -33,16 +33,12 @@ public class BaseFileChooserUI extends MetalFileChooserUI {
     }
 
     /**
-     * Returns the preferred size of the specified
-     * <code>JFileChooser</code>.
-     * The preferred size is at least as large,
-     * in both height and width,
-     * as the preferred size recommended
-     * by the file chooser's layout manager.
+     * Returns the preferred size of the specified <code>JFileChooser</code>. The preferred size is at least as large,
+     * in both height and width, as the preferred size recommended by the file chooser's layout manager.
      *
-     * @param c  a <code>JFileChooser</code>
-     * @return   a <code>Dimension</code> specifying the preferred
-     *           width and height of the file chooser
+     * @param c
+     *            a <code>JFileChooser</code>
+     * @return a <code>Dimension</code> specifying the preferred width and height of the file chooser
      */
     public Dimension getPreferredSize(JComponent c) {
         int prefWidth = PREF_SIZE.width;
@@ -63,7 +59,7 @@ public class BaseFileChooserUI extends MetalFileChooserUI {
         }
     }
 
-//------------------------------------------------------------------------------    
+    // ------------------------------------------------------------------------------
     protected class BaseFileView extends BasicFileView {
 
         public Icon getIcon(File f) {

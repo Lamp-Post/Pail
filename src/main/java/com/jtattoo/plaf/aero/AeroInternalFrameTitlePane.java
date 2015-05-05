@@ -14,15 +14,15 @@ import com.jtattoo.plaf.*;
  * @author Michael Hagen
  */
 public class AeroInternalFrameTitlePane extends BaseInternalFrameTitlePane {
-    
-    public AeroInternalFrameTitlePane(JInternalFrame f) { 
-        super(f); 
+
+    public AeroInternalFrameTitlePane(JInternalFrame f) {
+        super(f);
     }
-    
+
     protected int getHorSpacing() {
         return 0;
     }
-    
+
     protected int getVerSpacing() {
         return 0;
     }
@@ -33,7 +33,7 @@ public class AeroInternalFrameTitlePane extends BaseInternalFrameTitlePane {
         closeButton = new TitleButton(closeAction, CLOSE, closeIcon);
         setButtonIcons();
     }
-    
+
     public void paintBorder(Graphics g) {
         if (isActive())
             g.setColor(ColorHelper.brighter(AeroLookAndFeel.getWindowTitleColorDark(), 50));
@@ -41,7 +41,7 @@ public class AeroInternalFrameTitlePane extends BaseInternalFrameTitlePane {
             g.setColor(ColorHelper.darker(AeroLookAndFeel.getWindowInactiveTitleColorDark(), 10));
         g.drawLine(0, getHeight() - 1, getWidth(), getHeight() - 1);
     }
-    
+
     public void paintText(Graphics g, int x, int y, String title) {
         if (isActive()) {
             Color titleColor = AbstractLookAndFeel.getWindowTitleForegroundColor();
@@ -52,20 +52,19 @@ public class AeroInternalFrameTitlePane extends BaseInternalFrameTitlePane {
             JTattooUtilities.drawString(frame, g, title, x + 1, y + 1);
             g.setColor(AbstractLookAndFeel.getWindowTitleForegroundColor());
             JTattooUtilities.drawString(frame, g, title, x, y);
-        }
-        else {
+        } else {
             g.setColor(AbstractLookAndFeel.getWindowInactiveTitleForegroundColor());
             JTattooUtilities.drawString(frame, g, title, x, y);
         }
     }
-    
-//------------------------------------------------------------------------------    
+
+    // ------------------------------------------------------------------------------
     private class TitleButton extends BaseTitleButton {
-    
+
         public TitleButton(Action action, String accessibleName, Icon icon) {
             super(action, accessibleName, icon, 1.0f);
         }
-        
+
         public void paint(Graphics g) {
             boolean isPressed = getModel().isPressed();
             boolean isArmed = getModel().isArmed();

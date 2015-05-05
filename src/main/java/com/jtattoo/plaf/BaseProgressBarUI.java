@@ -39,27 +39,25 @@ public class BaseProgressBarUI extends BasicProgressBarUI {
     }
 
     /**
-     * The "selectionForeground" is the color of the text when it is painted
-     * over a filled area of the progress bar.
+     * The "selectionForeground" is the color of the text when it is painted over a filled area of the progress bar.
      */
     protected Color getSelectionForeground() {
         Object selectionForeground = progressBar.getClientProperty("selectionForeground");
         if (selectionForeground instanceof Color) {
-            return (Color)selectionForeground;
+            return (Color) selectionForeground;
         }
-	return super.getSelectionForeground();
+        return super.getSelectionForeground();
     }
 
     /**
-     * The "selectionBackground" is the color of the text when it is painted
-     * over an unfilled area of the progress bar.
+     * The "selectionBackground" is the color of the text when it is painted over an unfilled area of the progress bar.
      */
     protected Color getSelectionBackground() {
         Object selectionBackground = progressBar.getClientProperty("selectionBackground");
         if (selectionBackground instanceof Color) {
-            return (Color)selectionBackground;
+            return (Color) selectionBackground;
         }
-	return super.getSelectionBackground();
+        return super.getSelectionBackground();
     }
 
     protected void paintIndeterminate(Graphics g, JComponent c) {
@@ -94,8 +92,10 @@ public class BaseProgressBarUI extends BasicProgressBarUI {
         Rectangle boxRect = getBox(null);
         if (boxRect != null) {
             g2D.setColor(progressBar.getForeground());
-            JTattooUtilities.draw3DBorder(g, cHi, cLo, boxRect.x + 1, boxRect.y + 1, boxRect.width - 2, boxRect.height - 2);
-            JTattooUtilities.fillHorGradient(g, colors, boxRect.x + 2, boxRect.y + 2, boxRect.width - 4, boxRect.height - 4);
+            JTattooUtilities.draw3DBorder(g, cHi, cLo, boxRect.x + 1, boxRect.y + 1, boxRect.width - 2,
+                    boxRect.height - 2);
+            JTattooUtilities.fillHorGradient(g, colors, boxRect.x + 2, boxRect.y + 2, boxRect.width - 4,
+                    boxRect.height - 4);
         }
 
         // Deal with possible text painting
@@ -103,7 +103,8 @@ public class BaseProgressBarUI extends BasicProgressBarUI {
             Object savedRenderingHint = null;
             if (AbstractLookAndFeel.getTheme().isTextAntiAliasingOn()) {
                 savedRenderingHint = g2D.getRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING);
-                g2D.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, AbstractLookAndFeel.getTheme().getTextAntiAliasingHint());
+                g2D.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, AbstractLookAndFeel.getTheme()
+                        .getTextAntiAliasingHint());
             }
             if (progressBar.getOrientation() == JProgressBar.HORIZONTAL) {
                 paintString(g2D, b.left, b.top, barRectWidth, barRectHeight, boxRect.width, b);
@@ -162,7 +163,8 @@ public class BaseProgressBarUI extends BasicProgressBarUI {
             Object savedRenderingHint = null;
             if (AbstractLookAndFeel.getTheme().isTextAntiAliasingOn()) {
                 savedRenderingHint = g2D.getRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING);
-                g2D.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, AbstractLookAndFeel.getTheme().getTextAntiAliasingHint());
+                g2D.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, AbstractLookAndFeel.getTheme()
+                        .getTextAntiAliasingHint());
             }
             paintString(g, b.left, b.top, w, h, amountFull, b);
             if (AbstractLookAndFeel.getTheme().isTextAntiAliasingOn()) {
@@ -183,7 +185,7 @@ public class BaseProgressBarUI extends BasicProgressBarUI {
         }
     }
 
-//-----------------------------------------------------------------------------------------------
+    // -----------------------------------------------------------------------------------------------
     protected class PropertyChangeHandler implements PropertyChangeListener {
 
         public void propertyChange(PropertyChangeEvent e) {

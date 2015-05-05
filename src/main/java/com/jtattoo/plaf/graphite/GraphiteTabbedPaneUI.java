@@ -19,11 +19,11 @@ import javax.swing.plaf.basic.BasicGraphicsUtils;
 public class GraphiteTabbedPaneUI extends BaseTabbedPaneUI {
 
     private Color sepColors[] = null;
-    
-    public static ComponentUI createUI(JComponent c) { 
-        return new GraphiteTabbedPaneUI(); 
+
+    public static ComponentUI createUI(JComponent c) {
+        return new GraphiteTabbedPaneUI();
     }
-    
+
     protected void installComponents() {
         simpleButtonBorder = true;
         super.installComponents();
@@ -40,10 +40,10 @@ public class GraphiteTabbedPaneUI extends BaseTabbedPaneUI {
     protected Color getHiBorderColor(int tabIndex) {
         if (tabIndex == tabPane.getSelectedIndex()) {
             return ColorHelper.brighter(AbstractLookAndFeel.getControlColorLight(), 10);
-            //return ColorHelper.darker(super.getHiBorderColor(tabIndex), 40);
+            // return ColorHelper.darker(super.getHiBorderColor(tabIndex), 40);
         } else {
             return ColorHelper.brighter(AbstractLookAndFeel.getButtonColorLight(), 10);
-            //return super.getHiBorderColor(tabIndex);
+            // return super.getHiBorderColor(tabIndex);
         }
     }
 
@@ -65,7 +65,7 @@ public class GraphiteTabbedPaneUI extends BaseTabbedPaneUI {
         else
             return super.getTabFont(isSelected);
     }
-    
+
     protected void paintContentBorder(Graphics g, int tabPlacement, int selectedIndex, int x, int y, int w, int h) {
         g.setColor(AbstractLookAndFeel.getTabAreaBackgroundColor());
         int tabAreaHeight = calculateTabAreaHeight(tabPlacement, runCount, maxTabHeight);
@@ -80,16 +80,18 @@ public class GraphiteTabbedPaneUI extends BaseTabbedPaneUI {
         super.paintContentBorder(g, tabPlacement, selectedIndex, x, y, w, h);
     }
 
-    protected void paintText(Graphics g, int tabPlacement, Font font, FontMetrics metrics, int tabIndex, String title, Rectangle textRect, boolean isSelected) {
+    protected void paintText(Graphics g, int tabPlacement, Font font, FontMetrics metrics, int tabIndex, String title,
+            Rectangle textRect, boolean isSelected) {
         g.setFont(font);
         View v = getTextViewForTab(tabIndex);
         if (v != null) {
             // html
-            Graphics2D g2D = (Graphics2D)g;
+            Graphics2D g2D = (Graphics2D) g;
             Object savedRenderingHint = null;
             if (AbstractLookAndFeel.getTheme().isTextAntiAliasingOn()) {
                 savedRenderingHint = g2D.getRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING);
-                g2D.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, AbstractLookAndFeel.getTheme().getTextAntiAliasingHint());
+                g2D.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, AbstractLookAndFeel.getTheme()
+                        .getTextAntiAliasingHint());
             }
             v.paint(g, textRect);
             if (AbstractLookAndFeel.getTheme().isTextAntiAliasingOn()) {
@@ -98,7 +100,7 @@ public class GraphiteTabbedPaneUI extends BaseTabbedPaneUI {
         } else {
             // plain text
             int mnemIndex = -1;
-            if (JTattooUtilities.getJavaVersion() >= 1.4) 
+            if (JTattooUtilities.getJavaVersion() >= 1.4)
                 mnemIndex = tabPane.getDisplayedMnemonicIndexAt(tabIndex);
 
             if (tabPane.isEnabled() && tabPane.isEnabledAt(tabIndex)) {
@@ -111,29 +113,35 @@ public class GraphiteTabbedPaneUI extends BaseTabbedPaneUI {
                             g.setColor(Color.black);
                         else
                             g.setColor(Color.white);
-                        JTattooUtilities.drawStringUnderlineCharAt(tabPane, g, title, mnemIndex, textRect.x + 1, textRect.y + 1 + metrics.getAscent());
+                        JTattooUtilities.drawStringUnderlineCharAt(tabPane, g, title, mnemIndex, textRect.x + 1,
+                                textRect.y + 1 + metrics.getAscent());
                         g.setColor(titleColor);
                     }
                 } else {
                     g.setColor(tabPane.getForegroundAt(tabIndex));
                 }
-                JTattooUtilities.drawStringUnderlineCharAt(tabPane, g, title, mnemIndex, textRect.x, textRect.y + metrics.getAscent());
+                JTattooUtilities.drawStringUnderlineCharAt(tabPane, g, title, mnemIndex, textRect.x, textRect.y
+                        + metrics.getAscent());
 
             } else { // tab disabled
                 g.setColor(Color.white);
-                JTattooUtilities.drawStringUnderlineCharAt(tabPane, g, title, mnemIndex, textRect.x + 1, textRect.y + metrics.getAscent() + 1);
+                JTattooUtilities.drawStringUnderlineCharAt(tabPane, g, title, mnemIndex, textRect.x + 1, textRect.y
+                        + metrics.getAscent() + 1);
                 g.setColor(AbstractLookAndFeel.getDisabledForegroundColor());
-                JTattooUtilities.drawStringUnderlineCharAt(tabPane, g, title, mnemIndex, textRect.x, textRect.y + metrics.getAscent());
+                JTattooUtilities.drawStringUnderlineCharAt(tabPane, g, title, mnemIndex, textRect.x, textRect.y
+                        + metrics.getAscent());
             }
         }
     }
 
-    protected void paintFocusIndicator(Graphics g, int tabPlacement, Rectangle[] rects, int tabIndex, Rectangle iconRect, Rectangle textRect, boolean isSelected) {
+    protected void paintFocusIndicator(Graphics g, int tabPlacement, Rectangle[] rects, int tabIndex,
+            Rectangle iconRect, Rectangle textRect, boolean isSelected) {
         if (tabPane.hasFocus() && isSelected) {
             g.setColor(AbstractLookAndFeel.getTheme().getFocusColor());
             BasicGraphicsUtils.drawDashedRect(g, textRect.x - 4, textRect.y, textRect.width + 8, textRect.height);
-            BasicGraphicsUtils.drawDashedRect(g, textRect.x - 3, textRect.y + 1, textRect.width + 6, textRect.height - 2);
+            BasicGraphicsUtils.drawDashedRect(g, textRect.x - 3, textRect.y + 1, textRect.width + 6,
+                    textRect.height - 2);
         }
     }
-    
+
 }

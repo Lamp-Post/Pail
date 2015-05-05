@@ -14,10 +14,10 @@ import me.escapeNT.pail.Util.Util;
  *
  * @author escapeNT
  */
-public class PailPlayerListener { //implements Listener {
-	
-	@Subscribe
-    //@EventHandler(priority = EventPriority.MONITOR)TODO
+public class PailPlayerListener { // implements Listener {
+
+    @Subscribe
+    // @EventHandler(priority = EventPriority.MONITOR)TODO
     public void onPlayerJoin(PlayerJoinEvent event) {
         final String player = event.getPlayer().getName();
         SwingUtilities.invokeLater(new Runnable() {
@@ -30,8 +30,8 @@ public class PailPlayerListener { //implements Listener {
         });
     }
 
-	@Subscribe
-    //@EventHandler(priority = EventPriority.MONITOR)TODO
+    @Subscribe
+    // @EventHandler(priority = EventPriority.MONITOR)TODO
     public void onPlayerQuit(final PlayerQuitEvent event) {
         final String player = event.getPlayer().getName();
         SwingUtilities.invokeLater(new Runnable() {

@@ -44,7 +44,8 @@ public class AcrylTabbedPaneUI extends BaseTabbedPaneUI {
                 } else if (tabIndex == rolloverIndex && isEnabled) {
                     colorArr = AbstractLookAndFeel.getTheme().getRolloverColors();
                 } else {
-                    colorArr = ColorHelper.createColorArr(ColorHelper.brighter(backColor, 40), ColorHelper.darker(backColor, 10), 20);
+                    colorArr = ColorHelper.createColorArr(ColorHelper.brighter(backColor, 40),
+                            ColorHelper.darker(backColor, 10), 20);
                 }
             }
             return colorArr;
@@ -53,12 +54,10 @@ public class AcrylTabbedPaneUI extends BaseTabbedPaneUI {
     }
 
     protected Color[] getContentBorderColors(int tabPlacement) {
-        Color SEP_COLORS[] = {
-            ColorHelper.brighter(AcrylLookAndFeel.getControlColorLight(), 20),
-            AcrylLookAndFeel.getControlColorLight(),
-            ColorHelper.brighter(AcrylLookAndFeel.getControlColorDark(), 20),
-            AcrylLookAndFeel.getControlColorDark(),
-            ColorHelper.darker(AcrylLookAndFeel.getControlColorDark(), 20)};
+        Color SEP_COLORS[] = { ColorHelper.brighter(AcrylLookAndFeel.getControlColorLight(), 20),
+                AcrylLookAndFeel.getControlColorLight(),
+                ColorHelper.brighter(AcrylLookAndFeel.getControlColorDark(), 20),
+                AcrylLookAndFeel.getControlColorDark(), ColorHelper.darker(AcrylLookAndFeel.getControlColorDark(), 20) };
         return SEP_COLORS;
     }
 
@@ -112,7 +111,8 @@ public class AcrylTabbedPaneUI extends BaseTabbedPaneUI {
         super.paintContentBorder(g, tabPlacement, selectedIndex, x, y, w, h);
     }
 
-    protected void paintText(Graphics g, int tabPlacement, Font font, FontMetrics metrics, int tabIndex, String title, Rectangle textRect, boolean isSelected) {
+    protected void paintText(Graphics g, int tabPlacement, Font font, FontMetrics metrics, int tabIndex, String title,
+            Rectangle textRect, boolean isSelected) {
         g.setFont(font);
         View v = getTextViewForTab(tabIndex);
         if (v != null) {
@@ -121,7 +121,8 @@ public class AcrylTabbedPaneUI extends BaseTabbedPaneUI {
             Object savedRenderingHint = null;
             if (AbstractLookAndFeel.getTheme().isTextAntiAliasingOn()) {
                 savedRenderingHint = g2D.getRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING);
-                g2D.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, AbstractLookAndFeel.getTheme().getTextAntiAliasingHint());
+                g2D.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, AbstractLookAndFeel.getTheme()
+                        .getTextAntiAliasingHint());
             }
             v.paint(g, textRect);
             if (AbstractLookAndFeel.getTheme().isTextAntiAliasingOn()) {
@@ -138,21 +139,28 @@ public class AcrylTabbedPaneUI extends BaseTabbedPaneUI {
                 if (isSelected) {
                     Color shadowColor = ColorHelper.darker(AcrylLookAndFeel.getWindowTitleColorDark(), 30);
                     g.setColor(shadowColor);
-                    JTattooUtilities.drawStringUnderlineCharAt(tabPane, g, title, mnemIndex, textRect.x - 1, textRect.y - 1 + metrics.getAscent());
-                    JTattooUtilities.drawStringUnderlineCharAt(tabPane, g, title, mnemIndex, textRect.x - 1, textRect.y + 1 + metrics.getAscent());
-                    JTattooUtilities.drawStringUnderlineCharAt(tabPane, g, title, mnemIndex, textRect.x + 1, textRect.y - 1 + metrics.getAscent());
-                    JTattooUtilities.drawStringUnderlineCharAt(tabPane, g, title, mnemIndex, textRect.x + 1, textRect.y + 1 + metrics.getAscent());
+                    JTattooUtilities.drawStringUnderlineCharAt(tabPane, g, title, mnemIndex, textRect.x - 1, textRect.y
+                            - 1 + metrics.getAscent());
+                    JTattooUtilities.drawStringUnderlineCharAt(tabPane, g, title, mnemIndex, textRect.x - 1, textRect.y
+                            + 1 + metrics.getAscent());
+                    JTattooUtilities.drawStringUnderlineCharAt(tabPane, g, title, mnemIndex, textRect.x + 1, textRect.y
+                            - 1 + metrics.getAscent());
+                    JTattooUtilities.drawStringUnderlineCharAt(tabPane, g, title, mnemIndex, textRect.x + 1, textRect.y
+                            + 1 + metrics.getAscent());
                     g.setColor(AbstractLookAndFeel.getTheme().getWindowTitleForegroundColor());
                 } else {
                     g.setColor(tabPane.getForegroundAt(tabIndex));
                 }
-                JTattooUtilities.drawStringUnderlineCharAt(tabPane, g, title, mnemIndex, textRect.x, textRect.y + metrics.getAscent());
+                JTattooUtilities.drawStringUnderlineCharAt(tabPane, g, title, mnemIndex, textRect.x, textRect.y
+                        + metrics.getAscent());
 
             } else { // tab disabled
                 g.setColor(tabPane.getBackgroundAt(tabIndex).brighter());
-                JTattooUtilities.drawStringUnderlineCharAt(tabPane, g, title, mnemIndex, textRect.x, textRect.y + metrics.getAscent());
+                JTattooUtilities.drawStringUnderlineCharAt(tabPane, g, title, mnemIndex, textRect.x, textRect.y
+                        + metrics.getAscent());
                 g.setColor(tabPane.getBackgroundAt(tabIndex).darker());
-                JTattooUtilities.drawStringUnderlineCharAt(tabPane, g, title, mnemIndex, textRect.x - 1, textRect.y + metrics.getAscent() - 1);
+                JTattooUtilities.drawStringUnderlineCharAt(tabPane, g, title, mnemIndex, textRect.x - 1, textRect.y
+                        + metrics.getAscent() - 1);
             }
         }
     }

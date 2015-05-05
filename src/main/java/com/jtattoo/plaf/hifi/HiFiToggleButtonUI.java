@@ -50,9 +50,11 @@ public class HiFiToggleButtonUI extends BaseToggleButtonUI {
         } else {
             g2D.setColor(Color.white);
         }
-        JTattooUtilities.drawStringUnderlineCharAt(b, g, text, mnemIndex, textRect.x + offs + 1, textRect.y + offs + fm.getAscent() + 1);
+        JTattooUtilities.drawStringUnderlineCharAt(b, g, text, mnemIndex, textRect.x + offs + 1,
+                textRect.y + offs + fm.getAscent() + 1);
         g2D.setComposite(composite);
         g2D.setColor(fc);
-        JTattooUtilities.drawStringUnderlineCharAt(b, g, text, mnemIndex, textRect.x + offs, textRect.y + offs + fm.getAscent());
+        JTattooUtilities.drawStringUnderlineCharAt(b, g, text, mnemIndex, textRect.x + offs,
+                textRect.y + offs + fm.getAscent());
     }
 }

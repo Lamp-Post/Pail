@@ -45,7 +45,7 @@ public class ColorHelper {
         if (c == null) {
             return null;
         }
-        
+
         double r = c.getRed();
         double g = c.getGreen();
         double b = c.getBlue();

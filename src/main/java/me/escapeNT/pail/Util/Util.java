@@ -46,8 +46,10 @@ public final class Util {
     /**
      * Reads the last number of specified lines in a file.
      *
-     * @param file The file to read from.
-     * @param numLines The number of lines to read from the end.
+     * @param file
+     *            The file to read from.
+     * @param numLines
+     *            The number of lines to read from the end.
      * @return The last n lines from the file.
      */
     public static String[] readLastLines(File file, int numLines) {
@@ -57,7 +59,7 @@ public final class Util {
             fileReader.seek(fileReader.length());
         } catch (IOException ex) {
             getPlugin();
-			Pail.getLogger().throwing("Util", "readLastLines", ex);
+            Pail.getLogger().throwing("Util", "readLastLines", ex);
         }
         return lines;
     }
@@ -77,7 +79,8 @@ public final class Util {
     /**
      * Logs an info message from the plugin to the console.
      *
-     * @param message The message to send.
+     * @param message
+     *            The message to send.
      */
     public static void log(Object message) {
         log(Level.INFO, message);
@@ -86,19 +89,23 @@ public final class Util {
     /**
      * Logs a message from the plugin to the console with the specified level..
      *
-     * @param level The log level.
-     * @param message The message to send.
+     * @param level
+     *            The log level.
+     * @param message
+     *            The message to send.
      */
     public static void log(Level level, Object message) {
         getPlugin();
-		Pail.getLogger().log(level, message.toString());
+        Pail.getLogger().log(level, message.toString());
     }
 
     /**
      * Saves the specified text to a file.
      *
-     * @param text The text to save.
-     * @param saveTo The file to write the text to.
+     * @param text
+     *            The text to save.
+     * @param saveTo
+     *            The file to write the text to.
      */
     public static void saveTextFile(String text, File saveTo) throws IOException {
         PrintWriter out = new PrintWriter(new FileOutputStream(saveTo));
@@ -114,7 +121,8 @@ public final class Util {
     /**
      * Translates the text to the configured language.
      *
-     * @param text The text to translate.
+     * @param text
+     *            The text to translate.
      * @return The translated text.
      */
     public static String translate(String text) {
@@ -131,8 +139,10 @@ public final class Util {
     /**
      * Compresses a directory to a zip file.
      *
-     * @param dir The path to directory to compress.
-     * @param zipFile The path to the resulting zip file.
+     * @param dir
+     *            The path to directory to compress.
+     * @param zipFile
+     *            The path to the resulting zip file.
      */
     public static void zipDir(File dir, File zipFile) {
         if (!dir.isDirectory()) {
@@ -144,7 +154,7 @@ public final class Util {
             out.close();
         } catch (IOException e) {
             getPlugin();
-			Pail.getLogger().throwing("Util", "zipDir", e);
+            Pail.getLogger().throwing("Util", "zipDir", e);
         }
     }
 
@@ -176,7 +186,8 @@ public final class Util {
     }
 
     /**
-     * @param aPlugin the plugin to set
+     * @param aPlugin
+     *            the plugin to set
      */
     public static void setPlugin(Pail aPlugin) {
         plugin = aPlugin;
@@ -197,7 +208,8 @@ public final class Util {
     }
 
     /**
-     * @param aServerControls the serverControls to set
+     * @param aServerControls
+     *            the serverControls to set
      */
     public static void setServerControls(ServerControlPanel aServerControls) {
         serverControls = aServerControls;
@@ -211,7 +223,8 @@ public final class Util {
     }
 
     /**
-     * @param aFileMenu the fileMenu to set
+     * @param aFileMenu
+     *            the fileMenu to set
      */
     public static void setFileMenu(FileMenu aFileMenu) {
         fileMenu = aFileMenu;
@@ -236,12 +249,12 @@ public final class Util {
     public static ConsoleSource getConsoleSender() {
         return Pail.getServer().getConsole();
     }
-    
+
     public static File getDataFolder() {
-    	return pluginDir;
+        return pluginDir;
     }
-    
+
     public static void setDataFolder(File folder) {
-    	pluginDir = folder;
+        pluginDir = folder;
     }
 }

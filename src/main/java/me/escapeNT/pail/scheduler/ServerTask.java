@@ -18,9 +18,12 @@ public class ServerTask implements ScheduledTask {
     /**
      * Constructs a new Server task of the given type.
      *
-     * @param type The Type of server task.
-     * @param repeating True if the task is repeating.
-     * @param interval The interval (or delay) between executions.
+     * @param type
+     *            The Type of server task.
+     * @param repeating
+     *            True if the task is repeating.
+     * @param interval
+     *            The interval (or delay) between executions.
      */
     public ServerTask(Type type, boolean repeating, long interval, String name) {
         this.type = type;
@@ -58,7 +61,8 @@ public class ServerTask implements ScheduledTask {
     }
 
     /**
-     * @param name the name to set
+     * @param name
+     *            the name to set
      */
     public void setName(String name) {
         this.name = name;
@@ -68,9 +72,7 @@ public class ServerTask implements ScheduledTask {
      * The type of server task to execute.
      */
     public static enum Type {
-        RELOAD("Reload"),
-        STOP("Stop"),
-        SAVE_ALL("Save-all");
+        RELOAD("Reload"), STOP("Stop"), SAVE_ALL("Save-all");
         private String command;
 
         private Type(String command) {

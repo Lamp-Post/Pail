@@ -9,6 +9,7 @@ import me.escapeNT.pail.GUIComponents.SettingsPanel;
 
 /**
  * Simple log handler to listen when the server is ready.
+ * 
  * @author escapeNT
  */
 public class ServerReadyListener extends Handler {
@@ -16,7 +17,7 @@ public class ServerReadyListener extends Handler {
 
     @Override
     public void publish(LogRecord record) {
-        if(record.getMessage().contains("Reload complete.")
+        if (record.getMessage().contains("Reload complete.")
                 || (record.getMessage().contains("Done") && record.getMessage().contains("help"))) {
             settings = new SettingsPanel();
 
@@ -32,9 +33,11 @@ public class ServerReadyListener extends Handler {
     }
 
     @Override
-    public void flush() {}
+    public void flush() {
+    }
 
     @Override
-    public void close() throws SecurityException {}
+    public void close() throws SecurityException {
+    }
 
 }

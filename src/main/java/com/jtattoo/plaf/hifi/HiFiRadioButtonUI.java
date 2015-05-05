@@ -46,22 +46,27 @@ public class HiFiRadioButtonUI extends BaseRadioButtonUI {
                 Color fc = b.getForeground();
                 if (AbstractLookAndFeel.getTheme().isTextShadowOn() && ColorHelper.getGrayValue(fc) > 128) {
                     g.setColor(Color.black);
-                    JTattooUtilities.drawStringUnderlineCharAt(c, g, text, mnemIndex, textRect.x + 1, textRect.y + 1 + fm.getAscent());
+                    JTattooUtilities.drawStringUnderlineCharAt(c, g, text, mnemIndex, textRect.x + 1, textRect.y + 1
+                            + fm.getAscent());
                 }
                 g.setColor(fc);
-                JTattooUtilities.drawStringUnderlineCharAt(c, g, text, mnemIndex, textRect.x, textRect.y + fm.getAscent());
+                JTattooUtilities.drawStringUnderlineCharAt(c, g, text, mnemIndex, textRect.x,
+                        textRect.y + fm.getAscent());
             } else {
                 g.setColor(Color.black);
-                JTattooUtilities.drawStringUnderlineCharAt(c, g, text, mnemIndex, textRect.x + 1, textRect.y + 1 + fm.getAscent());
+                JTattooUtilities.drawStringUnderlineCharAt(c, g, text, mnemIndex, textRect.x + 1,
+                        textRect.y + 1 + fm.getAscent());
                 g.setColor(AbstractLookAndFeel.getDisabledForegroundColor());
-                JTattooUtilities.drawStringUnderlineCharAt(c, g, text, mnemIndex, textRect.x, textRect.y + fm.getAscent());
+                JTattooUtilities.drawStringUnderlineCharAt(c, g, text, mnemIndex, textRect.x,
+                        textRect.y + fm.getAscent());
             }
         }
     }
 
     public void paintBackground(Graphics g, JComponent c) {
         if (c.isOpaque()) {
-            if ((c.getBackground().equals(AbstractLookAndFeel.getBackgroundColor())) && (c.getBackground() instanceof ColorUIResource)) {
+            if ((c.getBackground().equals(AbstractLookAndFeel.getBackgroundColor()))
+                    && (c.getBackground() instanceof ColorUIResource)) {
                 HiFiUtils.fillComponent(g, c);
             } else {
                 g.setColor(c.getBackground());

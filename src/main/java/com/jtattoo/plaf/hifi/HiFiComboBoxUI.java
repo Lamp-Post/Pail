@@ -29,7 +29,7 @@ public class HiFiComboBoxUI extends BaseComboBoxUI {
     protected void setButtonBorder() {
     }
 
-//--------------------------------------------------------------------------------------------------    
+    // --------------------------------------------------------------------------------------------------
     static class ArrowButtonBorder extends AbstractBorder {
 
         private static final Insets insets = new Insets(1, 3, 1, 2);

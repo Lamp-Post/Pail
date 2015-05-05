@@ -14,23 +14,21 @@ import com.jtattoo.plaf.*;
 /**
  * @author Michael Hagen
  */
-public class GraphiteToolBarUI extends AbstractToolBarUI
-{
-   public static ComponentUI createUI(JComponent c) { 
-       return new GraphiteToolBarUI(); 
-   }
-   
-   public Border getRolloverBorder() { 
-       return GraphiteBorders.getRolloverToolButtonBorder();
-   }
-   
-   public Border getNonRolloverBorder() { 
-       return GraphiteBorders.getToolButtonBorder();
-   }
-   
-   public boolean isButtonOpaque() { 
-       return false; 
-   }
-   
-}
+public class GraphiteToolBarUI extends AbstractToolBarUI {
+    public static ComponentUI createUI(JComponent c) {
+        return new GraphiteToolBarUI();
+    }
 
+    public Border getRolloverBorder() {
+        return GraphiteBorders.getRolloverToolButtonBorder();
+    }
+
+    public Border getNonRolloverBorder() {
+        return GraphiteBorders.getToolButtonBorder();
+    }
+
+    public boolean isButtonOpaque() {
+        return false;
+    }
+
+}

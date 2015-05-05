@@ -35,29 +35,30 @@ import com.google.api.translate.Language;
  * @author Soren AD <soren@tanesha.net>
  */
 public class Detect extends GoogleAPI {
-	
-	/**
-	 * Constants.
-	 */
-	private static String URL = "http://ajax.googleapis.com/ajax/services/language/detect?v=1.0&q=";
 
-	/**
-	 * Detects the language of a supplied String.
-	 * 
-	 * @param text The String to detect the language of.
-	 * @return A DetectResult object containing the language, confidence and reliability.
-	 * @throws Exception on error.
-	 */
-	public static DetectResult execute(final String text) throws Exception {
-    	validateReferrer();
-    	
-		final URL url = new URL(URL +URLEncoder.encode(text, ENCODING));
-		
-		final JSONObject json = retrieveJSON(url);
-		
-		return new DetectResult(
-				Language.fromString(json.getJSONObject("responseData").getString("language")),
-				json.getJSONObject("responseData").getBoolean("isReliable"),
-				json.getJSONObject("responseData").getDouble("confidence"));
-	}
+    /**
+     * Constants.
+     */
+    private static String URL = "http://ajax.googleapis.com/ajax/services/language/detect?v=1.0&q=";
+
+    /**
+     * Detects the language of a supplied String.
+     * 
+     * @param text
+     *            The String to detect the language of.
+     * @return A DetectResult object containing the language, confidence and reliability.
+     * @throws Exception
+     *             on error.
+     */
+    public static DetectResult execute(final String text) throws Exception {
+        validateReferrer();
+
+        final URL url = new URL(URL + URLEncoder.encode(text, ENCODING));
+
+        final JSONObject json = retrieveJSON(url);
+
+        return new DetectResult(Language.fromString(json.getJSONObject("responseData").getString("language")), json
+                .getJSONObject("responseData").getBoolean("isReliable"), json.getJSONObject("responseData").getDouble(
+                "confidence"));
+    }
 }

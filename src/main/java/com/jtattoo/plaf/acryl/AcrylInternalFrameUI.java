@@ -27,4 +27,3 @@ public class AcrylInternalFrameUI extends BaseInternalFrameUI {
         return titlePane;
     }
 }
-

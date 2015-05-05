@@ -10,7 +10,7 @@ import javax.swing.*;
 import com.jtattoo.plaf.*;
 
 /**
- * @author  Michael Hagen
+ * @author Michael Hagen
  */
 public class AcrylTitlePane extends BaseTitlePane {
 
@@ -86,7 +86,7 @@ public class AcrylTitlePane extends BaseTitlePane {
         }
     }
 
-//-----------------------------------------------------------------------------------------------    
+    // -----------------------------------------------------------------------------------------------
     protected class TitlePaneLayout implements LayoutManager {
 
         public void addLayoutComponent(String name, Component c) {
@@ -174,7 +174,8 @@ public class AcrylTitlePane extends BaseTitlePane {
                 Graphics g = getGraphics();
                 if (g != null) {
                     FontMetrics fm = g.getFontMetrics();
-                    int tw = SwingUtilities.computeStringWidth(fm, JTattooUtilities.getClippedText(getTitle(), fm, cpw));
+                    int tw = SwingUtilities
+                            .computeStringWidth(fm, JTattooUtilities.getClippedText(getTitle(), fm, cpw));
                     if (leftToRight) {
                         cpx += tw;
                     }

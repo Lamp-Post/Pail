@@ -31,7 +31,8 @@ public class BaseComboBoxUI extends BasicComboBoxUI {
         comboBox.setRequestFocusEnabled(true);
         if (comboBox.getEditor() != null) {
             if (comboBox.getEditor().getEditorComponent() instanceof JTextField) {
-                ((JTextField) (comboBox.getEditor().getEditorComponent())).setBorder(BorderFactory.createEmptyBorder(1, 1, 1, 1));
+                ((JTextField) (comboBox.getEditor().getEditorComponent())).setBorder(BorderFactory.createEmptyBorder(1,
+                        1, 1, 1));
             }
         }
     }
@@ -50,7 +51,7 @@ public class BaseComboBoxUI extends BasicComboBoxUI {
                         orgBackgroundColor = comboBox.getBackground();
                         LookAndFeel laf = UIManager.getLookAndFeel();
                         if (laf instanceof AbstractLookAndFeel) {
-                            Border focusBorder = ((AbstractLookAndFeel)laf).getBorderFactory().getFocusFrameBorder();
+                            Border focusBorder = ((AbstractLookAndFeel) laf).getBorderFactory().getFocusFrameBorder();
                             Color backgroundColor = AbstractLookAndFeel.getTheme().getFocusBackgroundColor();
                             comboBox.setBorder(focusBorder);
                             comboBox.setBackground(backgroundColor);
@@ -113,7 +114,8 @@ public class BaseComboBoxUI extends BasicComboBoxUI {
             }
         }
     }
-//-----------------------------------------------------------------------------    
+
+    // -----------------------------------------------------------------------------
 
     public static class ArrowButton extends NoFocusButton {
 
@@ -121,14 +123,18 @@ public class BaseComboBoxUI extends BasicComboBoxUI {
             Dimension size = getSize();
             if (isEnabled()) {
                 if (getModel().isArmed() && getModel().isPressed()) {
-                    JTattooUtilities.fillHorGradient(g, AbstractLookAndFeel.getTheme().getPressedColors(), 0, 0, size.width, size.height);
+                    JTattooUtilities.fillHorGradient(g, AbstractLookAndFeel.getTheme().getPressedColors(), 0, 0,
+                            size.width, size.height);
                 } else if (getModel().isRollover()) {
-                    JTattooUtilities.fillHorGradient(g, AbstractLookAndFeel.getTheme().getRolloverColors(), 0, 0, size.width, size.height);
+                    JTattooUtilities.fillHorGradient(g, AbstractLookAndFeel.getTheme().getRolloverColors(), 0, 0,
+                            size.width, size.height);
                 } else {
-                    JTattooUtilities.fillHorGradient(g, AbstractLookAndFeel.getTheme().getButtonColors(), 0, 0, size.width, size.height);
+                    JTattooUtilities.fillHorGradient(g, AbstractLookAndFeel.getTheme().getButtonColors(), 0, 0,
+                            size.width, size.height);
                 }
             } else {
-                JTattooUtilities.fillHorGradient(g, AbstractLookAndFeel.getTheme().getDisabledColors(), 0, 0, size.width, size.height);
+                JTattooUtilities.fillHorGradient(g, AbstractLookAndFeel.getTheme().getDisabledColors(), 0, 0,
+                        size.width, size.height);
             }
             Icon icon = BaseIcons.getComboBoxIcon();
             int x = (size.width - icon.getIconWidth()) / 2;

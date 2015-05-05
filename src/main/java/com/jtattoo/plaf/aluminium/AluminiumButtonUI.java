@@ -49,7 +49,8 @@ public class AluminiumButtonUI extends BaseButtonUI {
                     colors = AluminiumLookAndFeel.getTheme().getButtonColors();
                 }
             } else {
-                colors = ColorHelper.createColorArr(ColorHelper.brighter(b.getBackground(), 20), ColorHelper.darker(b.getBackground(), 20), 20);
+                colors = ColorHelper.createColorArr(ColorHelper.brighter(b.getBackground(), 20),
+                        ColorHelper.darker(b.getBackground(), 20), 20);
             }
             JTattooUtilities.fillHorGradient(g, colors, 0, 0, width - 1, height - 1);
             if (model.isEnabled()) {
@@ -82,7 +83,8 @@ public class AluminiumButtonUI extends BaseButtonUI {
                     colors = AluminiumLookAndFeel.getTheme().getButtonColors();
                 }
             } else {
-                colors = ColorHelper.createColorArr(ColorHelper.brighter(b.getBackground(), 20), ColorHelper.darker(b.getBackground(), 20), 20);
+                colors = ColorHelper.createColorArr(ColorHelper.brighter(b.getBackground(), 20),
+                        ColorHelper.darker(b.getBackground(), 20), 20);
             }
 
             Shape savedClip = g.getClip();
@@ -114,8 +116,8 @@ public class AluminiumButtonUI extends BaseButtonUI {
         Graphics2D g2D = (Graphics2D) g;
         int width = b.getWidth();
         int height = b.getHeight();
-        if (!b.isContentAreaFilled()
-                || ((width < 64) || (height < 16)) && ((b.getText() == null) || b.getText().equals(""))) {
+        if (!b.isContentAreaFilled() || ((width < 64) || (height < 16))
+                && ((b.getText() == null) || b.getText().equals(""))) {
             g.setColor(AbstractLookAndFeel.getFocusColor());
             BasicGraphicsUtils.drawDashedRect(g, 4, 3, width - 8, height - 6);
         } else {
@@ -128,6 +130,3 @@ public class AluminiumButtonUI extends BaseButtonUI {
         }
     }
 }
-
-
-

@@ -261,18 +261,22 @@ public abstract class AbstractTheme extends MetalTheme {
 
     public void setUpColorArrs() {
         DEFAULT_COLORS = ColorHelper.createColorArr(controlColorLight, controlColorDark, 20);
-        HIDEFAULT_COLORS = ColorHelper.createColorArr(ColorHelper.brighter(controlColorLight, 40), ColorHelper.brighter(controlColorDark, 40), 20);
+        HIDEFAULT_COLORS = ColorHelper.createColorArr(ColorHelper.brighter(controlColorLight, 40),
+                ColorHelper.brighter(controlColorDark, 40), 20);
         ACTIVE_COLORS = DEFAULT_COLORS;
         INACTIVE_COLORS = HIDEFAULT_COLORS;
         ROLLOVER_COLORS = ColorHelper.createColorArr(rolloverColorLight, rolloverColorDark, 20);
         SELECTED_COLORS = DEFAULT_COLORS;
         SELECTION_COLORS = ColorHelper.createColorArr(selectionBackgroundColorLight, selectionBackgroundColorDark, 20);
-        FOCUS_COLORS = ColorHelper.createColorArr(ColorHelper.brighter(focusBackgroundColor, 20), ColorHelper.darker(focusBackgroundColor, 10), 20);
-        MENU_SELECTION_COLORS = ColorHelper.createColorArr(menuSelectionBackgroundColorLight, menuSelectionBackgroundColorDark, 20);
+        FOCUS_COLORS = ColorHelper.createColorArr(ColorHelper.brighter(focusBackgroundColor, 20),
+                ColorHelper.darker(focusBackgroundColor, 10), 20);
+        MENU_SELECTION_COLORS = ColorHelper.createColorArr(menuSelectionBackgroundColorLight,
+                menuSelectionBackgroundColorDark, 20);
         PRESSED_COLORS = DEFAULT_COLORS;
         DISABLED_COLORS = HIDEFAULT_COLORS;
         WINDOW_TITLE_COLORS = ColorHelper.createColorArr(windowTitleColorLight, windowTitleColorDark, 20);
-        WINDOW_INACTIVE_TITLE_COLORS = ColorHelper.createColorArr(windowInactiveTitleColorLight, windowInactiveTitleColorDark, 20);
+        WINDOW_INACTIVE_TITLE_COLORS = ColorHelper.createColorArr(windowInactiveTitleColorLight,
+                windowInactiveTitleColorDark, 20);
         TOOLBAR_COLORS = ColorHelper.createColorArr(toolbarColorLight, toolbarColorDark, 20);
         MENUBAR_COLORS = ColorHelper.createColorArr(menuColorLight, menuColorDark, 20);
         BUTTON_COLORS = ColorHelper.createColorArr(buttonColorLight, buttonColorDark, 20);
@@ -370,10 +374,12 @@ public abstract class AbstractTheme extends MetalTheme {
                 alterBackgroundColor = createColor(props.getProperty("alterBackgroundColor"), alterBackgroundColor);
             }
             if (props.getProperty("disabledForegroundColor") != null) {
-                disabledForegroundColor = createColor(props.getProperty("disabledForegroundColor"), disabledForegroundColor);
+                disabledForegroundColor = createColor(props.getProperty("disabledForegroundColor"),
+                        disabledForegroundColor);
             }
             if (props.getProperty("disabledBackgroundColor") != null) {
-                disabledBackgroundColor = createColor(props.getProperty("disabledBackgroundColor"), disabledBackgroundColor);
+                disabledBackgroundColor = createColor(props.getProperty("disabledBackgroundColor"),
+                        disabledBackgroundColor);
             }
             if (props.getProperty("inputForegroundColor") != null) {
                 inputForegroundColor = createColor(props.getProperty("inputForegroundColor"), inputForegroundColor);
@@ -382,16 +388,20 @@ public abstract class AbstractTheme extends MetalTheme {
                 inputBackgroundColor = createColor(props.getProperty("inputBackgroundColor"), inputBackgroundColor);
             }
             if (props.getProperty("selectionForegroundColor") != null) {
-                selectionForegroundColor = createColor(props.getProperty("selectionForegroundColor"), selectionForegroundColor);
+                selectionForegroundColor = createColor(props.getProperty("selectionForegroundColor"),
+                        selectionForegroundColor);
             }
             if (props.getProperty("selectionBackgroundColor") != null) {
-                selectionBackgroundColor = createColor(props.getProperty("selectionBackgroundColor"), selectionBackgroundColor);
+                selectionBackgroundColor = createColor(props.getProperty("selectionBackgroundColor"),
+                        selectionBackgroundColor);
             }
             if (props.getProperty("selectionBackgroundColorLight") != null) {
-                selectionBackgroundColorLight = createColor(props.getProperty("selectionBackgroundColorLight"), selectionBackgroundColorLight);
+                selectionBackgroundColorLight = createColor(props.getProperty("selectionBackgroundColorLight"),
+                        selectionBackgroundColorLight);
             }
             if (props.getProperty("selectionBackgroundColorDark") != null) {
-                selectionBackgroundColorDark = createColor(props.getProperty("selectionBackgroundColorDark"), selectionBackgroundColorDark);
+                selectionBackgroundColorDark = createColor(props.getProperty("selectionBackgroundColorDark"),
+                        selectionBackgroundColorDark);
             }
             if (props.getProperty("frameColor") != null) {
                 frameColor = createColor(props.getProperty("frameColor"), frameColor);
@@ -439,10 +449,12 @@ public abstract class AbstractTheme extends MetalTheme {
             }
 
             if (props.getProperty("controlForegroundColor") != null) {
-                controlForegroundColor = createColor(props.getProperty("controlForegroundColor"), controlForegroundColor);
+                controlForegroundColor = createColor(props.getProperty("controlForegroundColor"),
+                        controlForegroundColor);
             }
             if (props.getProperty("controlBackgroundColor") != null) {
-                controlBackgroundColor = createColor(props.getProperty("controlBackgroundColor"), controlBackgroundColor);
+                controlBackgroundColor = createColor(props.getProperty("controlBackgroundColor"),
+                        controlBackgroundColor);
             }
             if (props.getProperty("controlColorLight") != null) {
                 controlColorLight = createColor(props.getProperty("controlColorLight"), controlColorLight);
@@ -451,14 +463,17 @@ public abstract class AbstractTheme extends MetalTheme {
                 controlColorDark = createColor(props.getProperty("controlColorDark"), controlColorDark);
             }
             if (props.getProperty("controlDarkShadowColor") != null) {
-                controlDarkShadowColor = createColor(props.getProperty("controlDarkShadowColor"), controlDarkShadowColor);
+                controlDarkShadowColor = createColor(props.getProperty("controlDarkShadowColor"),
+                        controlDarkShadowColor);
             }
 
             if (props.getProperty("windowTitleForegroundColor") != null) {
-                windowTitleForegroundColor = createColor(props.getProperty("windowTitleForegroundColor"), windowTitleForegroundColor);
+                windowTitleForegroundColor = createColor(props.getProperty("windowTitleForegroundColor"),
+                        windowTitleForegroundColor);
             }
             if (props.getProperty("windowTitleBackgroundColor") != null) {
-                windowTitleBackgroundColor = createColor(props.getProperty("windowTitleBackgroundColor"), windowTitleBackgroundColor);
+                windowTitleBackgroundColor = createColor(props.getProperty("windowTitleBackgroundColor"),
+                        windowTitleBackgroundColor);
             }
             if (props.getProperty("windowTitleColorLight") != null) {
                 windowTitleColorLight = createColor(props.getProperty("windowTitleColorLight"), windowTitleColorLight);
@@ -476,23 +491,29 @@ public abstract class AbstractTheme extends MetalTheme {
                 windowIconShadowColor = createColor(props.getProperty("windowIconShadowColor"), windowIconShadowColor);
             }
             if (props.getProperty("windowIconRolloverColor") != null) {
-                windowIconRolloverColor = createColor(props.getProperty("windowIconRolloverColor"), windowIconRolloverColor);
+                windowIconRolloverColor = createColor(props.getProperty("windowIconRolloverColor"),
+                        windowIconRolloverColor);
             }
 
             if (props.getProperty("windowInactiveTitleForegroundColor") != null) {
-                windowInactiveTitleForegroundColor = createColor(props.getProperty("windowInactiveTitleForegroundColor"), windowInactiveTitleForegroundColor);
+                windowInactiveTitleForegroundColor = createColor(
+                        props.getProperty("windowInactiveTitleForegroundColor"), windowInactiveTitleForegroundColor);
             }
             if (props.getProperty("windowTitleBackgroundColor") != null) {
-                windowInactiveTitleBackgroundColor = createColor(props.getProperty("windowInactiveTitleBackgroundColor"), windowInactiveTitleBackgroundColor);
+                windowInactiveTitleBackgroundColor = createColor(
+                        props.getProperty("windowInactiveTitleBackgroundColor"), windowInactiveTitleBackgroundColor);
             }
             if (props.getProperty("windowInactiveTitleColorLight") != null) {
-                windowInactiveTitleColorLight = createColor(props.getProperty("windowInactiveTitleColorLight"), windowInactiveTitleColorLight);
+                windowInactiveTitleColorLight = createColor(props.getProperty("windowInactiveTitleColorLight"),
+                        windowInactiveTitleColorLight);
             }
             if (props.getProperty("windowInactiveTitleColorDark") != null) {
-                windowInactiveTitleColorDark = createColor(props.getProperty("windowInactiveTitleColorDark"), windowInactiveTitleColorDark);
+                windowInactiveTitleColorDark = createColor(props.getProperty("windowInactiveTitleColorDark"),
+                        windowInactiveTitleColorDark);
             }
             if (props.getProperty("windowInactiveBorderColor") != null) {
-                windowInactiveBorderColor = createColor(props.getProperty("windowInactiveBorderColor"), windowInactiveBorderColor);
+                windowInactiveBorderColor = createColor(props.getProperty("windowInactiveBorderColor"),
+                        windowInactiveBorderColor);
             }
 
             if (props.getProperty("menuForegroundColor") != null) {
@@ -502,16 +523,20 @@ public abstract class AbstractTheme extends MetalTheme {
                 menuBackgroundColor = createColor(props.getProperty("menuBackgroundColor"), menuBackgroundColor);
             }
             if (props.getProperty("menuSelectionForegroundColor") != null) {
-                menuSelectionForegroundColor = createColor(props.getProperty("menuSelectionForegroundColor"), menuSelectionForegroundColor);
+                menuSelectionForegroundColor = createColor(props.getProperty("menuSelectionForegroundColor"),
+                        menuSelectionForegroundColor);
             }
             if (props.getProperty("menuSelectionBackgroundColor") != null) {
-                menuSelectionBackgroundColor = createColor(props.getProperty("menuSelectionBackgroundColor"), menuSelectionBackgroundColor);
+                menuSelectionBackgroundColor = createColor(props.getProperty("menuSelectionBackgroundColor"),
+                        menuSelectionBackgroundColor);
             }
             if (props.getProperty("menuSelectionBackgroundColorLight") != null) {
-                menuSelectionBackgroundColorLight = createColor(props.getProperty("menuSelectionBackgroundColorLight"), menuSelectionBackgroundColorLight);
+                menuSelectionBackgroundColorLight = createColor(props.getProperty("menuSelectionBackgroundColorLight"),
+                        menuSelectionBackgroundColorLight);
             }
             if (props.getProperty("menuSelectionBackgroundColorDark") != null) {
-                menuSelectionBackgroundColorDark = createColor(props.getProperty("menuSelectionBackgroundColorDark"), menuSelectionBackgroundColorDark);
+                menuSelectionBackgroundColorDark = createColor(props.getProperty("menuSelectionBackgroundColorDark"),
+                        menuSelectionBackgroundColorDark);
             }
             if (props.getProperty("menuColorLight") != null) {
                 menuColorLight = createColor(props.getProperty("menuColorLight"), menuColorLight);
@@ -521,10 +546,12 @@ public abstract class AbstractTheme extends MetalTheme {
             }
 
             if (props.getProperty("toolbarForegroundColor") != null) {
-                toolbarForegroundColor = createColor(props.getProperty("toolbarForegroundColor"), toolbarForegroundColor);
+                toolbarForegroundColor = createColor(props.getProperty("toolbarForegroundColor"),
+                        toolbarForegroundColor);
             }
             if (props.getProperty("toolbarBackgroundColor") != null) {
-                toolbarBackgroundColor = createColor(props.getProperty("toolbarBackgroundColor"), toolbarBackgroundColor);
+                toolbarBackgroundColor = createColor(props.getProperty("toolbarBackgroundColor"),
+                        toolbarBackgroundColor);
             }
             if (props.getProperty("toolbarColorLight") != null) {
                 toolbarColorLight = createColor(props.getProperty("toolbarColorLight"), toolbarColorLight);
@@ -534,7 +561,8 @@ public abstract class AbstractTheme extends MetalTheme {
             }
 
             if (props.getProperty("tabAreaBackgroundColor") != null) {
-                tabAreaBackgroundColor = createColor(props.getProperty("tabAreaBackgroundColor"), tabAreaBackgroundColor);
+                tabAreaBackgroundColor = createColor(props.getProperty("tabAreaBackgroundColor"),
+                        tabAreaBackgroundColor);
             } else {
                 tabAreaBackgroundColor = backgroundColor;
             }
@@ -542,10 +570,12 @@ public abstract class AbstractTheme extends MetalTheme {
                 desktopColor = createColor(props.getProperty("desktopColor"), desktopColor);
             }
             if (props.getProperty("tooltipForegroundColor") != null) {
-                tooltipForegroundColor = createColor(props.getProperty("tooltipForegroundColor"), tooltipForegroundColor);
+                tooltipForegroundColor = createColor(props.getProperty("tooltipForegroundColor"),
+                        tooltipForegroundColor);
             }
             if (props.getProperty("tooltipBackgroundColor") != null) {
-                tooltipBackgroundColor = createColor(props.getProperty("tooltipBackgroundColor"), tooltipBackgroundColor);
+                tooltipBackgroundColor = createColor(props.getProperty("tooltipBackgroundColor"),
+                        tooltipBackgroundColor);
             }
         }
     }
@@ -668,7 +698,7 @@ public abstract class AbstractTheme extends MetalTheme {
         return smallFont;
     }
 
-    //-----------------------------------------------------------------------------------
+    // -----------------------------------------------------------------------------------
     protected ColorUIResource getPrimary1() {
         return foregroundColor;
     }
@@ -718,18 +748,10 @@ public abstract class AbstractTheme extends MetalTheme {
     }
 
     /*
-    public ColorUIResource getControl()
-    { return red; }
-    public ColorUIResource getControlShadow()
-    { return blue; }
-    public ColorUIResource getControlDarkShadow()
-    { return green; }
-    public ColorUIResource getControlInfo()
-    { return yellow; }
-    public ColorUIResource getControlHighlight()
-    { return orange; }
-    public ColorUIResource getControlDisabled()
-    { return cyan;}
+     * public ColorUIResource getControl() { return red; } public ColorUIResource getControlShadow() { return blue; }
+     * public ColorUIResource getControlDarkShadow() { return green; } public ColorUIResource getControlInfo() { return
+     * yellow; } public ColorUIResource getControlHighlight() { return orange; } public ColorUIResource
+     * getControlDisabled() { return cyan;}
      */
     public ColorUIResource getPrimaryControl() {
         return extraLightGray;
@@ -779,7 +801,7 @@ public abstract class AbstractTheme extends MetalTheme {
     public boolean isTextShadowOn() {
         return textShadow;
     }
-    
+
     public boolean isTextAntiAliasingOn() {
         if (JTattooUtilities.getJavaVersion() < 1.4) {
             return false;
@@ -1125,7 +1147,7 @@ public abstract class AbstractTheme extends MetalTheme {
     public Color[] getMenuSelectionColors() {
         return MENU_SELECTION_COLORS;
     }
-    
+
     public Color[] getPressedColors() {
         return PRESSED_COLORS;
     }

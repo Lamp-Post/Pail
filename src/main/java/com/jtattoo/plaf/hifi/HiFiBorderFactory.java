@@ -101,4 +101,3 @@ public class HiFiBorderFactory implements AbstractBorderFactory {
         return HiFiBorders.getDesktopIconBorder();
     }
 }
-

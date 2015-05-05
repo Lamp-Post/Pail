@@ -14,6 +14,7 @@ import me.escapeNT.pail.Util.Util;
 
 /**
  * Panel displaying the loaded components and their activation status.
+ * 
  * @author escapeNT
  */
 public class TabActivationPanel extends JPanel {
@@ -32,21 +33,21 @@ public class TabActivationPanel extends JPanel {
 
         // Get all panel titles
         List<String> titles = new ArrayList<String>();
-        for(String title : Util.getInterfaceComponents().keySet()) {
+        for (String title : Util.getInterfaceComponents().keySet()) {
             titles.add(title);
         }
         Collections.sort(titles, String.CASE_INSENSITIVE_ORDER);
 
         // Add checkboxes
         boxes = new HashMap<String, JCheckBox>();
-        for(String s : titles) {
-            if(s.equals("Settings") || s.equals("Server Control")) {
+        for (String s : titles) {
+            if (s.equals("Settings") || s.equals("Server Control")) {
                 break;
             }
-            if(!PanelConfig.getPanelsActivated().containsKey(s)) {
+            if (!PanelConfig.getPanelsActivated().containsKey(s)) {
                 PanelConfig.getPanelsActivated().put(s, Boolean.TRUE);
             }
-            
+
             getBoxes().put(s, new JCheckBox(s));
             getBoxes().get(s).setSelected(PanelConfig.getPanelsActivated().get(s));
             add(getBoxes().get(s));

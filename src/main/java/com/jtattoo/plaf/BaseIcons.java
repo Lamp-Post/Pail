@@ -348,7 +348,7 @@ public class BaseIcons {
         return thumbVerIconRollover;
     }
 
-//-----------------------------------------------------------------------------------------------------------
+    // -----------------------------------------------------------------------------------------------------------
     private static class CheckBoxIcon implements Icon {
 
         private static final Color MENU_ITEM_BACKGROUND = new Color(248, 248, 248);
@@ -378,12 +378,15 @@ public class BaseIcons {
             } else {
                 if (b.isEnabled()) {
                     if (b.isRolloverEnabled() && model.isRollover()) {
-                        JTattooUtilities.fillHorGradient(g, AbstractLookAndFeel.getTheme().getRolloverColors(), x, y, WIDTH, HEIGHT);
+                        JTattooUtilities.fillHorGradient(g, AbstractLookAndFeel.getTheme().getRolloverColors(), x, y,
+                                WIDTH, HEIGHT);
                     } else {
                         if (AbstractLookAndFeel.getTheme().doShowFocusFrame() && b.hasFocus()) {
-                            JTattooUtilities.fillHorGradient(g, AbstractLookAndFeel.getTheme().getFocusColors(), x, y, WIDTH, HEIGHT);
+                            JTattooUtilities.fillHorGradient(g, AbstractLookAndFeel.getTheme().getFocusColors(), x, y,
+                                    WIDTH, HEIGHT);
                         } else {
-                            JTattooUtilities.fillHorGradient(g, AbstractLookAndFeel.getTheme().getCheckBoxColors(), x, y, WIDTH, HEIGHT);
+                            JTattooUtilities.fillHorGradient(g, AbstractLookAndFeel.getTheme().getCheckBoxColors(), x,
+                                    y, WIDTH, HEIGHT);
                         }
                         if (!model.isPressed()) {
                             g.setColor(Color.white);
@@ -430,7 +433,7 @@ public class BaseIcons {
         }
     }
 
-//-----------------------------------------------------------------------------------------------------------
+    // -----------------------------------------------------------------------------------------------------------
     private static class RadioButtonIcon implements Icon {
 
         private static final Color MENU_ITEM_BACKGROUND = new Color(248, 248, 248);
@@ -454,12 +457,15 @@ public class BaseIcons {
                 g.fillRect(x, y, WIDTH, HEIGHT);
             } else {
                 if (b.isEnabled() && b.isRolloverEnabled() && model.isRollover()) {
-                    JTattooUtilities.fillHorGradient(g, AbstractLookAndFeel.getTheme().getRolloverColors(), x, y, WIDTH, HEIGHT);
+                    JTattooUtilities.fillHorGradient(g, AbstractLookAndFeel.getTheme().getRolloverColors(), x, y,
+                            WIDTH, HEIGHT);
                 } else {
                     if (AbstractLookAndFeel.getTheme().doShowFocusFrame() && b.hasFocus()) {
-                        JTattooUtilities.fillHorGradient(g, AbstractLookAndFeel.getTheme().getFocusColors(), x, y, WIDTH, HEIGHT);
+                        JTattooUtilities.fillHorGradient(g, AbstractLookAndFeel.getTheme().getFocusColors(), x, y,
+                                WIDTH, HEIGHT);
                     } else {
-                        JTattooUtilities.fillHorGradient(g, AbstractLookAndFeel.getTheme().getCheckBoxColors(), x, y, WIDTH, HEIGHT);
+                        JTattooUtilities.fillHorGradient(g, AbstractLookAndFeel.getTheme().getCheckBoxColors(), x, y,
+                                WIDTH, HEIGHT);
                     }
                 }
             }
@@ -490,7 +496,7 @@ public class BaseIcons {
                 g.setColor(ColorHelper.brighter(AbstractLookAndFeel.getFrameColor(), 40));
                 g2D.drawOval(x, y, WIDTH, HEIGHT);
             }
-            
+
             if (model.isSelected()) {
                 if (b.isEnabled()) {
                     g.setColor(Color.black);
@@ -511,7 +517,7 @@ public class BaseIcons {
         }
     }
 
-//-----------------------------------------------------------------------------------------------------------
+    // -----------------------------------------------------------------------------------------------------------
     public static class IconSymbol implements Icon {
 
         private Color foregroundColor = null;
@@ -538,7 +544,8 @@ public class BaseIcons {
             this.insets = insets;
         }
 
-        public IconSymbol(Color foregroundColor, Color shadowColor, Color rolloverColor, Color inactiveForegroundColor, Color inactiveShadowColor, Insets insets) {
+        public IconSymbol(Color foregroundColor, Color shadowColor, Color rolloverColor, Color inactiveForegroundColor,
+                Color inactiveShadowColor, Insets insets) {
             this.foregroundColor = foregroundColor;
             this.shadowColor = shadowColor;
             this.rolloverColor = rolloverColor;
@@ -590,7 +597,7 @@ public class BaseIcons {
         }
     }
 
-//-----------------------------------------------------------------------------------------------------------
+    // -----------------------------------------------------------------------------------------------------------
     public static class MaxSymbol implements Icon {
 
         private Color foregroundColor = null;
@@ -617,7 +624,8 @@ public class BaseIcons {
             this.insets = insets;
         }
 
-        public MaxSymbol(Color foregroundColor, Color shadowColor, Color rolloverColor, Color inactiveForegroundColor, Color inactiveShadowColor, Insets insets) {
+        public MaxSymbol(Color foregroundColor, Color shadowColor, Color rolloverColor, Color inactiveForegroundColor,
+                Color inactiveShadowColor, Insets insets) {
             this.foregroundColor = foregroundColor;
             this.shadowColor = shadowColor;
             this.rolloverColor = rolloverColor;
@@ -672,7 +680,7 @@ public class BaseIcons {
         }
     }
 
-//-----------------------------------------------------------------------------------------------------------
+    // -----------------------------------------------------------------------------------------------------------
     public static class MinSymbol implements Icon {
 
         private Color foregroundColor = null;
@@ -699,7 +707,8 @@ public class BaseIcons {
             this.insets = insets;
         }
 
-        public MinSymbol(Color foregroundColor, Color shadowColor, Color rolloverColor, Color inactiveForegroundColor, Color inactiveShadowColor, Insets insets) {
+        public MinSymbol(Color foregroundColor, Color shadowColor, Color rolloverColor, Color inactiveForegroundColor,
+                Color inactiveShadowColor, Insets insets) {
             this.foregroundColor = foregroundColor;
             this.shadowColor = shadowColor;
             this.rolloverColor = rolloverColor;
@@ -727,7 +736,7 @@ public class BaseIcons {
 
             w = Math.min(w, h) - 6;
             h = w;
-            
+
             int x1 = 3;
             int y1 = 3;
             int w1 = w - delta;
@@ -779,7 +788,7 @@ public class BaseIcons {
         }
     }
 
-//-----------------------------------------------------------------------------------------------------------
+    // -----------------------------------------------------------------------------------------------------------
     public static class CloseSymbol implements Icon {
 
         private Color foregroundColor = null;
@@ -806,7 +815,8 @@ public class BaseIcons {
             this.inactiveShadowColor = shadowColor;
         }
 
-        public CloseSymbol(Color foregroundColor, Color shadowColor, Color rolloverColor, Color inactiveForegroundColor, Color inactiveShadowColor, Insets insets) {
+        public CloseSymbol(Color foregroundColor, Color shadowColor, Color rolloverColor,
+                Color inactiveForegroundColor, Color inactiveShadowColor, Insets insets) {
             this.foregroundColor = foregroundColor;
             this.shadowColor = shadowColor;
             this.rolloverColor = rolloverColor;

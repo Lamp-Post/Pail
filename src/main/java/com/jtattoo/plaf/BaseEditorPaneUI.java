@@ -33,7 +33,7 @@ public class BaseEditorPaneUI extends BasicEditorPaneUI {
 
     protected void installListeners() {
         super.installListeners();
-        
+
         if (AbstractLookAndFeel.getTheme().doShowFocusFrame()) {
             focusListener = new FocusListener() {
 
@@ -42,7 +42,7 @@ public class BaseEditorPaneUI extends BasicEditorPaneUI {
                         orgBorder = getComponent().getBorder();
                         LookAndFeel laf = UIManager.getLookAndFeel();
                         if (laf instanceof AbstractLookAndFeel) {
-                            Border focusBorder = ((AbstractLookAndFeel)laf).getBorderFactory().getFocusFrameBorder();
+                            Border focusBorder = ((AbstractLookAndFeel) laf).getBorderFactory().getFocusFrameBorder();
                             getComponent().setBorder(focusBorder);
                         }
                     }
@@ -63,7 +63,7 @@ public class BaseEditorPaneUI extends BasicEditorPaneUI {
         focusListener = null;
         super.uninstallListeners();
     }
-    
+
     protected void paintBackground(Graphics g) {
         g.setColor(getComponent().getBackground());
         if (AbstractLookAndFeel.getTheme().doShowFocusFrame()) {

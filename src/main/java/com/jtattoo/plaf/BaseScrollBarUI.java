@@ -85,7 +85,8 @@ public class BaseScrollBarUI extends BasicScrollBarUI {
 
         if (scrollbar.getOrientation() == JScrollBar.VERTICAL) {
             JTattooUtilities.fillVerGradient(g, colors, 1, 1, thumbBounds.width - 1, thumbBounds.height - 1);
-            JTattooUtilities.draw3DBorder(g, frameColorLo, ColorHelper.darker(frameColorLo, 15), 0, 0, thumbBounds.width, thumbBounds.height);
+            JTattooUtilities.draw3DBorder(g, frameColorLo, ColorHelper.darker(frameColorLo, 15), 0, 0,
+                    thumbBounds.width, thumbBounds.height);
             g.setColor(frameColorHi);
             g.drawLine(1, 1, thumbBounds.width - 2, 1);
             g.drawLine(1, 1, 1, thumbBounds.height - 2);
@@ -114,7 +115,8 @@ public class BaseScrollBarUI extends BasicScrollBarUI {
         } else // HORIZONTAL
         {
             JTattooUtilities.fillHorGradient(g, colors, 1, 1, thumbBounds.width - 1, thumbBounds.height - 1);
-            JTattooUtilities.draw3DBorder(g, frameColorLo, ColorHelper.darker(frameColorLo, 10), 0, 0, thumbBounds.width, thumbBounds.height);
+            JTattooUtilities.draw3DBorder(g, frameColorLo, ColorHelper.darker(frameColorLo, 10), 0, 0,
+                    thumbBounds.width, thumbBounds.height);
             g.setColor(frameColorHi);
             g.drawLine(1, 1, thumbBounds.width - 2, 1);
             g.drawLine(1, 1, 1, thumbBounds.height - 2);

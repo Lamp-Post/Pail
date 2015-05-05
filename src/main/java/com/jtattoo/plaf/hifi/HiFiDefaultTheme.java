@@ -34,7 +34,7 @@ public class HiFiDefaultTheme extends AbstractTheme {
         // Defaults for HiFiLookAndFeel
         textShadow = true;
         foregroundColor = extraLightGray;
-        disabledForegroundColor = gray;//extraDarkGray;
+        disabledForegroundColor = gray;// extraDarkGray;
         disabledBackgroundColor = new ColorUIResource(48, 48, 48);
 
         backgroundColor = new ColorUIResource(48, 48, 48);
@@ -66,7 +66,6 @@ public class HiFiDefaultTheme extends AbstractTheme {
         controlHighlightColor = new ColorUIResource(96, 96, 96);
         controlShadowColor = new ColorUIResource(32, 32, 32);
         controlDarkShadowColor = black;
-
 
         windowTitleForegroundColor = foregroundColor;
         windowTitleBackgroundColor = new ColorUIResource(96, 96, 96);
@@ -108,19 +107,23 @@ public class HiFiDefaultTheme extends AbstractTheme {
     public void setUpColorArrs() {
         super.setUpColorArrs();
         DEFAULT_COLORS = ColorHelper.createColorArr(controlColorLight, controlColorDark, 20);
-        HIDEFAULT_COLORS = ColorHelper.createColorArr(ColorHelper.brighter(controlColorLight, 15), ColorHelper.brighter(controlColorDark, 15), 20);
+        HIDEFAULT_COLORS = ColorHelper.createColorArr(ColorHelper.brighter(controlColorLight, 15),
+                ColorHelper.brighter(controlColorDark, 15), 20);
         ACTIVE_COLORS = DEFAULT_COLORS;
         INACTIVE_COLORS = ColorHelper.createColorArr(new Color(64, 64, 64), new Color(32, 32, 32), 20);
         SELECTED_COLORS = HIDEFAULT_COLORS;
         BUTTON_COLORS = ColorHelper.createColorArr(buttonColorLight, buttonColorDark, 20);
         ROLLOVER_COLORS = HIDEFAULT_COLORS;
         PRESSED_COLORS = ColorHelper.createColorArr(black, controlColorDark, 20);
-        DISABLED_COLORS = ColorHelper.createColorArr(ColorHelper.darker(controlColorLight, 10), ColorHelper.darker(controlColorDark, 10), 20);
+        DISABLED_COLORS = ColorHelper.createColorArr(ColorHelper.darker(controlColorLight, 10),
+                ColorHelper.darker(controlColorDark, 10), 20);
         WINDOW_TITLE_COLORS = ColorHelper.createColorArr(windowTitleColorLight, windowTitleColorDark, 20);
-        WINDOW_INACTIVE_TITLE_COLORS = ColorHelper.createColorArr(windowInactiveTitleColorLight, windowInactiveTitleColorDark, 20);
+        WINDOW_INACTIVE_TITLE_COLORS = ColorHelper.createColorArr(windowInactiveTitleColorLight,
+                windowInactiveTitleColorDark, 20);
         MENUBAR_COLORS = DEFAULT_COLORS;
         TOOLBAR_COLORS = MENUBAR_COLORS;
-        TRACK_COLORS = ColorHelper.createColorArr(ColorHelper.darker(backgroundColor, 10), ColorHelper.brighter(backgroundColor, 5), 20);
+        TRACK_COLORS = ColorHelper.createColorArr(ColorHelper.darker(backgroundColor, 10),
+                ColorHelper.brighter(backgroundColor, 5), 20);
         SLIDER_COLORS = DEFAULT_COLORS;
         PROGRESSBAR_COLORS = DEFAULT_COLORS;
         THUMB_COLORS = DEFAULT_COLORS;

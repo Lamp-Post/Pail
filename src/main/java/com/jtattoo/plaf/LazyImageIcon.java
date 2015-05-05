@@ -47,8 +47,7 @@ public class LazyImageIcon implements Icon {
     public void paintIcon(Component c, Graphics g, int x, int y) {
         if (getIcon() != null) {
             getIcon().paintIcon(c, g, x, y);
-        }
-        else {
+        } else {
             g.setColor(Color.red);
             g.fillRect(x, y, 16, 16);
             g.setColor(Color.white);
@@ -56,6 +55,5 @@ public class LazyImageIcon implements Icon {
             g.drawLine(x + 15, y, x, y + 15);
         }
     }
-
 
 }

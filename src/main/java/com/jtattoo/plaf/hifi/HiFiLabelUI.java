@@ -54,4 +54,3 @@ public class HiFiLabelUI extends BasicLabelUI {
         JTattooUtilities.drawStringUnderlineCharAt(l, g, s, mnemIndex, textX, textY);
     }
 }
-

@@ -97,4 +97,3 @@ public class BaseScrollButton extends BasicArrowButton {
         return buttonWidth;
     }
 }
-

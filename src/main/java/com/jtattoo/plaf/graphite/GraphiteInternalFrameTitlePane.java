@@ -14,15 +14,15 @@ import com.jtattoo.plaf.*;
  * @author Michael Hagen
  */
 public class GraphiteInternalFrameTitlePane extends BaseInternalFrameTitlePane {
-    
-    public GraphiteInternalFrameTitlePane(JInternalFrame f) { 
-        super(f); 
+
+    public GraphiteInternalFrameTitlePane(JInternalFrame f) {
+        super(f);
     }
-    
+
     protected int getHorSpacing() {
         return 0;
     }
-    
+
     protected int getVerSpacing() {
         return 0;
     }
@@ -37,14 +37,14 @@ public class GraphiteInternalFrameTitlePane extends BaseInternalFrameTitlePane {
     }
 
     public void paintText(Graphics g, int x, int y, String title) {
-        Graphics2D g2D = (Graphics2D)g;
+        Graphics2D g2D = (Graphics2D) g;
         Color fc = AbstractLookAndFeel.getWindowTitleForegroundColor();
         if (fc.equals(Color.white)) {
             Color bc = AbstractLookAndFeel.getWindowTitleColorDark();
             g2D.setColor(bc);
-            JTattooUtilities.drawString(frame, g, title, x-1, y-1);
+            JTattooUtilities.drawString(frame, g, title, x - 1, y - 1);
             g2D.setColor(ColorHelper.darker(bc, 30));
-            JTattooUtilities.drawString(frame, g, title, x+1, y+1);
+            JTattooUtilities.drawString(frame, g, title, x + 1, y + 1);
         }
         g.setColor(fc);
         JTattooUtilities.drawString(frame, g, title, x, y);

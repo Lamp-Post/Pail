@@ -133,17 +133,21 @@ public class BaseInternalFrameTitlePane extends BasicInternalFrameTitlePane impl
         int width = getWidth();
         int height = getHeight();
         if (JTattooUtilities.isFrameActive(this)) {
-            JTattooUtilities.fillHorGradient(g, AbstractLookAndFeel.getTheme().getWindowTitleColors(), 0, 0, width, height);
+            JTattooUtilities.fillHorGradient(g, AbstractLookAndFeel.getTheme().getWindowTitleColors(), 0, 0, width,
+                    height);
         } else {
-            JTattooUtilities.fillHorGradient(g, AbstractLookAndFeel.getTheme().getWindowInactiveTitleColors(), 0, 0, width, height);
+            JTattooUtilities.fillHorGradient(g, AbstractLookAndFeel.getTheme().getWindowInactiveTitleColors(), 0, 0,
+                    width, height);
         }
     }
 
     public void paintBackground(Graphics g) {
         if (isActive()) {
-            JTattooUtilities.fillHorGradient(g, AbstractLookAndFeel.getTheme().getWindowTitleColors(), 0, 0, getWidth(), getHeight());
+            JTattooUtilities.fillHorGradient(g, AbstractLookAndFeel.getTheme().getWindowTitleColors(), 0, 0,
+                    getWidth(), getHeight());
         } else {
-            JTattooUtilities.fillHorGradient(g, AbstractLookAndFeel.getTheme().getWindowInactiveTitleColors(), 0, 0, getWidth(), getHeight());
+            JTattooUtilities.fillHorGradient(g, AbstractLookAndFeel.getTheme().getWindowInactiveTitleColors(), 0, 0,
+                    getWidth(), getHeight());
         }
     }
 
@@ -161,7 +165,8 @@ public class BaseInternalFrameTitlePane extends BasicInternalFrameTitlePane impl
         if (isActive() || isPalette) {
             borderColor = AbstractLookAndFeel.getWindowBorderColor();
         }
-        JTattooUtilities.draw3DBorder(g, ColorHelper.brighter(borderColor, 20), ColorHelper.darker(borderColor, 10), 0, 0, getWidth(), getHeight());
+        JTattooUtilities.draw3DBorder(g, ColorHelper.brighter(borderColor, 20), ColorHelper.darker(borderColor, 10), 0,
+                0, getWidth(), getHeight());
     }
 
     public void paintComponent(Graphics g) {

@@ -28,7 +28,8 @@ public class PailLogHandler extends Handler {
     /**
      * Constructs a new log handler using the specified text area for output.
      *
-     * @param output The JTextArea to write the log data to.
+     * @param output
+     *            The JTextArea to write the log data to.
      */
     public PailLogHandler() {
         output = new ScrollableTextArea();
@@ -72,8 +73,9 @@ public class PailLogHandler extends Handler {
                     color = Color.BLACK;
                 }
                 for (String s : message.toString().trim().split(" ")) {
-                    output.append(color, (((s.startsWith("[") && s.contains("]"))
-                            || (s.startsWith("<") && s.contains(">")))), s.trim() + " ");
+                    output.append(color,
+                            (((s.startsWith("[") && s.contains("]")) || (s.startsWith("<") && s.contains(">")))),
+                            s.trim() + " ");
                 }
                 output.append(color, "\n");
 

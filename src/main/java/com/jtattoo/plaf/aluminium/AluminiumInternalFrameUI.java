@@ -27,4 +27,3 @@ public class AluminiumInternalFrameUI extends BaseInternalFrameUI {
         return titlePane;
     }
 }
-

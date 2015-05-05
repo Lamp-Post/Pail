@@ -20,29 +20,32 @@ import me.escapeNT.pail.Util.Util;
 
 /**
  * Class for handling general configuration.
+ * 
  * @author escapeNT
  */
 public class General {
-	
-	@Inject
-	@DefaultConfig(sharedRoot = false)
-	private static File defaultConfig;
 
-	@Inject
-	@DefaultConfig(sharedRoot = false)//TODO ???
-	private static ConfigurationLoader<CommentedConfigurationNode> configManager = HoconConfigurationLoader.builder().setFile(defaultConfig).build();
-	
+    @Inject
+    @DefaultConfig(sharedRoot = false)
+    private static File defaultConfig;
+
+    @Inject
+    @DefaultConfig(sharedRoot = false)
+    // TODO ???
+    private static ConfigurationLoader<CommentedConfigurationNode> configManager = HoconConfigurationLoader.builder()
+            .setFile(defaultConfig).build();
+
     public static ConfigurationNode rootNode;
 
     /**
      * Loads the configuration.
      */
     public static void load() {
-    	try {
-    	    rootNode = configManager.load();
-    	} catch(IOException e) {
-    	    rootNode = null;
-    	}
+        try {
+            rootNode = configManager.load();
+        } catch (IOException e) {
+            rootNode = null;
+        }
         defaults();
         setAutoUpdate(isAutoUpdate());
         setLookAndFeel(getLookAndFeel());
@@ -60,9 +63,9 @@ public class General {
      */
     public static void save() {
         try {
-        	configManager.save(rootNode);
+            configManager.save(rootNode);
         } catch (IOException ex) {
-        	Util.log(Level.SEVERE, ex.toString());
+            Util.log(Level.SEVERE, ex.toString());
         }
     }
 
@@ -74,10 +77,11 @@ public class General {
     }
 
     /**
-     * @param aAutoUpdate the autoUpdate to set
+     * @param aAutoUpdate
+     *            the autoUpdate to set
      */
     public static void setAutoUpdate(boolean autoUpdate) {
-    	rootNode.getNode("Autoupdate").setValue(autoUpdate);
+        rootNode.getNode("Autoupdate").setValue(autoUpdate);
     }
 
     /**
@@ -88,16 +92,18 @@ public class General {
     }
 
     /**
-     * @param aLookAndFeel the lookAndFeel to set
+     * @param aLookAndFeel
+     *            the lookAndFeel to set
      */
     public static void setLookAndFeel(String lookAndFeel) {
-    	rootNode.getNode("Skin").setValue(lookAndFeel);
+        rootNode.getNode("Skin").setValue(lookAndFeel);
     }
 
     /**
      * @return the language
      */
     private static Language lang;
+
     public static Language getLang() {
         return lang;
     }
@@ -112,10 +118,12 @@ public class General {
     }
 
     /**
-     * @param aLang the lang to set
+     * @param aLang
+     *            the lang to set
      */
     public static void setLang(Language aLang) {
-        if (aLang == null) return;
+        if (aLang == null)
+            return;
         rootNode.getNode("Language").setValue(aLang.toString());
         lang = aLang;
     }

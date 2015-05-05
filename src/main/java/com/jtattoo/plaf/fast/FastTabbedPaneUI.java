@@ -28,7 +28,7 @@ public class FastTabbedPaneUI extends BaseTabbedPaneUI {
 
     protected Color getGapColor(int tabIndex) {
         if (tabIndex == tabPane.getSelectedIndex() && (tabPane.getBackgroundAt(tabIndex) instanceof UIResource)) {
-             return AbstractLookAndFeel.getTheme().getBackgroundColor();
+            return AbstractLookAndFeel.getTheme().getBackgroundColor();
         } else {
             if ((tabIndex >= 0) && (tabIndex < tabPane.getTabCount())) {
                 return tabPane.getBackgroundAt(tabIndex);
@@ -122,7 +122,8 @@ public class FastTabbedPaneUI extends BaseTabbedPaneUI {
         }
     }
 
-    protected void paintTabBackground(Graphics g, int tabPlacement, int tabIndex, int x, int y, int w, int h, boolean isSelected) {
+    protected void paintTabBackground(Graphics g, int tabPlacement, int tabIndex, int x, int y, int w, int h,
+            boolean isSelected) {
         if (isSelected && (tabPane.getBackgroundAt(tabIndex) instanceof UIResource)) {
             g.setColor(AbstractLookAndFeel.getTheme().getBackgroundColor());
         } else {

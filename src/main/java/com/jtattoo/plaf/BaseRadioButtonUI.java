@@ -16,10 +16,9 @@ import javax.swing.text.View;
 public class BaseRadioButtonUI extends BasicRadioButtonUI {
 
     private static BaseRadioButtonUI radioButtonUI = null;
-    /* These Dimensions/Rectangles are allocated once for all
-     * RadioButtonUI.paint() calls.  Re-using rectangles
-     * rather than allocating them in each paint call substantially
-     * reduced the time it took paint to run.  Obviously, this
+    /*
+     * These Dimensions/Rectangles are allocated once for all RadioButtonUI.paint() calls. Re-using rectangles rather
+     * than allocating them in each paint call substantially reduced the time it took paint to run. Obviously, this
      * method can't be re-entered.
      */
     protected static Dimension size = new Dimension();
@@ -59,19 +58,9 @@ public class BaseRadioButtonUI extends BasicRadioButtonUI {
         if (JTattooUtilities.getJavaVersion() >= 1.4) {
             iconTextGap = b.getIconTextGap();
         }
-        String text = SwingUtilities.layoutCompoundLabel(
-                c,
-                fm,
-                b.getText(),
-                altIcon != null ? altIcon : getDefaultIcon(),
-                b.getVerticalAlignment(),
-                b.getHorizontalAlignment(),
-                b.getVerticalTextPosition(),
-                b.getHorizontalTextPosition(),
-                viewRect,
-                iconRect,
-                textRect,
-                iconTextGap);
+        String text = SwingUtilities.layoutCompoundLabel(c, fm, b.getText(), altIcon != null ? altIcon
+                : getDefaultIcon(), b.getVerticalAlignment(), b.getHorizontalAlignment(), b.getVerticalTextPosition(),
+                b.getHorizontalTextPosition(), viewRect, iconRect, textRect, iconTextGap);
 
         // fill background
         if (c.isOpaque()) {
@@ -138,7 +127,8 @@ public class BaseRadioButtonUI extends BasicRadioButtonUI {
             Object savedRenderingHint = null;
             if (AbstractLookAndFeel.getTheme().isTextAntiAliasingOn()) {
                 savedRenderingHint = g2D.getRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING);
-                g2D.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, AbstractLookAndFeel.getTheme().getTextAntiAliasingHint());
+                g2D.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, AbstractLookAndFeel.getTheme()
+                        .getTextAntiAliasingHint());
             }
             v.paint(g, textRect);
             if (AbstractLookAndFeel.getTheme().isTextAntiAliasingOn()) {
@@ -158,12 +148,15 @@ public class BaseRadioButtonUI extends BasicRadioButtonUI {
             }
             if (model.isEnabled()) {
                 g.setColor(b.getForeground());
-                JTattooUtilities.drawStringUnderlineCharAt(c, g, text, mnemIndex, textRect.x, textRect.y + fm.getAscent());
+                JTattooUtilities.drawStringUnderlineCharAt(c, g, text, mnemIndex, textRect.x,
+                        textRect.y + fm.getAscent());
             } else {
                 g.setColor(Color.white);
-                JTattooUtilities.drawStringUnderlineCharAt(c, g, text, mnemIndex, textRect.x + 1, textRect.y + 1 + fm.getAscent());
+                JTattooUtilities.drawStringUnderlineCharAt(c, g, text, mnemIndex, textRect.x + 1,
+                        textRect.y + 1 + fm.getAscent());
                 g.setColor(AbstractLookAndFeel.getDisabledForegroundColor());
-                JTattooUtilities.drawStringUnderlineCharAt(c, g, text, mnemIndex, textRect.x, textRect.y + fm.getAscent());
+                JTattooUtilities.drawStringUnderlineCharAt(c, g, text, mnemIndex, textRect.x,
+                        textRect.y + fm.getAscent());
             }
         }
     }

@@ -25,28 +25,28 @@ public class GraphiteBorders extends BaseBorders {
     private static Border menuItemBorder = null;
     private static Border popupMenuBorder = null;
     private static Border internalFrameBorder;
-    
-//------------------------------------------------------------------------------------
-// Lazy access methods
-//------------------------------------------------------------------------------------
+
+    // ------------------------------------------------------------------------------------
+    // Lazy access methods
+    // ------------------------------------------------------------------------------------
     public static Border getButtonBorder() {
         if (buttonBorder == null)
             buttonBorder = new ButtonBorder();
         return buttonBorder;
     }
-    
+
     public static Border getToggleButtonBorder() {
         if (toggleButtonBorder == null)
             toggleButtonBorder = new ToggleButtonBorder();
         return toggleButtonBorder;
     }
-    
+
     public static Border getRolloverToolButtonBorder() {
         if (rolloverToolButtonBorder == null)
             rolloverToolButtonBorder = new RolloverToolButtonBorder();
         return rolloverToolButtonBorder;
     }
-    
+
     public static Border getMenuItemBorder() {
         if (menuItemBorder == null) {
             menuItemBorder = new MenuItemBorder();
@@ -70,10 +70,10 @@ public class GraphiteBorders extends BaseBorders {
             internalFrameBorder = new InternalFrameBorder();
         return internalFrameBorder;
     }
-    
-//------------------------------------------------------------------------------------
-// Inner classes
-//------------------------------------------------------------------------------------
+
+    // ------------------------------------------------------------------------------------
+    // Inner classes
+    // ------------------------------------------------------------------------------------
     public static class ButtonBorder implements Border, UIResource {
 
         private static final Color defaultColorHi = new Color(220, 230, 245);
@@ -83,7 +83,7 @@ public class GraphiteBorders extends BaseBorders {
 
         public void paintBorder(Component c, Graphics g, int x, int y, int w, int h) {
             Graphics2D g2D = (Graphics2D) g;
-            AbstractButton b = (AbstractButton)c;
+            AbstractButton b = (AbstractButton) c;
             Color frameColor = ColorHelper.brighter(AbstractLookAndFeel.getTheme().getFrameColor(), 30);
             if (AbstractLookAndFeel.getTheme().doShowFocusFrame() && b.hasFocus()) {
                 frameColor = AbstractLookAndFeel.getTheme().getFocusFrameColor();
@@ -126,7 +126,7 @@ public class GraphiteBorders extends BaseBorders {
             return true;
         }
     } // class ButtonBorder
-    
+
     public static class ToggleButtonBorder implements Border, UIResource {
 
         private static final Insets borderInsets = new Insets(3, 6, 4, 6);
@@ -157,14 +157,14 @@ public class GraphiteBorders extends BaseBorders {
 
     public static class RolloverToolButtonBorder implements Border, UIResource {
         private static final Insets insets = new Insets(1, 1, 1, 1);
-        
+
         public void paintBorder(Component c, Graphics g, int x, int y, int w, int h) {
-            AbstractButton button = (AbstractButton)c;
+            AbstractButton button = (AbstractButton) c;
             ButtonModel model = button.getModel();
             Color loColor = ColorHelper.brighter(AbstractLookAndFeel.getFrameColor(), 50);
             if (model.isEnabled()) {
                 if ((model.isPressed() && model.isArmed()) || model.isSelected()) {
-                    Graphics2D g2D = (Graphics2D)g;
+                    Graphics2D g2D = (Graphics2D) g;
                     Composite composite = g2D.getComposite();
                     g.setColor(loColor);
                     g.drawRect(x, y, w - 1, h - 1);
@@ -173,9 +173,8 @@ public class GraphiteBorders extends BaseBorders {
                     g.setColor(Color.black);
                     g.fillRect(x + 1, y + 1, w - 2, h - 2);
                     g2D.setComposite(composite);
-                }
-                else if (model.isRollover()) {
-                    Graphics2D g2D = (Graphics2D)g;
+                } else if (model.isRollover()) {
+                    Graphics2D g2D = (Graphics2D) g;
                     Composite composite = g2D.getComposite();
                     g.setColor(loColor);
                     g.drawRect(x, y, w - 1, h - 1);
@@ -187,13 +186,15 @@ public class GraphiteBorders extends BaseBorders {
                 }
             }
         }
-        
-        public Insets getBorderInsets(Component c)
-        { return insets; }
-        
-        public boolean isBorderOpaque()
-        { return true; }
-        
+
+        public Insets getBorderInsets(Component c) {
+            return insets;
+        }
+
+        public boolean isBorderOpaque() {
+            return true;
+        }
+
     } // class RolloverToolButtonBorder
 
     public static class MenuItemBorder extends AbstractBorder implements UIResource {
@@ -230,7 +231,8 @@ public class GraphiteBorders extends BaseBorders {
         protected Insets insets = new Insets(2, 1, 1, 1);
 
         public boolean hasLogo() {
-            return ((AbstractLookAndFeel.getTheme().getLogoString() != null) && (AbstractLookAndFeel.getTheme().getLogoString().length() > 0));
+            return ((AbstractLookAndFeel.getTheme().getLogoString() != null) && (AbstractLookAndFeel.getTheme()
+                    .getLogoString().length() > 0));
         }
 
         public void paintLogo(Graphics2D g2D, int w, int h) {
@@ -249,11 +251,15 @@ public class GraphiteBorders extends BaseBorders {
             int xs = -h + 4;
             int ys = fm.getAscent() + 2;
 
-            /*imageGraphics.setColor(ColorHelper.darker(logoColorLo, 20));
-            imageGraphics.drawString(JTattooUtilities.getClippedText(AbstractLookAndFeel.getTheme().getLogoString(), fm, h - 16), xs - 1, ys + 1);
-
-            imageGraphics.setColor(Color.white);
-            imageGraphics.drawString(JTattooUtilities.getClippedText(AbstractLookAndFeel.getTheme().getLogoString(), fm, h - 16), xs, ys);*/
+            /*
+             * imageGraphics.setColor(ColorHelper.darker(logoColorLo, 20));
+             * imageGraphics.drawString(JTattooUtilities.getClippedText(AbstractLookAndFeel.getTheme().getLogoString(),
+             * fm, h - 16), xs - 1, ys + 1);
+             * 
+             * imageGraphics.setColor(Color.white);
+             * imageGraphics.drawString(JTattooUtilities.getClippedText(AbstractLookAndFeel.getTheme().getLogoString(),
+             * fm, h - 16), xs, ys);
+             */
 
             Rectangle2D r2D = new Rectangle2D.Double(0, 0, w, h);
             TexturePaint texturePaint = new TexturePaint(image, r2D);
@@ -273,7 +279,7 @@ public class GraphiteBorders extends BaseBorders {
             }
             g.setColor(borderColor);
             boolean menuBarPopup = false;
-            JPopupMenu pm = (JPopupMenu)c;
+            JPopupMenu pm = (JPopupMenu) c;
             if (pm.getInvoker() != null) {
                 menuBarPopup = (pm.getInvoker().getParent() instanceof JMenuBar);
             }
@@ -322,17 +328,25 @@ public class GraphiteBorders extends BaseBorders {
             g.fillRect(x + 1, y + h - dw, w - 2, dw - 1);
 
             if (isActive(c)) {
-                JTattooUtilities.fillHorGradient(g, AbstractLookAndFeel.getTheme().getWindowTitleColors(), 1, insets.top, dw, th + 1);
-                JTattooUtilities.fillHorGradient(g, AbstractLookAndFeel.getTheme().getWindowTitleColors(), w - dw - 1, insets.top, dw, th + 1);
+                JTattooUtilities.fillHorGradient(g, AbstractLookAndFeel.getTheme().getWindowTitleColors(), 1,
+                        insets.top, dw, th + 1);
+                JTattooUtilities.fillHorGradient(g, AbstractLookAndFeel.getTheme().getWindowTitleColors(), w - dw - 1,
+                        insets.top, dw, th + 1);
                 g.setColor(borderColor);
-                JTattooUtilities.fillInverseHorGradient(g, AbstractLookAndFeel.getTheme().getWindowTitleColors(), 1, insets.top + th + 1, dw - 1, h - th - dw);
-                JTattooUtilities.fillInverseHorGradient(g, AbstractLookAndFeel.getTheme().getWindowTitleColors(), w - dw, insets.top + th + 1, dw - 1, h - th - dw);
+                JTattooUtilities.fillInverseHorGradient(g, AbstractLookAndFeel.getTheme().getWindowTitleColors(), 1,
+                        insets.top + th + 1, dw - 1, h - th - dw);
+                JTattooUtilities.fillInverseHorGradient(g, AbstractLookAndFeel.getTheme().getWindowTitleColors(), w
+                        - dw, insets.top + th + 1, dw - 1, h - th - dw);
             } else {
-                JTattooUtilities.fillHorGradient(g, AbstractLookAndFeel.getTheme().getWindowInactiveTitleColors(), 1, insets.top, dw, th + 1);
-                JTattooUtilities.fillHorGradient(g, AbstractLookAndFeel.getTheme().getWindowInactiveTitleColors(), w - dw - 1, insets.top, dw, th + 1);
+                JTattooUtilities.fillHorGradient(g, AbstractLookAndFeel.getTheme().getWindowInactiveTitleColors(), 1,
+                        insets.top, dw, th + 1);
+                JTattooUtilities.fillHorGradient(g, AbstractLookAndFeel.getTheme().getWindowInactiveTitleColors(), w
+                        - dw - 1, insets.top, dw, th + 1);
                 g.setColor(borderColor);
-                JTattooUtilities.fillInverseHorGradient(g, AbstractLookAndFeel.getTheme().getWindowInactiveTitleColors(), 1, insets.top + th + 1, dw - 1, h - th - dw);
-                JTattooUtilities.fillInverseHorGradient(g, AbstractLookAndFeel.getTheme().getWindowInactiveTitleColors(), w - dw, insets.top + th + 1, dw - 1, h - th - dw);
+                JTattooUtilities.fillInverseHorGradient(g, AbstractLookAndFeel.getTheme()
+                        .getWindowInactiveTitleColors(), 1, insets.top + th + 1, dw - 1, h - th - dw);
+                JTattooUtilities.fillInverseHorGradient(g, AbstractLookAndFeel.getTheme()
+                        .getWindowInactiveTitleColors(), w - dw, insets.top + th + 1, dw - 1, h - th - dw);
             }
 
             g.setColor(frameColor);
@@ -342,6 +356,6 @@ public class GraphiteBorders extends BaseBorders {
             g.drawLine(x + dw - 1, y + h - dw, x + w - dw, y + h - dw);
         }
     } // class InternalFrameBorder
-        
+
 } // class GraphiteBorders
 

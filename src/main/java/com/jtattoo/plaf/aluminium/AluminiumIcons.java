@@ -123,5 +123,4 @@ public class AluminiumIcons extends BaseIcons {
         return splitterRightArrowIcon;
     }
 
-
 }

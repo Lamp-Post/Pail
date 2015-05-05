@@ -50,7 +50,8 @@ public class FileMenu extends JMenu implements Localizable {
         add(about);
 
         JMenuItem saveConsole = new JMenuItem(Util.translate("Save console text..."));
-        saveConsole.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S, InputEvent.CTRL_MASK + InputEvent.SHIFT_DOWN_MASK));
+        saveConsole.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S, InputEvent.CTRL_MASK
+                + InputEvent.SHIFT_DOWN_MASK));
         saveConsole.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 JFileChooser fc = new JFileChooser();
@@ -99,9 +100,8 @@ public class FileMenu extends JMenu implements Localizable {
                 }
 
                 final String worldName = (String) JOptionPane.showInputDialog(Util.getPlugin().getMainWindow(),
-                        Util.translate("What world do you want to back up?"),
-                        Util.translate("Choose world"), JOptionPane.QUESTION_MESSAGE, null,
-                        worlds.toArray(), worlds.get(0));
+                        Util.translate("What world do you want to back up?"), Util.translate("Choose world"),
+                        JOptionPane.QUESTION_MESSAGE, null, worlds.toArray(), worlds.get(0));
                 if (worldName == null) {
                     return;
                 }
@@ -109,7 +109,8 @@ public class FileMenu extends JMenu implements Localizable {
                 final File worldFolder = new File(worldName);
                 final File backupFolder = new File(Util.getDataFolder(), "backups");
                 final File backup = new File(backupFolder, worldName
-                        + new SimpleDateFormat("'@'MM-dd-yy_hh.mm.ss").format(new Date(System.currentTimeMillis())) + ".zip");
+                        + new SimpleDateFormat("'@'MM-dd-yy_hh.mm.ss").format(new Date(System.currentTimeMillis()))
+                        + ".zip");
                 if (!backupFolder.exists()) {
                     backupFolder.mkdir();
                 }
@@ -119,7 +120,8 @@ public class FileMenu extends JMenu implements Localizable {
                         long start = System.currentTimeMillis();
                         Util.zipDir(worldFolder, backup);
                         int seconds = (int) (System.currentTimeMillis() - start) / 1000;
-                        Util.log("Backup completed in " + seconds + (seconds == 1 ? " second" : " seconds") + " for " + worldName);
+                        Util.log("Backup completed in " + seconds + (seconds == 1 ? " second" : " seconds") + " for "
+                                + worldName);
                     }
                 });
             }

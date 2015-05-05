@@ -16,9 +16,8 @@ import javax.swing.plaf.*;
  *
  * Class that manages a JLF awt.Window-descendant class's title bar.
  * <p>
- * This class assumes it will be created with a particular window
- * decoration style, and that if the style changes, a new one will
- * be created.
+ * This class assumes it will be created with a particular window decoration style, and that if the style changes, a new
+ * one will be created.
  *
  * @version 1.12 01/23/03
  * @author Terry Kellerman
@@ -69,7 +68,6 @@ public class BaseTitlePane extends JComponent {
         installDefaults();
         setLayout(createLayout());
     }
-
 
     protected void uninstall() {
         uninstallListeners();
@@ -123,7 +121,7 @@ public class BaseTitlePane extends JComponent {
     protected Image getFrameIconImage() {
         return (getFrame() != null) ? getFrame().getIconImage() : null;
     }
-    
+
     public void addNotify() {
         super.addNotify();
         uninstallListeners();
@@ -314,7 +312,8 @@ public class BaseTitlePane extends JComponent {
     }
 
     protected boolean isLeftToRight() {
-        return (window == null) ? getRootPane().getComponentOrientation().isLeftToRight() : window.getComponentOrientation().isLeftToRight();
+        return (window == null) ? getRootPane().getComponentOrientation().isLeftToRight() : window
+                .getComponentOrientation().isLeftToRight();
     }
 
     public void setBackgroundImage(BufferedImage bgImage) {
@@ -338,7 +337,9 @@ public class BaseTitlePane extends JComponent {
             Frame frame = getFrame();
             if (frame != null) {
 
-                if (((state & BaseRootPaneUI.MAXIMIZED_BOTH) != 0) && (rootPane.getBorder() == null || (rootPane.getBorder() instanceof UIResource)) && frame.isShowing()) {
+                if (((state & BaseRootPaneUI.MAXIMIZED_BOTH) != 0)
+                        && (rootPane.getBorder() == null || (rootPane.getBorder() instanceof UIResource))
+                        && frame.isShowing()) {
                     rootPane.setBorder(null);
                 } else if ((state & BaseRootPaneUI.MAXIMIZED_BOTH) == 0) {
                     rootPaneUI.installBorder(rootPane);
@@ -416,10 +417,12 @@ public class BaseTitlePane extends JComponent {
                 AlphaComposite alpha = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, alphaValue);
                 g2D.setComposite(alpha);
             }
-            JTattooUtilities.fillHorGradient(g, AbstractLookAndFeel.getTheme().getWindowTitleColors(), 0, 0, getWidth(), getHeight());
+            JTattooUtilities.fillHorGradient(g, AbstractLookAndFeel.getTheme().getWindowTitleColors(), 0, 0,
+                    getWidth(), getHeight());
             g2D.setComposite(composite);
         } else {
-            JTattooUtilities.fillHorGradient(g, AbstractLookAndFeel.getTheme().getWindowInactiveTitleColors(), 0, 0, getWidth(), getHeight());
+            JTattooUtilities.fillHorGradient(g, AbstractLookAndFeel.getTheme().getWindowInactiveTitleColors(), 0, 0,
+                    getWidth(), getHeight());
         }
     }
 
@@ -505,11 +508,11 @@ public class BaseTitlePane extends JComponent {
         }
     }
 
-//-----------------------------------------------------------------------------------------------
+    // -----------------------------------------------------------------------------------------------
     protected class SystemMenuBar extends JMenuBar {
 
         public void paint(Graphics g) {
-            
+
             Shape saveClip = g.getClip();
             g.setClip(0, 0, getWidth(), getHeight());
             BaseTitlePane.this.paintBackground(g);
@@ -523,9 +526,9 @@ public class BaseTitlePane extends JComponent {
                 int iw = image.getWidth(null);
                 int ih = image.getHeight(null);
                 if (ih > getHeight()) {
-                    double scale = (double)(getHeight() - 2) / (double)ih;
-                    iw = (int)(scale * iw);
-                    ih = (int)(scale * ih);
+                    double scale = (double) (getHeight() - 2) / (double) ih;
+                    iw = (int) (scale * iw);
+                    ih = (int) (scale * ih);
                 } else {
                     y = (getHeight() - ih) / 2;
                 }
@@ -556,9 +559,9 @@ public class BaseTitlePane extends JComponent {
                 int ih = image.getHeight(null);
                 int th = computeHeight();
                 if (ih > th) {
-                    double scale = (double)th / (double)ih;
-                    iw = (int)(scale * iw);
-                    ih = (int)(scale * ih);
+                    double scale = (double) th / (double) ih;
+                    iw = (int) (scale * iw);
+                    ih = (int) (scale * ih);
                 }
                 return new Dimension(Math.max(iw, size.width), Math.max(ih, size.height));
             } else {
@@ -567,7 +570,7 @@ public class BaseTitlePane extends JComponent {
         }
     }
 
-//-----------------------------------------------------------------------------------------------
+    // -----------------------------------------------------------------------------------------------
     protected class TitlePaneLayout implements LayoutManager {
 
         public void addLayoutComponent(String name, Component c) {
@@ -647,7 +650,7 @@ public class BaseTitlePane extends JComponent {
                 }
             }
             buttonsWidth = leftToRight ? w - x : x;
-           
+
             if (customTitlePanel != null) {
                 if (!leftToRight) {
                     cpx += buttonsWidth;
@@ -656,7 +659,8 @@ public class BaseTitlePane extends JComponent {
                 Graphics g = getGraphics();
                 if (g != null) {
                     FontMetrics fm = g.getFontMetrics();
-                    int tw = SwingUtilities.computeStringWidth(fm, JTattooUtilities.getClippedText(getTitle(), fm, cpw));
+                    int tw = SwingUtilities
+                            .computeStringWidth(fm, JTattooUtilities.getClippedText(getTitle(), fm, cpw));
                     if (leftToRight) {
                         cpx += tw;
                     }
@@ -668,7 +672,7 @@ public class BaseTitlePane extends JComponent {
         }
     }
 
-//-----------------------------------------------------------------------------------------------
+    // -----------------------------------------------------------------------------------------------
     protected class PropertyChangeHandler implements PropertyChangeListener {
 
         public void propertyChange(PropertyChangeEvent pce) {
@@ -687,9 +691,9 @@ public class BaseTitlePane extends JComponent {
             } else if ("componentOrientation".equals(name)) {
                 revalidate();
                 repaint();
-            // a call to setMaximizedBounds may cause an invalid frame size on multi screen environments
-            // see: http://bugs.sun.com/bugdatabase/view_bug.do?bug_id=6699851
-            // try and error to avoid the setMaximizedBounds bug
+                // a call to setMaximizedBounds may cause an invalid frame size on multi screen environments
+                // see: http://bugs.sun.com/bugdatabase/view_bug.do?bug_id=6699851
+                // try and error to avoid the setMaximizedBounds bug
             } else if (useMaximizedBounds && "windowMaximize".equals(name)) {
                 Frame frame = getFrame();
                 if (frame != null) {
@@ -721,7 +725,7 @@ public class BaseTitlePane extends JComponent {
         }
     }
 
-//-----------------------------------------------------------------------------------------------
+    // -----------------------------------------------------------------------------------------------
     protected class WindowHandler extends WindowAdapter {
 
         public void windowActivated(WindowEvent ev) {

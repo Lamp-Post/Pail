@@ -31,4 +31,3 @@ public class FastToolBarUI extends AbstractToolBarUI {
         return false;
     }
 }
-

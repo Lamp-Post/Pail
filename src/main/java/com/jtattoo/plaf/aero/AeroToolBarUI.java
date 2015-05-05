@@ -15,23 +15,21 @@ import com.jtattoo.plaf.*;
 /**
  * @author Michael Hagen
  */
-public class AeroToolBarUI extends AbstractToolBarUI
-{
-   public static ComponentUI createUI(JComponent c) { 
-       return new AeroToolBarUI(); 
-   }
-   
-   public Border getRolloverBorder() { 
-       return AeroBorders.getRolloverToolButtonBorder(); 
-   }
-   
-   public Border getNonRolloverBorder() { 
-       return AeroBorders.getToolButtonBorder(); 
-   }
-   
-   public boolean isButtonOpaque() { 
-       return false; 
-   }
-   
-}
+public class AeroToolBarUI extends AbstractToolBarUI {
+    public static ComponentUI createUI(JComponent c) {
+        return new AeroToolBarUI();
+    }
 
+    public Border getRolloverBorder() {
+        return AeroBorders.getRolloverToolButtonBorder();
+    }
+
+    public Border getNonRolloverBorder() {
+        return AeroBorders.getToolButtonBorder();
+    }
+
+    public boolean isButtonOpaque() {
+        return false;
+    }
+
+}

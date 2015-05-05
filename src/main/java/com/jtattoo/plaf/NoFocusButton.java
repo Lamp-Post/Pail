@@ -7,7 +7,7 @@ package com.jtattoo.plaf;
 import javax.swing.*;
 
 /**
- * @author  Michael Hagen
+ * @author Michael Hagen
  */
 public class NoFocusButton extends JButton {
 

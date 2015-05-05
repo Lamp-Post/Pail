@@ -10,15 +10,14 @@ import javax.swing.plaf.*;
 import com.jtattoo.plaf.*;
 
 /**
- * @author  Michael Hagen
+ * @author Michael Hagen
  */
-public class GraphiteRootPaneUI extends BaseRootPaneUI
-{
-   public static ComponentUI createUI(JComponent c) { 
-       return new GraphiteRootPaneUI(); 
-   }
-   
-   public BaseTitlePane createTitlePane(JRootPane root) { 
-       return new GraphiteTitlePane(root, this);
-   }   
+public class GraphiteRootPaneUI extends BaseRootPaneUI {
+    public static ComponentUI createUI(JComponent c) {
+        return new GraphiteRootPaneUI();
+    }
+
+    public BaseTitlePane createTitlePane(JRootPane root) {
+        return new GraphiteTitlePane(root, this);
+    }
 }

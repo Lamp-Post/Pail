@@ -42,7 +42,7 @@ public class BaseTextAreaUI extends BasicTextAreaUI {
                         orgBorder = getComponent().getBorder();
                         LookAndFeel laf = UIManager.getLookAndFeel();
                         if (laf instanceof AbstractLookAndFeel) {
-                            Border focusBorder = ((AbstractLookAndFeel)laf).getBorderFactory().getFocusFrameBorder();
+                            Border focusBorder = ((AbstractLookAndFeel) laf).getBorderFactory().getFocusFrameBorder();
                             getComponent().setBorder(focusBorder);
                         }
                     }
@@ -79,7 +79,8 @@ public class BaseTextAreaUI extends BasicTextAreaUI {
         Object savedRenderingHint = null;
         if (AbstractLookAndFeel.getTheme().isTextAntiAliasingOn()) {
             savedRenderingHint = g2D.getRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING);
-            g2D.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, AbstractLookAndFeel.getTheme().getTextAntiAliasingHint());
+            g2D.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, AbstractLookAndFeel.getTheme()
+                    .getTextAntiAliasingHint());
         }
         super.paintSafely(g);
         if (AbstractLookAndFeel.getTheme().isTextAntiAliasingOn()) {
@@ -88,8 +89,7 @@ public class BaseTextAreaUI extends BasicTextAreaUI {
     }
 
     protected void propertyChange(PropertyChangeEvent evt) {
-        if (evt.getPropertyName().equals("editable") ||
-                evt.getPropertyName().equals("enabled")) {
+        if (evt.getPropertyName().equals("editable") || evt.getPropertyName().equals("enabled")) {
             updateBackground();
         }
         super.propertyChange(evt);

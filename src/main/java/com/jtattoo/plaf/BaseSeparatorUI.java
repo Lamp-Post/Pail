@@ -46,7 +46,3 @@ public class BaseSeparatorUI extends BasicSeparatorUI {
         return size;
     }
 }
-
-
-
-

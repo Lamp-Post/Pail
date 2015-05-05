@@ -39,7 +39,3 @@ public class AluminiumPopupMenuSeparatorUI extends BasicSeparatorUI {
         return size;
     }
 }
-
-
-
-

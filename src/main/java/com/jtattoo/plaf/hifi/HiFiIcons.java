@@ -74,7 +74,8 @@ public class HiFiIcons extends BaseIcons {
             Color iconColor = AbstractLookAndFeel.getTheme().getWindowIconColor();
             Color iconShadowColor = AbstractLookAndFeel.getTheme().getWindowIconShadowColor();
             Color iconRolloverColor = AbstractLookAndFeel.getTheme().getWindowIconRolloverColor();
-            closeIcon = new BaseIcons.CloseSymbol(iconColor, iconShadowColor, iconRolloverColor, new Insets(-1, -1, 0, 0));
+            closeIcon = new BaseIcons.CloseSymbol(iconColor, iconShadowColor, iconRolloverColor, new Insets(-1, -1, 0,
+                    0));
         }
         return closeIcon;
     }
@@ -184,7 +185,8 @@ public class HiFiIcons extends BaseIcons {
         }
         return thumbVerIconRollover;
     }
-    //--------------------------------------------------------------------------------------------------------
+
+    // --------------------------------------------------------------------------------------------------------
 
     private static class CheckBoxIcon implements Icon, UIResource, Serializable {
 
@@ -223,7 +225,6 @@ public class HiFiIcons extends BaseIcons {
                 colors = AbstractLookAndFeel.getTheme().getDisabledColors();
             }
             JTattooUtilities.fillHorGradient(g, colors, 1, 1, WIDTH - 1, HEIGHT - 1);
-
 
             g.setColor(hiColor);
             g.drawLine(1, 0, WIDTH - 3, 0);
@@ -298,7 +299,6 @@ public class HiFiIcons extends BaseIcons {
             } else {
                 colors = AbstractLookAndFeel.getTheme().getDisabledColors();
             }
-
 
             Shape savedClip = g.getClip();
             Area clipArea = new Area(savedClip);

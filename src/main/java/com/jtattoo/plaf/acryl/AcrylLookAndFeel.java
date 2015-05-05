@@ -59,19 +59,19 @@ public class AcrylLookAndFeel extends AbstractLookAndFeel {
 
         greenProps.setProperty("backgroundColor", "232 229 222");
         greenProps.setProperty("alterBackgroundColor", "220 216 205");
-//        greenProps.setProperty("frameColor", "24 58 39");
+        // greenProps.setProperty("frameColor", "24 58 39");
         greenProps.setProperty("frameColor", "28 64 43");
         greenProps.setProperty("selectionBackgroundColor", "54 126 85");
         greenProps.setProperty("menuSelectionBackgroundColor", "54 126 85");
         greenProps.setProperty("controlColorLight", "64 149 100");
-//        greenProps.setProperty("controlColorDark", "40 94 63");
+        // greenProps.setProperty("controlColorDark", "40 94 63");
         greenProps.setProperty("controlColorDark", "48 112 75");
         greenProps.setProperty("rolloverColor", "255 213 113");
         greenProps.setProperty("rolloverColorLight", "255 213 113");
         greenProps.setProperty("rolloverColorDark", "240 168 0");
         greenProps.setProperty("windowTitleBackgroundColor", "64 149 100");
         greenProps.setProperty("windowTitleColorLight", "64 149 100");
-//        greenProps.setProperty("windowTitleColorDark", "40 94 63");
+        // greenProps.setProperty("windowTitleColorDark", "40 94 63");
         greenProps.setProperty("windowTitleColorDark", "48 112 75");
         greenProps.setProperty("windowBorderColor", "40 94 63");
         greenProps.setProperty("windowInactiveTitleBackgroundColor", "77 179 120");
@@ -124,7 +124,7 @@ public class AcrylLookAndFeel extends AbstractLookAndFeel {
         redProps.setProperty("windowTitleForegroundColor", "255 255 255");
         redProps.setProperty("windowTitleBackgroundColor", "160 0 0");
         redProps.setProperty("windowTitleColorLight", "230 12 12");
-//        redProps.setProperty("windowTitleColorDark", "160 0 0");
+        // redProps.setProperty("windowTitleColorDark", "160 0 0");
         redProps.setProperty("windowTitleColorDark", "190 0 0");
         redProps.setProperty("windowBorderColor", "160 0 0");
         redProps.setProperty("windowInactiveTitleForegroundColor", "255 255 255");
@@ -315,42 +315,28 @@ public class AcrylLookAndFeel extends AbstractLookAndFeel {
     protected void initClassDefaults(UIDefaults table) {
         super.initClassDefaults(table);
         Object[] uiDefaults = {
-            // BaseLookAndFeel classes
-            "ToggleButtonUI", BaseToggleButtonUI.class.getName(),
-            "LabelUI", BaseLabelUI.class.getName(),
-            "SeparatorUI", BaseSeparatorUI.class.getName(),
-            "TextFieldUI", BaseTextFieldUI.class.getName(),
-            "TextAreaUI", BaseTextAreaUI.class.getName(),
-            "EditorPaneUI", BaseEditorPaneUI.class.getName(),
-            "PasswordFieldUI", BasePasswordFieldUI.class.getName(),
-            "CheckBoxUI", BaseCheckBoxUI.class.getName(),
-            "RadioButtonUI", BaseRadioButtonUI.class.getName(),
-            "SplitPaneUI", BaseSplitPaneUI.class.getName(),
-            "ToolTipUI", BaseToolTipUI.class.getName(),
-            "TreeUI", BaseTreeUI.class.getName(),
-            "TableUI", BaseTableUI.class.getName(),
-            "SliderUI", BaseSliderUI.class.getName(),
-            "ProgressBarUI", BaseProgressBarUI.class.getName(),
-            "ScrollPaneUI", BaseScrollPaneUI.class.getName(),
-            "PanelUI", BasePanelUI.class.getName(),
-            "TableHeaderUI", BaseTableHeaderUI.class.getName(),
-            "FileChooserUI", BaseFileChooserUI.class.getName(),
-            "MenuBarUI", BaseMenuBarUI.class.getName(),
-            "MenuUI", BaseMenuUI.class.getName(),
-            "PopupMenuUI", BasePopupMenuUI.class.getName(),
-            "MenuItemUI", BaseMenuItemUI.class.getName(),
-            "CheckBoxMenuItemUI", BaseCheckBoxMenuItemUI.class.getName(),
-            "RadioButtonMenuItemUI", BaseRadioButtonMenuItemUI.class.getName(),
-            "PopupMenuSeparatorUI", BaseSeparatorUI.class.getName(),
-            // AcrylLookAndFeel classes
-            "ButtonUI", AcrylButtonUI.class.getName(),
-            "ComboBoxUI", AcrylComboBoxUI.class.getName(),
-            "TabbedPaneUI", AcrylTabbedPaneUI.class.getName(),
-            "ToolBarUI", AcrylToolBarUI.class.getName(),
-            "InternalFrameUI", AcrylInternalFrameUI.class.getName(),
-            "RootPaneUI", AcrylRootPaneUI.class.getName(),
-            "ScrollBarUI", AcrylScrollBarUI.class.getName(),
-        };
+                // BaseLookAndFeel classes
+                "ToggleButtonUI", BaseToggleButtonUI.class.getName(), "LabelUI", BaseLabelUI.class.getName(),
+                "SeparatorUI", BaseSeparatorUI.class.getName(), "TextFieldUI", BaseTextFieldUI.class.getName(),
+                "TextAreaUI", BaseTextAreaUI.class.getName(), "EditorPaneUI", BaseEditorPaneUI.class.getName(),
+                "PasswordFieldUI", BasePasswordFieldUI.class.getName(), "CheckBoxUI", BaseCheckBoxUI.class.getName(),
+                "RadioButtonUI", BaseRadioButtonUI.class.getName(), "SplitPaneUI", BaseSplitPaneUI.class.getName(),
+                "ToolTipUI", BaseToolTipUI.class.getName(), "TreeUI", BaseTreeUI.class.getName(), "TableUI",
+                BaseTableUI.class.getName(), "SliderUI", BaseSliderUI.class.getName(), "ProgressBarUI",
+                BaseProgressBarUI.class.getName(), "ScrollPaneUI", BaseScrollPaneUI.class.getName(), "PanelUI",
+                BasePanelUI.class.getName(), "TableHeaderUI", BaseTableHeaderUI.class.getName(), "FileChooserUI",
+                BaseFileChooserUI.class.getName(), "MenuBarUI", BaseMenuBarUI.class.getName(), "MenuUI",
+                BaseMenuUI.class.getName(), "PopupMenuUI", BasePopupMenuUI.class.getName(), "MenuItemUI",
+                BaseMenuItemUI.class.getName(), "CheckBoxMenuItemUI", BaseCheckBoxMenuItemUI.class.getName(),
+                "RadioButtonMenuItemUI",
+                BaseRadioButtonMenuItemUI.class.getName(),
+                "PopupMenuSeparatorUI",
+                BaseSeparatorUI.class.getName(),
+                // AcrylLookAndFeel classes
+                "ButtonUI", AcrylButtonUI.class.getName(), "ComboBoxUI", AcrylComboBoxUI.class.getName(),
+                "TabbedPaneUI", AcrylTabbedPaneUI.class.getName(), "ToolBarUI", AcrylToolBarUI.class.getName(),
+                "InternalFrameUI", AcrylInternalFrameUI.class.getName(), "RootPaneUI", AcrylRootPaneUI.class.getName(),
+                "ScrollBarUI", AcrylScrollBarUI.class.getName(), };
         table.putDefaults(uiDefaults);
         if (JTattooUtilities.getJavaVersion() >= 1.5) {
             table.put("FormattedTextFieldUI", BaseFormattedTextFieldUI.class.getName());

@@ -1,4 +1,3 @@
-
 package me.escapeNT.pail.GUIComponents;
 
 import java.awt.Desktop;
@@ -20,6 +19,7 @@ import me.escapeNT.pail.Util.Util;
 
 /**
  * Class representing the Help dropdown menu.
+ * 
  * @author escapeNT
  */
 public class HelpMenu extends JMenu implements Localizable {
@@ -29,14 +29,14 @@ public class HelpMenu extends JMenu implements Localizable {
         setMnemonic('H');
 
         JMenuItem issue = new JMenuItem(Util.translate("Report an issue"));
-        if(!Desktop.getDesktop().isSupported(Action.BROWSE)) {
+        if (!Desktop.getDesktop().isSupported(Action.BROWSE)) {
             issue.setEnabled(false);
         }
         issue.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 try {
                     Desktop.getDesktop().browse(new URI("http://dev.bukkit.org/server-mods/pail/tickets/"));
-                } catch(Exception ex) {
+                } catch (Exception ex) {
                     Util.log(Level.WARNING, Util.translate("Could not open issues."));
                 }
             }
@@ -46,20 +46,21 @@ public class HelpMenu extends JMenu implements Localizable {
         JMenuItem thread = new JMenuItem(Util.translate("Plugin thread"));
         thread.setIcon(new ImageIcon(getClass().getResource("images/help.png")));
         thread.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_H, InputEvent.CTRL_MASK));
-        if(!Desktop.getDesktop().isSupported(Action.BROWSE)) {
+        if (!Desktop.getDesktop().isSupported(Action.BROWSE)) {
             thread.setEnabled(false);
         }
         thread.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 try {
                     Desktop.getDesktop().browse(new URI(Pail.PLUGIN_THREAD));
-                } catch(Exception ex) {
+                } catch (Exception ex) {
                     Util.log(Level.WARNING, Util.translate("Could not open plugin thread."));
                 }
             }
         });
-        add(thread);  
+        add(thread);
     }
 
-    public void translateComponent() {}
+    public void translateComponent() {
+    }
 }

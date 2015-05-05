@@ -35,7 +35,7 @@ public class BaseTextFieldUI extends MetalTextFieldUI {
                         orgBorder = getComponent().getBorder();
                         LookAndFeel laf = UIManager.getLookAndFeel();
                         if (laf instanceof AbstractLookAndFeel) {
-                            Border focusBorder = ((AbstractLookAndFeel)laf).getBorderFactory().getFocusFrameBorder();
+                            Border focusBorder = ((AbstractLookAndFeel) laf).getBorderFactory().getFocusFrameBorder();
                             getComponent().setBorder(focusBorder);
                         }
                     }
@@ -73,7 +73,8 @@ public class BaseTextFieldUI extends MetalTextFieldUI {
         Object savedRenderingHint = null;
         if (AbstractLookAndFeel.getTheme().isTextAntiAliasingOn()) {
             savedRenderingHint = g2D.getRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING);
-            g2D.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, AbstractLookAndFeel.getTheme().getTextAntiAliasingHint());
+            g2D.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, AbstractLookAndFeel.getTheme()
+                    .getTextAntiAliasingHint());
         }
         super.paintSafely(g);
         if (AbstractLookAndFeel.getTheme().isTextAntiAliasingOn()) {

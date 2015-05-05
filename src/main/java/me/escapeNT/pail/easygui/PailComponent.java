@@ -1,4 +1,3 @@
-
 package me.escapeNT.pail.easygui;
 
 import java.awt.FlowLayout;
@@ -12,6 +11,7 @@ import javax.swing.JTextField;
 
 /**
  * Class to hold a component an its label in a single panel.
+ * 
  * @author escapeNT
  */
 public class PailComponent extends JPanel {
@@ -23,27 +23,29 @@ public class PailComponent extends JPanel {
     /**
      * Constructs a new PailComponent panel.
      *
-     * @param label The label for the component.
-     * @param component The component to add.
+     * @param label
+     *            The label for the component.
+     * @param component
+     *            The component to add.
      */
     protected PailComponent(String label, JComponent component) {
-        if(component instanceof JCheckBox) {
+        if (component instanceof JCheckBox) {
             type = Type.CHECKBOX;
-        } else if(component instanceof JTextField) {
+        } else if (component instanceof JTextField) {
             type = Type.TEXT_FIELD;
-        } else if(component instanceof JComboBox) {
+        } else if (component instanceof JComboBox) {
             type = Type.SELECTION_MENU;
-        } else if(component instanceof JButton) {
+        } else if (component instanceof JButton) {
             type = Type.BUTTON;
         }
 
         setLayout(new FlowLayout());
 
-        if(type != Type.CHECKBOX && type != Type.BUTTON) {
+        if (type != Type.CHECKBOX && type != Type.BUTTON) {
             add(new JLabel(label));
         }
         add(component);
-        
+
         this.label = label;
         this.rootComponent = component;
     }
@@ -68,6 +70,7 @@ public class PailComponent extends JPanel {
 
     /**
      * Returns the root {@link JComponent} this PailComponent is attached to.
+     * 
      * @return the rootComponent The root JComponent
      */
     public JComponent getRootComponent() {

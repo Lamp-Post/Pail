@@ -28,8 +28,8 @@ public class PailTab extends JPanel {
     private String defaultComponent;
 
     /**
-     * Creates a new tab interface with the given components and the name of the
-     * default component (null if none). Called only by a TabBuilder.
+     * Creates a new tab interface with the given components and the name of the default component (null if none).
+     * Called only by a TabBuilder.
      *
      * @param cps
      * @param defaultComponent
@@ -81,13 +81,13 @@ public class PailTab extends JPanel {
     }
 
     /**
-     * Gets the current data from a component with the following format: For
-     * check boxes: "true" if selected, "false" if deselected. For text fields:
-     * The current contents. For selection menus: The currently selected item
-     * (as represented by its toString() method). For buttons: null Throws
-     * IllegalArgumentException if no component with the specified name exists.
+     * Gets the current data from a component with the following format: For check boxes: "true" if selected, "false" if
+     * deselected. For text fields: The current contents. For selection menus: The currently selected item (as
+     * represented by its toString() method). For buttons: null Throws IllegalArgumentException if no component with the
+     * specified name exists.
      *
-     * @param name The name of the component
+     * @param name
+     *            The name of the component
      * @return The data currently held in the component, depending on its type
      */
     public String getComponentValue(String name) {

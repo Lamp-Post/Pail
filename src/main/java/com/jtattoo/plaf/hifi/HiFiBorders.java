@@ -23,9 +23,9 @@ public class HiFiBorders extends BaseBorders {
     private static Border tableScrollPaneBorder = null;
     private static Border toolBarBorder = null;
 
-    //------------------------------------------------------------------------------------
+    // ------------------------------------------------------------------------------------
     // Lazy access methods
-    //------------------------------------------------------------------------------------
+    // ------------------------------------------------------------------------------------
     public static Border getButtonBorder() {
         if (buttonBorder == null) {
             buttonBorder = new ButtonBorder();
@@ -72,9 +72,9 @@ public class HiFiBorders extends BaseBorders {
         return toolBarBorder;
     }
 
-//------------------------------------------------------------------------------------
-// Implementation of border classes
-//------------------------------------------------------------------------------------
+    // ------------------------------------------------------------------------------------
+    // Implementation of border classes
+    // ------------------------------------------------------------------------------------
     public static class ButtonBorder implements Border, UIResource {
 
         private static final Color frameLoColor = new Color(120, 120, 120);
@@ -119,7 +119,7 @@ public class HiFiBorders extends BaseBorders {
         }
     } // class ButtonBorder
 
-//-------------------------------------------------------------------------------------------------    
+    // -------------------------------------------------------------------------------------------------
     public static class RolloverToolButtonBorder implements Border, UIResource {
 
         private static final Insets insets = new Insets(2, 2, 2, 2);
@@ -154,7 +154,7 @@ public class HiFiBorders extends BaseBorders {
         }
     } // class RolloverToolButtonBorder
 
-//-------------------------------------------------------------------------------------------------    
+    // -------------------------------------------------------------------------------------------------
     public static class ScrollPaneBorder implements Border, UIResource {
 
         private static final Insets insets = new Insets(1, 1, 1, 1);
@@ -173,7 +173,7 @@ public class HiFiBorders extends BaseBorders {
         }
     } // class ScrollPaneBorder
 
-//-------------------------------------------------------------------------------------------------    
+    // -------------------------------------------------------------------------------------------------
     public static class TabbedPaneBorder implements Border, UIResource {
 
         private static final Insets insets = new Insets(1, 1, 1, 1);
@@ -192,39 +192,39 @@ public class HiFiBorders extends BaseBorders {
         }
     } // class TabbedPaneBorder
 
-//-------------------------------------------------------------------------------------------------    
-//    public static class InternalFrameBorder extends BaseInternalFrameBorder {
-//        
-//        public void paintBorder(Component c, Graphics g, int x, int y, int w, int h) {
-//            boolean active = isActive(c);
-//            boolean resizable = isResizable(c);
-//            Color frameColor = AbstractLookAndFeel.getFrameColor();
-//            Color borderColor = AbstractLookAndFeel.getWindowInactiveBorderColor();
-//            if (active)
-//                borderColor = AbstractLookAndFeel.getWindowBorderColor();
-//            Color cHi = ColorHelper.brighter(frameColor, 30);
-//            Color cLo = frameColor;
-//            if (!resizable) {
-//                JTattooUtilities.draw3DBorder(g, cHi, cLo, x, y, w, h);
-//                g.setColor(borderColor);
-//                for (int i = 1; i < dw; i++)
-//                    g.drawRect(i, i, w - (2 * i) - 1, h - (2 * i) - 1);
-//            }
-//            else {
-//                g.setColor(borderColor);
-//                g.fillRect(0, 0, w - 1, dw);
-//                g.fillRect(0, h - dw, w - 1, dw);
-//                g.fillRect(0, dw, dw, h - dw);
-//                g.fillRect(w - dw, dw, dw, h - dw);
-//                g.setColor(cLo);
-//                g.drawRect(x, y, w - 1, h - 1);
-//                cLo = ColorHelper.darker(borderColor, 20);
-//                JTattooUtilities.draw3DBorder(g, cHi, cLo, x + 1, y + 1, w - 2, h - 2);
-//            }
-//        }
-//        
-//    } // class InternalFrameBorder
-//-------------------------------------------------------------------------------------------------    
+    // -------------------------------------------------------------------------------------------------
+    // public static class InternalFrameBorder extends BaseInternalFrameBorder {
+    //
+    // public void paintBorder(Component c, Graphics g, int x, int y, int w, int h) {
+    // boolean active = isActive(c);
+    // boolean resizable = isResizable(c);
+    // Color frameColor = AbstractLookAndFeel.getFrameColor();
+    // Color borderColor = AbstractLookAndFeel.getWindowInactiveBorderColor();
+    // if (active)
+    // borderColor = AbstractLookAndFeel.getWindowBorderColor();
+    // Color cHi = ColorHelper.brighter(frameColor, 30);
+    // Color cLo = frameColor;
+    // if (!resizable) {
+    // JTattooUtilities.draw3DBorder(g, cHi, cLo, x, y, w, h);
+    // g.setColor(borderColor);
+    // for (int i = 1; i < dw; i++)
+    // g.drawRect(i, i, w - (2 * i) - 1, h - (2 * i) - 1);
+    // }
+    // else {
+    // g.setColor(borderColor);
+    // g.fillRect(0, 0, w - 1, dw);
+    // g.fillRect(0, h - dw, w - 1, dw);
+    // g.fillRect(0, dw, dw, h - dw);
+    // g.fillRect(w - dw, dw, dw, h - dw);
+    // g.setColor(cLo);
+    // g.drawRect(x, y, w - 1, h - 1);
+    // cLo = ColorHelper.darker(borderColor, 20);
+    // JTattooUtilities.draw3DBorder(g, cHi, cLo, x + 1, y + 1, w - 2, h - 2);
+    // }
+    // }
+    //
+    // } // class InternalFrameBorder
+    // -------------------------------------------------------------------------------------------------
     public static class InternalFrameBorder extends BaseInternalFrameBorder {
 
         public InternalFrameBorder() {
@@ -248,11 +248,15 @@ public class HiFiBorders extends BaseBorders {
             g.fillRect(x + 1, y + h - dw, w - 2, dw - 1);
 
             if (active) {
-                JTattooUtilities.fillHorGradient(g, AbstractLookAndFeel.getTheme().getWindowTitleColors(), 1, insets.top, dw, th + 1);
-                JTattooUtilities.fillHorGradient(g, AbstractLookAndFeel.getTheme().getWindowTitleColors(), w - dw, insets.top, dw, th + 1);
+                JTattooUtilities.fillHorGradient(g, AbstractLookAndFeel.getTheme().getWindowTitleColors(), 1,
+                        insets.top, dw, th + 1);
+                JTattooUtilities.fillHorGradient(g, AbstractLookAndFeel.getTheme().getWindowTitleColors(), w - dw,
+                        insets.top, dw, th + 1);
             } else {
-                JTattooUtilities.fillHorGradient(g, AbstractLookAndFeel.getTheme().getWindowInactiveTitleColors(), 1, insets.top, dw - 1, th + 1);
-                JTattooUtilities.fillHorGradient(g, AbstractLookAndFeel.getTheme().getWindowInactiveTitleColors(), w - dw, insets.top, dw - 1, th + 1);
+                JTattooUtilities.fillHorGradient(g, AbstractLookAndFeel.getTheme().getWindowInactiveTitleColors(), 1,
+                        insets.top, dw - 1, th + 1);
+                JTattooUtilities.fillHorGradient(g, AbstractLookAndFeel.getTheme().getWindowInactiveTitleColors(), w
+                        - dw, insets.top, dw - 1, th + 1);
             }
 
             g.setColor(borderColor);

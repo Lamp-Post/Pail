@@ -21,16 +21,16 @@ public class GraphiteDefaultTheme extends AbstractTheme {
         // Setup the color arrays
         setUpColorArrs();
     }
-    
-    public String getPropertyFileName() { 
+
+    public String getPropertyFileName() {
         return "GraphiteTheme.properties";
     }
-    
+
     public void setUpColor() {
         super.setUpColor();
 
-//        showFocusFrame = true;
-        
+        // showFocusFrame = true;
+
         foregroundColor = black;
         backgroundColor = new ColorUIResource(224, 224, 224);
         backgroundColorLight = white;
@@ -121,7 +121,8 @@ public class GraphiteDefaultTheme extends AbstractTheme {
         }
         SELECTED_COLORS = DEFAULT_COLORS;
         SELECTION_COLORS = ColorHelper.createColorArr(selectionBackgroundColorLight, selectionBackgroundColorDark, 20);
-        MENU_SELECTION_COLORS = ColorHelper.createColorArr(menuSelectionBackgroundColorLight, menuSelectionBackgroundColorDark, 20);
+        MENU_SELECTION_COLORS = ColorHelper.createColorArr(menuSelectionBackgroundColorLight,
+                menuSelectionBackgroundColorDark, 20);
         ROLLOVER_COLORS = ColorHelper.createColorArr(rolloverColorLight, rolloverColorDark, 24);
         PRESSED_COLORS = ColorHelper.createColorArr(menuColorDark, menuColorLight, 24);
         DISABLED_COLORS = ColorHelper.createColorArr(superLightGray, extraLightGray, 24);
@@ -129,7 +130,8 @@ public class GraphiteDefaultTheme extends AbstractTheme {
         INACTIVE_COLORS = BUTTON_COLORS;
 
         WINDOW_TITLE_COLORS = ColorHelper.createColorArr(windowTitleColorLight, windowTitleColorDark, 24);
-        WINDOW_INACTIVE_TITLE_COLORS = ColorHelper.createColorArr(windowInactiveTitleColorLight, windowInactiveTitleColorDark, 24);
+        WINDOW_INACTIVE_TITLE_COLORS = ColorHelper.createColorArr(windowInactiveTitleColorLight,
+                windowInactiveTitleColorDark, 24);
 
         TOOLBAR_COLORS = ColorHelper.createColorArr(toolbarColorLight, toolbarColorDark, 24);
         MENUBAR_COLORS = ColorHelper.createColorArr(menuColorLight, menuColorDark, 24);
@@ -150,6 +152,5 @@ public class GraphiteDefaultTheme extends AbstractTheme {
         SLIDER_COLORS = DEFAULT_COLORS;
         PROGRESSBAR_COLORS = DEFAULT_COLORS;
     }
-
 
 }

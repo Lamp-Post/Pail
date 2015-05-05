@@ -1,4 +1,3 @@
-
 package me.escapeNT.pail.GUIComponents;
 
 import java.awt.event.ActionEvent;
@@ -18,6 +17,7 @@ import me.escapeNT.pail.Util.Util;
 
 /**
  * Class representing the Edit dropdown menu.
+ * 
  * @author escapeNT
  */
 public class EditMenu extends JMenu implements Localizable {
@@ -42,7 +42,7 @@ public class EditMenu extends JMenu implements Localizable {
         find.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_F, InputEvent.CTRL_MASK));
         find.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                if(!findOpen) {
+                if (!findOpen) {
                     new FindView().setVisible(true);
                     findOpen = true;
                 }
@@ -56,8 +56,7 @@ public class EditMenu extends JMenu implements Localizable {
                 ScrollableTextArea a = Util.getServerControls().getServerConsolePanel().getConsoleOutput();
                 try {
                     a.getDocument().remove(0, a.getDocument().getLength());
-                }
-                catch (BadLocationException ex) {
+                } catch (BadLocationException ex) {
                     Logger.getLogger(EditMenu.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
@@ -65,5 +64,6 @@ public class EditMenu extends JMenu implements Localizable {
         add(clear);
     }
 
-    public void translateComponent() {}
+    public void translateComponent() {
+    }
 }

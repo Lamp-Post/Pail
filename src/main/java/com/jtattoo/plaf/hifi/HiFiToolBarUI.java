@@ -36,4 +36,3 @@ public class HiFiToolBarUI extends AbstractToolBarUI {
         HiFiUtils.fillComponent(g, c);
     }
 }
-

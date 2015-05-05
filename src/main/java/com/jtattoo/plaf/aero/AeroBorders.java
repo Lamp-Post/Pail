@@ -20,45 +20,45 @@ public class AeroBorders extends BaseBorders {
     private static Border buttonBorder;
     private static Border rolloverToolButtonBorder;
     private static Border internalFrameBorder;
-    
-    //------------------------------------------------------------------------------------
+
+    // ------------------------------------------------------------------------------------
     // Lazy access methods
-    //------------------------------------------------------------------------------------
+    // ------------------------------------------------------------------------------------
     public static Border getButtonBorder() {
         if (buttonBorder == null) {
             buttonBorder = new ButtonBorder();
         }
         return buttonBorder;
     }
-    
+
     public static Border getToggleButtonBorder() {
         return getButtonBorder();
     }
-    
+
     public static Border getRolloverToolButtonBorder() {
         if (rolloverToolButtonBorder == null) {
             rolloverToolButtonBorder = new RolloverToolButtonBorder();
         }
         return rolloverToolButtonBorder;
     }
-    
+
     public static Border getInternalFrameBorder() {
         if (internalFrameBorder == null) {
             internalFrameBorder = new InternalFrameBorder();
         }
         return internalFrameBorder;
     }
-    
-    //------------------------------------------------------------------------------------
+
+    // ------------------------------------------------------------------------------------
     // Implementation of border classes
-    //------------------------------------------------------------------------------------
+    // ------------------------------------------------------------------------------------
     public static class ButtonBorder implements Border, UIResource {
 
         private static final Insets insets = new Insets(4, 8, 4, 8);
-        
+
         public void paintBorder(Component c, Graphics g, int x, int y, int w, int h) {
             Graphics2D g2D = (Graphics2D) g;
-            AbstractButton button = (AbstractButton)c;
+            AbstractButton button = (AbstractButton) c;
             ButtonModel model = button.getModel();
             if (model.isEnabled()) {
                 g.setColor(AeroLookAndFeel.getFrameColor());
@@ -74,27 +74,27 @@ public class AeroBorders extends BaseBorders {
             g.drawLine(x + 1, y + h - 1, x + w, y + h - 1);
             g2D.setComposite(composite);
         }
-        
-        public Insets getBorderInsets(Component c) { 
+
+        public Insets getBorderInsets(Component c) {
             return insets;
         }
-        
-        public boolean isBorderOpaque() { 
+
+        public boolean isBorderOpaque() {
             return true;
         }
-        
+
     } // class ButtonBorder
-    
+
     public static class RolloverToolButtonBorder implements Border, UIResource {
         private static final Insets insets = new Insets(1, 1, 1, 1);
-        
+
         public void paintBorder(Component c, Graphics g, int x, int y, int w, int h) {
-            AbstractButton button = (AbstractButton)c;
+            AbstractButton button = (AbstractButton) c;
             ButtonModel model = button.getModel();
             Color loColor = AeroLookAndFeel.getFrameColor();
             if (model.isEnabled()) {
                 if ((model.isPressed() && model.isArmed()) || model.isSelected()) {
-                    Graphics2D g2D = (Graphics2D)g;
+                    Graphics2D g2D = (Graphics2D) g;
                     Composite composite = g2D.getComposite();
                     g.setColor(loColor);
                     g.drawRect(x, y, w - 1, h - 1);
@@ -103,9 +103,8 @@ public class AeroBorders extends BaseBorders {
                     g.setColor(Color.black);
                     g.fillRect(x + 1, y + 1, w - 2, h - 2);
                     g2D.setComposite(composite);
-                }
-                else if (model.isRollover()) {
-                    Graphics2D g2D = (Graphics2D)g;
+                } else if (model.isRollover()) {
+                    Graphics2D g2D = (Graphics2D) g;
                     Composite composite = g2D.getComposite();
                     g.setColor(loColor);
                     g.drawRect(x, y, w - 1, h - 1);
@@ -117,19 +116,19 @@ public class AeroBorders extends BaseBorders {
                 }
             }
         }
-        
-        public Insets getBorderInsets(Component c) { 
+
+        public Insets getBorderInsets(Component c) {
             return insets;
         }
-        
-        public boolean isBorderOpaque() { 
+
+        public boolean isBorderOpaque() {
             return true;
         }
-        
+
     } // class RolloverToolButtonBorder
-    
+
     public static class InternalFrameBorder extends BaseInternalFrameBorder {
-        
+
         public void paintBorder(Component c, Graphics g, int x, int y, int w, int h) {
             Color borderColor = AeroLookAndFeel.getWindowInactiveBorderColor();
             if (isActive(c)) {
@@ -152,7 +151,7 @@ public class AeroBorders extends BaseBorders {
             int db = w * 2 / 3;
             h--;
             w--;
-            
+
             Color cl = ColorHelper.brighter(borderColor, 10);
             Color cr = AeroLookAndFeel.getWindowInactiveBorderColor();
             g.setColor(cl);
@@ -165,7 +164,7 @@ public class AeroBorders extends BaseBorders {
             g.drawLine(x + 3, y + 3, x + 3, y + h - 3);
             g.setColor(cl);
             g.drawLine(x + 4, y + 4, x + 4, y + h - 4);
-            
+
             // rechts
             g.setColor(cr);
             g.drawLine(x + w, y, x + w, y + h);
@@ -177,7 +176,7 @@ public class AeroBorders extends BaseBorders {
             g.drawLine(x + w - 3, y + 3, x + w - 3, y + h - 3);
             g.setColor(cr);
             g.drawLine(x + w - 4, y + 4, x + w - 4, y + h - 4);
-            
+
             g.setColor(cl);
             g.drawLine(x + w, y, x + w, y + trackWidth);
             g.setColor(ColorHelper.brighter(cl, 20));
@@ -188,7 +187,7 @@ public class AeroBorders extends BaseBorders {
             g.drawLine(x + w - 3, y + 3, x + w - 3, y + trackWidth);
             g.setColor(cl);
             g.drawLine(x + w - 4, y + 4, x + w - 4, y + trackWidth);
-            
+
             g.setColor(cl);
             g.drawLine(x + w, y + h - trackWidth, x + w, y + h);
             g.setColor(ColorHelper.brighter(cl, 20));
@@ -211,7 +210,7 @@ public class AeroBorders extends BaseBorders {
             g.drawLine(x + 3, y + 3, x + dt, y + 3);
             g.setColor(cl);
             g.drawLine(x + 4, y + 4, x + dt, y + 4);
-            
+
             g.setColor(cr);
             g.drawLine(x + dt, y, x + w, y);
             g.setColor(ColorHelper.brighter(cr, 90));
@@ -226,7 +225,7 @@ public class AeroBorders extends BaseBorders {
                 g.setColor(cr);
             }
             g.drawLine(x + dt, y + 4, x + w - 4, y + 4);
-            
+
             g.setColor(cl);
             g.drawLine(x + w - trackWidth, y, x + w, y);
             g.setColor(ColorHelper.brighter(cl, 60));
@@ -237,7 +236,7 @@ public class AeroBorders extends BaseBorders {
             g.drawLine(x + w - trackWidth, y + 3, x + w - 3, y + 3);
             g.setColor(cl);
             g.drawLine(x + w - trackWidth, y + 4, x + w - 4, y + 4);
-            
+
             // unten
             g.setColor(cl);
             g.drawLine(x, y + h, x + db, y + h);
@@ -249,7 +248,7 @@ public class AeroBorders extends BaseBorders {
             g.drawLine(x + 3, y + h - 3, x + db, y + h - 3);
             g.setColor(cl);
             g.drawLine(x + 4, y + h - 4, x + db, y + h - 4);
-            
+
             g.setColor(cr);
             g.drawLine(x + db, y + h, x + w, y + h);
             g.setColor(ColorHelper.brighter(cr, 30));
@@ -260,7 +259,7 @@ public class AeroBorders extends BaseBorders {
             g.drawLine(x + db, y + h - 3, x + w - 3, y + h - 3);
             g.setColor(cr);
             g.drawLine(x + db, y + h - 4, x + w - 4, y + h - 4);
-            
+
             g.setColor(cl);
             g.drawLine(x + w - trackWidth, y + h, x + w, y + h);
             g.setColor(ColorHelper.brighter(cl, 20));
@@ -271,8 +270,8 @@ public class AeroBorders extends BaseBorders {
             g.drawLine(x + w - trackWidth, y + h - 3, x + w - 3, y + h - 3);
             g.setColor(cl);
             g.drawLine(x + w - trackWidth, y + h - 4, x + w - 4, y + h - 4);
-        } //paintBorder
+        } // paintBorder
     } // class InternalFrameBorder
-        
+
 } // class AeroBorders
 

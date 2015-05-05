@@ -22,7 +22,6 @@ public class HiFiLookAndFeel extends AbstractLookAndFeel {
     private static final Properties largeFontProps = new Properties();
     private static final Properties giantFontProps = new Properties();
 
-
     static {
         smallFontProps.setProperty("controlTextFont", "Dialog bold 10");
         smallFontProps.setProperty("systemTextFont", "Dialog bold 10");
@@ -135,41 +134,32 @@ public class HiFiLookAndFeel extends AbstractLookAndFeel {
     protected void initClassDefaults(UIDefaults table) {
         super.initClassDefaults(table);
         Object[] uiDefaults = {
-            // BaseLookAndFeel classes
-            "SeparatorUI", BaseSeparatorUI.class.getName(),
-            "TextFieldUI", BaseTextFieldUI.class.getName(),
-            "TextAreaUI", BaseTextAreaUI.class.getName(),
-            "EditorPaneUI", BaseEditorPaneUI.class.getName(),
-            "PasswordFieldUI", BasePasswordFieldUI.class.getName(),
-            "ToolTipUI", BaseToolTipUI.class.getName(),
-            "TreeUI", BaseTreeUI.class.getName(),
-            "TableUI", BaseTableUI.class.getName(),
-            "TableHeaderUI", BaseTableHeaderUI.class.getName(),
-            "SplitPaneUI", BaseSplitPaneUI.class.getName(),
-            "ProgressBarUI", BaseProgressBarUI.class.getName(),
-            "FileChooserUI", BaseFileChooserUI.class.getName(),
-            "MenuUI", BaseMenuUI.class.getName(),
-            "PopupMenuUI", BasePopupMenuUI.class.getName(),
-            "MenuItemUI", BaseMenuItemUI.class.getName(),
-            "CheckBoxMenuItemUI", BaseCheckBoxMenuItemUI.class.getName(),
-            "RadioButtonMenuItemUI", BaseRadioButtonMenuItemUI.class.getName(),
-            "PopupMenuSeparatorUI", BaseSeparatorUI.class.getName(),
-            // HiFiLookAndFeel classes
-            "LabelUI", HiFiLabelUI.class.getName(),
-            "CheckBoxUI", HiFiCheckBoxUI.class.getName(),
-            "RadioButtonUI", HiFiRadioButtonUI.class.getName(),
-            "ButtonUI", HiFiButtonUI.class.getName(),
-            "ToggleButtonUI", HiFiToggleButtonUI.class.getName(),
-            "ComboBoxUI", HiFiComboBoxUI.class.getName(),
-            "SliderUI", HiFiSliderUI.class.getName(),
-            "PanelUI", HiFiPanelUI.class.getName(),
-            "ScrollPaneUI", HiFiScrollPaneUI.class.getName(),
-            "TabbedPaneUI", HiFiTabbedPaneUI.class.getName(),
-            "ScrollBarUI", HiFiScrollBarUI.class.getName(),
-            "ToolBarUI", HiFiToolBarUI.class.getName(),
-            "MenuBarUI", HiFiMenuBarUI.class.getName(),
-            "InternalFrameUI", HiFiInternalFrameUI.class.getName(),
-            "RootPaneUI", HiFiRootPaneUI.class.getName(),};
+                // BaseLookAndFeel classes
+                "SeparatorUI", BaseSeparatorUI.class.getName(), "TextFieldUI", BaseTextFieldUI.class.getName(),
+                "TextAreaUI", BaseTextAreaUI.class.getName(), "EditorPaneUI", BaseEditorPaneUI.class.getName(),
+                "PasswordFieldUI", BasePasswordFieldUI.class.getName(), "ToolTipUI", BaseToolTipUI.class.getName(),
+                "TreeUI", BaseTreeUI.class.getName(), "TableUI", BaseTableUI.class.getName(), "TableHeaderUI",
+                BaseTableHeaderUI.class.getName(), "SplitPaneUI", BaseSplitPaneUI.class.getName(), "ProgressBarUI",
+                BaseProgressBarUI.class.getName(), "FileChooserUI", BaseFileChooserUI.class.getName(), "MenuUI",
+                BaseMenuUI.class.getName(), "PopupMenuUI",
+                BasePopupMenuUI.class.getName(),
+                "MenuItemUI",
+                BaseMenuItemUI.class.getName(),
+                "CheckBoxMenuItemUI",
+                BaseCheckBoxMenuItemUI.class.getName(),
+                "RadioButtonMenuItemUI",
+                BaseRadioButtonMenuItemUI.class.getName(),
+                "PopupMenuSeparatorUI",
+                BaseSeparatorUI.class.getName(),
+                // HiFiLookAndFeel classes
+                "LabelUI", HiFiLabelUI.class.getName(), "CheckBoxUI", HiFiCheckBoxUI.class.getName(), "RadioButtonUI",
+                HiFiRadioButtonUI.class.getName(), "ButtonUI", HiFiButtonUI.class.getName(), "ToggleButtonUI",
+                HiFiToggleButtonUI.class.getName(), "ComboBoxUI", HiFiComboBoxUI.class.getName(), "SliderUI",
+                HiFiSliderUI.class.getName(), "PanelUI", HiFiPanelUI.class.getName(), "ScrollPaneUI",
+                HiFiScrollPaneUI.class.getName(), "TabbedPaneUI", HiFiTabbedPaneUI.class.getName(), "ScrollBarUI",
+                HiFiScrollBarUI.class.getName(), "ToolBarUI", HiFiToolBarUI.class.getName(), "MenuBarUI",
+                HiFiMenuBarUI.class.getName(), "InternalFrameUI", HiFiInternalFrameUI.class.getName(), "RootPaneUI",
+                HiFiRootPaneUI.class.getName(), };
         table.putDefaults(uiDefaults);
         if (JTattooUtilities.getJavaVersion() >= 1.5) {
             table.put("FormattedTextFieldUI", BaseFormattedTextFieldUI.class.getName());

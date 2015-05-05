@@ -1,7 +1,7 @@
 /*
  * Copyright (C) 2005-2006 Sun Microsystems, Inc. All rights reserved. Use is
  * subject to license terms.
- */ 
+ */
 
 package org.jdesktop.layout;
 
@@ -20,70 +20,58 @@ import javax.swing.border.*;
 import javax.swing.plaf.metal.MetalLookAndFeel;
 
 /**
- * Convenience class that can be used to determine the baseline of a
- * particular component.  The static method <code>getBaseline</code> uses the
- * following algorithm to determine the baseline:
+ * Convenience class that can be used to determine the baseline of a particular component. The static method
+ * <code>getBaseline</code> uses the following algorithm to determine the baseline:
  * <ol>
- * <li>If the component has a <code>getBaseline(JComponent,int,int)</code> 
- *     method, invoke it.
- * <li>If there is a <code>UIManager</code> property of the name
- *     <code>Baseline.instance</code>, forward the call to that Baseline.
+ * <li>If the component has a <code>getBaseline(JComponent,int,int)</code> method, invoke it.
+ * <li>If there is a <code>UIManager</code> property of the name <code>Baseline.instance</code>, forward the call to
+ * that Baseline.
  * <li>Otherwise use the built in support.
  * </ol>
  * <p>
- * In addition to determining the baseline, this class also allows for
- * determining how the baseline changes as the size of the component changes.
- * The method getBaselineResizeBehavior can be used for this. This will return
- * one of BRB_OTHER, BRB_CONSTANT_ASCENT, BRB_CONSTANT_DESCENT or
- * BRB_CENTER_OFFSET. The following algorithm is used in determining the
- * baseline resize behavior.
+ * In addition to determining the baseline, this class also allows for determining how the baseline changes as the size
+ * of the component changes. The method getBaselineResizeBehavior can be used for this. This will return one of
+ * BRB_OTHER, BRB_CONSTANT_ASCENT, BRB_CONSTANT_DESCENT or BRB_CENTER_OFFSET. The following algorithm is used in
+ * determining the baseline resize behavior.
  * <ol>
- * <li>If the Component defines the method
- *     getBaselineResizeBehaviorInt, the return value from that method is used.
- * <li>If running on 1.6, the Component method getBaselineResizeBehavior is
- *     invoked and the return value converted to one of the constants defined
- *     by this class.
- * <li>If the component is one of the known Swing components,the baseline resize
- *     behavior is calculated and returned.
+ * <li>If the Component defines the method getBaselineResizeBehaviorInt, the return value from that method is used.
+ * <li>If running on 1.6, the Component method getBaselineResizeBehavior is invoked and the return value converted to
+ * one of the constants defined by this class.
+ * <li>If the component is one of the known Swing components,the baseline resize behavior is calculated and returned.
  * <li>Otherwise, BRB_OTHER is returned.
  * </ol>
  * <p>
- * This class is primarily useful for JREs prior to 1.6.  In 1.6 API for this
- * was added directly to Component. When run on 1.6 or newer, this class calls
- * into the appropriate Component methods.
+ * This class is primarily useful for JREs prior to 1.6. In 1.6 API for this was added directly to Component. When run
+ * on 1.6 or newer, this class calls into the appropriate Component methods.
  *
  * @version $Revision: 1.13 $
  */
 public class Baseline {
     static final int BRB_NONE = 0;
     /**
-     * Baseline resize behavior constant. Indicates as the size of the component
-     * changes the baseline remains a fixed distance from the top of the
-     * component.
+     * Baseline resize behavior constant. Indicates as the size of the component changes the baseline remains a fixed
+     * distance from the top of the component.
      */
     public static final int BRB_CONSTANT_ASCENT = 1;
 
     /**
-     * Baseline resize behavior constant. Indicates as the size of the component
-     * changes the baseline remains a fixed distance from the bottom of the 
-     * component.
+     * Baseline resize behavior constant. Indicates as the size of the component changes the baseline remains a fixed
+     * distance from the bottom of the component.
      */
     public static final int BRB_CONSTANT_DESCENT = 2;
 
     /**
-     * Baseline resize behavior constant. Indicates as the size of the component
-     * changes the baseline remains a fixed distance from the center of the
-     * component.
+     * Baseline resize behavior constant. Indicates as the size of the component changes the baseline remains a fixed
+     * distance from the center of the component.
      */
     public static final int BRB_CENTER_OFFSET = 3;
 
     /**
-     * Baseline resize behavior constant. Indicates as the size of the component
-     * changes the baseline can not be determined using one of the other
-     * constants.
+     * Baseline resize behavior constant. Indicates as the size of the component changes the baseline can not be
+     * determined using one of the other constants.
      */
     public static final int BRB_OTHER = 4;
-    
+
     //
     // Used by button and label baseline code, cached to avoid excessive
     // garbage.
@@ -92,13 +80,12 @@ public class Baseline {
     private static final Rectangle textRect = new Rectangle();
     private static final Rectangle iconRect = new Rectangle();
 
-    // 
-    // These come from TitleBorder.  NOTE that these are NOT final in
+    //
+    // These come from TitleBorder. NOTE that these are NOT final in
     // TitledBorder
     //
     private static final int EDGE_SPACING = 2;
     private static final int TEXT_SPACING = 2;
-
 
     private static final Insets EMPTY_INSETS = new Insets(0, 0, 0, 0);
 
@@ -115,12 +102,12 @@ public class Baseline {
     private static Class CLASSIC_WINDOWS;
     // Whether or not we've tried to load WindowsClassicLookAndFeel.
     private static boolean checkedForClassic;
-    
+
     // Corresponds to com.sun.java.swing.plaf.windows.WindowsLookAndFeel
     private static Class WINDOWS_CLASS;
     // Whether we've tried to load WindowsLookAndFeel
     private static boolean checkedForWindows;
-    
+
     // Whether or not we are running in a sandbox. This is used to determine
     // how we should decide if we're using ocean.
     private static boolean inSandbox;
@@ -129,14 +116,12 @@ public class Baseline {
     // Whether or not using ocean. This is only used if inSandbox.
     private static boolean usingOcean;
 
-    // Map<Class,Method> 
-    private static final Map BASELINE_MAP = Collections.
-            synchronizedMap(new HashMap(1));
+    // Map<Class,Method>
+    private static final Map BASELINE_MAP = Collections.synchronizedMap(new HashMap(1));
 
     // Map<Class,Method> Method is getBaselineResizeBehaviorAsInt
-    private static final Map BRB_I_MAP = Collections.
-            synchronizedMap(new HashMap(1));
-    
+    private static final Map BRB_I_MAP = Collections.synchronizedMap(new HashMap(1));
+
     private static final Method COMPONENT_BASELINE_METHOD;
     private static final Method COMPONENT_BRB_METHOD;
     private static final Object ENUM_BRB_CENTER_OFFSET;
@@ -150,7 +135,7 @@ public class Baseline {
     // Temporary ListCellRenderer: used to determine baseline resize behavior
     // for comboboxs.
     private static ListCellRenderer brbListCellRenderer;
-    
+
     static {
         Method componentBaselineMethod = null;
         Method componentBRBMethod = null;
@@ -160,10 +145,8 @@ public class Baseline {
         Object brbConstantDescent = null;
         Object brbOther = null;
         try {
-            componentBaselineMethod = Component.class.getMethod(
-                "getBaseline", new Class[] { int.class, int.class});
-            componentBRBMethod = Component.class.getMethod(
-                "getBaselineResizeBehavior", new Class[] { });
+            componentBaselineMethod = Component.class.getMethod("getBaseline", new Class[] { int.class, int.class });
+            componentBRBMethod = Component.class.getMethod("getBaselineResizeBehavior", new Class[] {});
             Class brbClass = Class.forName("java.awt.Component$BaselineResizeBehavior");
             brbCenterOffset = getFieldValue(brbClass, "CENTER_OFFSET");
             brbConstantAscent = getFieldValue(brbClass, "CONSTANT_ASCENT");
@@ -174,15 +157,10 @@ public class Baseline {
         } catch (NoSuchFieldException nsfe) {
         } catch (IllegalAccessException iae) {
         }
-        if (componentBaselineMethod == null ||
-                componentBRBMethod == null ||
-                brbCenterOffset == null ||
-                brbConstantDescent == null ||
-                brbConstantAscent == null ||
-                brbOther == null) {
+        if (componentBaselineMethod == null || componentBRBMethod == null || brbCenterOffset == null
+                || brbConstantDescent == null || brbConstantAscent == null || brbOther == null) {
             componentBaselineMethod = componentBRBMethod = null;
-            brbCenterOffset = brbConstantAscent = brbConstantDescent =
-                    brbOther = null;
+            brbCenterOffset = brbConstantAscent = brbConstantDescent = brbOther = null;
         }
         COMPONENT_BASELINE_METHOD = componentBaselineMethod;
         COMPONENT_BRB_METHOD = componentBRBMethod;
@@ -191,25 +169,24 @@ public class Baseline {
         ENUM_BRB_CONSTANT_DESCENT = brbConstantDescent;
         ENUM_BRB_OTHER = brbOther;
     }
-    
+
     private static Object getFieldValue(Class type, String name) throws IllegalAccessException, NoSuchFieldException {
         return type.getField(name).get(null);
     }
 
     static int getBaselineResizeBehavior(Component c) {
         if (c instanceof JComponent) {
-            return getBaselineResizeBehavior((JComponent)c);
+            return getBaselineResizeBehavior((JComponent) c);
         }
         return BRB_OTHER;
     }
-    
+
     /**
-     * Returns a constant indicating how the baseline varies with the size
-     * of the component.
+     * Returns a constant indicating how the baseline varies with the size of the component.
      *
-     * @param c the JComponent to get the baseline resize behavior for
-     * @return one of BRB_CONSTANT_ASCENT, BRB_CONSTANT_DESCENT,
-     *         BRB_CENTER_OFFSET or BRB_OTHER
+     * @param c
+     *            the JComponent to get the baseline resize behavior for
+     * @return one of BRB_CONSTANT_ASCENT, BRB_CONSTANT_DESCENT, BRB_CENTER_OFFSET or BRB_OTHER
      */
     public static int getBaselineResizeBehavior(JComponent c) {
         Method brbIMethod = getBRBIMethod(c);
@@ -220,54 +197,38 @@ public class Baseline {
             return getBaselineResizeBehaviorUsingMustang(c);
         }
         String uid = c.getUIClassID();
-        if (uid == "ButtonUI" || uid == "CheckBoxUI" ||
-                uid == "RadioButtonUI" || uid == "ToggleButtonUI") {
-            return getButtonBaselineResizeBehavior((AbstractButton)c);
-        }
-        else if (uid == "ComboBoxUI") {
-            return getComboBoxBaselineResizeBehavior((JComboBox)c);
-        }
-        else if (uid == "TextAreaUI") {
-            return getTextAreaBaselineResizeBehavior((JTextArea)c);
-        }
-        else if (uid == "TextFieldUI" ||
-                uid == "FormattedTextFieldUI" ||
-                uid == "PasswordFieldUI") {
-            return getSingleLineTextBaselineResizeBehavior((JTextField)c);
-        }
-        else if (uid == "LabelUI") {
-            return getLabelBaselineResizeBehavior((JLabel)c);
-        }
-        else if (uid == "ListUI") {
-            return getListBaselineResizeBehavior((JList)c);
-        }
-        else if (uid == "PanelUI") {
-            return getPanelBaselineResizeBehavior((JPanel)c);
-        }
-        else if (uid == "ProgressBarUI") {
-            return getProgressBarBaselineResizeBehavior((JProgressBar)c);
-        }
-        else if (uid == "SliderUI") {
-            return getSliderBaselineResizeBehavior((JSlider)c);
-        }
-        else if (uid == "SpinnerUI") {
-            return getSpinnerBaselineResizeBehavior((JSpinner)c);
-        }
-        else if (uid == "ScrollPaneUI") {
-            return getScrollPaneBaselineBaselineResizeBehavior((JScrollPane)c);
-        }
-        else if (uid == "TabbedPaneUI") {
-            return getTabbedPaneBaselineResizeBehavior((JTabbedPane)c);
-        }
-        else if (uid == "TableUI") {
-            return getTableBaselineResizeBehavior((JTable)c);
-        }
-        else if (uid == "TreeUI") {
-            return getTreeBaselineResizeBehavior((JTree)c);
+        if (uid == "ButtonUI" || uid == "CheckBoxUI" || uid == "RadioButtonUI" || uid == "ToggleButtonUI") {
+            return getButtonBaselineResizeBehavior((AbstractButton) c);
+        } else if (uid == "ComboBoxUI") {
+            return getComboBoxBaselineResizeBehavior((JComboBox) c);
+        } else if (uid == "TextAreaUI") {
+            return getTextAreaBaselineResizeBehavior((JTextArea) c);
+        } else if (uid == "TextFieldUI" || uid == "FormattedTextFieldUI" || uid == "PasswordFieldUI") {
+            return getSingleLineTextBaselineResizeBehavior((JTextField) c);
+        } else if (uid == "LabelUI") {
+            return getLabelBaselineResizeBehavior((JLabel) c);
+        } else if (uid == "ListUI") {
+            return getListBaselineResizeBehavior((JList) c);
+        } else if (uid == "PanelUI") {
+            return getPanelBaselineResizeBehavior((JPanel) c);
+        } else if (uid == "ProgressBarUI") {
+            return getProgressBarBaselineResizeBehavior((JProgressBar) c);
+        } else if (uid == "SliderUI") {
+            return getSliderBaselineResizeBehavior((JSlider) c);
+        } else if (uid == "SpinnerUI") {
+            return getSpinnerBaselineResizeBehavior((JSpinner) c);
+        } else if (uid == "ScrollPaneUI") {
+            return getScrollPaneBaselineBaselineResizeBehavior((JScrollPane) c);
+        } else if (uid == "TabbedPaneUI") {
+            return getTabbedPaneBaselineResizeBehavior((JTabbedPane) c);
+        } else if (uid == "TableUI") {
+            return getTableBaselineResizeBehavior((JTable) c);
+        } else if (uid == "TreeUI") {
+            return getTreeBaselineResizeBehavior((JTree) c);
         }
         return BRB_OTHER;
     }
-    
+
     private static int getBaselineResizeBehaviorUsingMustang(JComponent c) {
         try {
             Object result = COMPONENT_BRB_METHOD.invoke(c, null);
@@ -292,7 +253,7 @@ public class Baseline {
         Class klass = component.getClass();
         while (klass != null) {
             if (BRB_I_MAP.containsKey(klass)) {
-                Method method = (Method)BRB_I_MAP.get(klass);
+                Method method = (Method) BRB_I_MAP.get(klass);
                 return method;
             }
             klass = klass.getSuperclass();
@@ -316,66 +277,65 @@ public class Baseline {
     private static int invokeBRBIMethod(Method method, Component c) {
         int brb = BRB_OTHER;
         try {
-            brb = ((Integer)method.invoke(c, null)).intValue();
+            brb = ((Integer) method.invoke(c, null)).intValue();
         } catch (IllegalAccessException iae) {
         } catch (IllegalArgumentException iae2) {
         } catch (InvocationTargetException ite2) {
         }
         return brb;
     }
-    
+
     private static int getTreeBaselineResizeBehavior(JTree tree) {
         return BRB_CONSTANT_ASCENT;
     }
-    
+
     private static int getSingleLineTextBaselineResizeBehavior(JTextField tf) {
         return BRB_CENTER_OFFSET;
     }
-    
+
     private static int getTextAreaBaselineResizeBehavior(JTextArea ta) {
         return BRB_CONSTANT_ASCENT;
     }
-    
+
     private static int getTableBaselineResizeBehavior(JTable table) {
         return BRB_CONSTANT_ASCENT;
     }
-    
+
     private static int getTabbedPaneBaselineResizeBehavior(JTabbedPane tp) {
-        switch(tp.getTabPlacement()) {
-        case JTabbedPane.LEFT:
-        case JTabbedPane.RIGHT:
-        case JTabbedPane.TOP:
-            return BRB_CONSTANT_ASCENT;
-        case JTabbedPane.BOTTOM:
-            return BRB_CONSTANT_DESCENT;
+        switch (tp.getTabPlacement()) {
+            case JTabbedPane.LEFT:
+            case JTabbedPane.RIGHT:
+            case JTabbedPane.TOP:
+                return BRB_CONSTANT_ASCENT;
+            case JTabbedPane.BOTTOM:
+                return BRB_CONSTANT_DESCENT;
         }
         return BRB_OTHER;
     }
-    
+
     private static int getSpinnerBaselineResizeBehavior(JSpinner spinner) {
         return getBaselineResizeBehavior(spinner.getEditor());
     }
-    
+
     private static int getSliderBaselineResizeBehavior(JSlider slider) {
         return BRB_OTHER;
     }
-    
+
     private static int getScrollPaneBaselineBaselineResizeBehavior(JScrollPane sp) {
         return BRB_CONSTANT_ASCENT;
     }
-    
+
     private static int getProgressBarBaselineResizeBehavior(JProgressBar pb) {
-        if (pb.isStringPainted() &&
-                pb.getOrientation() == JProgressBar.HORIZONTAL) {
+        if (pb.isStringPainted() && pb.getOrientation() == JProgressBar.HORIZONTAL) {
             return BRB_CENTER_OFFSET;
         }
         return BRB_OTHER;
     }
-    
+
     private static int getPanelBaselineResizeBehavior(JPanel panel) {
         Border b = panel.getBorder();
         if (b instanceof TitledBorder) {
-            switch(((TitledBorder)b).getTitlePosition()) {
+            switch (((TitledBorder) b).getTitlePosition()) {
                 case TitledBorder.ABOVE_TOP:
                 case TitledBorder.TOP:
                 case TitledBorder.DEFAULT_POSITION:
@@ -389,41 +349,41 @@ public class Baseline {
         }
         return BRB_OTHER;
     }
-    
+
     private static int getListBaselineResizeBehavior(JList list) {
         return BRB_CONSTANT_ASCENT;
     }
-    
+
     private static int getLabelBaselineResizeBehavior(JLabel label) {
         if (label.getClientProperty("html") != null) {
             return BRB_OTHER;
         }
-        switch(label.getVerticalAlignment()) {
-        case JLabel.TOP:
-            return BRB_CONSTANT_ASCENT;
-        case JLabel.BOTTOM:
-            return BRB_CONSTANT_DESCENT;
-        case JLabel.CENTER:
-            return BRB_CENTER_OFFSET;
+        switch (label.getVerticalAlignment()) {
+            case JLabel.TOP:
+                return BRB_CONSTANT_ASCENT;
+            case JLabel.BOTTOM:
+                return BRB_CONSTANT_DESCENT;
+            case JLabel.CENTER:
+                return BRB_CENTER_OFFSET;
         }
         return BRB_OTHER;
     }
-    
+
     private static int getButtonBaselineResizeBehavior(AbstractButton button) {
         if (button.getClientProperty("html") != null) {
             return BRB_OTHER;
         }
-        switch(button.getVerticalAlignment()) {
-        case AbstractButton.TOP:
-            return BRB_CONSTANT_ASCENT;
-        case AbstractButton.BOTTOM:
-            return BRB_CONSTANT_DESCENT;
-        case AbstractButton.CENTER:
-            return BRB_CENTER_OFFSET;
+        switch (button.getVerticalAlignment()) {
+            case AbstractButton.TOP:
+                return BRB_CONSTANT_ASCENT;
+            case AbstractButton.BOTTOM:
+                return BRB_CONSTANT_DESCENT;
+            case AbstractButton.CENTER:
+                return BRB_CENTER_OFFSET;
         }
         return BRB_OTHER;
     }
-    
+
     private static int getComboBoxBaselineResizeBehavior(JComboBox cb) {
         if (cb.isEditable()) {
             return getBaselineResizeBehavior(cb.getEditor().getEditorComponent());
@@ -437,7 +397,7 @@ public class Baseline {
         }
         Object value = null;
         Object prototypeValue = cb.getPrototypeDisplayValue();
-        if (prototypeValue != null)  {
+        if (prototypeValue != null) {
             value = prototypeValue;
         } else if (cb.getModel().getSize() > 0) {
             value = cb.getModel().getElementAt(0);
@@ -446,28 +406,25 @@ public class Baseline {
             if (brbList == null) {
                 brbList = new JList();
             }
-            Component component = renderer.
-                    getListCellRendererComponent(brbList, value, -1,
-                    false, false);
+            Component component = renderer.getListCellRendererComponent(brbList, value, -1, false, false);
             return getBaselineResizeBehavior(component);
         }
         return BRB_OTHER;
     }
 
     /**
-     * Returns the baseline for the specified component, or -1 if the
-     * baseline can not be determined.  The baseline is measured from
-     * the top of the component.  This method returns the baseline based
-     * on the preferred size.
+     * Returns the baseline for the specified component, or -1 if the baseline can not be determined. The baseline is
+     * measured from the top of the component. This method returns the baseline based on the preferred size.
      *
-     * @param component JComponent to calculate baseline for
+     * @param component
+     *            JComponent to calculate baseline for
      * @return baseline for the specified component
      */
     public static int getBaseline(JComponent component) {
         Dimension pref = component.getPreferredSize();
         return getBaseline(component, pref.width, pref.height);
     }
-    
+
     private static Method getBaselineMethod(JComponent component) {
         if (COMPONENT_BASELINE_METHOD != null) {
             return COMPONENT_BASELINE_METHOD;
@@ -475,7 +432,7 @@ public class Baseline {
         Class klass = component.getClass();
         while (klass != null) {
             if (BASELINE_MAP.containsKey(klass)) {
-                Method method = (Method)BASELINE_MAP.get(klass);
+                Method method = (Method) BASELINE_MAP.get(klass);
                 if (method != null || klass == component.getClass()) {
                     return method;
                 }
@@ -489,8 +446,7 @@ public class Baseline {
             Method method = methods[i];
             if ("getBaseline".equals(method.getName())) {
                 Class[] params = method.getParameterTypes();
-                if (params.length == 2 && params[0] == int.class &&
-                        params[1] == int.class) {
+                if (params.length == 2 && params[0] == int.class && params[1] == int.class) {
                     BASELINE_MAP.put(klass, method);
                     return method;
                 }
@@ -500,35 +456,34 @@ public class Baseline {
         return null;
     }
 
-    private static int invokeBaseline(Method method, JComponent c, int width,
-            int height) {
+    private static int invokeBaseline(Method method, JComponent c, int width, int height) {
         int baseline = -1;
         try {
-            baseline = ((Integer)method.invoke(c,
-                    new Object[] { new Integer(width),
-                            new Integer(height) })).intValue();
+            baseline = ((Integer) method.invoke(c, new Object[] { new Integer(width), new Integer(height) }))
+                    .intValue();
         } catch (IllegalAccessException iae) {
         } catch (IllegalArgumentException iae2) {
         } catch (InvocationTargetException ite2) {
         }
         return baseline;
     }
-    
+
     private static boolean isKnownLookAndFeel() {
         LookAndFeel laf = UIManager.getLookAndFeel();
         String lookAndFeelID = laf.getID();
-        return (lookAndFeelID == "GTK" || lookAndFeelID == "Aqua" ||
-                isMetal(laf) || isWindows(laf));
+        return (lookAndFeelID == "GTK" || lookAndFeelID == "Aqua" || isMetal(laf) || isWindows(laf));
     }
-    
+
     /**
-     * Returns the baseline for the specified component, or a value less 
-     * than 0 if the baseline can not be determined.  The baseline is measured 
-     * from the top of the component.
+     * Returns the baseline for the specified component, or a value less than 0 if the baseline can not be determined.
+     * The baseline is measured from the top of the component.
      *
-     * @param component JComponent to calculate baseline for
-     * @param width Width of the component to determine baseline for.
-     * @param height Height of the component to determine baseline for.
+     * @param component
+     *            JComponent to calculate baseline for
+     * @param width
+     *            Width of the component to determine baseline for.
+     * @param height
+     *            Height of the component to determine baseline for.
      * @return baseline for the specified component
      */
     public static int getBaseline(JComponent component, int width, int height) {
@@ -538,79 +493,55 @@ public class Baseline {
         }
         Object baselineImpl = UIManager.get("Baseline.instance");
         if (baselineImpl != null && (baselineImpl instanceof Baseline)) {
-            return ((Baseline)baselineImpl).getComponentBaseline(
-                    component, width, height);
+            return ((Baseline) baselineImpl).getComponentBaseline(component, width, height);
         }
         if (!isKnownLookAndFeel()) {
             return -1;
         }
         String uid = component.getUIClassID();
         int baseline = -1;
-        if (uid == "ButtonUI" || uid == "CheckBoxUI" ||
-                uid == "RadioButtonUI" || uid == "ToggleButtonUI") {
-            baseline = getButtonBaseline((AbstractButton)component,
-                                         height);
-        }
-        else if (uid == "ComboBoxUI") {
-            return getComboBoxBaseline((JComboBox)component,
-                                       height);
-        }
-        else if (uid == "TextAreaUI") {
-            return getTextAreaBaseline((JTextArea)component, height);
-        }
-        else if (uid == "FormattedTextFieldUI" ||
-                 uid == "PasswordFieldUI" ||
-                 uid == "TextFieldUI") {
-            baseline = getSingleLineTextBaseline((JTextComponent)component,
-                                                 height);
-        }
-        else if (uid == "LabelUI") {
-            baseline = getLabelBaseline((JLabel)component, height);
-        }
-        else if (uid == "ListUI") {
-            baseline = getListBaseline((JList)component, height);
-        }
-        else if (uid == "PanelUI") {
-            baseline = getPanelBaseline((JPanel)component, height);
-        }
-        else if (uid == "ProgressBarUI") {
-            baseline = getProgressBarBaseline((JProgressBar)component, height);
-        }
-        else if (uid == "SliderUI") {
-            baseline = getSliderBaseline((JSlider)component, height);
-        }
-        else if (uid == "SpinnerUI") {
-            baseline = getSpinnerBaseline((JSpinner)component, height);
-        }
-        else if (uid == "ScrollPaneUI") {
-            baseline = getScrollPaneBaseline((JScrollPane)component, height);
-        }
-        else if (uid == "TabbedPaneUI") {
-            baseline = getTabbedPaneBaseline((JTabbedPane)component, height);
-        }
-        else if (uid == "TableUI") {
-            baseline = getTableBaseline((JTable)component, height);
-        }
-        else if (uid == "TreeUI") {
-            baseline = getTreeBaseline((JTree)component, height);
+        if (uid == "ButtonUI" || uid == "CheckBoxUI" || uid == "RadioButtonUI" || uid == "ToggleButtonUI") {
+            baseline = getButtonBaseline((AbstractButton) component, height);
+        } else if (uid == "ComboBoxUI") {
+            return getComboBoxBaseline((JComboBox) component, height);
+        } else if (uid == "TextAreaUI") {
+            return getTextAreaBaseline((JTextArea) component, height);
+        } else if (uid == "FormattedTextFieldUI" || uid == "PasswordFieldUI" || uid == "TextFieldUI") {
+            baseline = getSingleLineTextBaseline((JTextComponent) component, height);
+        } else if (uid == "LabelUI") {
+            baseline = getLabelBaseline((JLabel) component, height);
+        } else if (uid == "ListUI") {
+            baseline = getListBaseline((JList) component, height);
+        } else if (uid == "PanelUI") {
+            baseline = getPanelBaseline((JPanel) component, height);
+        } else if (uid == "ProgressBarUI") {
+            baseline = getProgressBarBaseline((JProgressBar) component, height);
+        } else if (uid == "SliderUI") {
+            baseline = getSliderBaseline((JSlider) component, height);
+        } else if (uid == "SpinnerUI") {
+            baseline = getSpinnerBaseline((JSpinner) component, height);
+        } else if (uid == "ScrollPaneUI") {
+            baseline = getScrollPaneBaseline((JScrollPane) component, height);
+        } else if (uid == "TabbedPaneUI") {
+            baseline = getTabbedPaneBaseline((JTabbedPane) component, height);
+        } else if (uid == "TableUI") {
+            baseline = getTableBaseline((JTable) component, height);
+        } else if (uid == "TreeUI") {
+            baseline = getTreeBaseline((JTree) component, height);
         }
         return Math.max(baseline, -1);
     }
 
     private static Insets rotateInsets(Insets topInsets, int targetPlacement) {
-        switch(targetPlacement) {
-          case JTabbedPane.LEFT:
-              return new Insets(topInsets.left, topInsets.top, 
-                                topInsets.right, topInsets.bottom);
-          case JTabbedPane.BOTTOM:
-              return new Insets(topInsets.bottom, topInsets.left,
-                                topInsets.top, topInsets.right);
-          case JTabbedPane.RIGHT:
-              return new Insets(topInsets.left, topInsets.bottom,
-                                topInsets.right, topInsets.top);
-          default:
-              return new Insets(topInsets.top, topInsets.left,
-                                topInsets.bottom, topInsets.right);
+        switch (targetPlacement) {
+            case JTabbedPane.LEFT:
+                return new Insets(topInsets.left, topInsets.top, topInsets.right, topInsets.bottom);
+            case JTabbedPane.BOTTOM:
+                return new Insets(topInsets.bottom, topInsets.left, topInsets.top, topInsets.right);
+            case JTabbedPane.RIGHT:
+                return new Insets(topInsets.left, topInsets.bottom, topInsets.right, topInsets.top);
+            default:
+                return new Insets(topInsets.top, topInsets.left, topInsets.bottom, topInsets.right);
         }
     }
 
@@ -642,62 +573,49 @@ public class Baseline {
                 return getAquaTabbedPaneBaseline(tp, height);
             }
             Insets insets = tp.getInsets();
-            Insets contentBorderInsets = UIManager.getInsets(
-                "TabbedPane.contentBorderInsets");
-            Insets tabAreaInsets = rotateInsets(UIManager.getInsets(
-                                                 "TabbedPane.tabAreaInsets"),
-                                                tp.getTabPlacement());
+            Insets contentBorderInsets = UIManager.getInsets("TabbedPane.contentBorderInsets");
+            Insets tabAreaInsets = rotateInsets(UIManager.getInsets("TabbedPane.tabAreaInsets"), tp.getTabPlacement());
             FontMetrics metrics = tp.getFontMetrics(tp.getFont());
             int maxHeight = getMaxTabHeight(tp);
             iconRect.setBounds(0, 0, 0, 0);
             textRect.setBounds(0, 0, 0, 0);
             viewRect.setBounds(0, 0, Short.MAX_VALUE, maxHeight);
-            SwingUtilities.layoutCompoundLabel(tp, metrics, "A", null,
-                                               SwingUtilities.CENTER,
-                                               SwingUtilities.CENTER,
-                                               SwingUtilities.CENTER,
-                                               SwingUtilities.TRAILING,
-                                               viewRect,
-                                               iconRect,
-                                               textRect,
-                                               0);
+            SwingUtilities.layoutCompoundLabel(tp, metrics, "A", null, SwingUtilities.CENTER, SwingUtilities.CENTER,
+                    SwingUtilities.CENTER, SwingUtilities.TRAILING, viewRect, iconRect, textRect, 0);
             int baseline = textRect.y + metrics.getAscent();
-            switch(tp.getTabPlacement()) {
-            case JTabbedPane.TOP:
-                baseline += insets.top + tabAreaInsets.top;
-                if (isWindows()) {
-                    if (tp.getTabCount() > 1) {
-                        baseline += 1;
+            switch (tp.getTabPlacement()) {
+                case JTabbedPane.TOP:
+                    baseline += insets.top + tabAreaInsets.top;
+                    if (isWindows()) {
+                        if (tp.getTabCount() > 1) {
+                            baseline += 1;
+                        } else {
+                            baseline -= 1;
+                        }
                     }
-                    else {
-                        baseline -= 1;
+                    return baseline;
+                case JTabbedPane.BOTTOM:
+                    baseline = tp.getHeight() - insets.bottom - tabAreaInsets.bottom - maxHeight + baseline;
+                    if (isWindows()) {
+                        if (tp.getTabCount() > 1) {
+                            baseline += -1;
+                        } else {
+                            baseline += 1;
+                        }
                     }
-                }
-                return baseline;
-            case JTabbedPane.BOTTOM:
-                baseline = tp.getHeight() - insets.bottom -
-                    tabAreaInsets.bottom - maxHeight + baseline;
-                if (isWindows()) {
-                    if (tp.getTabCount() > 1) {
-                        baseline += -1;
+                    return baseline;
+                case JTabbedPane.LEFT:
+                case JTabbedPane.RIGHT:
+                    if (isAqua()) {
+                        // Aqua rotates left/right text, so that there isn't a good
+                        // baseline.
+                        return -1;
                     }
-                    else {
-                        baseline += 1;
+                    baseline += insets.top + tabAreaInsets.top;
+                    if (isWindows()) {
+                        baseline += (maxHeight % 2);
                     }
-                }
-                return baseline;
-            case JTabbedPane.LEFT:
-            case JTabbedPane.RIGHT:
-                if (isAqua()) {
-                    // Aqua rotates left/right text, so that there isn't a good
-                    // baseline.
-                    return -1;
-                }
-                baseline += insets.top + tabAreaInsets.top;
-                if (isWindows()) {
-                    baseline += (maxHeight % 2);
-                }
-                return baseline;
+                    return baseline;
             }
         }
         return -1;
@@ -708,7 +626,7 @@ public class Baseline {
         FontMetrics metrics = tp.getFontMetrics(font);
         int ascent = metrics.getAscent();
         int offset;
-        switch(tp.getTabPlacement()) {
+        switch (tp.getTabPlacement()) {
             case JTabbedPane.TOP:
                 offset = 5;
                 if (tp.getFont().getSize() > 12) {
@@ -723,8 +641,7 @@ public class Baseline {
                 } else {
                     offset = 4;
                 }
-                return height - (20 -
-                        ((20 - metrics.getHeight()) / 2 + ascent)) - offset;
+                return height - (20 - ((20 - metrics.getHeight()) / 2 + ascent)) - offset;
             case JTabbedPane.LEFT:
             case JTabbedPane.RIGHT:
                 // Aqua rotates left/right text, so that there isn't a good
@@ -733,26 +650,22 @@ public class Baseline {
         }
         return -1;
     }
-    
+
     private static int getSliderBaseline(JSlider slider, int height) {
         // We don't handle GTK as too much is hidden to be able to calculate it
         if (slider.getPaintLabels() && !isGTK()) {
             boolean isAqua = isAqua();
             FontMetrics metrics = slider.getFontMetrics(slider.getFont());
             Insets insets = slider.getInsets();
-            Insets focusInsets = (Insets)UIManager.get("Slider.focusInsets");
-	    if (slider.getOrientation() == JSlider.HORIZONTAL) {
+            Insets focusInsets = (Insets) UIManager.get("Slider.focusInsets");
+            if (slider.getOrientation() == JSlider.HORIZONTAL) {
                 int tickLength = 8;
-                int contentHeight = height - insets.top - insets.bottom -
-                    focusInsets.top - focusInsets.bottom;
+                int contentHeight = height - insets.top - insets.bottom - focusInsets.top - focusInsets.bottom;
                 int thumbHeight = 20;
                 if (isMetal()) {
-                    tickLength = ((Integer)UIManager.get(
-                                      "Slider.majorTickLength")).intValue() + 5;
-                    thumbHeight = UIManager.getIcon(
-                        "Slider.horizontalThumbIcon" ).getIconHeight();
-                }
-                else if (isWindows() && isXP()) {
+                    tickLength = ((Integer) UIManager.get("Slider.majorTickLength")).intValue() + 5;
+                    thumbHeight = UIManager.getIcon("Slider.horizontalThumbIcon").getIconHeight();
+                } else if (isWindows() && isXP()) {
                     // NOTE: this is not correct, this should come from
                     // the skin (in >= 1.5), but short of reflection
                     // hacks we don't have access to the real value.
@@ -765,12 +678,10 @@ public class Baseline {
                 }
                 // Assume uniform labels.
                 centerSpacing += metrics.getAscent() + metrics.getDescent();
-                int trackY = insets.top + focusInsets.top +
-                    (contentHeight - centerSpacing - 1) / 2;
+                int trackY = insets.top + focusInsets.top + (contentHeight - centerSpacing - 1) / 2;
                 if (isAqua) {
                     if (slider.getPaintTicks()) {
-                        int prefHeight = slider.getUI().getPreferredSize(slider).
-                                height;
+                        int prefHeight = slider.getUI().getPreferredSize(slider).height;
                         int prefDelta = height - prefHeight;
                         if (prefDelta > 0) {
                             trackY -= Math.min(1, prefDelta);
@@ -779,7 +690,7 @@ public class Baseline {
                         trackY--;
                     }
                 }
-  
+
                 int trackHeight = thumbHeight;
                 int tickY = trackY + trackHeight;
                 int tickHeight = tickLength;
@@ -788,30 +699,24 @@ public class Baseline {
                 }
                 int labelY = tickY + tickHeight;
                 return labelY + metrics.getAscent();
-            }
-            else { // vertical
+            } else { // vertical
                 boolean inverted = slider.getInverted();
-                Integer value = inverted ? getMinSliderValue(slider) :
-                                           getMaxSliderValue(slider);
+                Integer value = inverted ? getMinSliderValue(slider) : getMaxSliderValue(slider);
                 if (value != null) {
                     int thumbHeight = 11;
                     if (isMetal()) {
-                        thumbHeight = UIManager.getIcon(
-                            "Slider.verticalThumbIcon").getIconHeight();
+                        thumbHeight = UIManager.getIcon("Slider.verticalThumbIcon").getIconHeight();
                     }
-                    int trackBuffer = Math.max(metrics.getHeight() / 2,
-                                               thumbHeight / 2);
+                    int trackBuffer = Math.max(metrics.getHeight() / 2, thumbHeight / 2);
                     int contentY = focusInsets.top + insets.top;
                     int trackY = contentY + trackBuffer;
-                    int trackHeight = height - focusInsets.top -
-                        focusInsets.bottom - insets.top - insets.bottom -
-                        trackBuffer - trackBuffer;
+                    int trackHeight = height - focusInsets.top - focusInsets.bottom - insets.top - insets.bottom
+                            - trackBuffer - trackBuffer;
                     int maxValue = getMaxSliderValue(slider).intValue();
                     int min = slider.getMinimum();
                     int max = slider.getMaximum();
-                    double valueRange = (double)max - (double)min;
-                    double pixelsPerValue = (double)trackHeight /
-                        (double)valueRange;
+                    double valueRange = (double) max - (double) min;
+                    double pixelsPerValue = (double) trackHeight / (double) valueRange;
                     int trackBottom = trackY + (trackHeight - 1);
                     if (isAqua) {
                         trackY -= 3;
@@ -821,12 +726,9 @@ public class Baseline {
                     double offset;
 
                     if (!inverted) {
-                        offset = pixelsPerValue *
-                                            ((double)max - value.intValue());
-                    }
-                    else {
-                        offset = pixelsPerValue *
-                                           ((double)value.intValue() - min);
+                        offset = pixelsPerValue * ((double) max - value.intValue());
+                    } else {
+                        offset = pixelsPerValue * ((double) value.intValue() - min);
                     }
                     if (isAqua) {
                         yPosition += Math.floor(offset);
@@ -838,8 +740,7 @@ public class Baseline {
                     if (isAqua) {
                         return yPosition + metrics.getAscent();
                     }
-                    return yPosition - metrics.getHeight() / 2 +
-                        metrics.getAscent();
+                    return yPosition - metrics.getHeight() / 2 + metrics.getAscent();
                 }
             }
         }
@@ -852,7 +753,7 @@ public class Baseline {
             Enumeration keys = dictionary.keys();
             int max = slider.getMinimum() - 1;
             while (keys.hasMoreElements()) {
-                max = Math.max(max, ((Integer)keys.nextElement()).intValue());
+                max = Math.max(max, ((Integer) keys.nextElement()).intValue());
             }
             if (max == slider.getMinimum() - 1) {
                 return null;
@@ -868,7 +769,7 @@ public class Baseline {
             Enumeration keys = dictionary.keys();
             int min = slider.getMaximum() + 1;
             while (keys.hasMoreElements()) {
-                min = Math.min(min, ((Integer)keys.nextElement()).intValue());
+                min = Math.min(min, ((Integer) keys.nextElement()).intValue());
             }
             if (min == slider.getMaximum() + 1) {
                 return null;
@@ -879,8 +780,7 @@ public class Baseline {
     }
 
     private static int getProgressBarBaseline(JProgressBar pb, int height) {
-        if (pb.isStringPainted() &&
-                pb.getOrientation() == JProgressBar.HORIZONTAL) {
+        if (pb.isStringPainted() && pb.getOrientation() == JProgressBar.HORIZONTAL) {
             FontMetrics metrics = pb.getFontMetrics(pb.getFont());
             Insets insets = pb.getInsets();
             int y = insets.top;
@@ -888,17 +788,13 @@ public class Baseline {
                 if (pb.isIndeterminate()) {
                     y = -1;
                     height--;
-                }
-                else {
+                } else {
                     y = 0;
                     height -= 3;
                 }
-            }
-            else if (isGTK()) {
-                return (height - metrics.getAscent() - 
-                        metrics.getDescent()) / 2 + metrics.getAscent();
-            }
-            else if (isAqua()) {
+            } else if (isGTK()) {
+                return (height - metrics.getAscent() - metrics.getDescent()) / 2 + metrics.getAscent();
+            } else if (isAqua()) {
                 if (pb.isIndeterminate()) {
                     // Aqua doesn't appear to support text on indeterminate
                     // progress bars.
@@ -906,13 +802,10 @@ public class Baseline {
                 }
                 y -= 1;
                 height -= (insets.top + insets.bottom);
-            }
-            else {
+            } else {
                 height -= insets.top + insets.bottom;
             }
-            return y + (height + metrics.getAscent() -
-                        metrics.getLeading() -
-                        metrics.getDescent()) / 2;
+            return y + (height + metrics.getAscent() - metrics.getLeading() - metrics.getDescent()) / 2;
         }
         return -1;
     }
@@ -939,8 +832,7 @@ public class Baseline {
         JLabel label = TABLE_LABEL;
         label.setFont(table.getFont());
         int rowMargin = table.getRowMargin();
-        int baseline = getLabelBaseline(label, table.getRowHeight() -
-                                        rowMargin);
+        int baseline = getLabelBaseline(label, table.getRowHeight() - rowMargin);
         return baseline += rowMargin / 2;
     }
 
@@ -949,7 +841,7 @@ public class Baseline {
         FontMetrics fm = text.getFontMetrics(text.getFont());
         return insets.top + fm.getAscent();
     }
-    
+
     private static int getListBaseline(JList list, int height) {
         int rowHeight = list.getFixedCellHeight();
         if (LIST_LABEL == null) {
@@ -961,9 +853,9 @@ public class Baseline {
         // JList actually has much more complex behavior here.
         // If rowHeight != -1 the rowHeight is either the max of all cell
         // heights (layout orientation != VERTICAL), or is variable depending
-        // upon the cell.  We assume a default size.
+        // upon the cell. We assume a default size.
         // We could theoretically query the real renderer, but that would
-        // not work for an empty model and the results may vary with 
+        // not work for an empty model and the results may vary with
         // the content.
         if (rowHeight == -1) {
             rowHeight = label.getPreferredSize().height;
@@ -974,7 +866,7 @@ public class Baseline {
     private static int getScrollPaneBaseline(JScrollPane sp, int height) {
         Component view = sp.getViewport().getView();
         if (view instanceof JComponent) {
-            int baseline = getBaseline((JComponent)view);
+            int baseline = getBaseline((JComponent) view);
             if (baseline > 0) {
                 return baseline + sp.getViewport().getY();
             }
@@ -985,9 +877,8 @@ public class Baseline {
     private static int getPanelBaseline(JPanel panel, int height) {
         Border border = panel.getBorder();
         if (border instanceof TitledBorder) {
-            TitledBorder titledBorder = (TitledBorder)border;
-            if (titledBorder.getTitle() != null &&
-                      !"".equals(titledBorder.getTitle())) {
+            TitledBorder titledBorder = (TitledBorder) border;
+            if (titledBorder.getTitle() != null && !"".equals(titledBorder.getTitle())) {
                 Font font = titledBorder.getTitleFont();
                 if (font == null) {
                     font = panel.getFont();
@@ -999,8 +890,7 @@ public class Baseline {
                 Insets borderInsets;
                 if (border2 != null) {
                     borderInsets = border2.getBorderInsets(panel);
-                }
-                else {
+                } else {
                     borderInsets = EMPTY_INSETS;
                 }
                 FontMetrics fm = panel.getFontMetrics(font);
@@ -1010,29 +900,24 @@ public class Baseline {
                 int y = EDGE_SPACING;
                 int h = height - EDGE_SPACING * 2;
                 int diff;
-                switch (((TitledBorder)border).getTitlePosition()) {
-                case TitledBorder.ABOVE_TOP:
-                    diff = ascent + descent + (Math.max(EDGE_SPACING,
-                                    TEXT_SPACING*2) - EDGE_SPACING);
-                    return y + diff - (descent + TEXT_SPACING);
-                case TitledBorder.TOP:
-                case TitledBorder.DEFAULT_POSITION:
-                    diff = Math.max(0, ((ascent/2) + TEXT_SPACING) -
-                                    EDGE_SPACING);
-                    return (y + diff - descent) +
-                           (borderInsets.top + ascent + descent)/2;
-                case TitledBorder.BELOW_TOP:
-                    return y + borderInsets.top + ascent + TEXT_SPACING;
-                case TitledBorder.ABOVE_BOTTOM:
-                    return (y + h) -
-                        (borderInsets.bottom + descent + TEXT_SPACING);
-                case TitledBorder.BOTTOM:
-                    h -= fontHeight / 2;
-                    return ((y + h) - descent) +
-                           ((ascent + descent) - borderInsets.bottom)/2;
-                case TitledBorder.BELOW_BOTTOM:
-                    h -= fontHeight;
-                    return y + h + ascent + TEXT_SPACING;
+                switch (((TitledBorder) border).getTitlePosition()) {
+                    case TitledBorder.ABOVE_TOP:
+                        diff = ascent + descent + (Math.max(EDGE_SPACING, TEXT_SPACING * 2) - EDGE_SPACING);
+                        return y + diff - (descent + TEXT_SPACING);
+                    case TitledBorder.TOP:
+                    case TitledBorder.DEFAULT_POSITION:
+                        diff = Math.max(0, ((ascent / 2) + TEXT_SPACING) - EDGE_SPACING);
+                        return (y + diff - descent) + (borderInsets.top + ascent + descent) / 2;
+                    case TitledBorder.BELOW_TOP:
+                        return y + borderInsets.top + ascent + TEXT_SPACING;
+                    case TitledBorder.ABOVE_BOTTOM:
+                        return (y + h) - (borderInsets.bottom + descent + TEXT_SPACING);
+                    case TitledBorder.BOTTOM:
+                        h -= fontHeight / 2;
+                        return ((y + h) - descent) + ((ascent + descent) - borderInsets.bottom) / 2;
+                    case TitledBorder.BELOW_BOTTOM:
+                        h -= fontHeight;
+                        return y + h + ascent + TEXT_SPACING;
                 }
             }
         }
@@ -1042,8 +927,7 @@ public class Baseline {
     private static int getSpinnerBaseline(JSpinner spinner, int height) {
         JComponent editor = spinner.getEditor();
         if (editor instanceof JSpinner.DefaultEditor) {
-            JSpinner.DefaultEditor defaultEditor = (JSpinner.DefaultEditor)
-                                          editor;
+            JSpinner.DefaultEditor defaultEditor = (JSpinner.DefaultEditor) editor;
             JTextField tf = defaultEditor.getTextField();
             Insets spinnerInsets = spinner.getInsets();
             Insets editorInsets = defaultEditor.getInsets();
@@ -1060,17 +944,14 @@ public class Baseline {
     }
 
     private static int getLabelBaseline(JLabel label, int height) {
-        Icon icon = (label.isEnabled()) ? label.getIcon() :
-                           label.getDisabledIcon();
+        Icon icon = (label.isEnabled()) ? label.getIcon() : label.getDisabledIcon();
         FontMetrics fm = label.getFontMetrics(label.getFont());
 
         resetRects(label, height);
 
-        SwingUtilities.layoutCompoundLabel(label, fm,
-            "a", icon, label.getVerticalAlignment(),
-            label.getHorizontalAlignment(), label.getVerticalTextPosition(),
-            label.getHorizontalTextPosition(), viewRect, iconRect, textRect,
-            label.getIconTextGap());
+        SwingUtilities.layoutCompoundLabel(label, fm, "a", icon, label.getVerticalAlignment(),
+                label.getHorizontalAlignment(), label.getVerticalTextPosition(), label.getHorizontalTextPosition(),
+                viewRect, iconRect, textRect, label.getIconTextGap());
 
         return textRect.y + fm.getAscent();
     }
@@ -1081,9 +962,8 @@ public class Baseline {
         height -= (insets.top + insets.bottom);
         if (combobox.isEditable()) {
             ComboBoxEditor editor = combobox.getEditor();
-            if (editor != null && (editor.getEditorComponent() instanceof
-                                   JTextField)) {
-                JTextField tf = (JTextField)editor.getEditorComponent();
+            if (editor != null && (editor.getEditorComponent() instanceof JTextField)) {
+                JTextField tf = (JTextField) editor.getEditorComponent();
                 return y + getSingleLineTextBaseline(tf, height);
             }
         }
@@ -1093,8 +973,7 @@ public class Baseline {
                 y += 2;
                 height -= 4;
             }
-        }
-        else if (isWindows()) {
+        } else if (isWindows()) {
             // This doesn't guarantee an XP style will be active,
             // but we don't offer public API to detect if XP is active.
             String osVersion = System.getProperty("os.version");
@@ -1108,7 +987,7 @@ public class Baseline {
         }
         ListCellRenderer renderer = combobox.getRenderer();
         if (renderer instanceof JLabel) {
-            int baseline = y + getLabelBaseline((JLabel)renderer, height);
+            int baseline = y + getLabelBaseline((JLabel) renderer, height);
             if (isAqua()) {
                 return baseline - 1;
             }
@@ -1120,24 +999,21 @@ public class Baseline {
     }
 
     /**
-     * Returns the baseline for single line text components, like
-     * <code>JTextField</code>.
+     * Returns the baseline for single line text components, like <code>JTextField</code>.
      */
-    private static int getSingleLineTextBaseline(JTextComponent textComponent,
-                                                 int h) {
+    private static int getSingleLineTextBaseline(JTextComponent textComponent, int h) {
         View rootView = textComponent.getUI().getRootView(textComponent);
         if (rootView.getViewCount() > 0) {
             Insets insets = textComponent.getInsets();
             int height = h - insets.top - insets.bottom;
             int y = insets.top;
             View fieldView = rootView.getView(0);
-	    int vspan = (int)fieldView.getPreferredSpan(View.Y_AXIS);
-	    if (height != vspan) {
-		int slop = height - vspan;
-		y += slop / 2;
-	    }
-            FontMetrics fm = textComponent.getFontMetrics(
-                                 textComponent.getFont());
+            int vspan = (int) fieldView.getPreferredSpan(View.Y_AXIS);
+            if (height != vspan) {
+                int slop = height - vspan;
+                y += slop / 2;
+            }
+            FontMetrics fm = textComponent.getFontMetrics(textComponent.getFont());
             y += fm.getAscent();
             return y;
         }
@@ -1159,13 +1035,9 @@ public class Baseline {
         // NOTE: that we use "a" here to make sure we get a valid value, if
         // we were to pass in an empty string or null we would not get
         // back the right thing.
-        SwingUtilities.layoutCompoundLabel(
-            button, fm, "a", button.getIcon(), 
-            button.getVerticalAlignment(), button.getHorizontalAlignment(),
-            button.getVerticalTextPosition(),
-            button.getHorizontalTextPosition(),
-            viewRect, iconRect, textRect, 
-            text == null ? 0 : button.getIconTextGap());
+        SwingUtilities.layoutCompoundLabel(button, fm, "a", button.getIcon(), button.getVerticalAlignment(),
+                button.getHorizontalAlignment(), button.getVerticalTextPosition(), button.getHorizontalTextPosition(),
+                viewRect, iconRect, textRect, text == null ? 0 : button.getIconTextGap());
 
         if (isAqua()) {
             return textRect.y + fm.getAscent() + 1;
@@ -1182,7 +1054,7 @@ public class Baseline {
         textRect.x = textRect.y = textRect.width = textRect.height = 0;
         iconRect.x = iconRect.y = iconRect.width = iconRect.height = 0;
     }
-    
+
     private static boolean isOceanTheme() {
         if (!inSandbox) {
             try {
@@ -1201,7 +1073,7 @@ public class Baseline {
         }
         return usingOcean;
     }
-    
+
     private static void checkForOcean() {
         String version = System.getProperty("java.specification.version");
         int firstDot = version.indexOf('.');
@@ -1230,22 +1102,21 @@ public class Baseline {
     private static boolean isWindows() {
         return isWindows(UIManager.getLookAndFeel());
     }
-    
+
     private static boolean isWindows(LookAndFeel laf) {
         if (laf.getID() == "Windows") {
             return true;
         }
         if (!checkedForWindows) {
             try {
-                WINDOWS_CLASS = Class.forName(
-                  "com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
+                WINDOWS_CLASS = Class.forName("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
             } catch (ClassNotFoundException e) {
             }
             checkedForWindows = true;
         }
         return (WINDOWS_CLASS != null && WINDOWS_CLASS.isInstance(laf));
     }
-    
+
     private static boolean isMetal() {
         return isMetal(UIManager.getLookAndFeel());
     }
@@ -1265,19 +1136,16 @@ public class Baseline {
     private static boolean isXP() {
         if (!checkedForClassic) {
             try {
-                CLASSIC_WINDOWS = Class.forName(
-                  "com.sun.java.swing.plaf.windows.WindowsClassicLookAndFeel");
+                CLASSIC_WINDOWS = Class.forName("com.sun.java.swing.plaf.windows.WindowsClassicLookAndFeel");
             } catch (ClassNotFoundException e) {
             }
             checkedForClassic = true;
         }
-        if (CLASSIC_WINDOWS != null && CLASSIC_WINDOWS.
-                    isInstance(UIManager.getLookAndFeel())) {
+        if (CLASSIC_WINDOWS != null && CLASSIC_WINDOWS.isInstance(UIManager.getLookAndFeel())) {
             return false;
         }
         Toolkit toolkit = Toolkit.getDefaultToolkit();
-        Boolean themeActive = (Boolean)toolkit.getDesktopProperty(
-                                       "win.xpstyle.themeActive");
+        Boolean themeActive = (Boolean) toolkit.getDesktopProperty("win.xpstyle.themeActive");
         if (themeActive == null) {
             themeActive = Boolean.FALSE;
         }
@@ -1285,32 +1153,30 @@ public class Baseline {
     }
 
     /**
-     * Creates an instance of Baseline.  You typically don't create a
-     * Baseline.  The constructor is provided by look and feels that wish
-     * to provide baseline support.
+     * Creates an instance of Baseline. You typically don't create a Baseline. The constructor is provided by look and
+     * feels that wish to provide baseline support.
      * <p>
-     * A custom look and feel that wants to provide <code>Baseline</code>
-     * support should put the instance in the defaults returned
-     * from <code>getDefaults</code>.  If you want to override the 
-     * baseline suport for a look and feel place the instance in the defaults
-     * returned from UIManager.getLookAndFeelDefaults().  Tthis will ensure
-     * that if the look and feel changes the appropriate baseline can be used.
+     * A custom look and feel that wants to provide <code>Baseline</code> support should put the instance in the
+     * defaults returned from <code>getDefaults</code>. If you want to override the baseline suport for a look and feel
+     * place the instance in the defaults returned from UIManager.getLookAndFeelDefaults(). Tthis will ensure that if
+     * the look and feel changes the appropriate baseline can be used.
      */
     protected Baseline() {
     }
-    
+
     /**
-     * Returns the baseline for the specified component, or -1 if the
-     * baseline can not be determined.  The baseline is measured from
-     * the top of the component.
+     * Returns the baseline for the specified component, or -1 if the baseline can not be determined. The baseline is
+     * measured from the top of the component.
      *
-     * @param component JComponent to calculate baseline for
-     * @param width Width of the component to determine baseline for.
-     * @param height Height of the component to determine baseline for.
+     * @param component
+     *            JComponent to calculate baseline for
+     * @param width
+     *            Width of the component to determine baseline for.
+     * @param height
+     *            Height of the component to determine baseline for.
      * @return baseline for the specified component
      */
-    public int getComponentBaseline(JComponent component, int width,
-            int height) {
+    public int getComponentBaseline(JComponent component, int width, int height) {
         return -1;
     }
 }
