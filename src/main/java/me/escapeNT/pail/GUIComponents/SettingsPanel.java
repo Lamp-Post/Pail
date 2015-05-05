@@ -834,7 +834,7 @@ public class SettingsPanel extends javax.swing.JPanel implements Localizable {
     /**
      * @return the theme
      */
-    public javax.swing.JComboBox<String> getThemes() {
+    public javax.swing.JComboBox getThemes() {
         return themes;
     }
 

@@ -390,7 +390,7 @@ public class WaypointEditPanel extends javax.swing.JPanel implements Localizable
     /**
      * @return the players
      */
-    public javax.swing.JComboBox<String> getPlayers() {
+    public javax.swing.JComboBox getPlayers() {
         return players;
     }
 
