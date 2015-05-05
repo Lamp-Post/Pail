@@ -1,15 +1,16 @@
 package me.escapeNT.pail.config;
 
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Level;
 
+import ninja.leaping.configurate.ConfigurationNode;
+import ninja.leaping.configurate.ConfigurationOptions;
+import ninja.leaping.configurate.commented.CommentedConfigurationNode;
+import ninja.leaping.configurate.hocon.HoconConfigurationLoader;
+import ninja.leaping.configurate.loader.ConfigurationLoader;
 import me.escapeNT.pail.Util.Util;
 
 /**
@@ -20,32 +21,25 @@ public class PanelConfig {
 
     private static Map<String, Boolean> panelsActivated = new HashMap<String, Boolean>();
 
-    public static final File file = new File(Util.getPlugin().getDataFolder(), "panels.dat");
+    public static final File file = new File("panels.conf");
+    public static final ConfigurationLoader<CommentedConfigurationNode> loader = HoconConfigurationLoader.builder().setFile(file).build();
+    public static ConfigurationNode rootNode;
 
     public static void save() {
-        Util.getPlugin().getDataFolder().mkdir();
-        try {
-            FileOutputStream fos = new FileOutputStream(file);
-            ObjectOutputStream oos = new ObjectOutputStream(fos);
-            oos.writeObject(panelsActivated);
-            oos.close();
-        } catch (IOException ex) {
-            Util.log(Level.SEVERE, ex.toString());
-        }
+        rootNode = loader.createEmptyNode(ConfigurationOptions.defaults());
+		rootNode.setValue(panelsActivated);
     }
 
     public static void load() {
         if (!file.exists()) {
             save();
         }
-         try {
-            FileInputStream fis = new FileInputStream(file);
-            ObjectInputStream ois = new ObjectInputStream(fis);
-            panelsActivated = (Map<String, Boolean>) ois.readObject();
-            ois.close();
-        } catch (Exception ex) {
+		try {
+			loader.save(rootNode);
+        } catch (IOException ex) {
             Util.log(Level.SEVERE, ex.toString());
         }
+		panelsActivated = (Map<String, Boolean>) rootNode.getValue();
     }
 
     /**

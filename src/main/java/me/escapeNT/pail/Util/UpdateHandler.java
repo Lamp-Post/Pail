@@ -26,7 +26,7 @@ import me.escapeNT.pail.Pail;
 public class UpdateHandler {
     private static final String version = Pail.PLUGIN_VERSION;
     private static String currentVersion;
-    public static final File updateFile = new File(new File(Pail.getGame().getUpdateFolder()).getPath(), "Pail.jar");
+    public static final File updateFile = new File(new File(Util.getDataFolder(), "update"), "Pail.jar");
 
     /**
      * Checks if the current Pail version is up to date.

@@ -178,7 +178,7 @@ public class SettingsPanel extends javax.swing.JPanel implements Localizable {
         Server s = Pail.getServer();
         WorldProperties worldProperties = (WorldProperties) s.getAllWorldProperties().toArray()[0];
 
-        worldName.setText(main.getWorldName());
+        /*worldName.setText(main.getWorldName());
         seed.setText(new Long(main.getSeed()).toString());
         ip.setText(s.getBoundAddress().get().getHostString());
 
@@ -199,7 +199,7 @@ public class SettingsPanel extends javax.swing.JPanel implements Localizable {
 
         boolean c = worldProperties.getGameMode() == GameModes.CREATIVE;
         creative.setSelected(c);
-        survival.setSelected(!c);
+        survival.setSelected(!c);*/ //TODO
     }
 
     /**

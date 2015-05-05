@@ -1,8 +1,20 @@
 package me.escapeNT.pail.config;
 
+import java.io.File;
+import java.io.IOException;
+import java.util.logging.Level;
+
 import com.google.api.translate.Language;
+import com.google.inject.Inject;
 
 import javax.swing.UIManager;
+
+import ninja.leaping.configurate.ConfigurationNode;
+import ninja.leaping.configurate.commented.CommentedConfigurationNode;
+import ninja.leaping.configurate.hocon.HoconConfigurationLoader;
+import ninja.leaping.configurate.loader.ConfigurationLoader;
+
+import org.spongepowered.api.service.config.DefaultConfig;
 
 import me.escapeNT.pail.Util.Util;
 
@@ -11,11 +23,26 @@ import me.escapeNT.pail.Util.Util;
  * @author escapeNT
  */
 public class General {
+	
+	@Inject
+	@DefaultConfig(sharedRoot = false)
+	private static File defaultConfig;
+
+	@Inject
+	@DefaultConfig(sharedRoot = false)//TODO ???
+	private static ConfigurationLoader<CommentedConfigurationNode> configManager = HoconConfigurationLoader.builder().setFile(defaultConfig).build();
+	
+    public static ConfigurationNode rootNode;
 
     /**
      * Loads the configuration.
      */
     public static void load() {
+    	try {
+    	    rootNode = configManager.load();
+    	} catch(IOException e) {
+    	    rootNode = null;
+    	}
         defaults();
         setAutoUpdate(isAutoUpdate());
         setLookAndFeel(getLookAndFeel());
@@ -23,44 +50,48 @@ public class General {
     }
 
     private static void defaults() {
-        Util.getPlugin().getConfig().addDefault("Autoupdate", true);
-        Util.getPlugin().getConfig().addDefault("Skin", UIManager.getSystemLookAndFeelClassName());
-        Util.getPlugin().getConfig().addDefault("Language", Language.ENGLISH.toString());
+        rootNode.getNode("Autoupdate").setValue(true);
+        rootNode.getNode("Skin").setValue(UIManager.getSystemLookAndFeelClassName());
+        rootNode.getNode("Language").setValue(Language.ENGLISH.toString());
     }
 
     /**
      * Saves the configuration.
      */
     public static void save() {
-        Util.getPlugin().saveConfig();
+        try {
+        	configManager.save(rootNode);
+        } catch (IOException ex) {
+        	Util.log(Level.SEVERE, ex.toString());
+        }
     }
 
     /**
      * @return the autoUpdate
      */
     public static boolean isAutoUpdate() {
-        return Util.getPlugin().getConfig().getBoolean("Autoupdate");
+        return rootNode.getNode("Autoupdate").getBoolean(true);
     }
 
     /**
      * @param aAutoUpdate the autoUpdate to set
      */
     public static void setAutoUpdate(boolean autoUpdate) {
-        Util.getPlugin().getConfig().set("Autoupdate", autoUpdate);
+    	rootNode.getNode("Autoupdate").setValue(autoUpdate);
     }
 
     /**
      * @return the lookAndFeel
      */
     public static String getLookAndFeel() {
-        return Util.getPlugin().getConfig().getString("Skin");
+        return rootNode.getNode("Skin").getString();
     }
 
     /**
      * @param aLookAndFeel the lookAndFeel to set
      */
     public static void setLookAndFeel(String lookAndFeel) {
-        Util.getPlugin().getConfig().set("Skin", lookAndFeel);
+    	rootNode.getNode("Skin").setValue(lookAndFeel);
     }
 
     /**
@@ -72,7 +103,7 @@ public class General {
     }
 
     private static void loadConfigLang() {
-        String value = Util.getPlugin().getConfig().getString("Language");
+        String value = rootNode.getNode("Language").getString();
         Language lang = Language.fromString(value);
         if (lang == null) {
             lang = Language.ENGLISH;
@@ -85,7 +116,7 @@ public class General {
      */
     public static void setLang(Language aLang) {
         if (aLang == null) return;
-        Util.getPlugin().getConfig().set("Language", aLang.toString());
+        rootNode.getNode("Language").setValue(aLang.toString());
         lang = aLang;
     }
 }

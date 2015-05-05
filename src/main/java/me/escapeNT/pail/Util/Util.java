@@ -22,6 +22,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 
+import org.spongepowered.api.plugin.PluginContainer;
 import org.spongepowered.api.util.command.source.ConsoleSource;
 
 import me.escapeNT.pail.GUIComponents.FileMenu;
@@ -40,6 +41,7 @@ public final class Util {
     private static ServerControlPanel serverControls;
     private static FileMenu fileMenu;
     private static final int BUFFER = 2048;
+    private static File pluginDir;
 
     /**
      * Reads the last number of specified lines in a file.
@@ -233,5 +235,13 @@ public final class Util {
 
     public static ConsoleSource getConsoleSender() {
         return Pail.getServer().getConsole();
+    }
+    
+    public static File getDataFolder() {
+    	return pluginDir;
+    }
+    
+    public static void setDataFolder(File folder) {
+    	pluginDir = folder;
     }
 }

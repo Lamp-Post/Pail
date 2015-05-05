@@ -11,10 +11,14 @@ import org.spongepowered.api.block.BlockType;
 import org.spongepowered.api.block.BlockTypes;
 import org.spongepowered.api.entity.player.Player;
 import org.spongepowered.api.event.Subscribe;
+import org.spongepowered.api.event.state.InitializationEvent;
 import org.spongepowered.api.event.state.PreInitializationEvent;
 import org.spongepowered.api.event.state.ServerStartingEvent;
 import org.spongepowered.api.event.state.ServerStoppingEvent;
 import org.spongepowered.api.plugin.Plugin;
+import org.spongepowered.api.service.ServiceManager;
+import org.spongepowered.api.service.config.ConfigService;
+import org.spongepowered.api.service.event.EventManager;
 
 import me.escapeNT.pail.GUIComponents.AboutView;
 import me.escapeNT.pail.GUIComponents.MainWindow;
@@ -75,6 +79,8 @@ public final class Pail {
     public static final ServerReadyListener handler = new ServerReadyListener();
     private final WindowCloseListener windowListener = new WindowCloseListener();
     private MainWindow main;
+    
+    private ServiceManager serviceManager;
 
     public Pail() {
         Util.setPlugin(this);
@@ -109,19 +115,25 @@ public final class Pail {
     
     @Subscribe
     public void onInitialization(PreInitializationEvent event) {
-        instance = this;
-
-        logger.info("Loading Pail, please wait...");
+    	serviceManager = getGame().getServiceManager();
+    	Util.setDataFolder(serviceManager.provide(ConfigService.class).get().getPluginConfig(this).getDirectory());
+    	if(!Util.getDataFolder().exists()) {
+    	Util.getDataFolder().mkdirs();
+    	}
     }
     
     @Subscribe
-    public void onStarting(ServerStartingEvent event) {
-        // Setup variables
-        PLUGIN_NAME = getGame().getPluginManager().getPlugin("pail").get().getName();
-        //PLUGIN_THREAD = getDescription().getWebsite();
-        PLUGIN_VERSION = getGame().getPluginManager().getPlugin("pail").get().getVersion();
+    public void onStarting(InitializationEvent event) {
+        instance = this;
 
-        Translate.setHttpReferrer(PLUGIN_THREAD);
+        logger.info("Loading Pail, please wait...");
+        
+        // Setup variables
+        PLUGIN_NAME = "Pail";
+        //PLUGIN_THREAD = getDescription().getWebsite();
+        PLUGIN_VERSION = "1.0.0";
+
+        //Translate.setHttpReferrer(PLUGIN_THREAD);
 
         if (main == null) {
             main = new MainWindow();
@@ -151,9 +163,9 @@ public final class Pail {
 
         Thread t = new Thread(new InitMain(), "Pail");
         t.start();
-
-        //PluginManager pm = getGame().getPluginManager();
-        //pm.registerEvents(new PailPlayerListener(), this);
+        
+        EventManager eventBus = game.getServiceManager().provide(EventManager.class).get();
+        eventBus.register(this, new PailPlayerListener());
     }
     
     @Subscribe

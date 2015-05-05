@@ -4,6 +4,8 @@ import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import org.spongepowered.api.text.Texts;
+import org.spongepowered.api.text.format.TextColors;
 import org.spongepowered.api.world.World;
 
 import me.escapeNT.pail.Pail;
@@ -53,23 +55,24 @@ public class BackupTask implements ScheduledTask {
      */
     public void execute() {
         final File worldFolder = new File(world);
-        final File backupFolder = new File(Util.getPlugin().getDataFolder(), "backups");
+        final File backupFolder = new File(Util.getDataFolder(), "backups");
         final File backup = new File(backupFolder, world
                 + new SimpleDateFormat("'@'MM-dd-yy_hh.mm.ss").format(new Date(System.currentTimeMillis())) + ".zip");
         if (!backupFolder.exists()) {
             backupFolder.mkdir();
         }
-        Pail.getServer().getScheduler().runTaskAsynchronously(Util.getPlugin(), new Runnable() {
-            public void run() {
+        Pail.getGame().getAsyncScheduler().runTask(Util.getPlugin(), new Runnable() {
+            @SuppressWarnings("deprecation")
+			public void run() {
                 Util.log("Starting scheduled backup for " + world);
                 if (broadcast) {
-                    Pail.getServer().broadcastMessage(ChatColor.GRAY + "Scheduled backup is starting for " + world);
+                    Pail.getServer().broadcastMessage(Texts.fromLegacy(TextColors.GRAY + "Scheduled backup is starting for " + world));
                 }
                 long start = System.currentTimeMillis();
                 Util.zipDir(worldFolder, backup);
                 int seconds = (int) (System.currentTimeMillis() - start) / 1000;
                 if (broadcast) {
-                    Pail.getServer().broadcastMessage(ChatColor.GRAY + "Scheduled backup completed for " + world);
+                    Pail.getServer().broadcastMessage(Texts.fromLegacy(TextColors.GRAY + "Scheduled backup completed for " + world));
                 }
                 Util.log("Backup completed in " + seconds + (seconds == 1 ? " second" : " seconds") + " for " + world);
             }

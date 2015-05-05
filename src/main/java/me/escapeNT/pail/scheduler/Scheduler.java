@@ -10,6 +10,12 @@ import java.util.HashMap;
 import java.util.UUID;
 import java.util.logging.Level;
 
+import ninja.leaping.configurate.ConfigurationNode;
+import ninja.leaping.configurate.ConfigurationOptions;
+import ninja.leaping.configurate.commented.CommentedConfigurationNode;
+import ninja.leaping.configurate.hocon.HoconConfigurationLoader;
+import ninja.leaping.configurate.loader.ConfigurationLoader;
+
 import org.spongepowered.api.service.scheduler.SynchronousScheduler;
 import org.spongepowered.api.service.scheduler.Task;
 
@@ -27,7 +33,9 @@ public class Scheduler {
     private static HashMap<ScheduledTask, Boolean> tasks = new HashMap<ScheduledTask, Boolean>();
     private static HashMap<ScheduledTask, UUID> taskIDs = new HashMap<ScheduledTask, UUID>();
     private static final SynchronousScheduler bs = Pail.getGame().getSyncScheduler();
-    private static final File file = new File(Util.getPlugin().getDataFolder(), "tasks.dat");
+    private static final File file = new File("tasks.conf");
+    public static final ConfigurationLoader<CommentedConfigurationNode> loader = HoconConfigurationLoader.builder().setFile(file).build();
+    public static ConfigurationNode rootNode;
 
     /**
      * Registers a task to be executed. If the task has already been registered,
@@ -90,15 +98,8 @@ public class Scheduler {
      * Saves the current list of tasks to file.
      */
     public static void saveTasks() {
-        Util.getPlugin().getDataFolder().mkdir();
-        try {
-            FileOutputStream fos = new FileOutputStream(file);
-            ObjectOutputStream oos = new ObjectOutputStream(fos);
-            oos.writeObject(tasks);
-            oos.close();
-        } catch (IOException ex) {
-            Util.log(Level.SEVERE, ex.toString());
-        }
+        rootNode = loader.createEmptyNode(ConfigurationOptions.defaults());
+		rootNode.setValue(tasks);
     }
 
     /**
@@ -113,13 +114,11 @@ public class Scheduler {
             bs.getTaskById(taskId).get().cancel();
         }
         try {
-            FileInputStream fis = new FileInputStream(file);
-            ObjectInputStream ois = new ObjectInputStream(fis);
-            tasks = (HashMap<ScheduledTask, Boolean>) ois.readObject();
-            ois.close();
+			loader.save(rootNode);
         } catch (Exception ex) {
             Util.log(Level.SEVERE, ex.toString());
         }
+        tasks = (HashMap<ScheduledTask, Boolean>) rootNode.getValue();
         for (final ScheduledTask task : tasks.keySet()) {
             if (!task.isEnabled()) {
                 continue;
