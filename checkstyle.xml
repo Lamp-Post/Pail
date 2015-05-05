@@ -109,7 +109,6 @@
       <property name="severity" value="ignore"/>
       <property name="allowedAbbreviationLength" value="1"/>
       <property name="ignoreFinal" value="false"/>
-      <metadata name="net.sf.eclipsecs.core.lastEnabledSeverity" value="inherit"/>
     </module>
     <module name="CustomImportOrder">
       <property name="customImportOrderRules" value="STATIC###SPECIAL_IMPORTS###THIRD_PARTY_PACKAGE###STANDARD_JAVA_PACKAGE"/>
@@ -132,29 +131,24 @@
     </module>
     <module name="NonEmptyAtclauseDescription">
       <property name="severity" value="ignore"/>
-      <metadata name="net.sf.eclipsecs.core.lastEnabledSeverity" value="inherit"/>
     </module>
     <module name="JavadocTagContinuationIndentation">
       <property name="severity" value="ignore"/>
-      <metadata name="net.sf.eclipsecs.core.lastEnabledSeverity" value="inherit"/>
     </module>
     <module name="SummaryJavadocCheck"/>
     <module name="JavadocParagraph">
       <property name="severity" value="ignore"/>
-      <metadata name="net.sf.eclipsecs.core.lastEnabledSeverity" value="inherit"/>
     </module>
     <module name="AtclauseOrder">
       <property name="severity" value="ignore"/>
       <property name="target" value="CLASS_DEF, INTERFACE_DEF, ENUM_DEF, METHOD_DEF, CTOR_DEF, VARIABLE_DEF"/>
       <property name="tagOrder" value="@param, @return, @throws, @deprecated"/>
-      <metadata name="net.sf.eclipsecs.core.lastEnabledSeverity" value="inherit"/>
     </module>
     <module name="JavadocMethod">
       <property name="severity" value="ignore"/>
       <property name="allowedAnnotations" value="Override, Test"/>
       <property name="scope" value="public"/>
       <property name="allowThrowsTagsForSubclasses" value="true"/>
-      <metadata name="net.sf.eclipsecs.core.lastEnabledSeverity" value="inherit"/>
     </module>
     <module name="MethodName">
       <property name="format" value="^(_INVALID_)?[a-z][a-zA-Z0-9_]*$"/>
@@ -162,7 +156,6 @@
     </module>
     <module name="SingleLineJavadoc">
       <property name="severity" value="ignore"/>
-      <metadata name="net.sf.eclipsecs.core.lastEnabledSeverity" value="inherit"/>
     </module>
     <module name="RedundantImport"/>
     <module name="RedundantModifier"/>
