@@ -75,7 +75,7 @@ public class SettingsPanel extends javax.swing.JPanel implements Localizable {
         loadConfig();
 
         settingsTabs.add(Util.translate("Waypoints"), waypointEditor);
-        // settingsTabs.add(Util.translate("Scheduler"), new SchedulerPanel());
+        settingsTabs.add(Util.translate("Scheduler"), new SchedulerPanel());
 
         autoUpdate.addItemListener(new ItemListener() {
             public void itemStateChanged(ItemEvent e) {
@@ -174,8 +174,8 @@ public class SettingsPanel extends javax.swing.JPanel implements Localizable {
         }
         // End temp fix
 
-        Server s = Pail.getServer();
-        WorldProperties worldProperties = (WorldProperties) s.getAllWorldProperties().toArray()[0];
+        //Server s = Pail.getServer();
+        //WorldProperties worldProperties = (WorldProperties) s.getAllWorldProperties();
 
         /*
          * worldName.setText(main.getWorldName()); seed.setText(new Long(main.getSeed()).toString());

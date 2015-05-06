@@ -7,7 +7,9 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.UUID;
+import java.util.Map.Entry;
 import java.util.logging.Level;
 
 import ninja.leaping.configurate.ConfigurationNode;
@@ -17,9 +19,6 @@ import ninja.leaping.configurate.hocon.HoconConfigurationLoader;
 import ninja.leaping.configurate.loader.ConfigurationLoader;
 
 import org.spongepowered.api.service.scheduler.SynchronousScheduler;
-import org.spongepowered.api.service.scheduler.Task;
-
-import com.google.common.base.Optional;
 
 import me.escapeNT.pail.Pail;
 import me.escapeNT.pail.Util.Util;
@@ -33,10 +32,7 @@ public class Scheduler {
     private static HashMap<ScheduledTask, Boolean> tasks = new HashMap<ScheduledTask, Boolean>();
     private static HashMap<ScheduledTask, UUID> taskIDs = new HashMap<ScheduledTask, UUID>();
     private static final SynchronousScheduler bs = Pail.getGame().getSyncScheduler();
-    private static final File file = new File("tasks.conf");
-    public static final ConfigurationLoader<CommentedConfigurationNode> loader = HoconConfigurationLoader.builder()
-            .setFile(file).build();
-    public static ConfigurationNode rootNode;
+    private static final File file = new File(Util.getDataFolder(), "tasks.dat");
 
     /**
      * Registers a task to be executed. If the task has already been registered, the method simply returns.
@@ -98,14 +94,20 @@ public class Scheduler {
      * Saves the current list of tasks to file.
      */
     public static void saveTasks() {
-        rootNode = loader.createEmptyNode(ConfigurationOptions.defaults());
-        rootNode.setValue(tasks);
+        Util.getDataFolder().mkdir();
+        try {
+            FileOutputStream fos = new FileOutputStream(file);
+            ObjectOutputStream oos = new ObjectOutputStream(fos);
+            oos.writeObject(tasks);
+            oos.close();
+        } catch (IOException ex) {
+            Util.log(Level.SEVERE, ex.toString());
+        }
     }
 
     /**
      * Loads the saved list of tasks.
      */
-    @SuppressWarnings("unchecked")
     public static void loadTasks() {
         if (!file.exists()) {
             saveTasks();
@@ -114,11 +116,13 @@ public class Scheduler {
             bs.getTaskById(taskId).get().cancel();
         }
         try {
-            loader.save(rootNode);
+            FileInputStream fis = new FileInputStream(file);
+            ObjectInputStream ois = new ObjectInputStream(fis);
+            tasks = (HashMap<ScheduledTask, Boolean>) ois.readObject();
+            ois.close();
         } catch (Exception ex) {
             Util.log(Level.SEVERE, ex.toString());
         }
-        tasks = (HashMap<ScheduledTask, Boolean>) rootNode.getValue();
         for (final ScheduledTask task : tasks.keySet()) {
             if (!task.isEnabled()) {
                 continue;

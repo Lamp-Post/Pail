@@ -40,7 +40,7 @@ public class AboutView extends javax.swing.JDialog {
         version.setText("Version ");
 
         icon.setIcon(new javax.swing.ImageIcon(getClass()
-                .getResource("/me/escapeNT/pail/GUIComponents/images/pail.png"))); // NOI18N
+                .getResource("/images/pail.png"))); // NOI18N
 
         org.jdesktop.layout.GroupLayout layout = new org.jdesktop.layout.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);

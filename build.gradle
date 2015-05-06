@@ -9,7 +9,6 @@ plugins {
     id 'java'
     id 'eclipse'
     id 'idea'
-    id 'checkstyle'
 
     id 'com.github.johnrengelman.shadow' version '1.2.1'
 }
@@ -17,7 +16,7 @@ plugins {
 defaultTasks 'clean', 'build'
 
 // Project information
-group = 'me.escsapeNT.pail'
+group = 'me.escapeNT.pail'
 version = '1.0.0-SNAPSHOT'
 
 sourceCompatibility = 1.6
@@ -26,17 +25,37 @@ targetCompatibility = 1.6
 // Project repositories
 repositories {
     mavenCentral()
-    maven { url 'https://oss.sonatype.org/content/repositories/snapshots' }
+    maven { url 'https://oss.sonatype.org/content/repositories/snapshots' 
+    }
     // Add Sponge repo for custom checkstyle implementation to fix some wrong warnings
     maven { name 'Sponge maven repo'
-        url 'http://repo.spongepowered.org/maven' }
+        url 'http://repo.spongepowered.org/maven' 
+    }
+    flatDir {
+       dirs 'libs'
+   }
+}
+
+configurations {
+    shadow
+    compile {
+        extendsFrom shadow
+    }
 }
 
 // Project dependencies
 dependencies {
+    compile name: 'JTattoo-1.6.11'
+    
     compile "org.spongepowered:spongeapi:2.0"
+    shadow('org.slf4j:jul-to-slf4j:1.7.7') {
+        transitive = false
+    }
 
-    checkstyle 'org.spongepowered:checkstyle:6.1.1-sponge1'
+    testCompile 'junit:junit:4.12'
+    testCompile 'org.hamcrest:hamcrest-library:1.3'
+    testCompile 'org.mockito:mockito-core:1.10.19'
+    testRuntime 'org.slf4j:slf4j-simple:1.7.7'
 }
 
 // Read source files using UTF-8
@@ -45,6 +64,14 @@ tasks.withType(JavaCompile) {
     options.encoding = 'UTF-8'
 }
 
+
+test {
+    testLogging {
+        showStandardStreams = true
+        exceptionFormat = 'full'
+        events 'skipped'
+    }
+}
 
 jar { // The Pore classes will be created in Pore-VERSION-base.jar first
     classifier = 'base'
@@ -58,12 +85,15 @@ jar { // The Pore classes will be created in Pore-VERSION-base.jar first
     }
 }
 
-checkstyle {
-    configProperties = [
-            'basedir': project.projectDir,
-            'severity': 'warning'
-    ]
-    configFile = file('checkstyle.xml')
+shadowJar {
+    configurations = [project.configurations.shadow]
+    dependencies {
+        exclude dependency('com.google.guava:guava')
+        exclude dependency('com.google.code.gson:gson')
+    }
+
+    // Relocate jul-to-slf4j
+    relocate 'org.slf4j.bridge', 'blue.lapis.pore.lib.org.slf4j.bridge'
 }
 
 task wrapper(type: Wrapper) {

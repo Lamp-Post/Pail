@@ -44,7 +44,7 @@ public class HelpMenu extends JMenu implements Localizable {
         add(issue);
 
         JMenuItem thread = new JMenuItem(Util.translate("Plugin thread"));
-        thread.setIcon(new ImageIcon(getClass().getResource("images/help.png")));
+        thread.setIcon(new ImageIcon(getClass().getResource("/images/help.png")));
         thread.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_H, InputEvent.CTRL_MASK));
         if (!Desktop.getDesktop().isSupported(Action.BROWSE)) {
             thread.setEnabled(false);

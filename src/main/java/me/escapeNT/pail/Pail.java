@@ -1,7 +1,6 @@
 package me.escapeNT.pail;
 
 import com.google.api.translate.Language;
-import com.google.api.translate.Translate;
 import com.google.common.base.Preconditions;
 import com.google.inject.Inject;
 
@@ -12,12 +11,11 @@ import org.spongepowered.api.block.BlockTypes;
 import org.spongepowered.api.entity.player.Player;
 import org.spongepowered.api.event.Subscribe;
 import org.spongepowered.api.event.state.InitializationEvent;
+import org.spongepowered.api.event.state.LoadCompleteEvent;
 import org.spongepowered.api.event.state.PreInitializationEvent;
-import org.spongepowered.api.event.state.ServerStartingEvent;
 import org.spongepowered.api.event.state.ServerStoppingEvent;
 import org.spongepowered.api.plugin.Plugin;
-import org.spongepowered.api.service.ServiceManager;
-import org.spongepowered.api.service.config.ConfigService;
+import org.spongepowered.api.service.command.CommandService;
 import org.spongepowered.api.service.event.EventManager;
 
 import me.escapeNT.pail.GUIComponents.AboutView;
@@ -38,6 +36,7 @@ import java.awt.Toolkit;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.StringReader;
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
@@ -73,7 +72,7 @@ public final class Pail {
     protected Logger logger;
 
     public final Image PAIL_ICON = Toolkit.getDefaultToolkit().createImage(
-            getClass().getResource("GUIComponents/images/pailicon.png"));
+            getClass().getResource("/images/pailicon.png"));
     public static String PLUGIN_NAME;
     public static String PLUGIN_THREAD;
     public static String PLUGIN_VERSION;
@@ -81,21 +80,8 @@ public final class Pail {
     private final WindowCloseListener windowListener = new WindowCloseListener();
     private MainWindow main;
 
-    private ServiceManager serviceManager;
-
     public Pail() {
-        Util.setPlugin(this);
 
-        logger.addHandler(handler);
-
-        for (Handler h : logger.getHandlers()) {
-            if (h instanceof PailLogHandler) { // Don't add another handler
-                return;
-            }
-        }
-        PailLogHandler mainHandler = new PailLogHandler();
-        mainHandler.setLevel(Level.ALL);
-        logger.addHandler(mainHandler);
     }
 
     public static Pail getInstance() {
@@ -116,8 +102,21 @@ public final class Pail {
 
     @Subscribe
     public void onInitialization(PreInitializationEvent event) {
-        serviceManager = getGame().getServiceManager();
-        Util.setDataFolder(serviceManager.provide(ConfigService.class).get().getPluginConfig(this).getDirectory());
+        instance = this;
+        Util.setPlugin(this);
+
+        logger.addHandler(handler);
+
+        for (Handler h : logger.getHandlers()) {
+            if (h instanceof PailLogHandler) { // Don't add another handler
+                return;
+            }
+        }
+        PailLogHandler mainHandler = new PailLogHandler();
+        mainHandler.setLevel(Level.ALL);
+        logger.addHandler(mainHandler);
+        
+        Util.setDataFolder(new File("Pail"));
         if (!Util.getDataFolder().exists()) {
             Util.getDataFolder().mkdirs();
         }
@@ -125,8 +124,6 @@ public final class Pail {
 
     @Subscribe
     public void onStarting(InitializationEvent event) {
-        instance = this;
-
         logger.info("Loading Pail, please wait...");
 
         // Setup variables
@@ -165,8 +162,27 @@ public final class Pail {
         Thread t = new Thread(new InitMain(), "Pail");
         t.start();
 
-        EventManager eventBus = game.getServiceManager().provide(EventManager.class).get();
+        EventManager eventBus = game.getEventManager();
         eventBus.register(this, new PailPlayerListener());
+        
+        CommandService cmdService = game.getCommandDispatcher();
+        cmdService.register(this, new CommandPail(this), "Pail");
+    }
+    
+    @Subscribe
+    public void onServerStarted(LoadCompleteEvent event) {
+        ServerReadyListener.settings = new SettingsPanel();
+
+        SwingUtilities.invokeLater(new Runnable() {
+            public void run() {
+                Util.getPlugin().loadInterfaceComponent("Settings", ServerReadyListener.settings);
+                Util.getPlugin().getMainWindow().loadPanels();
+                Util.getPlugin().getMainWindow().setVisible(true);
+            }
+        });
+        getLogger().removeHandler(handler);
+        
+        ServerReadyListener.settings.getWaypointEditor().UpdateWorlds();
     }
 
     @Subscribe
@@ -191,12 +207,6 @@ public final class Pail {
         instance = null;
         logger = null;
     }
-
-    /*
-     * @Override public boolean onCommand(CommandSource sender, Command cmd, String commandLabel, String[] args) { if
-     * (cmd.getName().equalsIgnoreCase("Pail") && args.length == 0 && sender instanceof ConsoleCommandSender) {
-     * getMainWindow().setVisible(true); getMainWindow().requestFocus(); } return true; }
-     */// TODO
 
     private void setupLookAndFeels() {
         HashMap<String, Boolean> installQueue = new HashMap<String, Boolean>();
@@ -360,8 +370,10 @@ public final class Pail {
         public void run() {
             Util.setServerControls(getMainWindow().getServerControls());
 
+            if(Preconditions.checkNotNull(getServer().getOnlineMode())) {
             for (Player p : getServer().getOnlinePlayers()) {
                 Util.getServerControls().addPlayer(p.getName());
+            }
             }
 
             loadState();
@@ -513,7 +525,7 @@ public final class Pail {
         if (material == BlockTypes.AIR) {
             throw new IllegalArgumentException("There is no image for air silly.");
         }
-        return new ImageIcon(getClass().getResource("GUIComponents/images/" + material.toString() + ".png"));
+        return new ImageIcon(getClass().getResource("images/" + material.toString() + ".png"));
     }
 
     public WindowListener getWindowListener() {

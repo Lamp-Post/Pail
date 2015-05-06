@@ -41,7 +41,7 @@ public class FileMenu extends JMenu implements Localizable {
         setMnemonic('F');
 
         JMenuItem about = new JMenuItem(Util.translate("About"));
-        about.setIcon(new ImageIcon(getClass().getResource("images/about.png")));
+        about.setIcon(new ImageIcon(getClass().getResource("/images/about.png")));
         about.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 new AboutView().setVisible(true);

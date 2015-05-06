@@ -5,17 +5,14 @@ import java.io.IOException;
 import java.util.logging.Level;
 
 import com.google.api.translate.Language;
-import com.google.inject.Inject;
 
 import javax.swing.UIManager;
 
 import ninja.leaping.configurate.ConfigurationNode;
+import ninja.leaping.configurate.ConfigurationOptions;
 import ninja.leaping.configurate.commented.CommentedConfigurationNode;
 import ninja.leaping.configurate.hocon.HoconConfigurationLoader;
 import ninja.leaping.configurate.loader.ConfigurationLoader;
-
-import org.spongepowered.api.service.config.DefaultConfig;
-
 import me.escapeNT.pail.Util.Util;
 
 /**
@@ -25,31 +22,30 @@ import me.escapeNT.pail.Util.Util;
  */
 public class General {
 
-    @Inject
-    @DefaultConfig(sharedRoot = false)
-    private static File defaultConfig;
+    private static final File defaultConfig= new File(Util.getDataFolder(), "pail.conf");;
 
-    @Inject
-    @DefaultConfig(sharedRoot = false)
-    // TODO ???
-    private static ConfigurationLoader<CommentedConfigurationNode> configManager = HoconConfigurationLoader.builder()
+    private static final ConfigurationLoader<CommentedConfigurationNode> configManager = HoconConfigurationLoader.builder()
             .setFile(defaultConfig).build();
-
     public static ConfigurationNode rootNode;
 
     /**
      * Loads the configuration.
      */
     public static void load() {
+        if (!defaultConfig.exists()) {
+            rootNode = configManager.createEmptyNode(ConfigurationOptions.defaults());
+        } else {
         try {
             rootNode = configManager.load();
         } catch (IOException e) {
             rootNode = null;
         }
+        }
         defaults();
         setAutoUpdate(isAutoUpdate());
         setLookAndFeel(getLookAndFeel());
         loadConfigLang();
+        save();
     }
 
     private static void defaults() {

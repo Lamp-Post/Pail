@@ -49,14 +49,14 @@ public final class ServerControlPanel extends javax.swing.JPanel implements Loca
         jScrollPane1.setBorder(new TitledBorder(Util.translate("Players")));
 
         // Load images
-        ImageIcon plus = new ImageIcon(getClass().getResource("images/plus.png"));
-        ImageIcon arrow = new ImageIcon(getClass().getResource("images/right.png"));
-        ImageIcon kill = new ImageIcon(getClass().getResource("images/kill.png"));
-        ImageIcon up = new ImageIcon(getClass().getResource("images/up.png"));
-        ImageIcon down = new ImageIcon(getClass().getResource("images/down.png"));
-        ImageIcon msg = new ImageIcon(getClass().getResource("images/msg.png"));
-        ImageIcon kickico = new ImageIcon(getClass().getResource("images/kick.png"));
-        ImageIcon banico = new ImageIcon(getClass().getResource("images/ban.png"));
+        ImageIcon plus = new ImageIcon(getClass().getResource("/images/plus.png"));
+        ImageIcon arrow = new ImageIcon(getClass().getResource("/images/right.png"));
+        ImageIcon kill = new ImageIcon(getClass().getResource("/images/kill.png"));
+        ImageIcon up = new ImageIcon(getClass().getResource("/images/up.png"));
+        ImageIcon down = new ImageIcon(getClass().getResource("/images/down.png"));
+        ImageIcon msg = new ImageIcon(getClass().getResource("/images/msg.png"));
+        ImageIcon kickico = new ImageIcon(getClass().getResource("/images/kick.png"));
+        ImageIcon banico = new ImageIcon(getClass().getResource("/images/ban.png"));
 
         // Construct player popup menu
         playerMenu = new JPopupMenu();

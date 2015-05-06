@@ -23,7 +23,7 @@ public class ServerMenu extends JMenu implements Localizable {
 
         JMenuItem reload = new JMenuItem(Util.translate("Reload"));
         reload.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_R, InputEvent.CTRL_MASK));
-        reload.setIcon(new ImageIcon(getClass().getResource("images/reload.png")));
+        reload.setIcon(new ImageIcon(getClass().getResource("/images/reload.png")));
         reload.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 Util.getPlugin().saveState();
@@ -32,7 +32,7 @@ public class ServerMenu extends JMenu implements Localizable {
         });
 
         JMenuItem stop = new JMenuItem(Util.translate("Stop"));
-        stop.setIcon(new ImageIcon(getClass().getResource("images/stop.png")));
+        stop.setIcon(new ImageIcon(getClass().getResource("/images/stop.png")));
         stop.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_Q, InputEvent.CTRL_MASK));
         stop.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -41,7 +41,7 @@ public class ServerMenu extends JMenu implements Localizable {
         });
 
         JMenuItem save = new JMenuItem(Util.translate("Save All"));
-        save.setIcon(new ImageIcon(getClass().getResource("images/save.png")));
+        save.setIcon(new ImageIcon(getClass().getResource("/images/save.png")));
         save.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S, InputEvent.CTRL_MASK));
         save.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {

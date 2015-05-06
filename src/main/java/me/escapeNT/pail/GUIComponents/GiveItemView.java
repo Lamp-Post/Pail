@@ -57,7 +57,7 @@ public class GiveItemView extends javax.swing.JDialog implements Localizable {
 
         for (String m : names) {
             try {
-                mats.put(m, new ImageIcon(getClass().getResource("images/" + m + ".png")));
+                mats.put(m, new ImageIcon(getClass().getResource("/images/" + m + ".png")));
             } catch (Exception ex) {
                 mats.put(m, new ImageIcon());
             }

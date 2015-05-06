@@ -7,6 +7,8 @@ import org.spongepowered.api.entity.player.Player;
 import org.spongepowered.api.world.Location;
 import org.spongepowered.api.world.World;
 
+import com.google.common.base.Preconditions;
+
 import me.escapeNT.pail.Pail;
 import me.escapeNT.pail.Util.Localizable;
 import me.escapeNT.pail.Util.Util;
@@ -22,12 +24,14 @@ public class WaypointEditPanel extends javax.swing.JPanel implements Localizable
     /**
      * Creates new form WaypointEditPanel
      */
-    public WaypointEditPanel() {
+    public WaypointEditPanel() {//TODO
         initComponents();
         WaypointConfig.load();
 
+        if (Preconditions.checkNotNull(Pail.getServer().getOnlineMode())) {
         for (Player p : Pail.getServer().getOnlinePlayers()) {
             players.addItem(p.getName());
+        }
         }
 
         for (World w : Pail.getServer().getWorlds()) {
@@ -36,10 +40,13 @@ public class WaypointEditPanel extends javax.swing.JPanel implements Localizable
         }
 
         ((DefaultListModel) waypoints.getModel()).clear();
+        
+        if (WaypointConfig.getWaypoints() != null) {
         for (Waypoint wp : WaypointConfig.getWaypoints()) {
             ((DefaultListModel) waypoints.getModel()).addElement(wp);
         }
         waypoints.setSelectedIndex(0);
+        }
 
         updateFields();
 
@@ -308,7 +315,7 @@ public class WaypointEditPanel extends javax.swing.JPanel implements Localizable
     }// </editor-fold>//GEN-END:initComponents
 
     private void addWaypointActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_addWaypointActionPerformed
-        Waypoint point = new Waypoint("waypoint", new Location(null, 0, 0, 0), Pail.getServer()
+        Waypoint point = new Waypoint("waypoint", new Location(Pail.getServer().getWorld(Pail.getServer().getAllWorldProperties().iterator().next().getWorldName()).get(), 0, 0, 0), Pail.getServer()
                 .getWorld(Pail.getServer().getAllWorldProperties().iterator().next().getWorldName()).get()); // TODO
                                                                                                              // verify
         WaypointConfig.getWaypoints().add(point);
@@ -404,5 +411,11 @@ public class WaypointEditPanel extends javax.swing.JPanel implements Localizable
         Util.translateTextComponent(playerSubmit);
         Util.translateTextComponent(removeWaypoint);
         Util.translateTextComponent(save);
+    }
+    
+    public void UpdateWorlds() {
+        for (World w : Pail.getServer().getWorlds()) {
+            worlds.addItem(w.getName());
+        }
     }
 }
