@@ -6,7 +6,6 @@ import org.spongepowered.api.event.Subscribe;
 import org.spongepowered.api.event.entity.player.PlayerJoinEvent;
 import org.spongepowered.api.event.entity.player.PlayerQuitEvent;
 
-import me.escapeNT.pail.Util.ServerReadyListener;
 import me.escapeNT.pail.Util.Util;
 
 /**
@@ -23,8 +22,8 @@ public class PailPlayerListener { // implements Listener {
         SwingUtilities.invokeLater(new Runnable() {
             public void run() {
                 Util.getServerControls().addPlayer(player);
-                if (ServerReadyListener.settings != null) {
-                    ServerReadyListener.settings.getWaypointEditor().getPlayers().addItem(player);
+                if (Pail.settings != null) {
+                    Pail.settings.getWaypointEditor().getPlayers().addItem(player);
                 }
             }
         });
@@ -37,8 +36,8 @@ public class PailPlayerListener { // implements Listener {
         SwingUtilities.invokeLater(new Runnable() {
             public void run() {
                 Util.getServerControls().getListModel().removeElement(player);
-                if (ServerReadyListener.settings != null) {
-                    ServerReadyListener.settings.getWaypointEditor().getPlayers().removeItem(player);
+                if (Pail.settings != null) {
+                    Pail.settings.getWaypointEditor().getPlayers().removeItem(player);
                 }
             }
         });

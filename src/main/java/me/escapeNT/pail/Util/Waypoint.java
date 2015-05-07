@@ -13,7 +13,7 @@ import org.spongepowered.api.world.World;
  * @author escapeNT
  */
 public class Waypoint implements Serializable {
-
+    private static final long serialVersionUID = 576483119451149616L;
     private int x;
     private int y;
     private int z;

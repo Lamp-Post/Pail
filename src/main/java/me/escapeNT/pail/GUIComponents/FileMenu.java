@@ -33,6 +33,7 @@ import me.escapeNT.pail.Util.Util;
  * @author escapeNT
  */
 public class FileMenu extends JMenu implements Localizable {
+    private static final long serialVersionUID = -5989263625297822007L;
     private JMenuItem saveSelection;
     private JCheckBoxMenuItem say;
 

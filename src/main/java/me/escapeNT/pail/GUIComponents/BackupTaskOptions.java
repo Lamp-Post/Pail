@@ -17,11 +17,12 @@ import me.escapeNT.pail.scheduler.ServerTask.Type;
  * 
  * @author escapeNT
  */
-public class ServerTaskOptions extends javax.swing.JPanel implements Localizable {
-    private static final long serialVersionUID = -7899879490760389433L;
+public class BackupTaskOptions extends javax.swing.JPanel implements Localizable {
+
+    private static final long serialVersionUID = 8377251626017201670L;
 
     /** Creates new form ServerTaskOptions */
-    public ServerTaskOptions() {
+    public BackupTaskOptions() {
         initComponents();
         translateComponent();
         for (ServerTask.Type t : ServerTask.Type.values()) {

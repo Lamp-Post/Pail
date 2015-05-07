@@ -9,6 +9,7 @@ import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
+
 import me.escapeNT.pail.Util.Util;
 import me.escapeNT.pail.Util.Waypoint;
 
@@ -33,6 +34,7 @@ public class WaypointConfig {
         }
     }
 
+    @SuppressWarnings("unchecked")
     public static void load() {
         if (!file.exists()) {
             save();

@@ -17,6 +17,8 @@ import me.escapeNT.pail.Util.Util;
  * @author escapeNT
  */
 public class ServerMenu extends JMenu implements Localizable {
+    private static final long serialVersionUID = 4309097499206528096L;
+
     public ServerMenu() {
         super(Util.translate("Server"));
         setMnemonic('S');

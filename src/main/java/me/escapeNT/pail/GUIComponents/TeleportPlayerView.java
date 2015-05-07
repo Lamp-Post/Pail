@@ -16,6 +16,7 @@ import me.escapeNT.pail.config.WaypointConfig;
  * @author escapeNT
  */
 public final class TeleportPlayerView extends javax.swing.JDialog implements Localizable {
+    private static final long serialVersionUID = -867147909723017397L;
     private final String player;
 
     /**
@@ -61,9 +62,9 @@ public final class TeleportPlayerView extends javax.swing.JDialog implements Loc
         teleport = new javax.swing.JButton();
         cancel = new javax.swing.JButton();
         teleLabel = new javax.swing.JLabel();
-        locations = new javax.swing.JComboBox();
+        locations = new javax.swing.JComboBox<String>();
         jSeparator1 = new javax.swing.JSeparator();
-        waypoints = new javax.swing.JComboBox();
+        waypoints = new javax.swing.JComboBox<Waypoint>();
         toWaypoint = new javax.swing.JCheckBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -91,7 +92,7 @@ public final class TeleportPlayerView extends javax.swing.JDialog implements Loc
         getContentPane().add(teleLabel);
         teleLabel.setBounds(20, 20, 280, 16);
 
-        locations.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Spawn", "Bed" }));
+        locations.setModel(new javax.swing.DefaultComboBoxModel<String>(new String[] { "Spawn", "Bed" }));
         getContentPane().add(locations);
         locations.setBounds(90, 50, 200, 27);
         getContentPane().add(jSeparator1);
@@ -173,11 +174,11 @@ public final class TeleportPlayerView extends javax.swing.JDialog implements Loc
 
     private javax.swing.JButton cancel;
     private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JComboBox locations;
+    private javax.swing.JComboBox<String> locations;
     private javax.swing.JLabel teleLabel;
     private javax.swing.JButton teleport;
     private javax.swing.JCheckBox toWaypoint;
-    private javax.swing.JComboBox waypoints;
+    private javax.swing.JComboBox<Waypoint> waypoints;
 
     // End of variables declaration//GEN-END:variables
 

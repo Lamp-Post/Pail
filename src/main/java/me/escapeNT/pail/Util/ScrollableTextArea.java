@@ -27,6 +27,7 @@ import javax.swing.text.StyleConstants;
  * @author escapeNT
  */
 public class ScrollableTextArea extends JTextPane {
+    private static final long serialVersionUID = 2106412699921126235L;
     private JScrollPane scroller;
     private boolean textSelected = false;
 

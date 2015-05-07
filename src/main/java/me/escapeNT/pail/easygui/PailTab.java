@@ -22,6 +22,7 @@ import me.escapeNT.pail.easygui.event.Listener;
  * @author escapeNT
  */
 public class PailTab extends JPanel {
+    private static final long serialVersionUID = 8908009519769246268L;
     private static final int COLS = 3;
     private LinkedHashMap<String, PailComponent> components;
     private Map<PailComponent, Set<Listener>> listeners;
@@ -101,7 +102,7 @@ public class PailTab extends JPanel {
             case TEXT_FIELD:
                 return ((JTextField) c.getRootComponent()).getText();
             case SELECTION_MENU:
-                return ((JComboBox) c.getRootComponent()).getSelectedItem().toString();
+                return ((JComboBox<?>) c.getRootComponent()).getSelectedItem().toString();
             case BUTTON:
             default:
                 return null;

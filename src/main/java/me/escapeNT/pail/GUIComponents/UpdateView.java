@@ -14,6 +14,7 @@ import me.escapeNT.pail.Util.Util;
  */
 public class UpdateView extends javax.swing.JDialog implements Localizable {
 
+    private static final long serialVersionUID = 5248350993628183184L;
     private static UpdateView instance;
 
     /**

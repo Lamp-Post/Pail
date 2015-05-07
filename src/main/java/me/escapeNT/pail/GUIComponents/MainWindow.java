@@ -16,6 +16,7 @@ import me.escapeNT.pail.config.PanelConfig;
  * @author escapeNT
  */
 public class MainWindow extends JFrame implements Localizable {
+    private static final long serialVersionUID = -3727998940739878519L;
     private JTabbedPane tabPane;
     private JMenuBar menuBar;
     private ServerControlPanel serverControls;

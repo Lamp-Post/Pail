@@ -6,10 +6,12 @@ import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Set;
+
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JTextField;
+
 import me.escapeNT.pail.easygui.event.ButtonListener;
 import me.escapeNT.pail.easygui.event.Listener;
 
@@ -121,7 +123,7 @@ public class TabBuilder {
         if (components.keySet().contains(name)) {
             throw new IllegalArgumentException("This form already contains a component by the name " + name);
         }
-        components.put(name, new PailComponent(name, new JComboBox(values)));
+        components.put(name, new PailComponent(name, new JComboBox<Object>(values)));
         return this;
     }
 
@@ -146,7 +148,7 @@ public class TabBuilder {
         if (!Arrays.asList(values).contains(initialSelection)) {
             throw new IllegalArgumentException("The inital selection is not one of the options in the list!");
         } else {
-            JComboBox b = new JComboBox(values);
+            JComboBox<?> b = new JComboBox<Object>(values);
             b.setSelectedItem(initialSelection);
             components.put(name, new PailComponent(name, b));
         }

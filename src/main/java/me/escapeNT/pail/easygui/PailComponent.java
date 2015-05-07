@@ -15,7 +15,8 @@ import javax.swing.JTextField;
  * @author escapeNT
  */
 public class PailComponent extends JPanel {
-
+    
+    private static final long serialVersionUID = 8608645654111194820L;
     private String label;
     private Type type;
     private JComponent rootComponent;

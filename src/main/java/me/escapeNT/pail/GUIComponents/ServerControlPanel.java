@@ -13,10 +13,12 @@ import java.util.HashMap;
 
 import javax.imageio.ImageIO;
 import javax.swing.DefaultListModel;
+import javax.swing.GroupLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPopupMenu;
+import javax.swing.LayoutStyle;
 import javax.swing.border.TitledBorder;
 
 import org.spongepowered.api.data.manipulators.entities.HealthData;
@@ -32,6 +34,7 @@ import me.escapeNT.pail.Util.Util;
  * @author escapeNT
  */
 public final class ServerControlPanel extends javax.swing.JPanel implements Localizable {
+    private static final long serialVersionUID = 7137691231828283935L;
     private HashMap<Object, ImageIcon> onlinePlayers = new HashMap<Object, ImageIcon>();
     private IconListRenderer listModel = new IconListRenderer(onlinePlayers, true);
     private JPopupMenu playerMenu = null;
@@ -44,7 +47,7 @@ public final class ServerControlPanel extends javax.swing.JPanel implements Loca
     public ServerControlPanel() {
         initComponents();
         Util.setServerControls(this);
-        playerList.setModel(new DefaultListModel());
+        playerList.setModel(new DefaultListModel<String>());
         playerList.setCellRenderer(listModel);
         jScrollPane1.setBorder(new TitledBorder(Util.translate("Players")));
 
@@ -97,7 +100,6 @@ public final class ServerControlPanel extends javax.swing.JPanel implements Loca
     /**
      * This method is called from within the constructor to initialize the form.
      */
-    @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
@@ -105,7 +107,7 @@ public final class ServerControlPanel extends javax.swing.JPanel implements Loca
         jEditorPane1 = new javax.swing.JEditorPane();
         serverConsolePanel = new me.escapeNT.pail.GUIComponents.ServerConsolePanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        playerList = new javax.swing.JList();
+        playerList = new javax.swing.JList<String>();
 
         jScrollPane2.setViewportView(jEditorPane1);
 
@@ -124,25 +126,25 @@ public final class ServerControlPanel extends javax.swing.JPanel implements Loca
         });
         jScrollPane1.setViewportView(playerList);
 
-        org.jdesktop.layout.GroupLayout layout = new org.jdesktop.layout.GroupLayout(this);
+        GroupLayout layout = new GroupLayout(this);
         this.setLayout(layout);
-        layout.setHorizontalGroup(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING).add(
-                org.jdesktop.layout.GroupLayout.TRAILING,
+        layout.setHorizontalGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING).addGroup(
+                GroupLayout.Alignment.TRAILING,
                 layout.createSequentialGroup()
                         .addContainerGap()
-                        .add(serverConsolePanel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 640, Short.MAX_VALUE)
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                        .add(jScrollPane1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 170,
-                                org.jdesktop.layout.GroupLayout.PREFERRED_SIZE).addContainerGap()));
-        layout.setVerticalGroup(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING).add(
+                        .addComponent(serverConsolePanel, GroupLayout.DEFAULT_SIZE, 640, Short.MAX_VALUE)
+                        .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jScrollPane1, GroupLayout.PREFERRED_SIZE, 170,
+                                GroupLayout.PREFERRED_SIZE).addContainerGap()));
+        layout.setVerticalGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING).addGroup(
                 layout.createSequentialGroup()
-                        .add(20, 20, 20)
-                        .add(layout
-                                .createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                                .add(org.jdesktop.layout.GroupLayout.TRAILING, serverConsolePanel,
-                                        org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 450, Short.MAX_VALUE)
-                                .add(org.jdesktop.layout.GroupLayout.TRAILING, jScrollPane1,
-                                        org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 450, Short.MAX_VALUE))
+                        .addGap(20, 20, 20)
+                        .addGroup(layout
+                                .createParallelGroup(GroupLayout.Alignment.LEADING)
+                                .addComponent(serverConsolePanel, GroupLayout.Alignment.TRAILING,
+                                        GroupLayout.DEFAULT_SIZE, 450, Short.MAX_VALUE)
+                                .addComponent( jScrollPane1, GroupLayout.Alignment.TRAILING,
+                                        GroupLayout.DEFAULT_SIZE, 450, Short.MAX_VALUE))
                         .addContainerGap()));
     }// </editor-fold>//GEN-END:initComponents
 
@@ -156,7 +158,7 @@ public final class ServerControlPanel extends javax.swing.JPanel implements Loca
 
     private void showPlayerMenu(MouseEvent e) {
         if (e.isPopupTrigger()) {
-            for (int i = 0; i < ((DefaultListModel) playerList.getModel()).getSize(); i++) {
+            for (int i = 0; i < ((DefaultListModel<String>) playerList.getModel()).getSize(); i++) {
                 Rectangle r = playerList.getCellBounds(i, i);
                 if (r.contains(e.getPoint())) {
                     playerList.setSelectedIndex(i);
@@ -251,7 +253,7 @@ public final class ServerControlPanel extends javax.swing.JPanel implements Loca
     private javax.swing.JEditorPane jEditorPane1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JList playerList;
+    private javax.swing.JList<String> playerList;
     private me.escapeNT.pail.GUIComponents.ServerConsolePanel serverConsolePanel;
 
     // End of variables declaration//GEN-END:variables
@@ -270,8 +272,8 @@ public final class ServerControlPanel extends javax.swing.JPanel implements Loca
      *
      * @return the listModel
      */
-    public DefaultListModel getListModel() {
-        return (DefaultListModel) playerList.getModel();
+    public DefaultListModel<String> getListModel() {
+        return (DefaultListModel<String>) playerList.getModel();
     }
 
     /**

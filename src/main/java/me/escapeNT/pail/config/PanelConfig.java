@@ -34,6 +34,7 @@ public class PanelConfig {
         }
     }
 
+    @SuppressWarnings("unchecked")
     public static void load() {
         if(!file.exists()) {
             save();
@@ -41,7 +42,7 @@ public class PanelConfig {
          try {
             FileInputStream fis = new FileInputStream(file);
             ObjectInputStream ois = new ObjectInputStream(fis);
-            panelsActivated = (Map<String, Boolean>)ois.readObject();
+            panelsActivated = (Map<String, Boolean>) ois.readObject();
             ois.close();
         } catch (Exception ex) {
             Util.log(Level.SEVERE, ex.toString());

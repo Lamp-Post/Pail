@@ -36,6 +36,7 @@ import me.escapeNT.pail.Util.Util;
  */
 public class FindView extends javax.swing.JDialog implements Localizable {
 
+    private static final long serialVersionUID = -7355586627581787730L;
     private static final ScrollableTextArea a = Util.getServerControls().getServerConsolePanel().getConsoleOutput();
     private static final Highlighter highlighter = a.getHighlighter();
 
@@ -71,7 +72,6 @@ public class FindView extends javax.swing.JDialog implements Localizable {
     /**
      * This method is called from within the constructor to initialize the form.
      */
-    @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 

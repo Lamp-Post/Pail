@@ -13,6 +13,7 @@ import org.spongepowered.api.event.Subscribe;
 import org.spongepowered.api.event.state.InitializationEvent;
 import org.spongepowered.api.event.state.LoadCompleteEvent;
 import org.spongepowered.api.event.state.PreInitializationEvent;
+import org.spongepowered.api.event.state.ServerStartedEvent;
 import org.spongepowered.api.event.state.ServerStoppingEvent;
 import org.spongepowered.api.plugin.Plugin;
 import org.spongepowered.api.service.command.CommandService;
@@ -22,7 +23,6 @@ import me.escapeNT.pail.GUIComponents.AboutView;
 import me.escapeNT.pail.GUIComponents.MainWindow;
 import me.escapeNT.pail.GUIComponents.SettingsPanel;
 import me.escapeNT.pail.Util.ScrollableTextArea;
-import me.escapeNT.pail.Util.ServerReadyListener;
 import me.escapeNT.pail.Util.Util;
 import me.escapeNT.pail.Util.Waypoint;
 import me.escapeNT.pail.config.General;
@@ -76,13 +76,9 @@ public final class Pail {
     public static String PLUGIN_NAME;
     public static String PLUGIN_THREAD;
     public static String PLUGIN_VERSION;
-    public static final ServerReadyListener handler = new ServerReadyListener();
     private final WindowCloseListener windowListener = new WindowCloseListener();
     private MainWindow main;
-
-    public Pail() {
-
-    }
+    public static SettingsPanel settings;
 
     public static Pail getInstance() {
         return Preconditions.checkNotNull(instance);
@@ -105,8 +101,6 @@ public final class Pail {
         instance = this;
         Util.setPlugin(this);
 
-        logger.addHandler(handler);
-
         for (Handler h : logger.getHandlers()) {
             if (h instanceof PailLogHandler) { // Don't add another handler
                 return;
@@ -128,7 +122,7 @@ public final class Pail {
 
         // Setup variables
         PLUGIN_NAME = "Pail";
-        // PLUGIN_THREAD = getDescription().getWebsite();
+        //= PLUGIN_THREAD = getDescription().getWebsite();
         PLUGIN_VERSION = "1.0.0";
 
         // Translate.setHttpReferrer(PLUGIN_THREAD);
@@ -159,9 +153,6 @@ public final class Pail {
 
         setupLookAndFeels();
 
-        Thread t = new Thread(new InitMain(), "Pail");
-        t.start();
-
         EventManager eventBus = game.getEventManager();
         eventBus.register(this, new PailPlayerListener());
         
@@ -171,18 +162,24 @@ public final class Pail {
     
     @Subscribe
     public void onServerStarted(LoadCompleteEvent event) {
-        ServerReadyListener.settings = new SettingsPanel();
+
+    }
+    
+    @Subscribe
+    public void onServerStarted(ServerStartedEvent event) {
+
+        Thread t = new Thread(new InitMain(), "Pail");
+        t.start();
+        
+        settings = new SettingsPanel();
 
         SwingUtilities.invokeLater(new Runnable() {
             public void run() {
-                Util.getPlugin().loadInterfaceComponent("Settings", ServerReadyListener.settings);
+                Util.getPlugin().loadInterfaceComponent("Settings", settings);
                 Util.getPlugin().getMainWindow().loadPanels();
                 Util.getPlugin().getMainWindow().setVisible(true);
             }
         });
-        getLogger().removeHandler(handler);
-        
-        ServerReadyListener.settings.getWaypointEditor().UpdateWorlds();
     }
 
     @Subscribe
@@ -211,11 +208,18 @@ public final class Pail {
     private void setupLookAndFeels() {
         HashMap<String, Boolean> installQueue = new HashMap<String, Boolean>();
         installQueue.put("com.jtattoo.plaf.acryl.AcrylLookAndFeel", Boolean.TRUE);
-        installQueue.put("com.jtattoo.plaf.hifi.HiFiLookAndFeel", Boolean.TRUE);
-        installQueue.put("com.jtattoo.plaf.graphite.GraphiteLookAndFeel", Boolean.TRUE);
-        installQueue.put("com.jtattoo.plaf.aluminium.AluminiumLookAndFeel", Boolean.TRUE);
         installQueue.put("com.jtattoo.plaf.aero.AeroLookAndFeel", Boolean.TRUE);
+        installQueue.put("com.jtattoo.plaf.aluminium.AluminiumLookAndFeel", Boolean.TRUE);
+        installQueue.put("com.jtattoo.plaf.bernstein.BernsteinLookAndFeel", Boolean.TRUE);
         installQueue.put("com.jtattoo.plaf.fast.FastLookAndFeel", Boolean.TRUE);
+        installQueue.put("com.jtattoo.plaf.graphite.GraphiteLookAndFeel", Boolean.TRUE);
+        installQueue.put("com.jtattoo.plaf.hifi.HiFiLookAndFeel", Boolean.TRUE);
+        installQueue.put("com.jtattoo.plaf.luna.LunaLookAndFeel", Boolean.TRUE);
+        installQueue.put("com.jtattoo.plaf.mcwin.McWinLookAndFeel", Boolean.TRUE);
+        installQueue.put("com.jtattoo.plaf.mint.MintLookAndFeel", Boolean.TRUE);
+        installQueue.put("com.jtattoo.plaf.noire.NoireLookAndFeel", Boolean.TRUE);
+        installQueue.put("com.jtattoo.plaf.smart.SmartLookAndFeel", Boolean.TRUE);
+        installQueue.put("com.jtattoo.plaf.texture.TextureLookAndFeel", Boolean.TRUE);
 
         for (LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
             if (installQueue.keySet().contains(info.getClassName())) {
@@ -228,7 +232,7 @@ public final class Pail {
                 try {
                     UIManager.installLookAndFeel(((LookAndFeel) Class.forName(n).newInstance()).getName(), n);
                 } catch (Exception ex) {
-                    Logger.getLogger(Pail.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(Pail.class.getName()).log(Level.SEVERE, installQueue.get(n).toString(), ex);
                 }
             }
         }
@@ -370,10 +374,8 @@ public final class Pail {
         public void run() {
             Util.setServerControls(getMainWindow().getServerControls());
 
-            if(Preconditions.checkNotNull(getServer().getOnlineMode())) {
             for (Player p : getServer().getOnlinePlayers()) {
                 Util.getServerControls().addPlayer(p.getName());
-            }
             }
 
             loadState();

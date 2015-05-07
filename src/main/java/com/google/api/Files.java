@@ -57,6 +57,7 @@ public class Files {
      * @throws IOException
      *             Thrown on IO errors.
      */
+    @SuppressWarnings("resource")
     public static String read(final File file) throws IOException {
         final StringBuilder sb = new StringBuilder();
         String line;

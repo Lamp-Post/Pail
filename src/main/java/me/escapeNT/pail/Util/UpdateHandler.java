@@ -1,19 +1,9 @@
 package me.escapeNT.pail.Util;
 
-import java.io.BufferedOutputStream;
-import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
-import java.net.HttpURLConnection;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
-import javax.swing.JOptionPane;
-import javax.swing.SwingUtilities;
 import me.escapeNT.pail.GUIComponents.UpdateView;
 import me.escapeNT.pail.Pail;
 
@@ -130,5 +120,9 @@ public class UpdateHandler {
      */
     public static String getCurrentVersion() {
         return currentVersion;
+    }
+
+    public static String getVersion() {
+        return version;
     }
 }

@@ -18,7 +18,7 @@ import me.escapeNT.pail.Util.Util;
  * @author escapeNT
  */
 public class TabActivationPanel extends JPanel {
-
+    private static final long serialVersionUID = -8926789558190439231L;
     private Map<String, JCheckBox> boxes = new HashMap<String, JCheckBox>();
 
     public TabActivationPanel() {

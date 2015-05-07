@@ -22,6 +22,7 @@ import me.escapeNT.pail.Util.Util;
  */
 public class EditMenu extends JMenu implements Localizable {
 
+    private static final long serialVersionUID = 4625666762639201752L;
     public static boolean findOpen = false;
 
     public EditMenu() {

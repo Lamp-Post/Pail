@@ -19,11 +19,11 @@ import me.escapeNT.pail.Util.Util;
  * @author escapeNT
  */
 public class PailPersistance implements Serializable {
-
+    private static final long serialVersionUID = 4657619446310147940L;
     private Point windowLocation;
     private String consoleText;
 
-    public static final File file = new File("pailPersist.tmp");
+    public static final File file = new File(Util.getDataFolder(), "pailPersist.tmp");
 
     /**
      * Saves the given information to a temporary file.

@@ -9,6 +9,7 @@ import me.escapeNT.pail.Util.Util;
  * @author escapeNT
  */
 public class ConsoleCommandTask implements ScheduledTask {
+    private static final long serialVersionUID = 3354170883777493438L;
     private String command;
     private String name;
     private boolean repeating;

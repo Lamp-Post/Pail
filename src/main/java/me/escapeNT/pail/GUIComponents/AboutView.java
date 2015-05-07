@@ -1,5 +1,7 @@
 package me.escapeNT.pail.GUIComponents;
 
+import javax.swing.GroupLayout;
+
 import me.escapeNT.pail.Pail;
 import me.escapeNT.pail.Util.Util;
 
@@ -10,6 +12,7 @@ import me.escapeNT.pail.Util.Util;
  */
 public class AboutView extends javax.swing.JDialog {
 
+    private static final long serialVersionUID = -5615741640015951383L;
     /** Creates new form AboutView */
     public AboutView() {
         initComponents();
@@ -24,7 +27,6 @@ public class AboutView extends javax.swing.JDialog {
     /**
      * This method is called from within the constructor to initialize the form.
      */
-    @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
@@ -42,34 +44,34 @@ public class AboutView extends javax.swing.JDialog {
         icon.setIcon(new javax.swing.ImageIcon(getClass()
                 .getResource("/images/pail.png"))); // NOI18N
 
-        org.jdesktop.layout.GroupLayout layout = new org.jdesktop.layout.GroupLayout(getContentPane());
+        GroupLayout layout = new GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(layout
-                .createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                .add(layout
+                .createParallelGroup(GroupLayout.Alignment.LEADING)
+                .addGroup(layout
                         .createSequentialGroup()
-                        .add(87, 87, 87)
-                        .add(title, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 150,
-                                org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                .add(layout
+                        .addGap(87, 87, 87)
+                        .addComponent(title, GroupLayout.PREFERRED_SIZE, 150,
+                                GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout
                         .createSequentialGroup()
-                        .add(50, 50, 50)
-                        .add(version, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 170,
-                                org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                .add(layout
+                        .addGap(50, 50, 50)
+                        .addComponent(version, GroupLayout.PREFERRED_SIZE, 170,
+                                GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout
                         .createSequentialGroup()
-                        .add(40, 40, 40)
-                        .add(icon, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 150,
-                                org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)));
-        layout.setVerticalGroup(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING).add(
+                        .addGap(40, 40, 40)
+                        .addComponent(icon, GroupLayout.PREFERRED_SIZE, 150,
+                                GroupLayout.PREFERRED_SIZE)));
+        layout.setVerticalGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING).addGroup(
                 layout.createSequentialGroup()
-                        .add(10, 10, 10)
-                        .add(title)
-                        .add(8, 8, 8)
-                        .add(version)
-                        .add(4, 4, 4)
-                        .add(icon, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 130,
-                                org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)));
+                        .addGap(10, 10, 10)
+                        .addComponent(title)
+                        .addGap(8, 8, 8)
+                        .addComponent(version)
+                        .addGap(4, 4, 4)
+                        .addComponent(icon, GroupLayout.PREFERRED_SIZE, 130,
+                                GroupLayout.PREFERRED_SIZE)));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents

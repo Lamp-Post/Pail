@@ -15,7 +15,7 @@ import javax.swing.JList;
  * @author escapeNT
  */
 public class IconListRenderer extends DefaultListCellRenderer {
-
+    private static final long serialVersionUID = -2608103652612856740L;
     private Map<Object, ImageIcon> icons = null;
     private boolean highlightrows;
 
@@ -25,7 +25,7 @@ public class IconListRenderer extends DefaultListCellRenderer {
     }
 
     @Override
-    public Component getListCellRendererComponent(JList list, Object value, int index, boolean isSelected,
+    public Component getListCellRendererComponent(JList<?> list, Object value, int index, boolean isSelected,
             boolean cellHasFocus) {
 
         JLabel label = (JLabel) super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);

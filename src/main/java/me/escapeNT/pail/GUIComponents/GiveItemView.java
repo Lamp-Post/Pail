@@ -25,6 +25,7 @@ import me.escapeNT.pail.config.General;
  * @author escapeNT
  */
 public class GiveItemView extends javax.swing.JDialog implements Localizable {
+    private static final long serialVersionUID = -4496381851993248121L;
     private String player;
 
     /**
@@ -81,7 +82,6 @@ public class GiveItemView extends javax.swing.JDialog implements Localizable {
     /**
      * This method is called from within the constructor to initialize the form.
      */
-    @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
@@ -90,7 +90,7 @@ public class GiveItemView extends javax.swing.JDialog implements Localizable {
         amount = new javax.swing.JSpinner();
         give = new javax.swing.JButton();
         cancel = new javax.swing.JButton();
-        item = new javax.swing.JComboBox();
+        item = new javax.swing.JComboBox<Object>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Give Item");
@@ -128,7 +128,7 @@ public class GiveItemView extends javax.swing.JDialog implements Localizable {
         getContentPane().add(cancel);
         cancel.setBounds(240, 110, 86, 30);
 
-        item.setModel(new DefaultComboBoxModel(sortMatNames().toArray()));
+        item.setModel(new DefaultComboBoxModel<Object>(sortMatNames().toArray()));
         getContentPane().add(item);
         item.setBounds(50, 30, 220, 50);
 
@@ -154,7 +154,7 @@ public class GiveItemView extends javax.swing.JDialog implements Localizable {
     private javax.swing.JButton cancel;
     private javax.swing.JButton give;
     private javax.swing.JLabel idLabel;
-    private javax.swing.JComboBox item;
+    private javax.swing.JComboBox<Object> item;
 
     // End of variables declaration//GEN-END:variables
 

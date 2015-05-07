@@ -25,6 +25,7 @@ import me.escapeNT.pail.Util.Util;
  * @author escapeNT
  */
 public class ServerConsolePanel extends JPanel {
+    private static final long serialVersionUID = 5933297851824068418L;
     private ScrollableTextArea consoleOutput;
     private JTextField consoleInput;
     private LinkedList<String> cmdHistory = new LinkedList<String>();

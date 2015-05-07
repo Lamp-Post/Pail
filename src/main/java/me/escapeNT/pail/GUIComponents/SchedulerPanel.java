@@ -6,6 +6,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
+
 import javax.swing.BorderFactory;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.GroupLayout;
@@ -14,6 +15,7 @@ import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JSpinner;
@@ -27,6 +29,12 @@ import javax.swing.table.DefaultTableModel;
 
 import me.escapeNT.pail.Util.Localizable;
 import me.escapeNT.pail.Util.Util;
+import me.escapeNT.pail.scheduler.BackupTask;
+import me.escapeNT.pail.scheduler.ConsoleCommandTask;
+import me.escapeNT.pail.scheduler.ScheduledTask;
+import me.escapeNT.pail.scheduler.Scheduler;
+import me.escapeNT.pail.scheduler.ServerTask;
+import me.escapeNT.pail.scheduler.ServerTask.Type;
 
 /**
  * Panel for editing scheduled tasks.
@@ -35,7 +43,10 @@ import me.escapeNT.pail.Util.Util;
  */
 public class SchedulerPanel extends javax.swing.JPanel implements Localizable {
 
+    private static final long serialVersionUID = 8098219941658664956L;
     private ServerTaskOptions stOptions = new ServerTaskOptions();
+    private BackupTaskOptions btOptions = new BackupTaskOptions();
+    private ConsoleCommandTaskOptions cctOptions = new ConsoleCommandTaskOptions();
 
     /** Creates new form SchedulerPanel */
     public SchedulerPanel() {
@@ -51,7 +62,6 @@ public class SchedulerPanel extends javax.swing.JPanel implements Localizable {
     /**
      * This method is called from within the constructor to initialize the form.
      */
-    @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
@@ -60,21 +70,22 @@ public class SchedulerPanel extends javax.swing.JPanel implements Localizable {
         addTask = new JButton();
         removeTask = new JButton();
         jLabel1 = new JLabel();
-        taskType = new JComboBox();
+        taskType = new JComboBox<Object>();
         optionPanel = new JPanel();
         save = new JButton();
         jLabel2 = new JLabel();
         timeAmount = new JSpinner();
-        intervalType = new JComboBox();
+        intervalType = new JComboBox<Object>();
         repeating = new JCheckBox();
 
         taskList.setModel(new DefaultTableModel(new Object[][] {
 
         }, new String[] { "Task Name", "Enabled" }) {
-            Class[] types = new Class[] { String.class, Boolean.class };
+            private static final long serialVersionUID = 1656034351530643883L;
+            Class<?>[] types = new Class[] { String.class, Boolean.class };
             boolean[] canEdit = new boolean[] { false, true };
 
-            public Class getColumnClass(int columnIndex) {
+            public Class<?> getColumnClass(int columnIndex) {
                 return types[columnIndex];
             }
 
@@ -105,7 +116,7 @@ public class SchedulerPanel extends javax.swing.JPanel implements Localizable {
 
         jLabel1.setText("Type");
 
-        taskType.setModel(new DefaultComboBoxModel(new String[] { "Server action", "World backup", "Custom command" }));
+        taskType.setModel(new DefaultComboBoxModel<Object>(new String[] { "Server action", "World backup", "Custom command" }));
         taskType.addItemListener(new ItemListener() {
             public void itemStateChanged(ItemEvent evt) {
                 taskTypeItemStateChanged(evt);
@@ -121,14 +132,19 @@ public class SchedulerPanel extends javax.swing.JPanel implements Localizable {
         optionPanelLayout.setVerticalGroup(optionPanelLayout.createParallelGroup(Alignment.LEADING).addGap(0, 251,
                 Short.MAX_VALUE));
 
-        save.setText("Save");
+        save.setText("Save Task");
+        save.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                saveActionPerformed(evt);
+            }
+        });
 
         jLabel2.setText("Execute every");
 
         timeAmount.setModel(new SpinnerNumberModel(Integer.valueOf(1), Integer.valueOf(1), null, Integer.valueOf(1)));
         timeAmount.setFocusable(false);
 
-        intervalType.setModel(new DefaultComboBoxModel(new String[] { "Seconds", "Minutes", "Hours", "Days" }));
+        intervalType.setModel(new DefaultComboBoxModel<Object>(new String[] { "Seconds", "Minutes", "Hours", "Days" }));
         intervalType.setSelectedIndex(1);
 
         repeating.setSelected(true);
@@ -253,8 +269,10 @@ public class SchedulerPanel extends javax.swing.JPanel implements Localizable {
     }// </editor-fold>//GEN-END:initComponents
 
     private void addTaskActionPerformed(ActionEvent evt) {// GEN-FIRST:event_addTaskActionPerformed
-        ((DefaultTableModel) taskList.getModel()).addRow(new Object[] {
-                "Task " + (taskList.getModel().getRowCount() + 1), Boolean.TRUE });
+       // ServerTask task = new ServerTask(Type.SAVE_ALL, true, 60000, "Task 1");
+        
+        ((DefaultTableModel)taskList.getModel()).addRow(new Object[] {
+                "Task " + (taskList.getModel().getRowCount() + 1), Boolean.TRUE});
         taskList.setRowSelectionInterval(taskList.getModel().getRowCount() - 1, taskList.getModel().getRowCount() - 1);
     }// GEN-LAST:event_addTaskActionPerformed
 
@@ -274,12 +292,38 @@ public class SchedulerPanel extends javax.swing.JPanel implements Localizable {
             optionPanel.add(BorderLayout.CENTER, stOptions);
             stOptions.setVisible(true);
             invalidate();
+        } else if (taskType.getSelectedItem().toString().equals("World backup")) {
+            optionPanel.add(BorderLayout.CENTER, btOptions);
+            stOptions.setVisible(true);
+            invalidate();
+        } else if (taskType.getSelectedItem().toString().equals("Custom command")) {
+            optionPanel.add(BorderLayout.CENTER, cctOptions);
+            stOptions.setVisible(true);
+            invalidate();
         }
     }// GEN-LAST:event_taskTypeItemStateChanged
+    
+    private void saveActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_saveActionPerformed
+        ScheduledTask task = null; //TODO
+        if (taskType.getSelectedItem() == "Server action") {
+            //ServerTask task = (ServerTask) taskList.getValueAt(taskList.getSelectedRow(), taskList.getSelectedColumn());
+            task = new ServerTask(Type.SAVE_ALL, repeating.isSelected(), 10, "Task");
+        } else if (taskType.getSelectedItem() == "World backup") {
+            task = (BackupTask) taskList.getValueAt(taskList.getSelectedRow(), taskList.getSelectedColumn());
+        } else if (taskType.getSelectedItem() == "Custom command") {
+            task = (ConsoleCommandTask) taskList.getValueAt(taskList.getSelectedRow(), taskList.getSelectedColumn());
+        }
+
+        Scheduler.registerTask(task);
+        //updateFields();
+
+        JOptionPane.showMessageDialog(this, Util.translate("Task saved."), Util.translate("Success"),
+                JOptionPane.INFORMATION_MESSAGE);
+    }// GEN-LAST:event_saveActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private JButton addTask;
-    private JComboBox intervalType;
+    private JComboBox<Object> intervalType;
     private JLabel jLabel1;
     private JLabel jLabel2;
     private JScrollPane jScrollPane1;
@@ -288,7 +332,7 @@ public class SchedulerPanel extends javax.swing.JPanel implements Localizable {
     private JCheckBox repeating;
     private JButton save;
     private JTable taskList;
-    private JComboBox taskType;
+    private JComboBox<Object> taskType;
     private JSpinner timeAmount;
 
     // End of variables declaration//GEN-END:variables

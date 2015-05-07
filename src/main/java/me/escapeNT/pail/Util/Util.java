@@ -22,7 +22,6 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 
-import org.spongepowered.api.plugin.PluginContainer;
 import org.spongepowered.api.util.command.source.ConsoleSource;
 
 import me.escapeNT.pail.GUIComponents.FileMenu;
@@ -57,6 +56,7 @@ public final class Util {
         try {
             RandomAccessFile fileReader = new RandomAccessFile(file, "r");
             fileReader.seek(fileReader.length());
+            fileReader.close();
         } catch (IOException ex) {
             getPlugin();
             Pail.getLogger().throwing("Util", "readLastLines", ex);
@@ -256,5 +256,9 @@ public final class Util {
 
     public static void setDataFolder(File folder) {
         pluginDir = folder;
+    }
+
+    public static int getBuffer() {
+        return BUFFER;
     }
 }

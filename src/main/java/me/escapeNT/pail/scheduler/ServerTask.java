@@ -9,6 +9,7 @@ import me.escapeNT.pail.Util.Util;
  * @author escapeNT
  */
 public class ServerTask implements ScheduledTask {
+    private static final long serialVersionUID = 6011558908207548083L;
     private Type type;
     private boolean repeating;
     private boolean enabled;
@@ -41,7 +42,7 @@ public class ServerTask implements ScheduledTask {
     }
 
     public void execute() {
-        // This shuold already be syncronous
+        // This should already be synchronous
         Pail.getGame().getCommandDispatcher().process(Util.getConsoleSender(), type.getCommand());
     }
 

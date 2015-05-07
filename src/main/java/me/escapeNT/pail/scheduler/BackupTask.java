@@ -17,6 +17,7 @@ import me.escapeNT.pail.Util.Util;
  * @author escapeNT
  */
 public class BackupTask implements ScheduledTask {
+    private static final long serialVersionUID = 2195093109413428297L;
     private final String world;
     private boolean repeating;
     private boolean broadcast;
@@ -55,7 +56,7 @@ public class BackupTask implements ScheduledTask {
     /**
      * Executes this backup task.
      */
-    public void execute() {
+    public void execute() { //TODO world.getName() is not safe to be used as a filename
         final File worldFolder = new File(world);
         final File backupFolder = new File(Util.getDataFolder(), "backups");
         final File backup = new File(backupFolder, world

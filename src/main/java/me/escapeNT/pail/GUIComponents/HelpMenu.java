@@ -23,6 +23,7 @@ import me.escapeNT.pail.Util.Util;
  * @author escapeNT
  */
 public class HelpMenu extends JMenu implements Localizable {
+    private static final long serialVersionUID = -6980515344327190183L;
 
     public HelpMenu() {
         super(Util.translate("Help"));

@@ -7,16 +7,8 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.UUID;
-import java.util.Map.Entry;
 import java.util.logging.Level;
-
-import ninja.leaping.configurate.ConfigurationNode;
-import ninja.leaping.configurate.ConfigurationOptions;
-import ninja.leaping.configurate.commented.CommentedConfigurationNode;
-import ninja.leaping.configurate.hocon.HoconConfigurationLoader;
-import ninja.leaping.configurate.loader.ConfigurationLoader;
 
 import org.spongepowered.api.service.scheduler.SynchronousScheduler;
 
@@ -108,6 +100,7 @@ public class Scheduler {
     /**
      * Loads the saved list of tasks.
      */
+    @SuppressWarnings("unchecked")
     public static void loadTasks() {
         if (!file.exists()) {
             saveTasks();
@@ -125,8 +118,10 @@ public class Scheduler {
         }
         for (final ScheduledTask task : tasks.keySet()) {
             if (!task.isEnabled()) {
+                Pail.getLogger().info("2sdkjgkslgj");
                 continue;
             }
+            Pail.getLogger().info("sdkjgkslgj");
             UUID taskId;
             if (task.isRepeating()) {
                 taskId = bs.runRepeatingTaskAfter(Util.getPlugin(), new Runnable() {

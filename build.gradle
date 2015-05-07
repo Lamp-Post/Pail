@@ -13,7 +13,7 @@ plugins {
     id 'com.github.johnrengelman.shadow' version '1.2.1'
 }
 
-defaultTasks 'clean', 'build'
+defaultTasks 'clean', 'build', 'fatJar'
 
 // Project information
 group = 'me.escapeNT.pail'
@@ -31,9 +31,6 @@ repositories {
     maven { name 'Sponge maven repo'
         url 'http://repo.spongepowered.org/maven' 
     }
-    flatDir {
-       dirs 'libs'
-   }
 }
 
 configurations {
@@ -41,13 +38,14 @@ configurations {
     compile {
         extendsFrom shadow
     }
+    fatt
 }
 
 // Project dependencies
 dependencies {
-    compile name: 'JTattoo-1.6.11'
+    fatt 'com.jtattoo:JTattoo:1.6.11'
     
-    compile "org.spongepowered:spongeapi:2.0"
+    compile 'org.spongepowered:spongeapi:2.0'
     shadow('org.slf4j:jul-to-slf4j:1.7.7') {
         transitive = false
     }
@@ -85,6 +83,19 @@ jar { // The Pore classes will be created in Pore-VERSION-base.jar first
     }
 }
 
+task fatJar(type: Jar) {
+    manifest {
+        attributes(
+                'Implementation-Title': project.name,
+                'Implementation-Version': project.version,
+                'Implementation-Vendor': 'Lamp-Post',
+                'Main-Class': 'me.escapeNT.pail.Main'
+        )
+    }
+    from { configurations.fatt.collect { it.isDirectory() ? it : zipTree(it) } }
+    with jar
+}
+
 shadowJar {
     configurations = [project.configurations.shadow]
     dependencies {
@@ -93,7 +104,7 @@ shadowJar {
     }
 
     // Relocate jul-to-slf4j
-    relocate 'org.slf4j.bridge', 'blue.lapis.pore.lib.org.slf4j.bridge'
+    relocate 'org.slf4j.bridge', 'me.escapeNT.pail.org.slf4j.bridge'
 }
 
 task wrapper(type: Wrapper) {
