@@ -20,7 +20,7 @@ group = 'me.escapeNT.pail'
 version = '1.0.0-SNAPSHOT'
 
 sourceCompatibility = 1.6
-targetCompatibility = 1.7
+targetCompatibility = 1.6
 
 // Project repositories
 repositories {
