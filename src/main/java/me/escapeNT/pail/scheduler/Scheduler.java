@@ -118,10 +118,8 @@ public class Scheduler {
         }
         for (final ScheduledTask task : tasks.keySet()) {
             if (!task.isEnabled()) {
-                Pail.getLogger().info("2sdkjgkslgj");
                 continue;
             }
-            Pail.getLogger().info("sdkjgkslgj");
             UUID taskId;
             if (task.isRepeating()) {
                 taskId = bs.runRepeatingTaskAfter(Util.getPlugin(), new Runnable() {
