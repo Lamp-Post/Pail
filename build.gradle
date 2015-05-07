@@ -19,7 +19,7 @@ defaultTasks 'clean', 'build', 'fatJar'
 group = 'me.escapeNT.pail'
 version = '1.0.0-SNAPSHOT'
 
-sourceCompatibility = 1.7
+sourceCompatibility = 1.6
 targetCompatibility = 1.7
 
 // Project repositories
