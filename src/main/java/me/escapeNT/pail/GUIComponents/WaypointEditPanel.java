@@ -39,10 +39,10 @@ public class WaypointEditPanel extends javax.swing.JPanel implements Localizable
             worlds.addItem(w.getName());
         }
 
-        ((DefaultListModel<Waypoint>) waypoints.getModel()).clear();
+        ((DefaultListModel) waypoints.getModel()).clear();
         
         for (Waypoint wp : WaypointConfig.getWaypoints()) {
-            ((DefaultListModel<Waypoint>) waypoints.getModel()).addElement(wp);
+            ((DefaultListModel) waypoints.getModel()).addElement(wp);
         }
         waypoints.setSelectedIndex(0);
 
@@ -91,7 +91,7 @@ public class WaypointEditPanel extends javax.swing.JPanel implements Localizable
 
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        waypoints = new javax.swing.JList<Waypoint>();
+        waypoints = new javax.swing.JList();
         addWaypoint = new javax.swing.JButton();
         removeWaypoint = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
@@ -101,18 +101,18 @@ public class WaypointEditPanel extends javax.swing.JPanel implements Localizable
         x = new javax.swing.JSpinner();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        worlds = new javax.swing.JComboBox<String>();
+        worlds = new javax.swing.JComboBox();
         save = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
         name = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
-        players = new javax.swing.JComboBox<String>();
+        players = new javax.swing.JComboBox();
         playerSubmit = new javax.swing.JButton();
         jSeparator1 = new javax.swing.JSeparator();
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Waypoints"));
 
-        waypoints.setModel(new DefaultListModel<Waypoint>());
+        waypoints.setModel(new DefaultListModel());
         waypoints.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
             public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
                 waypointsValueChanged(evt);
@@ -317,7 +317,7 @@ public class WaypointEditPanel extends javax.swing.JPanel implements Localizable
                 .getWorld(Pail.getServer().getAllWorldProperties().iterator().next().getWorldName()).get()); // TODO
                                                                                                              // verify
         WaypointConfig.getWaypoints().add(point);
-        ((DefaultListModel<Waypoint>) waypoints.getModel()).addElement(point);
+        ((DefaultListModel) waypoints.getModel()).addElement(point);
         waypoints.setSelectedValue(point, true);
         updateFields();
     }// GEN-LAST:event_addWaypointActionPerformed
@@ -325,7 +325,7 @@ public class WaypointEditPanel extends javax.swing.JPanel implements Localizable
     private void removeWaypointActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_removeWaypointActionPerformed
         if (waypoints.getSelectedValue() != null) {
             Waypoint point = (Waypoint) waypoints.getSelectedValue();
-            ((DefaultListModel<Waypoint>) waypoints.getModel()).removeElement(point);
+            ((DefaultListModel) waypoints.getModel()).removeElement(point);
             WaypointConfig.getWaypoints().remove(point);
             WaypointConfig.save();
             updateFields();
@@ -381,11 +381,11 @@ public class WaypointEditPanel extends javax.swing.JPanel implements Localizable
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JTextField name;
     private javax.swing.JButton playerSubmit;
-    private javax.swing.JComboBox<String> players;
+    private javax.swing.JComboBox players;
     private javax.swing.JButton removeWaypoint;
     private javax.swing.JButton save;
-    private javax.swing.JList<Waypoint> waypoints;
-    private javax.swing.JComboBox<String> worlds;
+    private javax.swing.JList waypoints;
+    private javax.swing.JComboBox worlds;
     private javax.swing.JSpinner x;
     private javax.swing.JSpinner y;
     private javax.swing.JSpinner z;
@@ -395,7 +395,7 @@ public class WaypointEditPanel extends javax.swing.JPanel implements Localizable
     /**
      * @return the players
      */
-    public javax.swing.JComboBox<String> getPlayers() {
+    public javax.swing.JComboBox getPlayers() {
         return players;
     }
 

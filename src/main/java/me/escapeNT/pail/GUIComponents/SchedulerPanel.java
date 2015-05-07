@@ -70,22 +70,22 @@ public class SchedulerPanel extends javax.swing.JPanel implements Localizable {
         addTask = new JButton();
         removeTask = new JButton();
         jLabel1 = new JLabel();
-        taskType = new JComboBox<Object>();
+        taskType = new JComboBox();
         optionPanel = new JPanel();
         save = new JButton();
         jLabel2 = new JLabel();
         timeAmount = new JSpinner();
-        intervalType = new JComboBox<Object>();
+        intervalType = new JComboBox();
         repeating = new JCheckBox();
 
         taskList.setModel(new DefaultTableModel(new Object[][] {
 
         }, new String[] { "Task Name", "Enabled" }) {
             private static final long serialVersionUID = 1656034351530643883L;
-            Class<?>[] types = new Class[] { String.class, Boolean.class };
+            Class[] types = new Class[] { String.class, Boolean.class };
             boolean[] canEdit = new boolean[] { false, true };
 
-            public Class<?> getColumnClass(int columnIndex) {
+            public Class getColumnClass(int columnIndex) {
                 return types[columnIndex];
             }
 
@@ -116,7 +116,7 @@ public class SchedulerPanel extends javax.swing.JPanel implements Localizable {
 
         jLabel1.setText("Type");
 
-        taskType.setModel(new DefaultComboBoxModel<Object>(new String[] { "Server action", "World backup", "Custom command" }));
+        taskType.setModel(new DefaultComboBoxModel(new String[] { "Server action", "World backup", "Custom command" }));
         taskType.addItemListener(new ItemListener() {
             public void itemStateChanged(ItemEvent evt) {
                 taskTypeItemStateChanged(evt);
@@ -144,7 +144,7 @@ public class SchedulerPanel extends javax.swing.JPanel implements Localizable {
         timeAmount.setModel(new SpinnerNumberModel(Integer.valueOf(1), Integer.valueOf(1), null, Integer.valueOf(1)));
         timeAmount.setFocusable(false);
 
-        intervalType.setModel(new DefaultComboBoxModel<Object>(new String[] { "Seconds", "Minutes", "Hours", "Days" }));
+        intervalType.setModel(new DefaultComboBoxModel(new String[] { "Seconds", "Minutes", "Hours", "Days" }));
         intervalType.setSelectedIndex(1);
 
         repeating.setSelected(true);
@@ -323,7 +323,7 @@ public class SchedulerPanel extends javax.swing.JPanel implements Localizable {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private JButton addTask;
-    private JComboBox<Object> intervalType;
+    private JComboBox intervalType;
     private JLabel jLabel1;
     private JLabel jLabel2;
     private JScrollPane jScrollPane1;
@@ -332,7 +332,7 @@ public class SchedulerPanel extends javax.swing.JPanel implements Localizable {
     private JCheckBox repeating;
     private JButton save;
     private JTable taskList;
-    private JComboBox<Object> taskType;
+    private JComboBox taskType;
     private JSpinner timeAmount;
 
     // End of variables declaration//GEN-END:variables

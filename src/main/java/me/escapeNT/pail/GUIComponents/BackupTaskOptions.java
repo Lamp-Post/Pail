@@ -10,7 +10,6 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 import me.escapeNT.pail.Util.Localizable;
 import me.escapeNT.pail.Util.Util;
 import me.escapeNT.pail.scheduler.ServerTask;
-import me.escapeNT.pail.scheduler.ServerTask.Type;
 
 /**
  * Panel containing options for a Server Task.
@@ -26,7 +25,7 @@ public class BackupTaskOptions extends javax.swing.JPanel implements Localizable
         initComponents();
         translateComponent();
         for (ServerTask.Type t : ServerTask.Type.values()) {
-            ((DefaultComboBoxModel<Type>) action.getModel()).addElement(t);
+            ((DefaultComboBoxModel) action.getModel()).addElement(t);
         }
     }
 
@@ -37,11 +36,11 @@ public class BackupTaskOptions extends javax.swing.JPanel implements Localizable
     private void initComponents() {
 
         jLabel1 = new JLabel();
-        action = new JComboBox<Type>();
+        action = new JComboBox();
 
         jLabel1.setText("Action");
 
-        action.setModel(new DefaultComboBoxModel<Type>());
+        action.setModel(new DefaultComboBoxModel());
 
         GroupLayout layout = new GroupLayout(this);
         this.setLayout(layout);
@@ -60,7 +59,7 @@ public class BackupTaskOptions extends javax.swing.JPanel implements Localizable
     }// </editor-fold>//GEN-END:initComponents
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private JComboBox<Type> action;
+    private JComboBox action;
     private JLabel jLabel1;
 
     // End of variables declaration//GEN-END:variables
@@ -74,7 +73,7 @@ public class BackupTaskOptions extends javax.swing.JPanel implements Localizable
      * 
      * @return the action
      */
-    public JComboBox<Type> getAction() {
+    public JComboBox getAction() {
         return action;
     }
 }

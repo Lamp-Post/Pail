@@ -7,11 +7,13 @@ import java.awt.event.ActionListener;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Set;
+
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+
 import me.escapeNT.pail.easygui.event.ButtonEvent;
 import me.escapeNT.pail.easygui.event.ButtonListener;
 import me.escapeNT.pail.easygui.event.Listener;
@@ -102,7 +104,7 @@ public class PailTab extends JPanel {
             case TEXT_FIELD:
                 return ((JTextField) c.getRootComponent()).getText();
             case SELECTION_MENU:
-                return ((JComboBox<?>) c.getRootComponent()).getSelectedItem().toString();
+                return ((JComboBox) c.getRootComponent()).getSelectedItem().toString();
             case BUTTON:
             default:
                 return null;

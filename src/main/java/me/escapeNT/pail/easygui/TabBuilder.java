@@ -123,7 +123,7 @@ public class TabBuilder {
         if (components.keySet().contains(name)) {
             throw new IllegalArgumentException("This form already contains a component by the name " + name);
         }
-        components.put(name, new PailComponent(name, new JComboBox<Object>(values)));
+        components.put(name, new PailComponent(name, new JComboBox(values)));
         return this;
     }
 
@@ -148,7 +148,7 @@ public class TabBuilder {
         if (!Arrays.asList(values).contains(initialSelection)) {
             throw new IllegalArgumentException("The inital selection is not one of the options in the list!");
         } else {
-            JComboBox<?> b = new JComboBox<Object>(values);
+            JComboBox b = new JComboBox(values);
             b.setSelectedItem(initialSelection);
             components.put(name, new PailComponent(name, b));
         }

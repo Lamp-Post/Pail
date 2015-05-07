@@ -47,7 +47,7 @@ public final class ServerControlPanel extends javax.swing.JPanel implements Loca
     public ServerControlPanel() {
         initComponents();
         Util.setServerControls(this);
-        playerList.setModel(new DefaultListModel<String>());
+        playerList.setModel(new DefaultListModel());
         playerList.setCellRenderer(listModel);
         jScrollPane1.setBorder(new TitledBorder(Util.translate("Players")));
 
@@ -107,7 +107,7 @@ public final class ServerControlPanel extends javax.swing.JPanel implements Loca
         jEditorPane1 = new javax.swing.JEditorPane();
         serverConsolePanel = new me.escapeNT.pail.GUIComponents.ServerConsolePanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        playerList = new javax.swing.JList<String>();
+        playerList = new javax.swing.JList();
 
         jScrollPane2.setViewportView(jEditorPane1);
 
@@ -158,7 +158,7 @@ public final class ServerControlPanel extends javax.swing.JPanel implements Loca
 
     private void showPlayerMenu(MouseEvent e) {
         if (e.isPopupTrigger()) {
-            for (int i = 0; i < ((DefaultListModel<String>) playerList.getModel()).getSize(); i++) {
+            for (int i = 0; i < ((DefaultListModel) playerList.getModel()).getSize(); i++) {
                 Rectangle r = playerList.getCellBounds(i, i);
                 if (r.contains(e.getPoint())) {
                     playerList.setSelectedIndex(i);
@@ -253,7 +253,8 @@ public final class ServerControlPanel extends javax.swing.JPanel implements Loca
     private javax.swing.JEditorPane jEditorPane1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JList<String> playerList;
+    @SuppressWarnings("rawtypes")
+    private javax.swing.JList playerList;
     private me.escapeNT.pail.GUIComponents.ServerConsolePanel serverConsolePanel;
 
     // End of variables declaration//GEN-END:variables
@@ -272,8 +273,8 @@ public final class ServerControlPanel extends javax.swing.JPanel implements Loca
      *
      * @return the listModel
      */
-    public DefaultListModel<String> getListModel() {
-        return (DefaultListModel<String>) playerList.getModel();
+    public DefaultListModel getListModel() {
+        return (DefaultListModel) playerList.getModel();
     }
 
     /**
