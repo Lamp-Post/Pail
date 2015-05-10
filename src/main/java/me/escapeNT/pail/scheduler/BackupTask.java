@@ -24,6 +24,7 @@ public class BackupTask implements ScheduledTask {
     private boolean enabled = true;
     private String name;
     private long interval;
+    private String intervalType;
 
     /**
      * Constructs a new scheduled world backup.
@@ -37,10 +38,11 @@ public class BackupTask implements ScheduledTask {
      * @param interval
      *            The interval between executions (or delay for a non-repeating task).
      */
-    public BackupTask(World world, boolean broadcastMessage, boolean repeating, long interval, String name) {
+    public BackupTask(World world, boolean broadcastMessage, boolean repeating, long interval, String intervalType, String name) {
         this.world = world.getName();
         this.repeating = repeating;
         this.interval = interval;
+        this.intervalType = intervalType;
         this.broadcast = broadcastMessage;
         this.name = name;
     }
@@ -105,5 +107,30 @@ public class BackupTask implements ScheduledTask {
      */
     public void setName(String name) {
         this.name = name;
+    }
+
+    @Override
+    public String getIntervalType() {
+        return intervalType;
+    }
+
+    @Override
+    public void setInterval(long interval) {
+        this.interval = interval;
+    }
+
+    @Override
+    public void setIntervalType(String intervalType) {
+        this.intervalType = intervalType;
+    }
+
+    @Override
+    public void setRepeating(boolean repeating) {
+        this.repeating = repeating;
+    }
+
+    @Override
+    public String getTastType() {
+        return "World backup";
     }
 }

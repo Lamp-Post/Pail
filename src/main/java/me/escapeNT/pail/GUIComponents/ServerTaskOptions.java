@@ -76,4 +76,14 @@ public class ServerTaskOptions extends javax.swing.JPanel implements Localizable
     public JComboBox getAction() {
         return action;
     }
+
+    public void setDisabled() {
+        action.setEnabled(false);
+        jLabel1.setEnabled(false);
+    }
+    
+    public void setEnabled() {
+        action.setEnabled(true);
+        jLabel1.setEnabled(true);
+    }
 }

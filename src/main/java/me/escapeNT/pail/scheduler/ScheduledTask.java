@@ -14,6 +14,25 @@ public interface ScheduledTask extends Serializable {
      * @return The interval in milliseconds between task executions.
      */
     public long getInterval();
+    
+    /**
+     * Sets the time interval between executions of this task.
+     *
+     */
+    public void setInterval(long interval);
+    
+    /**
+     * Gets the interval type of this task.
+     *
+     * @return The interval type.
+     */
+    public String getIntervalType();
+    
+    /**
+     * Sets the interval type of this task.
+     *
+     */
+    public void setIntervalType(String intervalType);
 
     /**
      * Returns true if the task should be repeated indefinitely.
@@ -21,6 +40,12 @@ public interface ScheduledTask extends Serializable {
      * @return True if the task is repeating, false if not.
      */
     public boolean isRepeating();
+    
+    /**
+     * Returns true if the task should be repeated indefinitely.
+     *
+     */
+    public void setRepeating(boolean repeating);
 
     /**
      * Gets whether the task is enabled and running.
@@ -51,6 +76,15 @@ public interface ScheduledTask extends Serializable {
      *            The name of the task.
      */
     public void setName(String name);
+    
+    
+    /**
+     * Gets the task type.
+     *
+     * @param type
+     *            The type of the task.
+     */
+    public String getTastType();
 
     /**
      * Executes this task.

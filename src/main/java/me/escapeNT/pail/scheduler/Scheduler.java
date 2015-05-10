@@ -23,7 +23,7 @@ import me.escapeNT.pail.Util.Util;
 public class Scheduler {
     private static HashMap<ScheduledTask, Boolean> tasks = new HashMap<ScheduledTask, Boolean>();
     private static HashMap<ScheduledTask, UUID> taskIDs = new HashMap<ScheduledTask, UUID>();
-    private static final SynchronousScheduler bs = Pail.getGame().getSyncScheduler();
+    private static final SynchronousScheduler ss = Pail.getGame().getSyncScheduler();
     private static final File file = new File(Util.getDataFolder(), "tasks.dat");
 
     /**
@@ -43,14 +43,14 @@ public class Scheduler {
 
         UUID taskId;
         if (task.isRepeating()) {
-            taskId = bs.runRepeatingTaskAfter(Util.getPlugin(), new Runnable() {
+            taskId = ss.runRepeatingTaskAfter(Util.getPlugin(), new Runnable() {
                 public void run() {
                     task.execute();
                     tasks.put(task, Boolean.TRUE);
                 }
             }, task.getInterval(), task.getInterval()).get().getUniqueId();
         } else {
-            taskId = bs.runTaskAfter(Util.getPlugin(), new Runnable() {
+            taskId = ss.runTaskAfter(Util.getPlugin(), new Runnable() {
                 public void run() {
                     task.execute();
                     tasks.put(task, Boolean.TRUE);
@@ -106,7 +106,7 @@ public class Scheduler {
             saveTasks();
         }
         for (UUID taskId : taskIDs.values()) {
-            bs.getTaskById(taskId).get().cancel();
+            ss.getTaskById(taskId).get().cancel();
         }
         try {
             FileInputStream fis = new FileInputStream(file);
@@ -122,14 +122,14 @@ public class Scheduler {
             }
             UUID taskId;
             if (task.isRepeating()) {
-                taskId = bs.runRepeatingTaskAfter(Util.getPlugin(), new Runnable() {
+                taskId = ss.runRepeatingTaskAfter(Util.getPlugin(), new Runnable() {
                     public void run() {
                         task.execute();
                         tasks.put(task, Boolean.TRUE);
                     }
                 }, task.getInterval(), task.getInterval()).get().getUniqueId();
             } else {
-                taskId = bs.runTaskAfter(Util.getPlugin(), new Runnable() {
+                taskId = ss.runTaskAfter(Util.getPlugin(), new Runnable() {
                     public void run() {
                         task.execute();
                         tasks.put(task, Boolean.TRUE);
@@ -147,7 +147,7 @@ public class Scheduler {
      *            The name of the task.
      * @return The task with the given name, or null if not found.
      */
-    public ScheduledTask getTask(String name) {
+    public static ScheduledTask getTask(String name) {
         for (ScheduledTask t : tasks.keySet()) {
             if (t.getName().equals(name)) {
                 return t;
@@ -161,10 +161,10 @@ public class Scheduler {
      *
      * @param name
      */
-    public void removeTask(String name) {
+    public static void removeTask(String name) {
         for (ScheduledTask t : tasks.keySet()) {
             if (t.getName().equals(name)) {
-                bs.getTaskById(taskIDs.get(t)).get().cancel();
+                ss.getTaskById(taskIDs.get(t)).get().cancel();
                 taskIDs.remove(t);
                 tasks.remove(t);
                 return;

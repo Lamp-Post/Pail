@@ -14,6 +14,7 @@ public class ServerTask implements ScheduledTask {
     private boolean repeating;
     private boolean enabled;
     private long interval;
+    private String intervalType;
     private String name;
 
     /**
@@ -26,10 +27,11 @@ public class ServerTask implements ScheduledTask {
      * @param interval
      *            The interval (or delay) between executions.
      */
-    public ServerTask(Type type, boolean repeating, long interval, String name) {
+    public ServerTask(Type type, boolean repeating, long interval, String intervalType, String name) {
         this.type = type;
         this.repeating = repeating;
         this.interval = interval;
+        this.intervalType = intervalType;
         this.name = name;
     }
 
@@ -93,5 +95,30 @@ public class ServerTask implements ScheduledTask {
         public String toString() {
             return getCommand();
         }
+    }
+
+    @Override
+    public String getIntervalType() {
+        return intervalType;
+    }
+
+    @Override
+    public void setInterval(long interval) {
+        this.interval = interval;
+    }
+
+    @Override
+    public void setIntervalType(String intervalType) {
+        this.intervalType = intervalType;
+    }
+
+    @Override
+    public void setRepeating(boolean repeating) {
+        this.repeating = repeating;
+    }
+
+    @Override
+    public String getTastType() {
+        return "Server action";        
     }
 }

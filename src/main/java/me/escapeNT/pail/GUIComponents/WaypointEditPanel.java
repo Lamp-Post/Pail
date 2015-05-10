@@ -1,5 +1,8 @@
 package me.escapeNT.pail.GUIComponents;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.swing.DefaultListModel;
 import javax.swing.GroupLayout;
 import javax.swing.JOptionPane;
@@ -14,6 +17,8 @@ import me.escapeNT.pail.Util.Localizable;
 import me.escapeNT.pail.Util.Util;
 import me.escapeNT.pail.config.WaypointConfig;
 import me.escapeNT.pail.Util.Waypoint;
+import javax.swing.GroupLayout.Alignment;
+import javax.swing.LayoutStyle.ComponentPlacement;
 
 /**
  * Panel for editing teleport waypoints.
@@ -199,123 +204,93 @@ public class WaypointEditPanel extends javax.swing.JPanel implements Localizable
         });
 
         GroupLayout layout = new GroupLayout(this);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                    .addContainerGap()
+                    .addComponent(jPanel1, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(layout.createParallelGroup(Alignment.LEADING)
+                        .addGroup(Alignment.TRAILING, layout.createSequentialGroup()
+                            .addGap(18)
+                            .addGroup(layout.createParallelGroup(Alignment.LEADING)
+                                .addGroup(layout.createSequentialGroup()
+                                    .addPreferredGap(ComponentPlacement.RELATED)
+                                    .addComponent(jLabel5, GroupLayout.PREFERRED_SIZE, 60, GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(ComponentPlacement.UNRELATED)
+                                    .addComponent(name, GroupLayout.DEFAULT_SIZE, 356, Short.MAX_VALUE))
+                                .addGroup(layout.createSequentialGroup()
+                                    .addPreferredGap(ComponentPlacement.RELATED)
+                                    .addComponent(jLabel3, GroupLayout.PREFERRED_SIZE, 30, GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(ComponentPlacement.UNRELATED)
+                                    .addComponent(x, GroupLayout.DEFAULT_SIZE, 99, Short.MAX_VALUE)
+                                    .addGap(14)
+                                    .addComponent(jLabel2, GroupLayout.PREFERRED_SIZE, 20, GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(ComponentPlacement.UNRELATED)
+                                    .addComponent(y, GroupLayout.DEFAULT_SIZE, 99, Short.MAX_VALUE)
+                                    .addGap(14)
+                                    .addComponent(jLabel1, GroupLayout.PREFERRED_SIZE, 20, GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(ComponentPlacement.UNRELATED)
+                                    .addComponent(z, GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE))
+                                .addComponent(jLabel4, GroupLayout.PREFERRED_SIZE, 60, GroupLayout.PREFERRED_SIZE)
+                                .addGroup(layout.createSequentialGroup()
+                                    .addGap(54)
+                                    .addComponent(worlds, 0, 370, Short.MAX_VALUE))
+                                .addGroup(layout.createSequentialGroup()
+                                    .addGap(24)
+                                    .addComponent(jSeparator1, GroupLayout.PREFERRED_SIZE, 380, GroupLayout.PREFERRED_SIZE))
+                                .addGroup(layout.createSequentialGroup()
+                                    .addComponent(players, 0, 340, Short.MAX_VALUE)
+                                    .addPreferredGap(ComponentPlacement.RELATED)
+                                    .addComponent(playerSubmit, GroupLayout.DEFAULT_SIZE, 78, Short.MAX_VALUE))
+                                .addComponent(jLabel6, GroupLayout.PREFERRED_SIZE, 300, GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(Alignment.TRAILING, layout.createSequentialGroup()
+                            .addPreferredGap(ComponentPlacement.RELATED)
+                            .addComponent(save, GroupLayout.PREFERRED_SIZE, 130, GroupLayout.PREFERRED_SIZE)))
+                    .addContainerGap())
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                    .addGap(10)
+                    .addComponent(jPanel1, GroupLayout.DEFAULT_SIZE, 384, Short.MAX_VALUE)
+                    .addContainerGap())
+                .addGroup(layout.createSequentialGroup()
+                    .addGap(30)
+                    .addGroup(layout.createParallelGroup(Alignment.BASELINE)
+                        .addComponent(name, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel5))
+                    .addGap(32)
+                    .addGroup(layout.createParallelGroup(Alignment.LEADING, false)
+                        .addComponent(z, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                        .addGroup(layout.createParallelGroup(Alignment.BASELINE)
+                            .addComponent(x, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel3, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGroup(layout.createParallelGroup(Alignment.BASELINE)
+                            .addComponent(y, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel2, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel1, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addGap(40)
+                    .addGroup(layout.createParallelGroup(Alignment.LEADING)
+                        .addComponent(jLabel4, GroupLayout.PREFERRED_SIZE, 20, GroupLayout.PREFERRED_SIZE)
+                        .addComponent(worlds, GroupLayout.PREFERRED_SIZE, 20, GroupLayout.PREFERRED_SIZE))
+                    .addGap(40)
+                    .addComponent(jSeparator1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                    .addGap(26)
+                    .addComponent(jLabel6)
+                    .addPreferredGap(ComponentPlacement.RELATED)
+                    .addGroup(layout.createParallelGroup(Alignment.BASELINE)
+                        .addComponent(playerSubmit, GroupLayout.PREFERRED_SIZE, 20, GroupLayout.PREFERRED_SIZE)
+                        .addComponent(players, GroupLayout.PREFERRED_SIZE, 18, GroupLayout.PREFERRED_SIZE))
+                    .addPreferredGap(ComponentPlacement.RELATED, 91, Short.MAX_VALUE)
+                    .addComponent(save)
+                    .addGap(21))
+        );
         this.setLayout(layout);
-        layout.setHorizontalGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING).addGroup(
-                layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jPanel1, GroupLayout.DEFAULT_SIZE, 384, Short.MAX_VALUE)
-                        .addGap(18, 18, 18)
-                        .addGroup(layout
-                                .createParallelGroup(GroupLayout.Alignment.LEADING)
-                                .addGroup(layout
-                                        .createSequentialGroup()
-                                        .addGap(4, 4, 4)
-                                        .addComponent(jLabel5, GroupLayout.PREFERRED_SIZE, 60,
-                                                GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(name, GroupLayout.DEFAULT_SIZE, 340, Short.MAX_VALUE))
-                                .addGroup(layout
-                                        .createSequentialGroup()
-                                        .addGap(4, 4, 4)
-                                        .addComponent(jLabel3, GroupLayout.PREFERRED_SIZE, 30,
-                                                GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(x, GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
-                                        .addGap(20, 20, 20)
-                                        .addComponent(jLabel2, GroupLayout.PREFERRED_SIZE, 20,
-                                                GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(y, GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
-                                        .addGap(20, 20, 20)
-                                        .addComponent(jLabel1, GroupLayout.PREFERRED_SIZE, 20,
-                                                GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(z, GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE))
-                                .addComponent(jLabel4, GroupLayout.PREFERRED_SIZE, 60,
-                                        GroupLayout.PREFERRED_SIZE)
-                                .addGroup(layout.createSequentialGroup().addGap(54, 54, 54)
-                                        .addComponent(worlds, 0, 360, Short.MAX_VALUE))
-                                .addGroup(layout
-                                        .createSequentialGroup()
-                                        .addGap(24, 24, 24)
-                                        .addComponent(jSeparator1, GroupLayout.PREFERRED_SIZE, 380,
-                                                GroupLayout.PREFERRED_SIZE))
-                                .addGroup(layout
-                                        .createSequentialGroup()
-                                        .addGap(284, 284, 284)
-                                        .addComponent(save, GroupLayout.PREFERRED_SIZE, 130,
-                                                GroupLayout.PREFERRED_SIZE))
-                                .addGroup(layout
-                                        .createSequentialGroup()
-                                        .addGap(14, 14, 14)
-                                        .addGroup(layout
-                                                .createParallelGroup(GroupLayout.Alignment.LEADING)
-                                                .addComponent(jLabel6, GroupLayout.PREFERRED_SIZE, 300,
-                                                        GroupLayout.PREFERRED_SIZE)
-                                                .addComponent(players, 0, 310, Short.MAX_VALUE))
-                                        .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(playerSubmit, GroupLayout.DEFAULT_SIZE,
-                                                GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addGap(7, 7, 7))).addContainerGap()));
-        layout.setVerticalGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING).addGroup(
-                layout.createSequentialGroup()
-                        .addGroup(layout
-                                .createParallelGroup(GroupLayout.Alignment.TRAILING)
-                                .addGroup(GroupLayout.Alignment.LEADING,
-                                        layout.createSequentialGroup()
-                                                .addGap(10, 10, 10)
-                                                .addComponent(jPanel1, GroupLayout.DEFAULT_SIZE, 410,
-                                                        Short.MAX_VALUE))
-                                .addGroup(GroupLayout.Alignment.LEADING,
-                                        layout.createSequentialGroup()
-                                                .addGap(30, 30, 30)
-                                                .addGroup(layout
-                                                        .createParallelGroup(GroupLayout.Alignment.LEADING)
-                                                        .addComponent(name, GroupLayout.PREFERRED_SIZE,
-                                                                GroupLayout.DEFAULT_SIZE,
-                                                                GroupLayout.PREFERRED_SIZE)
-                                                        .addGroup(layout.createSequentialGroup().addGap(6, 6, 6).addComponent(jLabel5)))
-                                                .addGap(32, 32, 32)
-                                                .addGroup(layout
-                                                        .createParallelGroup(GroupLayout.Alignment.LEADING)
-                                                        .addComponent(jLabel3, GroupLayout.PREFERRED_SIZE,
-                                                                30, GroupLayout.PREFERRED_SIZE)
-                                                        .addComponent(x, GroupLayout.PREFERRED_SIZE,
-                                                                GroupLayout.DEFAULT_SIZE,
-                                                                GroupLayout.PREFERRED_SIZE)
-                                                        .addComponent(jLabel2, GroupLayout.PREFERRED_SIZE,
-                                                                30, GroupLayout.PREFERRED_SIZE)
-                                                        .addComponent(y, GroupLayout.PREFERRED_SIZE,
-                                                                GroupLayout.DEFAULT_SIZE,
-                                                                GroupLayout.PREFERRED_SIZE)
-                                                        .addComponent(jLabel1, GroupLayout.PREFERRED_SIZE,
-                                                                30, GroupLayout.PREFERRED_SIZE)
-                                                        .addComponent(z, GroupLayout.PREFERRED_SIZE,
-                                                                GroupLayout.DEFAULT_SIZE,
-                                                                GroupLayout.PREFERRED_SIZE))
-                                                .addGap(30, 30, 30)
-                                                .addGroup(layout
-                                                        .createParallelGroup(GroupLayout.Alignment.LEADING)
-                                                        .addComponent(jLabel4, GroupLayout.PREFERRED_SIZE,
-                                                                20, GroupLayout.PREFERRED_SIZE)
-                                                        .addComponent(worlds, GroupLayout.PREFERRED_SIZE,
-                                                                20, GroupLayout.PREFERRED_SIZE))
-                                                .addGap(40, 40, 40)
-                                                .addComponent(jSeparator1, GroupLayout.PREFERRED_SIZE,
-                                                        GroupLayout.DEFAULT_SIZE,
-                                                        GroupLayout.PREFERRED_SIZE)
-                                                .addGap(28, 28, 28)
-                                                .addComponent(jLabel6)
-                                                .addGap(4, 4, 4)
-                                                .addGroup(layout
-                                                        .createParallelGroup(GroupLayout.Alignment.BASELINE)
-                                                        .addComponent(players, GroupLayout.PREFERRED_SIZE,
-                                                                18, GroupLayout.PREFERRED_SIZE)
-                                                        .addComponent(playerSubmit)).addGap(92, 92, 92).addComponent(save)))
-                        .addContainerGap()));
     }// </editor-fold>//GEN-END:initComponents
 
-    private void addWaypointActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_addWaypointActionPerformed
+    private void addWaypointActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_addWaypointActionPerformed        
         Waypoint point = new Waypoint("waypoint", new Location(Pail.getServer().getWorld(Pail.getServer().getAllWorldProperties().iterator().next().getWorldName()).get(), 0, 0, 0), Pail.getServer()
-                .getWorld(Pail.getServer().getAllWorldProperties().iterator().next().getWorldName()).get()); // TODO
-                                                                                                             // verify
+                .getWorld(Pail.getServer().getAllWorldProperties().iterator().next().getWorldName()).get());
         WaypointConfig.getWaypoints().add(point);
         ((DefaultListModel) waypoints.getModel()).addElement(point);
         waypoints.setSelectedValue(point, true);
@@ -359,6 +334,8 @@ public class WaypointEditPanel extends javax.swing.JPanel implements Localizable
 
         WaypointConfig.save();
         updateFields();
+        jScrollPane1.revalidate();
+        jScrollPane1.repaint();
 
         JOptionPane.showMessageDialog(this, Util.translate("Waypoint saved."), Util.translate("Success"),
                 JOptionPane.INFORMATION_MESSAGE);

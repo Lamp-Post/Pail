@@ -3,13 +3,16 @@ package me.escapeNT.pail.GUIComponents;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
+import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.LayoutStyle.ComponentPlacement;
 
+import me.escapeNT.pail.Pail;
 import me.escapeNT.pail.Util.Localizable;
 import me.escapeNT.pail.Util.Util;
-import me.escapeNT.pail.scheduler.ServerTask;
+
+import org.spongepowered.api.world.World;
 
 /**
  * Panel containing options for a Server Task.
@@ -24,8 +27,8 @@ public class BackupTaskOptions extends javax.swing.JPanel implements Localizable
     public BackupTaskOptions() {
         initComponents();
         translateComponent();
-        for (ServerTask.Type t : ServerTask.Type.values()) {
-            ((DefaultComboBoxModel) action.getModel()).addElement(t);
+        for (World world : Pail.getServer().getWorlds()) {
+            ((DefaultComboBoxModel) worlds.getModel()).addElement(world);
         }
     }
 
@@ -36,31 +39,44 @@ public class BackupTaskOptions extends javax.swing.JPanel implements Localizable
     private void initComponents() {
 
         jLabel1 = new JLabel();
-        action = new JComboBox();
+        worlds = new JComboBox();
+        broadcast = new JCheckBox("Broadcast");
 
-        jLabel1.setText("Action");
+        jLabel1.setText("World:");
 
-        action.setModel(new DefaultComboBoxModel());
+        worlds.setModel(new DefaultComboBoxModel());
 
         GroupLayout layout = new GroupLayout(this);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                    .addContainerGap()
+                    .addGroup(layout.createParallelGroup(Alignment.LEADING)
+                        .addComponent(broadcast)
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(jLabel1)
+                            .addPreferredGap(ComponentPlacement.UNRELATED)
+                            .addComponent(worlds, 0, 388, Short.MAX_VALUE)))
+                    .addContainerGap())
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                    .addContainerGap()
+                    .addGroup(layout.createParallelGroup(Alignment.BASELINE)
+                        .addComponent(jLabel1)
+                        .addComponent(worlds, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+                    .addGap(18)
+                    .addComponent(broadcast)
+                    .addContainerGap(228, Short.MAX_VALUE))
+        );
         this.setLayout(layout);
-        layout.setHorizontalGroup(layout.createParallelGroup(Alignment.LEADING).addGroup(
-                layout.createSequentialGroup().addContainerGap().addComponent(jLabel1)
-                        .addPreferredGap(ComponentPlacement.UNRELATED).addComponent(action, 0, 393, Short.MAX_VALUE)
-                        .addContainerGap()));
-        layout.setVerticalGroup(layout.createParallelGroup(Alignment.LEADING).addGroup(
-                layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(
-                                layout.createParallelGroup(Alignment.BASELINE)
-                                        .addComponent(jLabel1)
-                                        .addComponent(action, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
-                                                GroupLayout.PREFERRED_SIZE)).addContainerGap(212, Short.MAX_VALUE)));
     }// </editor-fold>//GEN-END:initComponents
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private JComboBox action;
+    private JComboBox worlds;
     private JLabel jLabel1;
+    private JCheckBox broadcast;
 
     // End of variables declaration//GEN-END:variables
 
@@ -69,11 +85,24 @@ public class BackupTaskOptions extends javax.swing.JPanel implements Localizable
     }
 
     /**
-     * Type selector.
+     * World selector.
      * 
-     * @return the action
+     * @return the world
      */
-    public JComboBox getAction() {
-        return action;
+    public JComboBox getWorld() {
+        return worlds;
+    }
+    public JCheckBox getBroadcast() {
+        return broadcast;
+    }
+
+    public void setDisabled() {
+        worlds.setEnabled(false);
+        jLabel1.setEnabled(false);
+    }
+    
+    public void setEnabled() {
+        worlds.setEnabled(true);
+        jLabel1.setEnabled(true);
     }
 }
