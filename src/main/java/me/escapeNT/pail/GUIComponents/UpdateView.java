@@ -1,8 +1,8 @@
 package me.escapeNT.pail.GUIComponents;
 
-import java.util.logging.Level;
 import javax.swing.JOptionPane;
 
+import me.escapeNT.pail.Pail;
 import me.escapeNT.pail.Util.Localizable;
 import me.escapeNT.pail.Util.UpdateHandler;
 import me.escapeNT.pail.Util.Util;
@@ -125,7 +125,7 @@ public class UpdateView extends javax.swing.JDialog implements Localizable {
                 try {
                     UpdateHandler.downloadLatest(UpdateView.getInstance());
                 } catch (Exception ex) {
-                    Util.log(Level.SEVERE, ex.toString());
+                    Pail.getLogger().error(ex.toString());
                     JOptionPane.showMessageDialog(
                             getRootPane(),
                             Util.translate("Update failed.")

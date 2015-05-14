@@ -12,7 +12,6 @@ import java.io.PrintWriter;
 import java.io.RandomAccessFile;
 import java.io.StringReader;
 import java.util.HashMap;
-import java.util.logging.Level;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
@@ -59,7 +58,7 @@ public final class Util {
             fileReader.close();
         } catch (IOException ex) {
             getPlugin();
-            Pail.getLogger().throwing("Util", "readLastLines", ex);
+            Pail.getLogger().error("Util", "readLastLines", ex);
         }
         return lines;
     }
@@ -74,29 +73,6 @@ public final class Util {
 
     public static void dispatch(final Runnable runnable) {
         Pail.getGame().getAsyncScheduler().runTask(plugin, runnable);
-    }
-
-    /**
-     * Logs an info message from the plugin to the console.
-     *
-     * @param message
-     *            The message to send.
-     */
-    public static void log(Object message) {
-        log(Level.INFO, message);
-    }
-
-    /**
-     * Logs a message from the plugin to the console with the specified level..
-     *
-     * @param level
-     *            The log level.
-     * @param message
-     *            The message to send.
-     */
-    public static void log(Level level, Object message) {
-        getPlugin();
-        Pail.getLogger().log(level, message.toString());
     }
 
     /**
@@ -154,7 +130,7 @@ public final class Util {
             out.close();
         } catch (IOException e) {
             getPlugin();
-            Pail.getLogger().throwing("Util", "zipDir", e);
+            Pail.getLogger().error("Util", "zipDir", e);
         }
     }
 

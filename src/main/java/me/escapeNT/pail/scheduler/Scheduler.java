@@ -8,7 +8,6 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.HashMap;
 import java.util.UUID;
-import java.util.logging.Level;
 
 import org.spongepowered.api.service.scheduler.SynchronousScheduler;
 
@@ -93,7 +92,7 @@ public class Scheduler {
             oos.writeObject(tasks);
             oos.close();
         } catch (IOException ex) {
-            Util.log(Level.SEVERE, ex.toString());
+            Pail.getLogger().error(ex.toString());
         }
     }
 
@@ -114,7 +113,7 @@ public class Scheduler {
             tasks = (HashMap<ScheduledTask, Boolean>) ois.readObject();
             ois.close();
         } catch (Exception ex) {
-            Util.log(Level.SEVERE, ex.toString());
+            Pail.getLogger().error(ex.toString());
         }
         for (final ScheduledTask task : tasks.keySet()) {
             if (!task.isEnabled()) {

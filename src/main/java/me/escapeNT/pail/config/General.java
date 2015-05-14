@@ -2,7 +2,6 @@ package me.escapeNT.pail.config;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.logging.Level;
 
 import com.google.api.translate.Language;
 
@@ -13,6 +12,7 @@ import ninja.leaping.configurate.ConfigurationOptions;
 import ninja.leaping.configurate.commented.CommentedConfigurationNode;
 import ninja.leaping.configurate.hocon.HoconConfigurationLoader;
 import ninja.leaping.configurate.loader.ConfigurationLoader;
+import me.escapeNT.pail.Pail;
 import me.escapeNT.pail.Util.Util;
 
 /**
@@ -61,7 +61,7 @@ public class General {
         try {
             configManager.save(rootNode);
         } catch (IOException ex) {
-            Util.log(Level.SEVERE, ex.toString());
+            Pail.getLogger().error(ex.toString());
         }
     }
 

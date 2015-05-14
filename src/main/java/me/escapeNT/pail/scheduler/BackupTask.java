@@ -69,7 +69,7 @@ public class BackupTask implements ScheduledTask {
         Pail.getGame().getAsyncScheduler().runTask(Util.getPlugin(), new Runnable() {
             @SuppressWarnings("deprecation")
             public void run() {
-                Util.log("Starting scheduled backup for " + world);
+                Pail.getLogger().info("Starting scheduled backup for " + world);
                 if (broadcast) {
                     Pail.getServer().broadcastMessage(
                             Texts.fromLegacy(TextColors.GRAY + "Scheduled backup is starting for " + world));
@@ -81,7 +81,7 @@ public class BackupTask implements ScheduledTask {
                     Pail.getServer().broadcastMessage(
                             Texts.fromLegacy(TextColors.GRAY + "Scheduled backup completed for " + world));
                 }
-                Util.log("Backup completed in " + seconds + (seconds == 1 ? " second" : " seconds") + " for " + world);
+                Pail.getLogger().info("Backup completed in " + seconds + (seconds == 1 ? " second" : " seconds") + " for " + world);
             }
         });
     }

@@ -8,8 +8,8 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
 
+import me.escapeNT.pail.Pail;
 import me.escapeNT.pail.Util.Util;
 import me.escapeNT.pail.Util.Waypoint;
 
@@ -30,7 +30,7 @@ public class WaypointConfig {
             oos.writeObject(getWaypoints());
             oos.close();
         } catch (IOException ex) {
-            Util.log(Level.SEVERE, ex.toString());
+            Pail.getLogger().error(ex.toString());
         }
     }
 
@@ -45,7 +45,7 @@ public class WaypointConfig {
             waypoints = (List<Waypoint>) ois.readObject();
             ois.close();
         } catch (Exception ex) {
-            Util.log(Level.SEVERE, ex.toString());
+            Pail.getLogger().error(ex.toString());
         }
     }
 

@@ -6,7 +6,7 @@ import java.awt.Font;
 import java.awt.Rectangle;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.util.logging.Level;
+
 import javax.swing.BoundedRangeModel;
 import javax.swing.JComponent;
 import javax.swing.JScrollBar;
@@ -20,6 +20,8 @@ import javax.swing.text.DefaultCaret;
 import javax.swing.text.Document;
 import javax.swing.text.SimpleAttributeSet;
 import javax.swing.text.StyleConstants;
+
+import me.escapeNT.pail.Pail;
 
 /**
  * A simple text area contained within a autoscrolling pane.
@@ -61,7 +63,7 @@ public class ScrollableTextArea extends JTextPane {
         try {
             doc.insertString(doc.getLength(), text, sas);
         } catch (BadLocationException ex) {
-            Util.log(Level.SEVERE, ex.toString());
+            Pail.getLogger().error(ex.toString());
         }
     }
 
@@ -84,7 +86,7 @@ public class ScrollableTextArea extends JTextPane {
         try {
             doc.insertString(doc.getLength(), text, sas);
         } catch (BadLocationException ex) {
-            Util.log(Level.SEVERE, ex.toString());
+            Pail.getLogger().error(ex.toString());
         }
     }
 

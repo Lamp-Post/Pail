@@ -548,7 +548,7 @@ public class AdvancedSettingsDialog extends JFrame {
             }
             in.close();
         } catch (Exception e) {
-            Pail.getLogger().severe(e.toString());
+            Pail.getLogger().error(e.toString());
         }
         // End temp fix
 

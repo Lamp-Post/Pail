@@ -9,7 +9,6 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
-import java.util.logging.Level;
 
 import me.escapeNT.pail.Util.Util;
 
@@ -39,7 +38,7 @@ public class PailPersistance implements Serializable {
             oos.writeObject(this);
             oos.close();
         } catch (IOException ex) {
-            Util.log(Level.SEVERE, ex.toString());
+            Pail.getLogger().error(ex.toString());
         }
     }
 
@@ -55,7 +54,7 @@ public class PailPersistance implements Serializable {
             ois.close();
             file.delete();
         } catch (Exception ex) {
-            Util.log(Level.SEVERE, ex.toString());
+            Pail.getLogger().error(ex.toString());
         }
         return pp;
     }

@@ -4,6 +4,7 @@ import com.google.api.translate.Language;
 import com.google.common.base.Preconditions;
 import com.google.inject.Inject;
 
+import org.slf4j.Logger;
 import org.spongepowered.api.Game;
 import org.spongepowered.api.Server;
 import org.spongepowered.api.block.BlockType;
@@ -42,9 +43,6 @@ import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
 import java.util.HashMap;
-import java.util.logging.Handler;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
@@ -101,14 +99,14 @@ public final class Pail {
         instance = this;
         Util.setPlugin(this);
 
-        for (Handler h : logger.getHandlers()) {
+        /*for (Handler h : logger.getHandlers()) {
             if (h instanceof PailLogHandler) { // Don't add another handler
                 return;
             }
         }
         PailLogHandler mainHandler = new PailLogHandler();
         mainHandler.setLevel(Level.ALL);
-        logger.addHandler(mainHandler);
+        logger..addHandler(mainHandler);*/
         
         Util.setDataFolder(new File("Pail"));
         if (!Util.getDataFolder().exists()) {
@@ -232,7 +230,7 @@ public final class Pail {
                 try {
                     UIManager.installLookAndFeel(((LookAndFeel) Class.forName(n).newInstance()).getName(), n);
                 } catch (Exception ex) {
-                    Logger.getLogger(Pail.class.getName()).log(Level.SEVERE, installQueue.get(n).toString(), ex);
+                    logger.error(installQueue.get(n).toString(), ex);
                 }
             }
         }
@@ -242,7 +240,7 @@ public final class Pail {
             UIManager.setLookAndFeel(laf);
             UIManager.getLookAndFeelDefaults().put("ClassLoader", getClass().getClassLoader());
         } catch (Exception ex) {
-            Logger.getLogger(Pail.class.getName()).log(Level.SEVERE, null, ex);
+            logger.error(null, ex);
         }
     }
 
@@ -284,6 +282,7 @@ public final class Pail {
                                 output.append(Color.GRAY, true, " " + s[1]);
 
                                 Color color = Color.BLACK;
+                                logger.info(s[2].substring(1, s[2].length() - 1));
                                 Level lv = Level.parse(s[2].substring(1, s[2].length() - 1));
                                 if (lv == Level.INFO) {
                                     color = Color.BLUE;
@@ -322,7 +321,7 @@ public final class Pail {
                         }
                     }
                 } catch (Exception e) {
-                    getLogger().severe(e.toString());
+                    getLogger().error(e.toString());
                 }
 
                 JScrollBar vertical = Util.getServerControls().getServerConsolePanel().getConsoleOutput()

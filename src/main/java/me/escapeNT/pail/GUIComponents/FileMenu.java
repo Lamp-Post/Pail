@@ -9,8 +9,6 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import javax.swing.ImageIcon;
 import javax.swing.JCheckBoxMenuItem;
@@ -65,7 +63,7 @@ public class FileMenu extends JMenu implements Localizable {
                         String text = doc.getText(0, doc.getLength());
                         Util.saveTextFile(text, saveTo);
                     } catch (Exception ex) {
-                        Logger.getLogger(FileMenu.class.getName()).log(Level.SEVERE, null, ex);
+                        Pail.getLogger().error(null, ex);
                     }
                 }
             }
@@ -85,7 +83,7 @@ public class FileMenu extends JMenu implements Localizable {
                     try {
                         Util.saveTextFile(text, saveTo);
                     } catch (Exception ex) {
-                        Logger.getLogger(FileMenu.class.getName()).log(Level.SEVERE, null, ex);
+                        Pail.getLogger().error(null, ex);
                     }
                 }
             }
@@ -117,11 +115,11 @@ public class FileMenu extends JMenu implements Localizable {
                 }
                 Pail.getGame().getAsyncScheduler().runTask(Util.getPlugin(), new Runnable() {
                     public void run() {
-                        Util.log("Starting backup for " + worldName);
+                        Pail.getLogger().info("Starting backup for " + worldName);
                         long start = System.currentTimeMillis();
                         Util.zipDir(worldFolder, backup);
                         int seconds = (int) (System.currentTimeMillis() - start) / 1000;
-                        Util.log("Backup completed in " + seconds + (seconds == 1 ? " second" : " seconds") + " for "
+                        Pail.getLogger().info("Backup completed in " + seconds + (seconds == 1 ? " second" : " seconds") + " for "
                                 + worldName);
                     }
                 });

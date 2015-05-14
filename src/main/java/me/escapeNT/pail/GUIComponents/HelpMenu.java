@@ -7,7 +7,6 @@ import java.awt.event.ActionListener;
 import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
 import java.net.URI;
-import java.util.logging.Level;
 import javax.swing.ImageIcon;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
@@ -38,7 +37,7 @@ public class HelpMenu extends JMenu implements Localizable {
                 try {
                     Desktop.getDesktop().browse(new URI("http://dev.bukkit.org/server-mods/pail/tickets/"));
                 } catch (Exception ex) {
-                    Util.log(Level.WARNING, Util.translate("Could not open issues."));
+                    Pail.getLogger().warn(Util.translate("Could not open issues."));
                 }
             }
         });
@@ -55,7 +54,7 @@ public class HelpMenu extends JMenu implements Localizable {
                 try {
                     Desktop.getDesktop().browse(new URI(Pail.PLUGIN_THREAD));
                 } catch (Exception ex) {
-                    Util.log(Level.WARNING, Util.translate("Could not open plugin thread."));
+                    Pail.getLogger().warn(Util.translate("Could not open plugin thread."));
                 }
             }
         });

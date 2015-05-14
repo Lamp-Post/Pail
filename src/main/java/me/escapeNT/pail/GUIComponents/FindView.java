@@ -8,11 +8,10 @@ import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.regex.PatternSyntaxException;
+
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JLabel;
@@ -24,6 +23,7 @@ import javax.swing.text.DefaultCaret;
 import javax.swing.text.DefaultHighlighter;
 import javax.swing.text.Highlighter;
 
+import me.escapeNT.pail.Pail;
 import me.escapeNT.pail.Util.Localizable;
 import me.escapeNT.pail.Util.ScrollableTextArea;
 import me.escapeNT.pail.Util.TextLocation;
@@ -224,7 +224,7 @@ public class FindView extends javax.swing.JDialog implements Localizable {
                             Color.YELLOW));
                     textMatches.add(new TextLocation(m.start(), m.end()));
                 } catch (BadLocationException ex) {
-                    Logger.getLogger(FindView.class.getName()).log(Level.SEVERE, null, ex);
+                    Pail.getLogger().error(null, ex);
                 }
                 nMatches++;
             }

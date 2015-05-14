@@ -9,7 +9,6 @@ import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.LinkedList;
-import java.util.logging.Handler;
 
 import javax.swing.JPanel;
 import javax.swing.JTextField;

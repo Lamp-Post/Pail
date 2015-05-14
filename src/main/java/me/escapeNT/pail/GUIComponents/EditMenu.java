@@ -4,13 +4,13 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import javax.swing.KeyStroke;
 import javax.swing.text.BadLocationException;
 
+import me.escapeNT.pail.Pail;
 import me.escapeNT.pail.Util.Localizable;
 import me.escapeNT.pail.Util.ScrollableTextArea;
 import me.escapeNT.pail.Util.Util;
@@ -58,7 +58,7 @@ public class EditMenu extends JMenu implements Localizable {
                 try {
                     a.getDocument().remove(0, a.getDocument().getLength());
                 } catch (BadLocationException ex) {
-                    Logger.getLogger(EditMenu.class.getName()).log(Level.SEVERE, null, ex);
+                    Pail.getLogger().error(null, ex);
                 }
             }
         });

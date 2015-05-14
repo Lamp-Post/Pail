@@ -8,8 +8,8 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.logging.Level;
 
+import me.escapeNT.pail.Pail;
 import me.escapeNT.pail.Util.Util;
 
 /**
@@ -30,7 +30,7 @@ public class PanelConfig {
             oos.writeObject(panelsActivated);
             oos.close();
         } catch (IOException ex) {
-            Util.log(Level.SEVERE, ex.toString());
+            Pail.getLogger().error(ex.toString());
         }
     }
 
@@ -45,7 +45,7 @@ public class PanelConfig {
             panelsActivated = (Map<String, Boolean>) ois.readObject();
             ois.close();
         } catch (Exception ex) {
-            Util.log(Level.SEVERE, ex.toString());
+            Pail.getLogger().error(ex.toString());
         }
     }
 

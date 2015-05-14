@@ -12,12 +12,9 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.util.Collection;
 import java.util.HashMap;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import javax.swing.GroupLayout;
 import javax.swing.JCheckBox;
-import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.LookAndFeel;
 import javax.swing.SwingUtilities;
@@ -114,7 +111,7 @@ public class SettingsPanel extends javax.swing.JPanel implements Localizable {
                     }
                 }
             } catch (Exception ex) {
-                Logger.getLogger(SettingsPanel.class.getName()).log(Level.SEVERE, null, ex);
+                Pail.getLogger().error(null, ex);
             }
         }
 
@@ -708,7 +705,7 @@ public class SettingsPanel extends javax.swing.JPanel implements Localizable {
                                     UIManager.setLookAndFeel((LookAndFeel) Class.forName(laf.getClassName())
                                             .newInstance());
                                 } catch (Exception ex) {
-                                    Logger.getLogger(SettingsPanel.class.getName()).log(Level.SEVERE, null, ex);
+                                    Pail.getLogger().error(null, ex);
                                 }
                                 UIManager.getLookAndFeelDefaults().put("ClassLoader", getClass().getClassLoader());
                                 Util.getPlugin().getMainWindow().getRootPane().updateUI();
@@ -717,7 +714,7 @@ public class SettingsPanel extends javax.swing.JPanel implements Localizable {
                             }
                         });
                     } catch (Exception ex) {
-                        Logger.getLogger(SettingsPanel.class.getName()).log(Level.SEVERE, null, ex);
+                        Pail.getLogger().error(null, ex);
                     }
                 }
             }

@@ -4,9 +4,6 @@ import java.awt.Color;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.concurrent.TimeUnit;
-import java.util.logging.Handler;
-import java.util.logging.Level;
-import java.util.logging.LogRecord;
 import java.util.regex.Pattern;
 
 import javax.swing.SwingUtilities;
