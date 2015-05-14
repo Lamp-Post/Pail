@@ -79,7 +79,6 @@ public final class Pail {
     private final WindowCloseListener windowListener = new WindowCloseListener();
     private MainWindow main;
     public static SettingsPanel settings;
-    public static Scheduler scheduler;
 
     public static Pail getInstance() {
         return Preconditions.checkNotNull(instance);
@@ -133,7 +132,6 @@ public final class Pail {
         }
 
         General.load();
-        scheduler = new Scheduler();
         Scheduler.loadTasks();
 
         try {
