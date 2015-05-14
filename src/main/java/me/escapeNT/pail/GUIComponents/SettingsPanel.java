@@ -17,8 +17,8 @@ import java.util.logging.Logger;
 
 import javax.swing.GroupLayout;
 import javax.swing.JCheckBox;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
-import javax.swing.LayoutStyle;
 import javax.swing.LookAndFeel;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
@@ -40,11 +40,9 @@ import javax.swing.AbstractAction;
 import java.awt.event.ActionEvent;
 
 import javax.swing.Action;
-import javax.swing.JRadioButton;
 
 import org.spongepowered.api.Server;
 import org.spongepowered.api.entity.player.gamemode.GameModes;
-import org.spongepowered.api.text.Texts;
 import org.spongepowered.api.world.storage.WorldProperties;
 
 /**
@@ -77,6 +75,8 @@ public class SettingsPanel extends javax.swing.JPanel implements Localizable {
 
         waypointEditor = new WaypointEditPanel();
         schedulerPanel = new SchedulerPanel();
+        advancedOptions = new AdvancedSettingsDialog();
+        advancedOptions.setVisible(false);
 
         craftVersion.setText(Util.translate("Craftbukkit version: ") + parseCraftVersion());
         SwingUtilities.invokeLater(new Runnable() {
@@ -88,6 +88,7 @@ public class SettingsPanel extends javax.swing.JPanel implements Localizable {
 
         autoUpdate.setSelected(General.isAutoUpdate());
         loadConfig();
+        advancedOptions.loadConfig();
 
         settingsTabs.add(Util.translate("Waypoints"), waypointEditor);
         settingsTabs.add(Util.translate("Scheduler"), schedulerPanel);
@@ -156,32 +157,49 @@ public class SettingsPanel extends javax.swing.JPanel implements Localizable {
     /**
      * Loads the stored values from the server configuration.
      */
-    @SuppressWarnings("unused")
     private void loadConfig() {
-        String diff;
-        String smotd = "lool";
+        String smotd = "A Minecraft Server";
+        String sIP = "";
+        String sSeed = "";
+        String sWorld = "world";
+        boolean bNether = true;
+        boolean bMonsters = true;
+        boolean bAnimals = true;
+        boolean bFlight = false;
+        boolean bPVP = true;
+        int iViewDistance = 10;
         try {
             BufferedReader in = new BufferedReader(new FileReader("server.properties"));
             String str;
             while ((str = in.readLine()) != null) {
-                if (str.indexOf("difficulty") != -1) {
-                    int d = Integer.parseInt(str.split("=")[1].trim());
-                    switch (d) {
-                        case 0:
-                            diff = "Peaceful";
-                            break;
-                        case 1:
-                            diff = "Easy";
-                            break;
-                        case 2:
-                            diff = "Normal";
-                            break;
-                        case 3:
-                            diff = "Hard";
-                            break;
-                    }
+                if (str.indexOf("allow-nether") != -1) {
+                    bNether = Boolean.parseBoolean(str.split("=")[1].trim());
+                } else if (str.indexOf("spawn-monsters") != -1) {
+                    bMonsters = Boolean.parseBoolean(str.split("=")[1].trim());
+                } else if (str.indexOf("spawn-animals") != -1) {
+                    bAnimals = Boolean.parseBoolean(str.split("=")[1].trim());
+                } else if (str.indexOf("allow-flight") != -1) {
+                    bFlight = Boolean.parseBoolean(str.split("=")[1].trim());
+                } else if (str.indexOf("pvp") != -1) {
+                    bPVP = Boolean.parseBoolean(str.split("=")[1].trim());
+                } else if (str.indexOf("view-distance") != -1) {
+                    iViewDistance = Integer.parseInt(str.split("=")[1].trim());
                 } else if (str.indexOf("motd") != -1) {
                     smotd = str.split("=")[1].trim();
+                } else if (str.indexOf("server-ip") != -1) {
+                    try {
+                        sIP = str.split("=")[1].trim();
+                    }
+                    catch (Exception e) {
+                    }
+                } else if (str.indexOf("level-seed") != -1) {
+                    try {
+                        sSeed = str.split("=")[1].trim();
+                    }
+                    catch (Exception e) {
+                    }
+                } else if (str.indexOf("level-name") != -1) {
+                    sWorld = str.split("=")[1].trim();
                 }
             }
             in.close();
@@ -193,19 +211,20 @@ public class SettingsPanel extends javax.swing.JPanel implements Localizable {
         Collection<WorldProperties>  worldProperties = s.getAllWorldProperties();
 
         for(WorldProperties p : worldProperties) {
-          worldName.setText(p.getWorldName());
-          seed.setText(new Long(p.getSeed()).toString());
-          ip.setText(s.getBoundAddress().get().getHostString());
+          worldName.setText(sWorld);
+          seed.setText(sSeed);
+          ip.setText(sIP);
           
-         // nether.setSelected(p.getAllowNether());
-         // spawnMonsters.setSelected(p.getAllowMonsters());
-         // spawnAnimals.setSelected(p.getAllowAnimals());
-         // flight.setSelected(p.getAllowFlight());
-         // pvp.setSelected(s.getPVP());
+          nether.setSelected(bNether);
+          spawnMonsters.setSelected(bMonsters);
+          spawnAnimals.setSelected(bAnimals);
+          flight.setSelected(bFlight);
+          pvp.setSelected(bPVP);
           online.setSelected(s.getOnlineMode());
           whitelist.setSelected(s.hasWhitelist());
+          hardcore.setSelected(p.isHardcore());
           
-         // viewDistance.setValue(p.getAdditionalProperties().getViewDistance());
+          viewDistance.setValue(iViewDistance);
           port.setValue(s.getBoundAddress().get().getPort());
           maxPlayers.setValue(s.getMaxPlayers());
           
@@ -215,7 +234,6 @@ public class SettingsPanel extends javax.swing.JPanel implements Localizable {
           boolean c = p.getGameMode() == GameModes.CREATIVE; creative.setSelected(c);
           survival.setSelected(!c);
         }
-         // TODO
     }
 
     /**
@@ -842,7 +860,8 @@ public class SettingsPanel extends javax.swing.JPanel implements Localizable {
             putValue(SHORT_DESCRIPTION, "Open the advanced settings");
         }
         public void actionPerformed(ActionEvent e) {
-            advancedOptions = new AdvancedSettingsDialog();
+            advancedOptions.setVisible(true);
+            advancedOptions.setSize(500, 600);
         }
     }
 }

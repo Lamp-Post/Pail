@@ -4,6 +4,9 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 import java.awt.BorderLayout;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.util.Collection;
 import java.util.HashMap;
 
 import javax.swing.GroupLayout;
@@ -15,10 +18,7 @@ import javax.swing.JLabel;
 import javax.swing.JComboBox;
 import javax.swing.JTextField;
 import javax.swing.JTabbedPane;
-import javax.swing.JSlider;
 import javax.swing.SpinnerNumberModel;
-import javax.swing.event.ChangeListener;
-import javax.swing.event.ChangeEvent;
 import javax.swing.JButton;
 import javax.swing.AbstractAction;
 
@@ -26,12 +26,22 @@ import java.awt.event.ActionEvent;
 
 import javax.swing.Action;
 
+import me.escapeNT.pail.Pail;
+
+import org.spongepowered.api.Server;
+import org.spongepowered.api.entity.player.gamemode.GameModes;
+import org.spongepowered.api.world.storage.WorldProperties;
+
+import java.awt.event.ItemListener;
+import java.awt.event.ItemEvent;
+
 public class AdvancedSettingsDialog extends JFrame {
 
     public AdvancedSettingsDialog() {
         
         tabbedPane = new JTabbedPane(JTabbedPane.TOP);
         getContentPane().add(tabbedPane, BorderLayout.NORTH);
+        setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
         
         world = new JPanel();
         world.setToolTipText("World");
@@ -93,7 +103,7 @@ public class AdvancedSettingsDialog extends JFrame {
                                 .addGroup(gl_world.createSequentialGroup()
                                     .addComponent(lblLeveltype)
                                     .addPreferredGap(ComponentPlacement.RELATED)
-                                    .addComponent(levelType, 0, 142, Short.MAX_VALUE)
+                                    .addComponent(levelType, 0, 160, Short.MAX_VALUE)
                                     .addGap(261))
                                 .addGroup(gl_world.createSequentialGroup()
                                     .addComponent(announcePlayerAchievements)
@@ -117,13 +127,13 @@ public class AdvancedSettingsDialog extends JFrame {
                                         .addComponent(lblPlayerIdleTimeout))
                                     .addPreferredGap(ComponentPlacement.UNRELATED)
                                     .addGroup(gl_world.createParallelGroup(Alignment.LEADING)
-                                        .addComponent(spawnProtection, GroupLayout.DEFAULT_SIZE, 69, Short.MAX_VALUE)
-                                        .addComponent(buildHeight, GroupLayout.DEFAULT_SIZE, 69, Short.MAX_VALUE)
-                                        .addComponent(playerIdleTimeout, GroupLayout.DEFAULT_SIZE, 69, Short.MAX_VALUE)
-                                        .addComponent(worldSize, GroupLayout.PREFERRED_SIZE, 69, GroupLayout.PREFERRED_SIZE))
-                                    .addPreferredGap(ComponentPlacement.RELATED)
+                                        .addComponent(spawnProtection, GroupLayout.DEFAULT_SIZE, 87, Short.MAX_VALUE)
+                                        .addComponent(buildHeight, GroupLayout.DEFAULT_SIZE, 87, Short.MAX_VALUE)
+                                        .addComponent(playerIdleTimeout, GroupLayout.DEFAULT_SIZE, 87, Short.MAX_VALUE)
+                                        .addComponent(worldSize, GroupLayout.PREFERRED_SIZE, 87, GroupLayout.PREFERRED_SIZE))
+                                    .addPreferredGap(ComponentPlacement.UNRELATED)
                                     .addComponent(lblMinutes)
-                                    .addGap(242))))))
+                                    .addGap(236))))))
         );
         gl_world.setVerticalGroup(
             gl_world.createParallelGroup(Alignment.LEADING)
@@ -153,8 +163,8 @@ public class AdvancedSettingsDialog extends JFrame {
                     .addPreferredGap(ComponentPlacement.RELATED)
                     .addGroup(gl_world.createParallelGroup(Alignment.BASELINE)
                         .addComponent(lblPlayerIdleTimeout)
-                        .addComponent(lblMinutes)
-                        .addComponent(playerIdleTimeout, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+                        .addComponent(playerIdleTimeout, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                        .addComponent(lblMinutes))
                     .addPreferredGap(ComponentPlacement.RELATED)
                     .addGroup(gl_world.createParallelGroup(Alignment.LEADING)
                         .addComponent(lblMaxWorldSize)
@@ -174,19 +184,42 @@ public class AdvancedSettingsDialog extends JFrame {
         lblRconPort = new JLabel("Rcon port");
         
         rconPort = new JSpinner(new SpinnerNumberModel(1, 1, 65534, 1));
+        rconPort.setEnabled(false);
         
         lblRconPassword = new JLabel("Rcon password");
         
         rconPassword = new JTextField();
-        rconPassword.setColumns(10);
+        rconPassword.setColumns(10);  
+        rconPassword.setEnabled(false);
         
         rcon = new JCheckBox("Rcon enabled");
+        rcon.addItemListener(new ItemListener() {
+            public void itemStateChanged(ItemEvent arg0) {
+                if (rcon.isSelected()) {
+                    rconPort.setEnabled(true);
+                    rconPassword.setEnabled(true);
+                } else if (!rcon.isSelected()) {
+                    rconPort.setEnabled(false);
+                    rconPassword.setEnabled(false);
+                }
+            }
+        });
         
         query = new JCheckBox("Query enabled");
+        query.addItemListener(new ItemListener() {
+            public void itemStateChanged(ItemEvent arg0) {
+                if (query.isSelected()) {
+                    queryPort.setEnabled(true);
+                } else if (!query.isSelected()) {
+                    queryPort.setEnabled(false);
+                }
+            }
+        });
         
         lblQueryPort = new JLabel("Query port");
         
         queryPort = new JSpinner(new SpinnerNumberModel(1, 1, 65534, 1));
+        queryPort.setEnabled(false);
         
         lblResourcePack = new JLabel("Resource pack");
         
@@ -201,7 +234,7 @@ public class AdvancedSettingsDialog extends JFrame {
         lblOpPermissionLevel = new JLabel("OP permission level");
         
         opPermLevel = new JComboBox();
-        opPermLevel.setModel(new javax.swing.DefaultComboBoxModel(new Integer[] { 1, 2, 3, 4 }));
+        opPermLevel.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "1", "2", "3", "4" }));
 
         
         snooper = new JCheckBox("Snooper enabled");
@@ -229,15 +262,15 @@ public class AdvancedSettingsDialog extends JFrame {
                                 .addGroup(gl_other.createSequentialGroup()
                                     .addComponent(lblRconPort)
                                     .addPreferredGap(ComponentPlacement.RELATED)
-                                    .addComponent(rconPort, GroupLayout.PREFERRED_SIZE, 55, GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(ComponentPlacement.UNRELATED)
+                                    .addComponent(rconPort, GroupLayout.PREFERRED_SIZE, 75, GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(ComponentPlacement.RELATED)
                                     .addComponent(lblRconPassword)
-                                    .addGap(18)
+                                    .addPreferredGap(ComponentPlacement.RELATED)
                                     .addComponent(rconPassword, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
                                 .addGroup(gl_other.createSequentialGroup()
                                     .addComponent(lblQueryPort)
                                     .addPreferredGap(ComponentPlacement.UNRELATED)
-                                    .addComponent(queryPort, GroupLayout.PREFERRED_SIZE, 53, GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(queryPort, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
                                 .addGroup(gl_other.createSequentialGroup()
                                     .addGroup(gl_other.createParallelGroup(Alignment.LEADING)
                                         .addComponent(lblResourcePackHash)
@@ -256,8 +289,7 @@ public class AdvancedSettingsDialog extends JFrame {
                                     .addPreferredGap(ComponentPlacement.UNRELATED)
                                     .addGroup(gl_other.createParallelGroup(Alignment.LEADING, false)
                                         .addComponent(netCompThreshold, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(tickTime, GroupLayout.DEFAULT_SIZE, 89, Short.MAX_VALUE))))
-                            .addPreferredGap(ComponentPlacement.RELATED, 18, Short.MAX_VALUE)))
+                                        .addComponent(tickTime, GroupLayout.PREFERRED_SIZE, 89, Short.MAX_VALUE))))))
                     .addGap(1))
         );
         gl_other.setVerticalGroup(
@@ -268,9 +300,9 @@ public class AdvancedSettingsDialog extends JFrame {
                     .addGap(7)
                     .addGroup(gl_other.createParallelGroup(Alignment.BASELINE)
                         .addComponent(rconPort, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                        .addComponent(lblRconPassword)
                         .addComponent(rconPassword, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                        .addComponent(lblRconPort))
+                        .addComponent(lblRconPort)
+                        .addComponent(lblRconPassword))
                     .addGap(18)
                     .addComponent(query)
                     .addGap(7)
@@ -305,8 +337,12 @@ public class AdvancedSettingsDialog extends JFrame {
         
         panel = new JPanel();
         getContentPane().add(panel, BorderLayout.SOUTH);
-        Ok.setAction(action);
+        Ok.setAction(ok);
         panel.add(Ok);
+        
+        JButton btnCancel = new JButton("Cancel");
+        btnCancel.setAction(cancel);
+        panel.add(btnCancel);
 
     }
 
@@ -354,7 +390,8 @@ public class AdvancedSettingsDialog extends JFrame {
     private JSpinner netCompThreshold;
     private JSpinner tickTime;
     private final JButton Ok = new JButton("Ok");
-    private final Action action = new SwingAction();
+    private final Action ok = new SwingAction();
+    private final Action cancel = new SwingAction_1();
 
     public HashMap<String, String> getData(HashMap<String, String> saveData) {
 
@@ -375,7 +412,7 @@ public class AdvancedSettingsDialog extends JFrame {
         saveData.put("generate-structures", Boolean.toString(generateStructures.isSelected()));
         
         saveData.put("level-type", (String) levelType.getSelectedItem());
-        saveData.put("op-permission-level", Integer.toString((Integer) opPermLevel.getSelectedItem()));
+        saveData.put("op-permission-level", (String) opPermLevel.getSelectedItem());
         
         if(query.isSelected()) {
             saveData.put("query.port", Integer.toString((Integer) queryPort.getValue()));
@@ -392,12 +429,181 @@ public class AdvancedSettingsDialog extends JFrame {
         
         return saveData;
     }
+    
     private class SwingAction extends AbstractAction {
+        private static final long serialVersionUID = 3585087674104426155L;
         public SwingAction() {
             putValue(NAME, "OK");
             putValue(SHORT_DESCRIPTION, "Close the window");
         }
         public void actionPerformed(ActionEvent e) {
+            setVisible(false);
         }
+    }
+    
+    private class SwingAction_1 extends AbstractAction {
+        private static final long serialVersionUID = -6946563811719809076L;
+        public SwingAction_1() {
+            putValue(NAME, "Cancel");
+            putValue(SHORT_DESCRIPTION, "Cancel");
+        }
+        public void actionPerformed(ActionEvent e) {
+            setVisible(false);
+            loadConfig();
+        }
+    }
+    
+    public void loadConfig() {
+        int iTickTime = 60000;
+        int iBuildHeight = 256;
+        int iSpawnProtection = 16;
+        int iPlayerIdleTimeout = 0;
+        int iNetCompThreshold = 256;
+        int iWorldSize = 29999984;
+        
+        boolean bCommandBlockEnabled = false;
+        boolean bQuery = false;
+        boolean bRcon = false;
+        boolean bForceGameMode = false;
+        boolean bNpcs = true;
+        boolean bSnooper = true;
+        boolean bAnnouncePlayerAchievements = true;
+        boolean bGenerateStructures = true;
+        
+        String vLevelType = "DEFAULT";
+        String vOpPermLevel = "4";
+        
+        int iQueryPort = 25565;
+        int iRconPort = 25575;
+        String sRconPassword = "";
+
+        String sResourcePack = "";
+        String sResourcePackHash = "";
+        String sGeneratorSettings = "";
+        try {
+            BufferedReader in = new BufferedReader(new FileReader("server.properties"));
+            //String str;
+            for (String str = in.readLine(); str != null; str = in.readLine()) {
+                if (str.indexOf("max-tick-time") != -1) {
+                    iTickTime = Integer.parseInt(str.split("=")[1].trim());
+                } else if (str.indexOf("max-build-height") != -1) {
+                    iBuildHeight = Integer.parseInt(str.split("=")[1].trim());
+                } else if (str.indexOf("spawn-protection") != -1) {
+                    iSpawnProtection = Integer.parseInt(str.split("=")[1].trim());
+                } else if (str.indexOf("player-idle-timeout") != -1) {
+                    iPlayerIdleTimeout = Integer.parseInt(str.split("=")[1].trim());
+                } else if (str.indexOf("network-compression-threshold") != -1) {
+                    iNetCompThreshold = Integer.parseInt(str.split("=")[1].trim());
+                } else if (str.indexOf("max-world-size") != -1) {
+                    iWorldSize = Integer.parseInt(str.split("=")[1].trim());
+                } else if (str.indexOf("enable-command-block") != -1) {
+                    bCommandBlockEnabled = Boolean.parseBoolean(str.split("=")[1].trim());
+                } else if (str.indexOf("enable-query") != -1) {
+                    bQuery = Boolean.parseBoolean(str.split("=")[1].trim());
+                } else if (str.indexOf("enable-rcon") != -1) {
+                    bRcon = Boolean.parseBoolean(str.split("=")[1].trim());
+                } else if (str.indexOf("force-gamemode") != -1) {
+                    bForceGameMode = Boolean.parseBoolean(str.split("=")[1].trim());
+                } else if (str.indexOf("spawn-npcs") != -1) {
+                    bNpcs = Boolean.parseBoolean(str.split("=")[1].trim());
+                } else if (str.indexOf("snooper-enabled") != -1) {
+                    bSnooper = Boolean.parseBoolean(str.split("=")[1].trim());
+                } else if (str.indexOf("announce-player-achievements") != -1) {
+                    bAnnouncePlayerAchievements = Boolean.parseBoolean(str.split("=")[1].trim());
+                } else if (str.indexOf("generate-structures") != -1) {
+                    bGenerateStructures = Boolean.parseBoolean(str.split("=")[1].trim());
+                } else if (str.indexOf("level-type") != -1) {
+                    vLevelType = str.split("=")[1].trim();
+                } else if (str.indexOf("op-permission-level") != -1) {
+                    vOpPermLevel = str.split("=")[1].trim();
+                } else if (str.indexOf("query.port") != -1) {
+                    iQueryPort = Integer.parseInt(str.split("=")[1].trim());
+                } else if (str.indexOf("rcon.port") != -1) {
+                    iRconPort = Integer.parseInt(str.split("=")[1].trim());
+                } else if (str.indexOf("rcon.password") != -1) {
+                    try {
+                        sRconPassword = str.split("=")[1].trim();
+                    }
+                    catch (Exception e) {
+                    }
+                } else if (str.indexOf("resource-pack") != -1) {
+                    try {
+                         sResourcePack = str.split("=")[1].trim();
+                    }
+                    catch (Exception e) {
+                    }
+                } else if (str.indexOf("resource-pack-hash") != -1) {
+                    try {
+                        sResourcePackHash = str.split("=")[1].trim();
+                    }
+                    catch (Exception e) {
+                    }
+                } else if (str.indexOf("generator-settings") != -1) {
+                    try {
+                        sGeneratorSettings = str.split("=")[1].trim();
+                    }
+                    catch (Exception e) {
+                    }
+                }
+            }
+            in.close();
+        } catch (Exception e) {
+            Pail.getLogger().severe(e.toString());
+        }
+        // End temp fix
+
+        tickTime.setValue(iTickTime);
+        buildHeight.setValue(iBuildHeight);
+        spawnProtection.setValue(iSpawnProtection);
+        playerIdleTimeout.setValue(iPlayerIdleTimeout);
+        netCompThreshold.setValue(iNetCompThreshold);
+        worldSize.setValue(iWorldSize);
+            
+        commandBlockEnabled.setSelected(bCommandBlockEnabled);
+        query.setSelected(bQuery);
+        rcon.setSelected(bRcon);
+        forceGameMode.setSelected(bForceGameMode);
+        npcs.setSelected(bNpcs);
+        snooper.setSelected(bSnooper);
+        announcePlayerAchievements.setSelected(bAnnouncePlayerAchievements);
+        generateStructures.setSelected(bGenerateStructures);
+            
+        if (vLevelType.contains("DEFAULT")) {
+            levelType.setSelectedIndex(0);
+        } else if (vLevelType.contains("FLAT")) {
+            levelType.setSelectedIndex(1);
+        } else if (vLevelType.contains("LARGEBIOMES")) {
+            levelType.setSelectedIndex(2);
+        } else if (vLevelType.contains("AMPLIFIED")) {
+            levelType.setSelectedIndex(3);
+        } else if (vLevelType.contains("CUSTOMIZED")) {
+            levelType.setSelectedIndex(4);
+        }
+        
+        if (vOpPermLevel.equals("1")) {
+            opPermLevel.setSelectedIndex(0);
+        } else if (vOpPermLevel.equals("2")) {
+            opPermLevel.setSelectedIndex(1);
+        } else if (vOpPermLevel.equals("3")) {
+            opPermLevel.setSelectedIndex(2);
+        } else if (vOpPermLevel.equals("4")) {
+            opPermLevel.setSelectedIndex(3);
+        }
+        
+        queryPort.setValue(iQueryPort);   
+        if(query.isSelected()) {
+            queryPort.setEnabled(true);
+        }
+        
+        rconPort.setValue(iRconPort);
+        rconPassword.setText(sRconPassword); 
+        if(rcon.isSelected()) {
+            rconPort.setEnabled(true);
+            rconPassword.setEnabled(true);
+        }
+
+        resourcePack.setText(sResourcePack);
+        resourcePackHash.setText(sResourcePackHash);
+        generatorSettings.setText(sGeneratorSettings);
     }
 }

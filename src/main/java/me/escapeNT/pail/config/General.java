@@ -35,11 +35,11 @@ public class General {
         if (!defaultConfig.exists()) {
             rootNode = configManager.createEmptyNode(ConfigurationOptions.defaults());
         } else {
-        try {
-            rootNode = configManager.load();
-        } catch (IOException e) {
-            rootNode = null;
-        }
+            try {
+                rootNode = configManager.load();
+            } catch (IOException e) {
+                rootNode = null;
+            }
         }
         defaults();
         setAutoUpdate(isAutoUpdate());
